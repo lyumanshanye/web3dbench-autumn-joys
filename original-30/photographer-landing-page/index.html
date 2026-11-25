@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f1ea" />
+  <title>John Doe — Photographer</title>
+  <meta name="description" content="John Doe is an editorial and fine art photographer based in Copenhagen, working worldwide." />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../../vendor/three/three.module.js",
+        "three/addons/": "../../vendor/three/addons/",
+        "gsap": "../../vendor/gsap/index.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="app" id="app" aria-live="polite">
+    <div class="backdrop-stack" id="backdropStack" aria-hidden="true">
+      <div class="backdrop backdrop-contact" data-backdrop="contact"></div>
+    </div>
+
+    <div class="camera-poster" id="cameraPoster" aria-hidden="true">
+      <svg viewBox="0 0 880 620" xmlns="http://www.w3.org/2000/svg" role="presentation">
+        <defs>
+          <linearGradient id="posterBody" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#292b2b"/>
+            <stop offset=".24" stop-color="#171919"/>
+            <stop offset=".82" stop-color="#0b0d0e"/>
+            <stop offset="1" stop-color="#050606"/>
+          </linearGradient>
+          <linearGradient id="posterTop" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#303333"/>
+            <stop offset=".5" stop-color="#131515"/>
+            <stop offset="1" stop-color="#070808"/>
+          </linearGradient>
+          <linearGradient id="posterChrome" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f3f2ea"/>
+            <stop offset=".18" stop-color="#8d8f8c"/>
+            <stop offset=".46" stop-color="#343636"/>
+            <stop offset=".7" stop-color="#b7b8b2"/>
+            <stop offset="1" stop-color="#3f4140"/>
+          </linearGradient>
+          <radialGradient id="posterGlass" cx=".38" cy=".3" r=".74">
+            <stop offset="0" stop-color="#557c85"/>
+            <stop offset=".17" stop-color="#17333d"/>
+            <stop offset=".48" stop-color="#071217"/>
+            <stop offset="1" stop-color="#010304"/>
+          </radialGradient>
+          <radialGradient id="posterHalo" cx=".38" cy=".25" r=".68">
+            <stop offset="0" stop-color="#ffffff" stop-opacity=".7"/>
+            <stop offset=".3" stop-color="#bfd7dc" stop-opacity=".16"/>
+            <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="posterShadow" x="-35%" y="-60%" width="170%" height="240%">
+            <feGaussianBlur stdDeviation="17"/>
+          </filter>
+          <filter id="posterGlow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="4"/>
+          </filter>
+        </defs>
+        <ellipse cx="440" cy="536" rx="278" ry="24" fill="#1b1814" opacity=".19" filter="url(#posterShadow)"/>
+        <rect x="190" y="230" width="508" height="278" rx="36" fill="url(#posterBody)" stroke="#343737" stroke-width="1.4"/>
+        <rect x="572" y="248" width="93" height="235" rx="27" fill="#080a0a" stroke="#252828" stroke-width="1"/>
+        <g opacity=".42" stroke="#626360" stroke-width="1.2">
+          <path d="M587 270h62M587 288h62M587 306h62M587 324h62M587 342h62M587 360h62M587 378h62M587 396h62M587 414h62M587 432h62M587 450h62"/>
+        </g>
+        <rect x="300" y="178" width="192" height="76" rx="19" fill="url(#posterTop)" stroke="#363838" stroke-width="1"/>
+        <rect x="352" y="157" width="103" height="45" rx="12" fill="#151717" stroke="#363838" stroke-width="1"/>
+        <rect x="378" y="161" width="53" height="18" rx="2" fill="#060707" stroke="#555754" stroke-width="1"/>
+        <rect x="393" y="151" width="22" height="10" rx="2" fill="#7c7e79"/>
+        <rect x="521" y="181" width="62" height="13" rx="6" fill="url(#posterChrome)"/>
+        <ellipse cx="553" cy="188" rx="12" ry="5" fill="#353736"/>
+        <rect x="208" y="216" width="132" height="25" rx="9" fill="url(#posterTop)" stroke="#303333"/>
+        <g opacity=".76">
+          <rect x="211" y="423" width="79" height="8" rx="4" fill="#7b7d78"/>
+          <rect x="211" y="437" width="50" height="5" rx="2.5" fill="#444744"/>
+        </g>
+        <text x="217" y="399" fill="#a9aaa2" font-family="Manrope, Arial, sans-serif" font-size="10" font-weight="600" letter-spacing="5">JOHN DOE</text>
+        <text x="217" y="414" fill="#6c6d68" font-family="Manrope, Arial, sans-serif" font-size="5.7" font-weight="500" letter-spacing="3.4">PROFESSIONAL IMAGING</text>
+        <g>
+          <circle cx="440" cy="334" r="153" fill="#0b0d0d" stroke="url(#posterChrome)" stroke-width="14"/>
+          <circle cx="440" cy="334" r="137" fill="#151818" stroke="#050606" stroke-width="4"/>
+          <circle cx="440" cy="334" r="125" fill="#080a0b" stroke="#3e4140" stroke-width="2"/>
+          <circle cx="440" cy="334" r="108" fill="#020405" stroke="url(#posterChrome)" stroke-width="9"/>
+          <circle cx="440" cy="334" r="91" fill="url(#posterGlass)" stroke="#4c5050" stroke-width="2"/>
+          <circle cx="440" cy="334" r="78" fill="none" stroke="#8aa2a7" stroke-opacity=".19" stroke-width="1.5"/>
+          <circle cx="440" cy="334" r="48" fill="none" stroke="#98b4b9" stroke-opacity=".14" stroke-width="1.2"/>
+          <ellipse cx="401" cy="300" rx="35" ry="12" fill="url(#posterHalo)" transform="rotate(-28 401 300)"/>
+          <ellipse cx="480" cy="371" rx="21" ry="7" fill="#81aeb8" opacity=".18" filter="url(#posterGlow)" transform="rotate(-28 480 371)"/>
+        </g>
+        <g fill="none" stroke="#aaa9a1" stroke-opacity=".35">
+          <path d="M306 252a153 153 0 0 1 62-55"/>
+        </g>
+        <circle cx="621" cy="247" r="20" fill="url(#posterChrome)" stroke="#303332"/>
+        <circle cx="621" cy="247" r="14" fill="#1b1d1d"/>
+        <path d="M621 235v13" stroke="#dad9d2" stroke-width="2"/>
+        <circle cx="610" cy="214" r="13" fill="url(#posterChrome)"/>
+        <circle cx="610" cy="214" r="8" fill="#171919"/>
+        <rect x="239" y="229" width="10" height="28" rx="3" fill="#82847f"/>
+        <rect x="636" y="292" width="6" height="12" rx="2" fill="#9a5b3e"/>
+      </svg>
+    </div>
+
+    <div class="stage-shadow" id="stageShadow" aria-hidden="true"></div>
+    <canvas id="scene" aria-label="An interactive three-dimensional camera sculpture" role="img"></canvas>
+    <div class="screen-vignette" aria-hidden="true"></div>
+    <div class="film-grain" aria-hidden="true"></div>
+
+    <header class="site-header" id="siteHeader">
+      <a class="brand" href="#" data-stage="0" aria-label="John Doe, home">
+        <span class="brand-mark">JD</span>
+        <span class="brand-copy">John Doe<br /><em>Photographer</em></span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <button class="nav-link" type="button" data-stage="1"><span>Selected work</span><sup>04</sup></button>
+        <button class="nav-link" type="button" data-stage="5"><span>Contact</span></button>
+      </nav>
+      <div class="availability"><i></i><span>Available for commissions</span></div>
+    </header>
+
+    <div class="stage-readout" id="stageReadout" aria-hidden="true">
+      <span class="readout-line"></span>
+      <span id="stageNumber">01</span>
+      <span class="readout-total">/ 06</span>
+    </div>
+
+    <div class="chapter-dots" id="chapterDots" role="navigation" aria-label="Story chapters"></div>
+
+    <section class="hero-copy scene-copy" id="heroCopy" aria-labelledby="hero-title">
+      <p class="eyebrow">Editorial &amp; fine art photography</p>
+      <h1 class="hero-title" id="hero-title">John Doe<span class="hero-role">, Photographer</span></h1>
+      <div class="hero-foot">
+        <p>Light, land and the human trace.<br />Copenhagen — worldwide.</p>
+        <p class="hero-edition">Selected work<br />2019—2026</p>
+      </div>
+    </section>
+
+    <section class="project-copy scene-copy" id="projectCopy" aria-labelledby="projectTitle" aria-hidden="true">
+      <div class="project-heading">
+        <p class="project-kicker"><span id="projectIndex">01</span><span class="kicker-divider"></span><span id="projectCategory">Landscape</span></p>
+        <h2 class="project-title" id="projectTitle">Alpine Silence</h2>
+      </div>
+      <div class="project-aside">
+        <p id="projectLocation">Lofoten, Norway</p>
+        <p id="projectYear">2024</p>
+        <button class="view-story" id="viewStory" type="button">
+          <span>Enter the story</span>
+          <span class="view-story-icon" aria-hidden="true">↗</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="contact-copy scene-copy" id="contactCopy" aria-labelledby="contactTitle" aria-hidden="true">
+      <div class="contact-lead">
+        <p class="eyebrow">Commissions &amp; collaborations</p>
+        <h2 id="contactTitle">Let’s make<br /><em>something enduring.</em></h2>
+      </div>
+      <div class="contact-details">
+        <div class="contact-row">
+          <span>Email</span>
+          <a href="mailto:studio@johndoe.photo">studio@johndoe.photo</a>
+        </div>
+        <div class="contact-row">
+          <span>Telephone</span>
+          <a href="tel:+4531220847">+45 31 22 08 47</a>
+        </div>
+        <div class="contact-row">
+          <span>Studio</span>
+          <p>Refshalevej 167A<br />1432 Copenhagen K</p>
+        </div>
+        <div class="contact-row contact-socials">
+          <span>Elsewhere</span>
+          <div><a href="#">Instagram</a><a href="#">Behance</a><a href="#">Print shop</a></div>
+        </div>
+      </div>
+      <footer class="contact-footer">
+        <span>© 2026 John Doe Studio</span>
+        <span>Fine art prints available worldwide</span>
+        <button type="button" data-stage="0">Back to top ↑</button>
+      </footer>
+    </section>
+
+    <div class="project-hit" id="projectHit" role="button" tabindex="-1" aria-label="Open the current project story"></div>
+
+    <div class="scroll-cue" id="scrollCue" aria-hidden="true">
+      <span class="scroll-cue-track"><i></i></span>
+      <span id="scrollCueText">Scroll to explore</span>
+    </div>
+
+    <div class="loader" id="loader" aria-label="Loading John Doe photography">
+      <div class="loader-center">
+        <div class="spinner" id="spinner" aria-hidden="true"></div>
+      </div>
+      <div class="loader-brand">JOHN DOE <span>/</span> IMAGE MAKER</div>
+      <div class="loader-meta">CPH <span>55°40′ N</span> <span>12°34′ E</span></div>
+    </div>
+
+    <div class="zoom-photo" id="zoomPhoto" aria-hidden="true"></div>
+
+    <div class="blog" id="blog" aria-hidden="true">
+      <button class="blog-back" id="blogBack" type="button" aria-label="Return to the project">
+        <span class="blog-back-icon" aria-hidden="true">←</span>
+        <span>Back to project</span>
+      </button>
+      <div class="blog-scroll" id="blogScroll">
+        <div class="blog-hero" id="blogHero">
+          <img id="blogImage" alt="" />
+          <div class="blog-hero-overlay">
+            <span id="blogImageIndex">01 / 04</span>
+            <span>John Doe — Field notes</span>
+          </div>
+        </div>
+        <article class="blog-article">
+          <header class="blog-article-header">
+            <p class="blog-meta"><span id="blogCategory">Landscape</span><span id="blogLocation">Lofoten, Norway</span><span id="blogYear">2024</span></p>
+            <h1 id="blogTitle">Alpine Silence</h1>
+            <p class="blog-deck" id="blogDeck"></p>
+          </header>
+          <div class="blog-body-grid">
+            <div class="blog-body" id="blogBody"></div>
+            <aside class="blog-aside">
+              <div class="aside-block">
+                <span>Photographer</span>
+                <p>John Doe</p>
+              </div>
+              <div class="aside-block">
+                <span>Camera</span>
+                <p id="blogCamera">Leica SL2 — 50mm</p>
+              </div>
+              <div class="aside-block">
+                <span>Edition</span>
+                <p>Archival pigment print<br />Edition of 12</p>
+              </div>
+              <a class="aside-link" href="mailto:studio@johndoe.photo">Enquire about this series <span>↗</span></a>
+            </aside>
+          </div>
+          <footer class="blog-footer">
+            <p>Next field note</p>
+            <button id="nextProject" type="button">Continue the journey <span>→</span></button>
+          </footer>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
