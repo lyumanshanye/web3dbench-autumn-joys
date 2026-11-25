@@ -1,0 +1,71 @@
+{
+  "version": "3.0",
+  "task": "terrain-map-explorer",
+  "task_type": "open",
+  "must_assertions": [],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "An actual 3D imaginary mountain island has recognizable peaks, valleys and a coastline.",
+      "action": "Inspect the island from available exploration views.",
+      "expected": "The real-time 3D island includes recognizable peaks, valleys and coastline.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "The topographic-map treatment clearly communicates terrain height and structure.",
+      "action": "Inspect terrain-height cues and topographic styling.",
+      "expected": "The crafted topographic-map treatment communicates height and structure.",
+      "dimension": "visual"
+    },
+    {
+      "id": "T03",
+      "requirement": "The terrain can be explored interactively through usable camera or map controls.",
+      "action": "Explore using the offered camera or map controls and return to a useful view.",
+      "expected": "Interaction visibly changes exploration state and remains usable.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "Exploration keeps the island and important map information legible instead of losing the scene or obscuring it with labels.",
+      "action": "Explore different areas at desktop and narrow-phone sizes.",
+      "expected": "The island and relevant map information remain legible without obstructive labels or losing the scene.",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the whole island, peaks, valleys and coastal outline.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Explore different areas and viewpoints using the supplied controls.",
+      "criteria": [
+        "G03",
+        "T02"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Return to a useful overview and inspect narrow layout; do not invent required map layers or controls.",
+      "criteria": [
+        "G04",
+        "T03",
+        "T04"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

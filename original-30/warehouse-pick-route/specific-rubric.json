@@ -1,0 +1,103 @@
+{
+  "version": "3.0",
+  "task": "warehouse-pick-route",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "The 24x18m 3D warehouse shows four shelving rows, end cross-aisles, packing station and six distinct bins for the specified SKUs/quantities.",
+      "action": "Inspect the warehouse layout, dimensions, bins and initial order.",
+      "expected": "The 24x18m warehouse has four shelving rows, end cross-aisles, packing station and the six specified SKUs/quantities in distinct bins.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Order quantities, item removal and stop order are editable, with a useful initial order ready to play.",
+      "action": "Edit quantities, remove an item and reorder stops.",
+      "expected": "Changes apply to a useful initially runnable order.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Each leg follows a shortest walkable path in the chosen order from packing through bins and back; routes avoid shelf footprints and show total meters.",
+      "action": "Inspect each route leg and distance for different stop orders.",
+      "expected": "Packing-to-bin-to-packing legs use shortest walkable paths for the chosen order, avoid shelves and show total meters; global stop optimization is not required.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "Animated picking stops at the appropriate shelf faces and updates the matching picked quantities.",
+      "action": "Play the route and inspect stops and picked quantities.",
+      "expected": "The picker follows the route, stops at the corresponding shelf faces and updates the correct order items.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "Play/pause/speed/restart work and editing the order resets playback/checklist rather than retaining stale progress.",
+      "action": "Pause, change speed, restart and edit the order during or after playback.",
+      "expected": "Transport behaves consistently and edits reset playback/checklist to avoid stale progress.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "Blocked aisle segments trigger rerouting or identify unreachable items and prevent starting an impossible route.",
+      "action": "Block an aisle segment to create a detour and then an unreachable item.",
+      "expected": "Routes recalculate where possible; unreachable items are identified and impossible playback is prevented.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T07",
+      "requirement": "Overhead planning and following playback views retain a usable order list.",
+      "action": "Switch overhead planning and following views while preparing/playing an order.",
+      "expected": "Both views retain a usable order list and relevant route context.",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect warehouse geometry, bins, initial order and packing-to-packing route.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Run/pause picking, change speed and camera, then edit quantities or stop order and verify playback/checklist reset.",
+      "criteria": [
+        "G03",
+        "T02",
+        "T03",
+        "T04"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Block an aisle to force a detour, then isolate an item and check unreachable feedback and disabled playback; clear blockage and restart.",
+      "criteria": [
+        "G04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

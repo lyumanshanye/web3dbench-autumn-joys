@@ -1,0 +1,71 @@
+{
+  "version": "3.0",
+  "task": "solar-system-explorer",
+  "task_type": "open",
+  "must_assertions": [],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "A genuine 3D solar system visibly includes the Sun and recognizable planets.",
+      "action": "Inspect the Sun and planets from offered views.",
+      "expected": "The scene contains a recognizable real-time 3D Sun and planets.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Planets visibly orbit the Sun over time rather than only changing textual labels.",
+      "action": "Observe the scene at multiple time points.",
+      "expected": "Planets visibly orbit the Sun rather than only changing labels.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "The user can travel or drift among planets and inspect them with usable browser controls.",
+      "action": "Use the offered controls to travel between planets.",
+      "expected": "The user can drift or navigate among planets and inspect them.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "The visual presentation communicates scale and wonder without obscuring navigation; allow artistic scaling because literal physical scale was not required.",
+      "action": "Inspect the system at near and wide views.",
+      "expected": "Presentation conveys scale and wonder while preserving navigation; literal physical scaling is not required.",
+      "dimension": "visual"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial solar system and identify the Sun and multiple planets.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Observe orbital motion over time and travel between at least two planets.",
+      "criteria": [
+        "G03",
+        "T02"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Return to the wider system using offered navigation and inspect mobile reachability.",
+      "criteria": [
+        "G04",
+        "T03",
+        "T04"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

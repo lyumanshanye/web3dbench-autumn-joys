@@ -1,0 +1,121 @@
+{
+  "version": "3.0",
+  "task": "music-loop-studio",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07",
+    "T08",
+    "T09"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "A useful four-track, sixteen-step sample with locally generated percussion, bass and melody can start after a user gesture without account/microphone/remote service.",
+      "action": "Open the sample and start playback through a user gesture without account or microphone access.",
+      "expected": "A four-track sixteen-step pattern with percussion, bass and melody is immediately playable without remote audio services; inaudible sound must remain unverified.",
+      "dimension": "instruction"
+    },
+    {
+      "id": "T02",
+      "requirement": "Grid editing is accessible by mouse/touch/keyboard with track names, playhead and clear on/off/focus states.",
+      "action": "Edit grid steps with mouse, touch and keyboard and inspect focus and playhead.",
+      "expected": "Track names, playhead and on/off/focus states are clear and all three input methods can edit steps.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Tempo, per-track volume, mute and solo have coherent playback and 3D note feedback.",
+      "action": "Change tempo and each track's volume, mute and solo during playback.",
+      "expected": "Playback state and instrument note feedback follow the controls; audio conclusions require actual listening evidence.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "Pause retains position while stop returns to the first step; clear and restore-demo confirm replacing edited work.",
+      "action": "Pause/resume, stop, edit a pattern, then cancel and confirm clear/restore-demo.",
+      "expected": "Pause retains position, stop returns to the first step, and destructive replacement of edited work requires confirmation.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "Rhythm uses an audio-clock schedule and 3D notes align with sounding notes without duplicate loops during tempo changes; do not infer audible fidelity from visuals alone.",
+      "action": "Change tempo repeatedly during playback and compare actual audio with instrument motion if audible capture is available.",
+      "expected": "Rhythm remains single and steady with note-aligned animation; audio-clock implementation and audible alignment stay unverified without suitable evidence.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "Suspended/background audio has a truthful recoverable paused state, and stopping/leaving/switching patterns does not leave stuck notes.",
+      "action": "Stop, switch patterns, leave/revisit the page and exercise suspended/background playback where observable.",
+      "expected": "No stuck notes are observed; suspension is represented truthfully and explicit resume can recover playback. Unsupported audio/background probes remain unverified.",
+      "dimension": "stability"
+    },
+    {
+      "id": "T07",
+      "requirement": "At least three named patterns can be saved, renamed, deleted and restored after refresh, with visible saved/dirty state.",
+      "action": "Save at least three named patterns, rename and delete them, make an unsaved edit and refresh.",
+      "expected": "Named patterns can be managed locally, saved/dirty state is shown and the last saved pattern restores after refresh.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T08",
+      "requirement": "Versioned JSON import/export validates tempo, tracks and step counts, rejects malformed input and preserves current work.",
+      "action": "Export a pattern and import it, then try invalid tempo, track values and step counts.",
+      "expected": "Versioned JSON restores valid patterns; malformed input gives useful errors and preserves the current work.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T09",
+      "requirement": "Compact layout keeps track names/transport reachable, supports reduced motion and textual playback status.",
+      "action": "Use a phone viewport, enable reduced motion and inspect textual status during playback.",
+      "expected": "Track names and transport stay reachable, status is readable and reduced motion retains note/playhead feedback without large instrument movements.",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the sample grid and instruments; start audio through the UI and observe note/playhead feedback.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Edit steps, tempo, mute/solo/volume and compare pause/resume with stop; save and rename a pattern.",
+      "criteria": [
+        "G03",
+        "T02",
+        "T03",
+        "T04",
+        "T05"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Reload saved work, reject malformed import, exercise replacement confirmation and background/suspend recovery where observable; explicitly report any inability to hear audio.",
+      "criteria": [
+        "G04",
+        "T06",
+        "T07",
+        "T08",
+        "T09"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

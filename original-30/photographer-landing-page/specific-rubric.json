@@ -1,0 +1,103 @@
+{
+  "version": "3.0",
+  "task": "photographer-landing-page",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "A black loading screen has a centered white circular spinner that scales away before the scene is revealed.",
+      "action": "Reload and observe the complete loading sequence.",
+      "expected": "A centered white circular spinner appears on black and scales to zero as loading completes.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T02",
+      "requirement": "The introduction moves out from inside a lens to reveal a recognizable professional camera and John Doe, Photographer text.",
+      "action": "Observe the introduction immediately after loading.",
+      "expected": "The viewpoint pushes out from inside a lens to reveal a professional camera and John Doe, Photographer text.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "Scrolling rotates the camera about 180 degrees, shows a project on its screen and title, and changes the backdrop to the blurred project image.",
+      "action": "Scroll from the introduction into the first project.",
+      "expected": "The camera rotates about 180 degrees, its screen shows the project/title, and the background becomes the blurred project image.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "Subsequent projects transition smoothly while the project-view camera remains visually stable.",
+      "action": "Scroll between successive projects and reverse direction.",
+      "expected": "Project transitions are smooth while the camera remains stable in project view.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "After the projects, scrolling reaches a top-down camera view with usable contact information.",
+      "action": "Scroll past the final project.",
+      "expected": "A top-down camera view appears with readable contact information below.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T06",
+      "requirement": "Opening a project zooms toward the image and transitions into a readable full-screen blog with the image at top.",
+      "action": "Click a project and scroll through its article.",
+      "expected": "The view zooms toward the photograph and enters a full-screen blog with photograph above black-on-white content.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T07",
+      "requirement": "The floating back action returns from the story to the matching camera-framed project, preserving navigation context.",
+      "action": "Use the floating back button from an article.",
+      "expected": "The blog transitions back into the same camera-framed project without losing navigation context.",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Observe loading and the lens-to-camera introduction.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Scroll across at least two projects, inspect the screen/background relationship and reach contact.",
+      "criteria": [
+        "G03",
+        "T02",
+        "T03",
+        "T04"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Open a project story, scroll its content, use the floating back button and reverse-scroll to verify restored context.",
+      "criteria": [
+        "G04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

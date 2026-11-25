@@ -1,0 +1,103 @@
+{
+  "version": "3.0",
+  "task": "building-energy-explorer",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "A selectable three-floor, four-rooms-per-floor 3D building and charts use the same bundled seven-day hourly sample dataset with stable room IDs, areas and units.",
+      "action": "Inspect floors, room details and the complete available date range.",
+      "expected": "Three floors each contain four rooms with stable IDs, areas, units and seven days of hourly sample data shared by model and charts.",
+      "dimension": "instruction"
+    },
+    {
+      "id": "T02",
+      "requirement": "Daytime meeting rooms, continuous server load, a discoverable overnight office spike and a distinct missing-reading interval are represented.",
+      "action": "Inspect meeting-room, server-room, spike-room and missing-data charts.",
+      "expected": "Daytime use, continuous load, an overnight office spike and a missing interval are distinct; the initial interval exposes the spike.",
+      "dimension": "instruction"
+    },
+    {
+      "id": "T03",
+      "requirement": "User-selectable total-energy versus per-area coloring has a labeled scale that stays constant while hiding floors; missing data is distinct from zero.",
+      "action": "Switch total/per-area coloring and hide a floor; compare missing and zero readings.",
+      "expected": "Units and legend agree with the chosen metric, hiding floors preserves the scale, and missing readings differ from zero.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "Incomplete totals are marked partial with available/expected reading counts.",
+      "action": "Select a time range containing missing readings and inspect totals.",
+      "expected": "Incomplete totals are identified as partial and show available versus expected reading counts.",
+      "dimension": "instruction"
+    },
+    {
+      "id": "T05",
+      "requirement": "Room selection is synchronized between 3D, sortable table, hourly chart and summary; hiding the selected floor clears the selection consistently.",
+      "action": "Select a room in 3D and the sortable table, then hide its floor.",
+      "expected": "Outline, table, chart and summary agree on the room; hiding its floor clears the selection everywhere.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "Time/floor filters and comparison of two rooms on a shared chart update consistent readings.",
+      "action": "Change time and floor filters, then compare two rooms.",
+      "expected": "Filtered data and the two-room shared chart remain synchronized with the model.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T07",
+      "requirement": "Filtered CSV summaries download with units and completeness represented.",
+      "action": "Download the filtered room-summary CSV and inspect it.",
+      "expected": "Exported rows match the current filters and include units and data completeness.",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial spike, sample-data label, building rooms, legend and missing data.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Select from the table and building, change metric/time/floor filters and compare two rooms.",
+      "criteria": [
+        "G03",
+        "T02",
+        "T03",
+        "T04"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Hide a selected floor, compare legend endpoints before/after, inspect a partial interval and download the filtered CSV.",
+      "criteria": [
+        "G04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+﻿task,title,instruction,spatial,interaction,visual,stability,quality_total_calculated,end_to_end_calculated,runtime_status,scene_status,must_status_derived
+art-studio-3d,Art Studio 3D,3,4,3,3,3,83.8,83.8,PASS,PASS,FAIL
+autumn-swing,Autumn Swing,4,4,4,4,4,100.0,100.0,PASS,PASS,N/A
+balcony-sun-planner,Balcony Sun Planner,4,4,4,4,4,100.0,100.0,PASS,PASS,PASS
+bicycle-puncture-lesson,Bicycle Puncture Lesson,3,4,4,3,2,86.2,86.2,PASS,PASS,FAIL
+building-energy-explorer,Building Energy Explorer,4,4,4,4,3,97.5,97.5,PASS,PASS,PASS
+community-event-planner,Community Event Planner,3,4,3,3,3,83.8,83.8,PASS,PASS,FAIL
+data-center-rack-planner,Data Center Rack Planner,4,4,3,4,4,95.0,95.0,PASS,PASS,FAIL
+headphone-landing-page,Headphone Landing Page,4,4,3,4,4,95.0,95.0,PASS,PASS,N/A
+library-wayfinding,Library Wayfinding,4,4,4,4,3,97.5,97.5,PASS,PASS,PASS
+luggage-fit-checker,Luggage Fit Checker,4,4,4,4,4,100.0,100.0,PASS,PASS,PASS
+marble-run-3d,Marble Run 3D,3,3,3,4,3,77.5,77.5,PASS,PASS,FAIL
+mechanical-watch-explorer,Mechanical Watch Explorer,4,4,4,4,4,100.0,100.0,PASS,PASS,N/A
+moon-phase-lesson,Moon Phase Lesson,4,4,4,4,4,100.0,100.0,PASS,PASS,PASS
+museum-gallery,Museum Gallery,4,4,4,4,4,100.0,100.0,PASS,PASS,N/A
+music-loop-studio,Music Loop Studio,3,4,3,4,3,86.2,86.2,PASS,PASS,FAIL
+packaging-fold-preview,Packaging Fold Preview,4,4,4,4,4,100.0,100.0,PASS,PASS,PASS
+paper-windmill,Paper Windmill,4,4,4,4,4,100.0,100.0,PASS,PASS,NOT_EVALUATED
+pelican-3d,Pelican 3D,4,4,3,4,4,95.0,95.0,PASS,PASS,N/A
+personal-blog,Personal Blog,3,4,3,4,3,86.2,86.2,PASS,PASS,FAIL
+photographer-landing-page,Photographer Landing Page,3,4,3,4,3,86.2,86.2,PASS,PASS,FAIL
+print-orientation-workbench,Print Orientation Workbench,3,4,3,4,4,88.8,88.8,PASS,PASS,FAIL
+product-photo-lighting,Product Photo Lighting,2,0,1,2,2,27.5,0,PASS,FAIL,FAIL
+recipe-kitchen,Recipe Kitchen,2,4,4,2,2,77.5,77.5,PASS,PASS,FAIL
+ring-configurator,Ring Configurator,4,4,4,4,4,100.0,100.0,PASS,PASS,PASS
+room-planner-3d,Room Planner 3D,3,4,3,4,3,86.2,86.2,PASS,PASS,FAIL
+solar-system-explorer,Solar System Explorer,4,4,4,4,3,97.5,97.5,PASS,PASS,N/A
+terrain-map-explorer,Terrain Map Explorer,4,4,4,4,3,97.5,97.5,PASS,PASS,N/A
+theater-seat-preview,Theater Seat Preview,4,4,4,4,3,97.5,97.5,PASS,PASS,PASS
+travel-journal-globe,Travel Journal Globe,3,4,4,4,3,91.2,91.2,PASS,PASS,FAIL
+warehouse-pick-route,Warehouse Pick Route,3,3,3,3,3,75.0,75.0,PASS,PASS,FAIL

@@ -1,0 +1,94 @@
+{
+  "version": "3.0",
+  "task": "data-center-rack-planner",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Two genuine 3D 42U racks have readable numbering, front/rear views and plausible partial installations.",
+      "action": "Inspect both racks in front and rear views.",
+      "expected": "Two 42U racks have readable unit numbering and plausible partial installations.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "The catalog implements 1U/0W patch panel, 1U/150W switch, 2U/500W server, 4U/800W storage and 1U/0W blank panel.",
+      "action": "Inspect the equipment catalog and add each device type.",
+      "expected": "Patch panel 1U/0W, switch 1U/150W, server 2U/500W, storage 4U/800W and blank panel 1U/0W match the specification.",
+      "dimension": "instruction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Adding, moving between racks and removal update selection consistently in scene and rack-unit list.",
+      "action": "Add, move between racks and remove devices; select through scene and list.",
+      "expected": "Placement edits apply and the scene/list selection stays synchronized.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "Devices occupy consecutive free units, never extend beyond U42, and conflicting placements are rejected without changing the previous arrangement.",
+      "action": "Try valid, overlapping and above-U42 placements and moves.",
+      "expected": "Only consecutive free units accept a device; rejected edits preserve the prior arrangement.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "Occupied/free units and estimated power are correct; a rack exceeding 3000W warns even if its physical placement fits.",
+      "action": "Check unit totals and add enough equipment to exceed 3000W while physically fitting.",
+      "expected": "Occupied/free counts and power totals agree with inventory and an over-budget warning appears.",
+      "dimension": "instruction"
+    },
+    {
+      "id": "T06",
+      "requirement": "Browser save restores the plan and CSV inventory includes rack, starting unit, type, height and power.",
+      "action": "Save and reload the plan, then download its CSV inventory.",
+      "expected": "The arrangement restores and CSV includes rack, starting unit, device type, height and power.",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect both racks, numbering, front/rear and the initial occupancy/power displays.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Add a device, move it between racks, select it through the list and remove another device.",
+      "criteria": [
+        "G03",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Attempt overlap and out-of-range placement, exceed a power budget with physically valid devices, then reload and inspect CSV contents.",
+      "criteria": [
+        "G04",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "version": "3.0",
+  "task": "travel-journal-globe",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Six complete locally bundled trip entries cover at least four continents with dates, photos/alt text, diary content and coordinates.",
+      "action": "Inspect the six bundled trip entries and their photos, dates and location information.",
+      "expected": "At least four continents are represented with complete diary content, coordinates and meaningful photo alt text.",
+      "dimension": "instruction"
+    },
+    {
+      "id": "T02",
+      "requirement": "Geographically correct globe markers and list selection open the same trip and highlight it.",
+      "action": "Select the same trip from a globe marker and the list.",
+      "expected": "Both open the same entry and highlight its geographically correct globe position.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Far-side markers cannot be clicked through the globe, and close markers remain independently selectable.",
+      "action": "Try selecting far-side markers and nearby marker groups.",
+      "expected": "The globe occludes far-side markers and nearby trips remain independently selectable.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "Search/year filters, chronological view and useful empty states work; reset-view preserves active filters.",
+      "action": "Combine search/year filters, inspect chronological order and empty results, then reset the view.",
+      "expected": "Filters and ordering work, empty results explain the state, and reset changes the view without clearing filters.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "Trip URLs survive refresh and browser back returns coherent journal context.",
+      "action": "Open a trip URL directly, refresh and use browser back.",
+      "expected": "Trip URLs restore the intended entry and browser history maintains coherent journal context.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "Keyboard list access, ordinary mobile page scrolling and reduced-motion camera transitions remain usable.",
+      "action": "Reach trips through the keyboard list, scroll on a phone and enable reduced motion.",
+      "expected": "All trips remain reachable, page scrolling is not trapped and camera transitions respect reduced motion.",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the globe geography, local photos and six-trip list.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Select trips from both list and markers, inspect nearby markers and try clicking a far-side location after changing view.",
+      "criteria": [
+        "G03",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Filter by year/search, inspect empty/chronological states, reset the camera without clearing filters, then refresh and go back from a shared trip URL.",
+      "criteria": [
+        "G04",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "version": "3.0",
+  "task": "pelican-3d",
+  "task_type": "open",
+  "must_assertions": [],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "A recognizable pelican rides a recognizable bicycle in a genuine 3D scene.",
+      "action": "Inspect the rider and bicycle in the rendered scene.",
+      "expected": "A recognizable pelican rides a recognizable bicycle in a genuine 3D scene.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "A sunny beach setting and relaxed leisurely presentation are visually apparent.",
+      "action": "Inspect the environment, lighting and overall presentation.",
+      "expected": "A sunny beach and leisurely atmosphere are visually apparent.",
+      "dimension": "visual"
+    },
+    {
+      "id": "T03",
+      "requirement": "The composition keeps the rider, bicycle and environment readable; if motion is provided, it remains coherent across time.",
+      "action": "Inspect available views and, if animated, several time points.",
+      "expected": "The pelican, bicycle and beach remain readable and any provided motion is coherent; animation is not an added requirement.",
+      "dimension": "visual"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the pelican, bicycle and sunny beach in the initial scene.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Observe the scene over time and use any supplied camera interaction.",
+      "criteria": [
+        "G03",
+        "T02"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Resize and reload without demanding unrequested pause or gameplay controls; HTML packaging/engine constraints are not inferred from a screenshot.",
+      "criteria": [
+        "G04",
+        "T03"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

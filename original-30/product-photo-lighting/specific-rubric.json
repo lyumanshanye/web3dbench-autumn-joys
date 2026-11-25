@@ -1,0 +1,76 @@
+{
+  "version": "3.0",
+  "task": "product-photo-lighting",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "A genuine 3D ceramic mug with clear curved body/handle sits on a seamless backdrop with usable initial lighting.",
+      "action": "Inspect the initial mug, backdrop and lighting.",
+      "expected": "A curved ceramic mug with a handle sits on a seamless 3D backdrop in a usable lighting setup.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "The studio includes two movable softbox lights, a reflector and a camera; moving the lights visibly changes highlights and shadows in the camera preview.",
+      "action": "Inspect the two softboxes, reflector and camera, then move each softbox while watching the preview.",
+      "expected": "The requested studio elements are present and highlights/shadows respond to changed light positions; camera/reflector editing is not an added requirement.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Backdrop color and square/portrait crops update the shot preview.",
+      "action": "Change backdrop color and switch square/portrait crops.",
+      "expected": "The preview reflects the selected backdrop and crop.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "PNG export matches the selected crop and excludes editor handles; reset restores the initial usable setup.",
+      "action": "Export each crop as PNG, inspect it and reset the lighting setup.",
+      "expected": "Images match the selected crop without editor handles and reset restores the usable initial setup.",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect mug shape, initial camera preview and editor objects.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Move a light and reflector, inspect changing highlights/shadows, change the camera or backdrop and compare both crops.",
+      "criteria": [
+        "G03",
+        "T02"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Export a portrait and square shot where practical, inspect actual image dimensions and clean content, then reset the setup.",
+      "criteria": [
+        "G04",
+        "T03",
+        "T04"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}
