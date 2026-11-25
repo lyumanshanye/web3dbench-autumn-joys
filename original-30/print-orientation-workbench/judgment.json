@@ -1,0 +1,205 @@
+{
+  "summary": "BenchFit is a working browser-only 3D print preparation workbench. It opens with a procedural bracket, shows a 220x220x250 mm build-volume outline and transformed dimensions, supports orbit/front/side/top views, quarter-turn and numeric rotation, uniform scale, bed translation and bed placement. Outside-volume faces and adjustable overhang risks are highlighted with a disclosed angle convention. A horizontal section plane exposes cross-sections while preserving orientation. ASCII and binary STL files import as millimeters, malformed files retain the current part, and exported STL geometry reimports with identical transformed dimensions. The main shortcoming is that the malformed-file error was only present in status text and was not visible in the captured error state; the current part was still preserved.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded at 127.0.0.1:8765 with a live WebGL scene, responsive controls, and no blocking errors. The only console error was a non-blocking favicon 404; all application assets returned 200 and network activity stayed local.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-59-09-780Z.jpeg",
+      "evidence/page-2026-11-12T13-04-06-025Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "Real-time 3D was verified across orbit, front, side, and top views, with consistent depth, occlusion, lighting, and changing projected geometry. The procedural part visibly includes a bolt hole, two arms forming the overhang/bracket form, and sits inside the visible build-volume wireframe.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-59-09-780Z.jpeg",
+      "evidence/page-2026-11-12T12-59-32-694Z.jpeg",
+      "evidence/page-2026-11-12T12-59-39-581Z.jpeg",
+      "evidence/page-2026-11-12T12-59-44-833Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Front, side, top, and orbit views expose genuine task-relevant depth and occlusion rather than a static image; the build volume and part remain spatially coherent in each view.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-59-32-694Z.jpeg",
+        "evidence/page-2026-11-12T12-59-39-581Z.jpeg",
+        "evidence/page-2026-11-12T12-59-44-833Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The dark industrial composition, copper/orange primary action, green fit badge, red outside-volume state, and orange overhang state form a coherent hierarchy. Typography and 3D lighting remain legible on desktop and mobile, though some microcopy is very small.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-59-09-780Z.jpeg",
+        "evidence/page-2026-11-12T13-03-36-709Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Primary controls produce meaningful scene and state feedback: camera buttons reframe the part, transforms change displayed dimensions and geometry, moving the part outside the bed changes the badge and highlights faces red, and section controls visibly cut the mesh.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-00-19-603Z.jpeg",
+        "evidence/page-2026-11-12T13-00-51-005Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated and recovery flows worked: repeated STL imports, an invalid import that retained the previous part, threshold changes, section enable/height changes, naked export/reimport, and Load demo restoration. The only recovery weakness is the non-persistent visible malformed-file error.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-02-00-622Z.jpeg",
+        "evidence/page-2026-11-12T13-03-04-554Z.jpeg",
+        "evidence/page-2026-11-12T13-03-12-236Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Desktop 1440x900 and emulated mobile 390x844 were both usable. On mobile the scene stacks above an internally scrollable control rail, lower overhang/section controls are reachable, the export bar remains pinned without covering the rail, keyboard focus shows a visible orange outline, and reload restored the initial scene. Console and network logs were saved separately; only a favicon 404 appeared.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-03-20-216Z.jpeg",
+        "evidence/page-2026-11-12T13-03-36-709Z.jpeg",
+        "evidence/page-2026-11-12T13-04-06-025Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The initial procedural part is a recognizable L-style bracket with a bolt hole and a clearly overhanging upper arm, displayed inside a visible 220x220x250 mm build-volume outline with a 114.2x66.2x114.2 mm transformed-size readout.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-59-09-780Z.jpeg",
+        "evidence/page-2026-11-12T12-59-32-694Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PARTIAL",
+      "reason": "A 20 mm ASCII cube and a 30x15x8 mm binary box both imported with coordinates reported in millimeters. A malformed STL left the prior box_binary part and its 30.0x8.0x15.0 mm dimensions intact, but the delivered screenshot does not show a visible error; the error text existed only in a hidden/status element, so sighted users received no durable report.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-01-30-820Z.jpeg",
+        "evidence/page-2026-11-12T13-01-49-392Z.jpeg",
+        "evidence/page-2026-11-12T13-02-00-622Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Orbit, front, side, and top views all rendered correctly. After a +90 degree X rotation the displayed dimensions changed from 114.2x66.2x114.2 to 114.2x114.2x66.2 mm, matching the rotated geometry in the top view and subsequent orbit view.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-59-32-694Z.jpeg",
+        "evidence/page-2026-11-12T12-59-39-581Z.jpeg",
+        "evidence/page-2026-11-12T12-59-44-833Z.jpeg",
+        "evidence/page-2026-11-12T12-59-52-415Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Quarter-turn X rotation, numeric Y/Z rotations, uniform 1.5x scale, Move X and Move Y translations, and Place on bed all changed the scene and dimension readout. The part remained seated on the bed grid after placement, the second translation axis moved horizontally across the bed while staying seated, and switching camera views did not alter the object rotation or translation inputs.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-59-52-415Z.jpeg",
+        "evidence/page-2026-11-12T13-00-19-603Z.jpeg",
+        "evidence/page-2026-11-12T13-02-43-088Z.jpeg",
+        "evidence/page-2026-11-12T13-06-25-274Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "Moving the part 100 mm off center produced an OUTSIDE VOLUME badge and red face highlighting while inside faces stayed neutral. The overhang threshold changed the count from 118 faces at 45 degrees to 18 at 70 degrees, and the UI explicitly documents the below-horizontal downward-normal convention and that bed-contact faces are excluded.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-00-19-603Z.jpeg",
+        "evidence/page-2026-11-12T13-00-32-498Z.jpeg",
+        "evidence/page-2026-11-12T13-00-44-859Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PASS",
+      "reason": "Enabling the section plane at 57.1 mm visibly removed the upper portion of the bracket and exposed a dark horizontal cut. Raising it to 90.0 mm changed the cross-section height, and rotating the part to Y45/Z30 with the section still active updated geometry and dimensions without disabling the section.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-00-51-005Z.jpeg",
+        "evidence/page-2026-11-12T13-00-57-957Z.jpeg",
+        "evidence/page-2026-11-12T13-01-06-451Z.jpeg"
+      ]
+    },
+    {
+      "id": "T07",
+      "status": "PASS",
+      "reason": "With 1.5x scale, Z30 rotation, and +20 mm X translation, the page reported 50.2x12.0x42.0 mm. The downloaded binary STL reimported through the page as exactly 50.2x12.0x42.0 mm, and its read-only bounding-box dimensions matched the baked geometry. Load demo then restored the Procedural L-bracket and its original 114.2x66.2x114.2 mm state.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-02-43-088Z.jpeg",
+        "evidence/page-2026-11-12T13-03-04-554Z.jpeg",
+        "evidence/page-2026-11-12T13-03-12-236Z.jpeg"
+      ]
+    },
+    {
+      "id": "T08",
+      "status": "PASS",
+      "reason": "Imports and exports completed through browser file UI with no external requests; the saved network log contains only local app, CSS, Three.js, loader, and exporter assets. No slicer, generated-support, or printer-communication features are exposed, matching scope. Internal implementation details were not inspected and are treated as unverified.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-01-30-820Z.jpeg",
+        "evidence/page-2026-11-12T13-03-04-554Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 3,
+      "reason": "All core requested flows are delivered coherently, including local import/export, inspection, transforms, bed placement, volume/overhang diagnostics, and sectioning. The specific minor omission is that the malformed-file error is not durably visible to sighted users even though the current part is preserved.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-02-00-622Z.jpeg",
+        "evidence/page-2026-11-12T13-03-04-554Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Geometry, scale, depth, occlusion, build-volume bounds, overhang highlighting, and section cuts consistently serve the print-preparation task across multiple verified views and transform states.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-59-32-694Z.jpeg",
+        "evidence/page-2026-11-12T13-00-19-603Z.jpeg",
+        "evidence/page-2026-11-12T13-00-57-957Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "Required sequences, repeated imports, export/reimport, reset, and responsive controls work reliably. The local discoverability issue is the malformed-import error: it is accessible as status text but was not visible in the delivered state screenshot.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-01-49-392Z.jpeg",
+        "evidence/page-2026-11-12T13-02-00-622Z.jpeg",
+        "evidence/page-2026-11-12T13-03-12-236Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The dark makerspace-console treatment, restrained copper/cyan palette, compact metric cards, build-volume framing, and consistent state colors create a purposeful visual system that improves comprehension of the 3D task.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-59-09-780Z.jpeg",
+        "evidence/page-2026-11-12T13-03-36-709Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "The workbench remained usable across repeated operations, a full reload, 1440x900 desktop, and 390x844 emulated mobile. The only diagnostic issue was a non-blocking favicon 404; no freezes, crashes, or missing application assets were observed.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-03-20-216Z.jpeg",
+        "evidence/page-2026-11-12T13-03-36-709Z.jpeg",
+        "evidence/page-2026-11-12T13-04-06-025Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "Internal Three.js state and implementation details were not inspected; verification relied on the rendered canvas, visible UI state, delivered screenshots, and read-only layout probes.",
+    "The malformed-file error existed in accessible status text, but the captured error state does not visibly display it to sighted users; it may auto-dismiss or be visually hidden.",
+    "The 390x844 check was viewport emulation, not real touch hardware or a screen-reader session.",
+    "The UI does not expose an exact lowest-point Z coordinate; Place on bed was verified by visual contact with the bed grid after rotation, not a numeric height readout.",
+    "Console and network diagnostics are saved at evidence/console.txt and evidence/network.txt; the only console error was favicon.ico 404, and network requests were local application assets.",
+    "The run exceeded the nominal 40-call browser budget while covering all requested flows; the wall-clock budget remained within 900 seconds."
+  ]
+}

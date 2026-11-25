@@ -1,0 +1,178 @@
+{
+  "summary": "AURA Sonics presents a polished full-screen Three.js headphone landing page with a prominent, recognizable model, bold neon styling, and clear product data. Drag rotation and three finish choices work and remain coherent on desktop and mobile; the main weakness is that the header, build, and pre-order links change only the URL hash without revealing destination content.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded and rendered successfully at both tested viewport sizes and after reload. Console and network diagnostics are saved in evidence/console.txt and evidence/network.txt; application assets returned 200/304 and the only console error was a nonblocking favicon.ico 404.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-51-11-068Z.jpeg",
+      "evidence/page-2026-11-12T12-54-32-434Z.jpeg",
+      "evidence/page-2026-11-12T12-55-02-989Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The scene contains a genuinely spatial, real-time rendered over-ear headphone. Front, interior, and three-quarter/profile views reveal changing perspective, earcup thickness and cavities, headband depth, occlusion, metallic reflections, and soft matte surfaces rather than a static image.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-51-11-068Z.jpeg",
+      "evidence/page-2026-11-12T12-51-47-733Z.jpeg",
+      "evidence/page-2026-11-12T12-52-01-270Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct delivered views show valid task-relevant depth and geometry: the initial front view, a rotated interior view, and a right-side three-quarter view. Ear-cup shells, pads, yokes, and the headband maintain coherent scale and occlusion across the changes.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-51-11-068Z.jpeg",
+        "evidence/page-2026-11-12T12-51-47-733Z.jpeg",
+        "evidence/page-2026-11-12T12-52-01-270Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Composition, lighting, metallic and fabric materials, neon color accents, technical typography, and signal-style overlays form a coherent audiophile presentation. Product and headline hierarchy remain legible in the desktop and mobile captures.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-51-11-068Z.jpeg",
+        "evidence/page-2026-11-12T12-52-01-270Z.jpeg",
+        "evidence/page-2026-11-12T12-54-07-994Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary UI gives meaningful feedback: dragging the canvas changes the headphone angle, and the finish buttons change the accent lighting and page accent color. The same interactions also worked in the mobile viewport.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-51-11-068Z.jpeg",
+        "evidence/page-2026-11-12T12-52-14-972Z.jpeg",
+        "evidence/page-2026-11-12T12-53-57-681Z.jpeg",
+        "evidence/page-2026-11-12T12-54-07-994Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PARTIAL",
+      "reason": "Rotation can be reversed, finish changes can be repeated and reversed, and reload restores a clean initial state. However, the advertised header links, Explore the build link, and Pre-order link only changed the URL hash and focus styling without revealing any destination content, so not every offered flow recovers into a useful state.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-52-34-019Z.jpeg",
+        "evidence/page-2026-11-12T12-53-05-678Z.jpeg",
+        "evidence/page-2026-11-12T12-53-21-498Z.jpeg",
+        "evidence/page-2026-11-12T12-54-32-434Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "The 1440x900 and 390x844 layouts were inspected. Finish controls and the primary CTA remain visible at the mobile lower edge, the model remains readable, Tab navigation exposes a visible focus outline on the logo, and reloads at both widths remain stable. The only console error is a nonblocking favicon 404; real touch hardware was not available, so touch certification is limited to viewport emulation plus pointer-drag testing.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-53-31-578Z.jpeg",
+        "evidence/page-2026-11-12T12-53-40-482Z.jpeg",
+        "evidence/page-2026-11-12T12-54-32-434Z.jpeg",
+        "evidence/page-2026-11-12T12-55-24-209Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The landing page prominently features a recognizable over-ear headphone as genuine 3D geometry, with the product occupying most of the right side of the desktop composition and remaining the visual focus on mobile.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-51-11-068Z.jpeg",
+        "evidence/page-2026-11-12T12-51-47-733Z.jpeg",
+        "evidence/page-2026-11-12T12-52-01-270Z.jpeg",
+        "evidence/page-2026-11-12T12-53-31-578Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "User input visibly changes the presentation: drag rotation produces repeatable alternate angles, including an interior and profile view, and finish selection changes the product lighting and accent colors on desktop and mobile.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-51-47-733Z.jpeg",
+        "evidence/page-2026-11-12T12-52-01-270Z.jpeg",
+        "evidence/page-2026-11-12T12-52-14-972Z.jpeg",
+        "evidence/page-2026-11-12T12-54-07-994Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Bold acid-green and electric-blue accents, oversized modern type, technical labels, a signal meter, and dark high-contrast surfaces create a coherent niche-audiophile product identity at both desktop and phone sizes.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-51-11-068Z.jpeg",
+        "evidence/page-2026-11-12T12-52-14-972Z.jpeg",
+        "evidence/page-2026-11-12T12-53-31-578Z.jpeg",
+        "evidence/page-2026-11-12T12-54-07-994Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PARTIAL",
+      "reason": "Product name, price, headline, and the essential finish and CTA controls remain readable while the model is manipulated. The finish and rotation controls work, but the offered header navigation, Explore the build, and Pre-order controls do not reveal any content beyond changing the hash. Checkout and audio playback were not required.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-53-05-678Z.jpeg",
+        "evidence/page-2026-11-12T12-53-21-498Z.jpeg",
+        "evidence/page-2026-11-12T12-53-31-578Z.jpeg",
+        "evidence/page-2026-11-12T12-54-07-994Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All stated requirements are delivered coherently: a Three.js headphone landing page, a full-screen interactive product model, and a bold modern audiophile presentation. Additional destination-page or checkout requirements were not invented.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-51-11-068Z.jpeg",
+        "evidence/page-2026-11-12T12-52-01-270Z.jpeg",
+        "evidence/page-2026-11-12T12-53-31-578Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The headphone geometry, scale, depth, occlusion, metallic and fabric materials, and lighting remain coherent across front, interior, profile, and mobile views.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-51-11-068Z.jpeg",
+        "evidence/page-2026-11-12T12-51-47-733Z.jpeg",
+        "evidence/page-2026-11-12T12-52-01-270Z.jpeg",
+        "evidence/page-2026-11-12T12-53-57-681Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "Core and repeated model interactions work naturally, including drag reversal and finish changes, but several advertised page/navigation controls are dead hash links, which is a localized control-flow defect.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-52-14-972Z.jpeg",
+        "evidence/page-2026-11-12T12-52-34-019Z.jpeg",
+        "evidence/page-2026-11-12T12-53-05-678Z.jpeg",
+        "evidence/page-2026-11-12T12-54-32-434Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The composition, typography, color system, technical annotations, and real-time product lighting consistently reinforce the intended bold audiophile identity without obscuring the primary product information.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-51-11-068Z.jpeg",
+        "evidence/page-2026-11-12T12-52-01-270Z.jpeg",
+        "evidence/page-2026-11-12T12-53-31-578Z.jpeg",
+        "evidence/page-2026-11-12T12-54-07-994Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "Desktop and mobile layouts render reliably, the lower finish and CTA controls remain reachable, repeated interactions and reloads work, and diagnostics show only a nonblocking favicon 404 with successful application asset loading.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-53-31-578Z.jpeg",
+        "evidence/page-2026-11-12T12-54-32-434Z.jpeg",
+        "evidence/page-2026-11-12T12-55-02-989Z.jpeg",
+        "evidence/page-2026-11-12T12-55-24-209Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "No export or download control was offered, so a downloaded-export inspection was not applicable.",
+    "The 390x844 check used viewport emulation and pointer-drag testing; physical touch hardware was not available.",
+    "Audio playback and audio quality were not assessed because the page offered no audio control and the task does not require playback.",
+    "The hash-link destinations could not be visually verified because those controls did not reveal destination content; this is recorded as a submission finding rather than an infrastructure failure."
+  ]
+}

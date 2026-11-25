@@ -1,0 +1,185 @@
+{
+  "summary": "Weeknight Kitchen is a polished, fully local recipe browser with eight complete recipes, a genuinely interactive 3D counter, robust search/filter/reset behavior, serving scaling, stable recipe URLs, and per-recipe cooking progress that survives switches and refresh. The main defect is the 390x844 cook-mode layout, which becomes visually overlapped and largely unreadable; desktop flows and the ordinary mobile recipe page remain usable.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded and all tested UI flows ran. Network diagnostics showed the main document, styles, app scripts, recipe data, Three.js modules, and controls returning 200. The sole console error was a nonblocking 404 for favicon.ico.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-38-18-528Z.jpeg",
+      "evidence/page-2026-11-12T12-40-42-505Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The counter is a real-time Three.js scene rather than a static image: dragging changed camera perspective, producing clear parallax, depth ordering, occlusion, and changing surface relationships. Recipe changes replaced the ingredient set and models.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-38-46-664Z.jpeg",
+      "evidence/page-2026-11-12T12-38-56-351Z.jpeg",
+      "evidence/page-2026-11-12T12-39-05-040Z.jpeg",
+      "evidence/page-2026-11-12T12-39-19-686Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct rendered views showed the counter and ingredients from materially different camera angles. Object silhouettes, cast shadows, depth ordering, and occlusion changed coherently, confirming genuine 3D.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-38-46-664Z.jpeg",
+        "evidence/page-2026-11-12T12-38-56-351Z.jpeg",
+        "evidence/page-2026-11-12T12-39-05-040Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PARTIAL",
+      "reason": "Desktop composition is strong, with coherent warm typography, clear hierarchy, soft lighting, and consistent stylized materials. The mobile cook-mode overlay severely overlaps underlying content and reduces legibility, so the visual result is not coherent across tested states.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-38-18-528Z.jpeg",
+        "evidence/page-2026-11-12T12-40-56-242Z.jpeg",
+        "evidence/page-2026-11-12T12-44-26-842Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Primary controls produced meaningful changes: recipe cards changed URL, copy, steps, and 3D ingredients; search and filters changed result counts; servings changed displayed quantities; Start cooking opened the step view; Next advanced the step; checkboxes visibly completed ingredients.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-39-19-686Z.jpeg",
+        "evidence/page-2026-11-12T12-40-42-505Z.jpeg",
+        "evidence/page-2026-11-12T12-41-20-617Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated Next actions advanced the cook view, reset returned one recipe to step 1 with cleared checks, switching recipes preserved separate progress, refresh restored progress, empty results were recoverable with Reset filters, and previous navigation was available once past step 1.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-16-326Z.jpeg",
+        "evidence/page-2026-11-12T12-41-20-617Z.jpeg",
+        "evidence/page-2026-11-12T12-42-43-227Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "reason": "Desktop was readable at 1440x900, the ordinary recipe page was readable at 390x844, lower ingredients and method content remained reachable, and reloads succeeded. However, the mobile cook mode was a major narrow-layout failure with overlapping, translucent content. The network log had all application resources at 200; only favicon.ico was missing.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-43-21-215Z.jpeg",
+        "evidence/page-2026-11-12T12-43-45-420Z.jpeg",
+        "evidence/page-2026-11-12T12-44-26-842Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "All eight bundled recipes were opened and inspected. Each had readable ingredients and a five- or six-step method, and each selection showed a different set of eight to ten labeled ingredient models on the counter. No external recipe service was needed.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-38-18-528Z.jpeg",
+        "evidence/page-2026-11-12T12-38-46-664Z.jpeg",
+        "evidence/page-2026-11-12T12-39-19-686Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Name and ingredient searches worked (including asparagus and mushroom), Vegetarian plus 10-minutes-or-less produced two matching recipes, a conflicting combination produced a clear zero-result state, and Reset filters restored all eight recipes.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-16-326Z.jpeg",
+        "evidence/page-2026-11-12T12-40-42-505Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Changing Miso-Butter Mushrooms from 4 to 5 servings updated all quantities consistently, including 1¼ lb to 1½ lb, 8 oz to 10 oz, 2 tbsp to 2½ tbsp, and 3 tbsp to 3¾ tbsp. Fractions and useful cooking units were retained.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-38-46-664Z.jpeg",
+        "evidence/page-2026-11-12T12-40-42-505Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Recipe selection updated the hash URL and title, including a direct cook URL. Navigating directly to /#/recipe/miso-butter-mushrooms/cook and reloading restored the same recipe, complete content, step 3, and its checked ingredients.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-41-20-617Z.jpeg",
+        "evidence/page-2026-11-12T12-42-43-227Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "The cook view exposed Previous/Next, ingredient checkboxes, step count, and progress feedback. Miso reached step 3 with two checked items; switching to Pasta showed independent step-2/one-checked state; returning and refreshing restored Miso's step 3 and two checks separately.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-56-242Z.jpeg",
+        "evidence/page-2026-11-12T12-41-20-617Z.jpeg",
+        "evidence/page-2026-11-12T12-42-43-227Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PARTIAL",
+      "reason": "Reset this recipe cleared only Miso, while Pasta retained its checked ingredient and step 2. Ingredient names also remain available outside the canvas on the mobile recipe page. However, cooking mode at 390x844 is visually overlapped and translucent, making that required narrow-phone flow not reliably usable.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-43-227Z.jpeg",
+        "evidence/page-2026-11-12T12-43-21-215Z.jpeg",
+        "evidence/page-2026-11-12T12-44-26-842Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 2,
+      "reason": "The browsing, filtering, scaling, URL, and desktop cooking flows work, but the explicitly required narrow-phone cooking flow is substantially broken by overlapping/translucent content.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-42-505Z.jpeg",
+        "evidence/page-2026-11-12T12-42-43-227Z.jpeg",
+        "evidence/page-2026-11-12T12-44-26-842Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The stylized counter, ingredient geometry, depth, occlusion, lighting, and material treatment consistently support the task and remain coherent across three camera views.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-38-46-664Z.jpeg",
+        "evidence/page-2026-11-12T12-38-56-351Z.jpeg",
+        "evidence/page-2026-11-12T12-39-05-040Z.jpeg",
+        "evidence/page-2026-11-12T12-39-19-686Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Search, combined filters, empty-state recovery, serving scaling, step navigation, ingredient checks, per-recipe persistence, refresh restoration, and recipe-scoped reset all behaved reliably with clear feedback.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-16-326Z.jpeg",
+        "evidence/page-2026-11-12T12-41-20-617Z.jpeg",
+        "evidence/page-2026-11-12T12-42-43-227Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 2,
+      "reason": "Desktop typography, color, hierarchy, and 3D styling are cohesive, but the narrow cook view has severe overlap and transparency that makes the interface visually broken and hard to read.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-38-18-528Z.jpeg",
+        "evidence/page-2026-11-12T12-40-56-242Z.jpeg",
+        "evidence/page-2026-11-12T12-44-26-842Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 2,
+      "reason": "Desktop interactions and reloads remained stable, but the required 390x844 cook layout has a major usability failure. One subsequent mobile screenshot attempt timed out; the failure was already visible in the delivered mobile cook screenshot.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-43-227Z.jpeg",
+        "evidence/page-2026-11-12T12-43-45-420Z.jpeg",
+        "evidence/page-2026-11-12T12-44-26-842Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The only browser/console error was a 404 for favicon.ico; all application assets listed in evidence/network.txt returned 200.",
+    "A follow-up screenshot after scrolling the mobile cook view timed out, so only the already-delivered mobile cook screenshot is used as visual evidence for that state.",
+    "Audio quality and downloadable exports were not applicable because the interface exposed neither capability.",
+    "Mobile behavior was assessed at a 390x844 emulated viewport, not on physical touch hardware."
+  ]
+}

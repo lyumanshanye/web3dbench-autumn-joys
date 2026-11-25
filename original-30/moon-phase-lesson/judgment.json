@@ -1,0 +1,189 @@
+{
+  "summary": "Orbit Lab delivers a complete interactive moon-phase lesson: a live WebGL top-down Sun/Earth/Moon model, a separate Earth-view illuminated-disk preview, a 29.5-day slider, all four phase jumps, play/pause, reset, and a three-question quiz with feedback, model illustrations and retry. New, first quarter, full and last quarter agree with their previews, intermediate waxing/waning phases are coherent, keyboard adjustment reaches the 29.5-day endpoint, the 390x844 layout stacks cleanly with reachable lower controls, and a reduced-motion reload starts paused. Two nonblocking WebGLRenderer console messages and slight mobile Sun cropping were observed.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "Page loaded reliably at both 1440x900 and 390x844, rendered without blocking errors, and reloaded successfully in a reduced-motion context.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-26-51-834Z.jpeg",
+      "evidence/page-2026-11-12T12-32-10-142Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The main model is a live WebGL2 scene with a perspective orbit ellipse and shaded, textured spheres for Sun, Earth and Moon; the Earth-view preview is a second WebGL2 canvas. Distinct orbital positions and lighting states are visible across the four key phases and intermediate phases.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-27-04-758Z.jpeg",
+      "evidence/page-2026-11-12T12-27-10-264Z.jpeg",
+      "evidence/page-2026-11-12T12-27-17-129Z.jpeg",
+      "evidence/page-2026-11-12T12-27-58-728Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Inspected genuine task-relevant geometry across five orbital states. The top-down 3D view shows a foreshortened orbit, shaded spherical bodies, occlusion of the orbit line by Earth, and changing Moon placement from new through waxing, full, waning and last quarter. Runtime inspection confirmed two WebGL2 canvases (945x557 model, 160x160 preview).",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-04-758Z.jpeg",
+        "evidence/page-2026-11-12T12-27-10-264Z.jpeg",
+        "evidence/page-2026-11-12T12-27-17-129Z.jpeg",
+        "evidence/page-2026-11-12T12-27-58-728Z.jpeg",
+        "evidence/page-2026-11-12T12-28-06-055Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Composition, materials, lighting and typography are coherent: dark-space palette, warm emissive Sun, textured Earth/Moon, clear model-preview-quiz hierarchy, and label chips separated from the bodies. Text remains legible at desktop and phone widths, although the left edge of the Sun globe is slightly cropped on mobile.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-51-834Z.jpeg",
+        "evidence/page-2026-11-12T12-29-17-883Z.jpeg",
+        "evidence/page-2026-11-12T12-32-10-142Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary UI gives meaningful feedback: phase buttons move the Moon, update the phase name, illuminated percentage and Earth-view disk; Play advances the day and animates the orbit; Pause stops it; Reset restores day 7.4.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-10-264Z.jpeg",
+        "evidence/page-2026-11-12T12-28-18-090Z.jpeg",
+        "evidence/page-2026-11-12T12-29-37-546Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeat and recovery paths work: the quiz can be retried after results, Reset restores the initial cycle and quiz state, playback can be paused and resumed, and the keyboard End key moved the slider to its 29.5-day boundary where the model and preview both showed New Moon.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-17-883Z.jpeg",
+        "evidence/page-2026-11-12T12-29-37-546Z.jpeg",
+        "evidence/page-2026-11-12T12-33-31-619Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Desktop and 390x844 layouts were inspected, lower quiz controls were exercised on mobile, reloads succeeded, and the four network requests returned 200. There was no horizontal overflow. The console recorded two WebGLRenderer context messages, but both canvases rendered throughout and no user-facing freeze or crash occurred.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-51-834Z.jpeg",
+        "evidence/page-2026-11-12T12-32-10-142Z.jpeg",
+        "evidence/page-2026-11-12T12-32-43-819Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The Sun, Earth and Moon form a 3D lesson with a 0-to-29.5 day slider and visible '29.5-day cycle' and 'Not to scale' labels. The maximum endpoint displayed day 29.5 with 0% illumination and New Moon, completing the simplified cycle.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-51-834Z.jpeg",
+        "evidence/page-2026-11-12T12-27-04-758Z.jpeg",
+        "evidence/page-2026-11-12T12-33-31-619Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "All four key phases agree between label, orbital position and Earth-view illumination: new moon 0% dark, first quarter 50% right-lit, full moon 100% bright, last quarter 50% left-lit. Intermediate waxing and waning crescents show the correct bright side. The page explicitly explains that phases come from the Sunlit half, not Earth's shadow, and no shadow-covering mechanism is shown.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-04-758Z.jpeg",
+        "evidence/page-2026-11-12T12-26-51-834Z.jpeg",
+        "evidence/page-2026-11-12T12-27-10-264Z.jpeg",
+        "evidence/page-2026-11-12T12-27-17-129Z.jpeg",
+        "evidence/page-2026-11-12T12-27-58-728Z.jpeg",
+        "evidence/page-2026-11-12T12-28-06-055Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Play advanced the day from 26.3 to 27.1 with visible orbital and preview changes, Pause stopped it, all four phase buttons produced matching model/preview states, and Reset restored day 7.4. Waxing Crescent at day 3.3 and Waning Crescent at day 26.3 remained coherent.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-18-090Z.jpeg",
+        "evidence/page-2026-11-12T12-27-58-728Z.jpeg",
+        "evidence/page-2026-11-12T12-28-06-055Z.jpeg",
+        "evidence/page-2026-11-12T12-29-37-546Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "The quiz has three questions. A wrong answer was marked red with the correct option green, an explanation, and a model jump to New Moon. A correct second answer also updated the model to First Quarter. The third question completed the quiz, results showed 2/3 with a Retry quiz control, and retry returned to Question 1.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-36-008Z.jpeg",
+        "evidence/page-2026-11-12T12-28-56-384Z.jpeg",
+        "evidence/page-2026-11-12T12-29-17-883Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "Keyboard operation required no scene dragging: all phase controls are native focusable buttons and the range slider accepted the End key, moving to day 29.5 with New Moon. The 390x844 layout stacks model, Earth view and quiz with readable labels and reachable below-fold answers. With reduced motion emulated, a reload started paused (Play button shown). The mobile Sun globe is slightly cropped at the left edge but its label remains readable.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-33-31-619Z.jpeg",
+        "evidence/page-2026-11-12T12-32-10-142Z.jpeg",
+        "evidence/page-2026-11-12T12-32-43-819Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All explicitly requested elements and flows were delivered coherently across tested states: 3D model, separate preview, 29.5-day cycle, not-to-scale labels, four phase shortcuts, play/pause, reset, three-question quiz with feedback/retry and model illustrations, keyboard operation, mobile stacking, and reduced-motion paused start.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-51-834Z.jpeg",
+        "evidence/page-2026-11-12T12-27-10-264Z.jpeg",
+        "evidence/page-2026-11-12T12-28-36-008Z.jpeg",
+        "evidence/page-2026-11-12T12-32-10-142Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Shapes, spatial relations, lighting and materials consistently serve the lesson: Sun illumination comes from the left, Earth and Moon are shaded 3D spheres, orbit placement matches every phase, and the separate Earth-view disk matches the named phase without an Earth-shadow explanation.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-04-758Z.jpeg",
+        "evidence/page-2026-11-12T12-27-10-264Z.jpeg",
+        "evidence/page-2026-11-12T12-27-17-129Z.jpeg",
+        "evidence/page-2026-11-12T12-27-58-728Z.jpeg",
+        "evidence/page-2026-11-12T12-28-06-055Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Sequences, combinations and recovery remained reliable: phase jumps, slider exploration, play/pause, reset, three quiz questions, wrong-answer recovery, correct-answer progression, results and retry all produced the promised state changes.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-18-090Z.jpeg",
+        "evidence/page-2026-11-12T12-28-36-008Z.jpeg",
+        "evidence/page-2026-11-12T12-29-17-883Z.jpeg",
+        "evidence/page-2026-11-12T12-29-37-546Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The dark orbital-lab theme has clear hierarchy, legible type, distinct task colors and consistent materials, with labels in separate chips. Phase transitions and quiz-driven model changes reinforce understanding. Minor phone Sun cropping does not break the composition or readability.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-51-834Z.jpeg",
+        "evidence/page-2026-11-12T12-29-17-883Z.jpeg",
+        "evidence/page-2026-11-12T12-32-10-142Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "All standard and repeat checks were stable and readable at 1440x900 and 390x844: reloads, playback, phase jumps, quiz retry and reset worked, no horizontal overflow appeared, and all four network requests returned 200. Two nonblocking WebGLRenderer console messages did not prevent either WebGL2 scene from rendering.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-51-834Z.jpeg",
+        "evidence/page-2026-11-12T12-32-10-142Z.jpeg",
+        "evidence/page-2026-11-12T12-32-43-819Z.jpeg",
+        "evidence/page-2026-11-12T12-33-31-619Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The saved console log contains two THREE.WebGLRenderer 'A WebGL context could not be created' errors; both canvases rendered before and after reload, so they were treated as nonblocking. The errors may be related to the read-only WebGL context probe.",
+    "At 390x844 the Sun globe is partially clipped by the left edge of the model canvas; its label remains readable and the model is still legible.",
+    "Touch hardware was not available; mobile behavior was checked only through a 390x844 viewport emulation.",
+    "Reduced motion was tested with browser media emulation plus reload, not an OS-level preference change.",
+    "Full-page mobile screenshots render the fixed skip link at the scrolled viewport position; runtime inspection confirmed it was unfocused and translated off-screen."
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "summary": "Northlight presents a polished tabletop-studio shell with desktop and mobile layouts, crop controls, backdrop choices, light-rig controls, reset, and working PNG exports. However, the live camera preview reports that WebGL could not start and remains a flat fallback in both viewports and after reload, so the required real-time 3D lighting feedback cannot be used.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The document, styles, scripts, and Three.js resources loaded successfully; controls responded, downloads were produced, and the page remained interactive on desktop and mobile. The unavailable 3D renderer is assessed separately under scene.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-28-18-501Z.jpeg",
+      "evidence/page-2026-11-12T12-32-08-896Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "FAIL",
+    "reason": "The camera-preview canvas never rendered the studio scene. Every inspected state showed a beige fallback with the message 'WebGL could not start. Try a browser with hardware acceleration.' No live geometry, depth, occlusion, or lighting response was available; the mug appears only in exported stills.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-28-18-501Z.jpeg",
+      "evidence/page-2026-11-12T12-29-02-967Z.jpeg",
+      "evidence/page-2026-11-12T12-29-14-800Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "FAIL",
+      "reason": "Live 3D depth and geometry could not be inspected across views because the renderer failed on initial load and after reload. Exported stills show a mug-shaped subject, but a static export does not establish the required real-time 3D scene.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-18-501Z.jpeg",
+        "evidence/page-2026-11-12T12-30-20-048Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-210Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PARTIAL",
+      "reason": "The dashboard typography, color system, hierarchy, and mobile reflow are coherent, and both delivered export photographs have legible ceramic form and convincing light/shadow shading. The main preview is nevertheless an empty fallback, creating an obvious visual gap in the primary experience.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-18-501Z.jpeg",
+        "evidence/page-2026-11-12T12-30-20-048Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-210Z.jpeg",
+        "evidence/page-2026-11-12T12-31-20-681Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "FAIL",
+      "reason": "Dragging the key and fill softbox markers changed their marker positions, but the camera preview remained unchanged and blank. The primary promised feedback of seeing highlights and shadows respond was therefore not delivered, although crop, backdrop, and export controls reacted.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-18-501Z.jpeg",
+        "evidence/page-2026-11-12T12-29-37-549Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PARTIAL",
+      "reason": "Reset restored the default crop, backdrop, light positions, and slider values after experimentation, and reload restored the usable default shell. Export repeats also worked for both crops, but repeat light adjustments could not be judged because the live preview never changed; boundary behavior was not exhaustively tested.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-37-549Z.jpeg",
+        "evidence/page-2026-11-12T12-30-41-060Z.jpeg",
+        "evidence/page-2026-11-12T12-32-08-896Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "reason": "At 1440x900 and 390x844 the layout remained readable without horizontal overflow; lower mobile controls, keyboard focus, reload, reset, and downloads were reachable. The main preview still failed consistently with the WebGL message. Network resources returned 200/304 and the console contained no errors or warnings.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-15-558Z.jpeg",
+        "evidence/page-2026-11-12T12-31-20-681Z.jpeg",
+        "evidence/page-2026-11-12T12-32-08-896Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PARTIAL",
+      "reason": "The exported photographs show a ceramic mug with a clearly curved body and handle on a seamless shaded backdrop, indicating the intended subject and initial composition. The initial live preview itself shows only the WebGL failure fallback, so the genuine real-time 3D mug cannot be confirmed in the requested editing view.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-18-501Z.jpeg",
+        "evidence/page-2026-11-12T12-30-20-048Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-210Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "FAIL",
+      "reason": "The top-down rig exposes two softbox markers, a reflector marker, and a camera marker. Both softboxes could be dragged, but their movement produced no visible highlight or shadow change in the camera preview because the live scene never rendered.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-18-501Z.jpeg",
+        "evidence/page-2026-11-12T12-29-37-549Z.jpeg",
+        "evidence/page-2026-11-12T12-30-20-048Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PARTIAL",
+      "reason": "Portrait selection changed the preview frame from 1:1 to 4:5, and Sage selection changed the swatch and color label. The live shot area stayed a flat beige fallback rather than reflecting either the selected backdrop or a rendered crop, although later exports did contain the correct crop and selected Sage backdrop.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-14-800Z.jpeg",
+        "evidence/page-2026-11-12T12-29-21-375Z.jpeg",
+        "evidence/page-2026-11-12T12-30-20-048Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-210Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Portrait exported as a 1600x2000 PNG and square as a 2000x2000 PNG. The browser-delivered image captures show clean finished shots with no editor handles and the correct aspect ratios. Reset then restored the Dune backdrop, square crop, original light positions, and default slider values.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-20-048Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-210Z.jpeg",
+        "evidence/page-2026-11-12T12-30-41-060Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 2,
+      "reason": "The studio theme and several requested flows are present: crop selection, backdrop choice, PNG export, reset, and a usable-looking initial exported composition. The central requested flow, moving lights to judge highlights and shadows in the live camera preview, is unavailable.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-18-501Z.jpeg",
+        "evidence/page-2026-11-12T12-29-37-549Z.jpeg",
+        "evidence/page-2026-11-12T12-30-20-048Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-210Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 0,
+      "reason": "No valid live 3D scene was rendered, so task-relevant geometry, depth, occlusion, material response, and viewpoint coherence could not be established. Per the rubric, a running page without valid 3D receives a spatial score of 0.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-18-501Z.jpeg",
+        "evidence/page-2026-11-12T12-29-14-800Z.jpeg",
+        "evidence/page-2026-11-12T12-30-20-048Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 1,
+      "reason": "Crop, backdrop, reset, reload, and export interactions work, but the required lighting interaction only moves editor markers. It does not produce the promised scene-level highlight and shadow feedback, so the primary control response is superficial.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-37-549Z.jpeg",
+        "evidence/page-2026-11-12T12-29-21-375Z.jpeg",
+        "evidence/page-2026-11-12T12-30-41-060Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 2,
+      "reason": "The interface has a clear editorial studio identity, strong hierarchy, restrained palette, and coherent responsive layout, while the exported photographs show polished material and lighting. The blank live-preview panel is an obvious scene-level inconsistency in an otherwise readable design.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-18-501Z.jpeg",
+        "evidence/page-2026-11-12T12-31-20-681Z.jpeg",
+        "evidence/page-2026-11-12T12-30-20-048Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-210Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 2,
+      "reason": "The shell remained responsive on desktop and mobile, lower controls were reachable, reload and reset worked, and exports completed without console errors. The renderer nevertheless failed consistently on every load, blocking the main 3D photography experience.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-15-558Z.jpeg",
+        "evidence/page-2026-11-12T12-31-20-681Z.jpeg",
+        "evidence/page-2026-11-12T12-32-08-896Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The MCP Chromium exposed WebGL1 through SwiftShader but not WebGL2; the page consequently reported that WebGL could not start. Real-time 3D behavior, parallax, and lighting response could not be directly observed in any live view.",
+    "The advertised UI has no camera-orbit or viewpoint control, so the camera remained fixed; exported portrait and square stills are not substitutes for live multi-view 3D verification.",
+    "Touch hardware was not available; the 390x844 viewport verifies responsive layout and pointer-keyboard access, not physical touch behavior.",
+    "Keyboard focus was sampled at the first reachable control and shown to scroll into view; exhaustive traversal of every control was not performed within the 40-call budget.",
+    "Console and network diagnostics are saved in evidence/console.txt and evidence/network.txt; downloaded PNGs were opened through a temporary local HTTP server and re-captured with MCP screenshots."
+  ]
+}

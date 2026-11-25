@@ -1,0 +1,196 @@
+{
+  "summary": "Roomcraft runs as a polished, real-time Three.js room planner. The initial 6×4 m open-sided room, palette, object editing, collision/boundary protection, orbit and floor-plan views, and local save/restore/reset flows were all exercised successfully. The main caveats are very compact mobile editing hit targets and an unverified grid-snap increment because snapped drag attempts resolved as conflicts.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded and rendered the interactive room without a blocking failure. Console output contains 0 errors and 0 warnings, and network inspection shows the HTML, CSS, JavaScript, Three.js, OrbitControls, and RoundedBoxGeometry resources returning 200/304.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-29-13-025Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The rendered scene is genuine real-time 3D: camera movement changes the perspective and occlusion relationships, while the floor-plan view exposes a different top-down spatial projection of the same models.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-29-13-025Z.jpeg",
+      "evidence/page-2026-11-12T12-33-25-612Z.jpeg",
+      "evidence/page-2026-11-12T12-33-57-659Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct viewpoints were inspected: the initial isometric perspective, an orbited perspective, and the top-down floor plan. Furniture depth, wall occlusion, shadows, floor contact, and relative footprint geometry remain coherent across them.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-13-025Z.jpeg",
+        "evidence/page-2026-11-12T12-33-25-612Z.jpeg",
+        "evidence/page-2026-11-12T12-33-57-659Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The warm daylight palette, soft shadows, distinct sofa/table/chair/lamp materials, clear workspace hierarchy, and readable controls form a coherent room-planner presentation. The floor plan remains legible, though the top-view lamp shadow clips the upper edge.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-13-025Z.jpeg",
+        "evidence/page-2026-11-12T12-33-25-612Z.jpeg",
+        "evidence/page-2026-11-12T12-35-37-654Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Selecting furniture exposes a clear highlight and edit panel. Add, rotate, recolor, delete, and drag actions produced immediate visible scene and status changes. The advertised R-key shortcut did not rotate the selection, but the visible rotate control did.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-28-053Z.jpeg",
+        "evidence/page-2026-11-12T12-29-43-052Z.jpeg",
+        "evidence/page-2026-11-12T12-32-10-417Z.jpeg",
+        "evidence/page-2026-11-12T12-32-36-721Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Invalid overlap and boundary drags retained the last valid placement; an overlap attempt showed a red frame, red footprint, and explicit warning. Save, reload, restore, and reset were also exercised as reverse/recovery flows.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-43-136Z.jpeg",
+        "evidence/page-2026-11-12T12-34-49-465Z.jpeg",
+        "evidence/page-2026-11-12T12-35-05-373Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Desktop 1440×900 and mobile 390×844 layouts were inspected. Mobile palette tiles and save/restore/reset, view toggles, snap, rotate, delete, and color controls remain in the viewport; adding and recoloring worked. Reload was stable, with no console errors or missing resources. Editing hit targets are unusually small for touch.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-34-31-396Z.jpeg",
+        "evidence/page-2026-11-12T12-35-12-338Z.jpeg",
+        "evidence/page-2026-11-12T12-35-22-990Z.jpeg",
+        "evidence/page-2026-11-12T12-35-37-654Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The initial scene explicitly identifies a 6×4 m open floor plan and shows a furnished sofa, coffee table, armchair, and floor lamp. The palette contains add controls for all four requested furniture types.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-13-025Z.jpeg",
+        "evidence/page-2026-11-12T12-33-25-612Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Selection outlined the sofa/armchair and exposed controls. A 90-degree rotation changed the armchair angle, a sage recolor changed the sofa, an added floor lamp increased the count to five, and delete removed the selected lamp and cleared the selection.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-28-053Z.jpeg",
+        "evidence/page-2026-11-12T12-29-43-052Z.jpeg",
+        "evidence/page-2026-11-12T12-32-10-417Z.jpeg",
+        "evidence/page-2026-11-12T12-32-25-921Z.jpeg",
+        "evidence/page-2026-11-12T12-32-36-721Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PARTIAL",
+      "reason": "Furniture moved to a valid new floor location, and the camera remained fixed while dragging a selected object. The snap toggle changed between off and on, but the attempted snapped moves were rejected as collisions, so actual 0.25 m snap increments could not be independently confirmed.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-13-217Z.jpeg",
+        "evidence/page-2026-11-12T12-30-43-136Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "An attempted move beyond the room was rejected and retained the prior coordinates. Dragging the sofa over the coffee table showed a red footprint, red canvas border, and an explicit overlap warning before release; the rejected rotation retained the previous angle and the boundary status was reported.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-43-136Z.jpeg",
+        "evidence/page-2026-11-12T12-29-59-646Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "After editing and selecting the sofa, switching to Floor plan and back to Perspective preserved the four-piece arrangement, sofa position, chosen sage finish, and sofa selection/control panel.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-33-25-612Z.jpeg",
+        "evidence/page-2026-11-12T12-33-45-498Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PASS",
+      "reason": "After saving a modified arrangement, adding another armchair, and reloading, the page returned to the initial room. Restore then recovered the saved four-piece layout with the 'Saved layout restored' state, and Reset returned to the original arrangement. A read-only runtime check found localStorage key roomcraft-layout-v1.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-34-31-396Z.jpeg",
+        "evidence/page-2026-11-12T12-34-49-465Z.jpeg",
+        "evidence/page-2026-11-12T12-35-05-373Z.jpeg"
+      ]
+    },
+    {
+      "id": "T07",
+      "status": "PARTIAL",
+      "reason": "At 390×844 the palette, view switcher, snap toggle, and selected-item panel stay reachable, and adding an armchair plus changing its finish worked. However, the essential edit controls are only 28–32 px square (rotate 31 px, delete 28 px, swatches 29–32 px), which is cramped for comfortable touch use.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-35-12-338Z.jpeg",
+        "evidence/page-2026-11-12T12-35-22-990Z.jpeg",
+        "evidence/page-2026-11-12T12-35-37-654Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 3,
+      "reason": "All primary requested flows are present and coherent, but mobile editing controls are not comfortably sized for touch and snapped movement was not independently verified.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-13-025Z.jpeg",
+        "evidence/page-2026-11-12T12-34-49-465Z.jpeg",
+        "evidence/page-2026-11-12T12-35-37-654Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Furniture proportions, 6×4 m floor scale, depth, wall occlusion, floor contact, daylight shadows, and the relation between perspective and plan views consistently support the planning task.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-13-025Z.jpeg",
+        "evidence/page-2026-11-12T12-33-25-612Z.jpeg",
+        "evidence/page-2026-11-12T12-33-57-659Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "Required editing, collision recovery, view switching, and persistence flows work repeatedly. Local issues remain: the advertised R shortcut failed to rotate, snap increments were not confirmed, and mobile edit hit areas are very small.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-43-136Z.jpeg",
+        "evidence/page-2026-11-12T12-32-10-417Z.jpeg",
+        "evidence/page-2026-11-12T12-35-22-990Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The warm architectural palette, readable typography, well-separated furniture silhouettes, consistent daylight lighting, and responsive rearrangement of controls produce a coherent and purposeful presentation.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-13-025Z.jpeg",
+        "evidence/page-2026-11-12T12-33-57-659Z.jpeg",
+        "evidence/page-2026-11-12T12-35-37-654Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "Desktop, mobile, repeated edits, reload, restore, and reset remained functional; the console was clean and all resources loaded. The compact mobile edit targets are a local nonblocking usability issue.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-34-31-396Z.jpeg",
+        "evidence/page-2026-11-12T12-35-12-338Z.jpeg",
+        "evidence/page-2026-11-12T12-35-37-654Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The 390×844 layout was exercised through Playwright viewport emulation and pointer input, not physical touch hardware.",
+    "The mobile edit controls are only 28–32 px square, below common 44 px touch-target guidance, although they remained reachable and functional.",
+    "The advertised R keyboard shortcut did not change the selected armchair in testing; the on-screen Rotate 90° control worked.",
+    "The snap toggle changed state, but tested snapped drag attempts ended as collision conflicts, so the intended 0.25 m snapping behavior was not independently observed.",
+    "Audio quality was not applicable because the task contains no audio requirement."
+  ]
+}

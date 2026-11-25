@@ -1,0 +1,172 @@
+{
+  "summary": "Atelier 07 presents a polished, genuinely 3D skeleton mechanical watch that can be orbited and zoomed, exploded to reveal its movement, and reassembled. The gear train and balance visibly animate, the assembly/reassembly flow repeats reliably, and the layout holds up on desktop and the 390x844 mobile viewport. Only a benign favicon 404 appears in diagnostics.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded and rendered a full-viewport WebGL watch at 1440x900; all app modules returned HTTP 200/304. The sole console message is a non-blocking favicon.ico 404, and reloading restored the initial state cleanly.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-57-26-264Z.jpeg",
+      "evidence/page-2026-11-12T13-01-19-620Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The scene is a real three.js mechanical watch: dragging changes perspective with correct parallax and occlusion of the case, lugs, crown, dial ring, hands and layered movement; scroll zoom works; the exploded state separates depth layers; and the movement animates.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-57-47-225Z.jpeg",
+      "evidence/page-2026-11-12T12-57-56-145Z.jpeg",
+      "evidence/page-2026-11-12T12-59-39-769Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three materially different camera views were observed: face-on assembled, rotated, and steeply tilted. The tilted view exposes case thickness, lugs, crown and the recessed movement, confirming genuine task-relevant geometry and depth rather than a flat image.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-57-26-264Z.jpeg",
+        "evidence/page-2026-11-12T12-57-36-659Z.jpeg",
+        "evidence/page-2026-11-12T12-57-47-225Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The composition uses an editorial serif headline, gold/green/cream palette, dark watchmaker-desk field, anchored 3D labels and restrained controls. Materials, lighting and hierarchy read coherently on desktop and mobile without becoming illegible.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-57-26-264Z.jpeg",
+        "evidence/page-2026-11-12T12-59-39-769Z.jpeg",
+        "evidence/page-2026-11-12T13-01-26-012Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary Take apart control produced a clear exploded state with the bezel/dial lifted, and Reassemble restored the coherent assembly. Orbit drag and scroll zoom gave immediate spatial feedback, and slow motion toggled from 1x to 1/4x.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-57-56-145Z.jpeg",
+        "evidence/page-2026-11-12T12-58-43-976Z.jpeg",
+        "evidence/page-2026-11-12T12-59-39-769Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "The disassemble/reassemble cycle was completed twice, including reverse operation. Reloading restored the assembled state, default camera and normal motion, and Tab navigation reached the lower exploded-view slider on mobile.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-57-56-145Z.jpeg",
+        "evidence/page-2026-11-12T12-58-43-976Z.jpeg",
+        "evidence/page-2026-11-12T13-01-19-620Z.jpeg",
+        "evidence/page-2026-11-12T13-01-38-183Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Both 1440x900 and 390x844 were inspected. On mobile the watch, Take apart button, assembled/exploded label and slider remain visible and keyboard-focusable, with Reset view reachable above them. Reload and repeated controls were stable. Network logs show all app modules loaded; console shows only a benign favicon 404.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-01-26-012Z.jpeg",
+        "evidence/page-2026-11-12T13-01-38-183Z.jpeg",
+        "evidence/page-2026-11-12T13-01-19-620Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "A recognizable detailed skeleton watch is rendered in 3D with a case, bezel, lugs, crown, hands, jewels, bridges, several gear wheels and a balance spring. Tilted and zoomed views expose the internal movement rather than a static front image.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-57-47-225Z.jpeg",
+        "evidence/page-2026-11-12T12-59-39-769Z.jpeg",
+        "evidence/page-2026-11-12T12-57-56-145Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Take apart separates the bezel/dial assembly from the movement with visible depth, and Reassemble returns the parts to a coherent assembled watch. The full sequence was repeated successfully without misplacement.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-57-56-145Z.jpeg",
+        "evidence/page-2026-11-12T12-58-43-976Z.jpeg",
+        "evidence/page-2026-11-12T13-01-19-620Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Consecutive close-ups show the gear teeth and balance-wheel spokes at different angles while the hands advance. Frame differencing of the gear areas produced substantially more change than the static dial background, confirming visible continuous movement rather than a static picture.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-59-39-769Z.jpeg",
+        "evidence/page-2026-11-12T12-59-51-440Z.jpeg",
+        "evidence/page-2026-11-12T12-59-01-068Z.jpeg",
+        "evidence/page-2026-11-12T12-59-09-138Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "The interior remains inspectable in both exploded and assembled states through orbit and zoom, while the assembly controls stay anchored at the bottom and remain reachable on desktop and mobile. Switching states did not obscure or remove access to Reassemble or Take apart.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-57-56-145Z.jpeg",
+        "evidence/page-2026-11-12T12-58-43-976Z.jpeg",
+        "evidence/page-2026-11-12T13-01-26-012Z.jpeg",
+        "evidence/page-2026-11-12T13-01-38-183Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All stated requirements are delivered coherently: a beautiful 3D mechanical watch, peekable internal movement, gear animation, full disassembly and reassembly, and a watchmaker-desk presentation that remains usable across tested states.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-57-26-264Z.jpeg",
+        "evidence/page-2026-11-12T12-57-56-145Z.jpeg",
+        "evidence/page-2026-11-12T12-58-43-976Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Shapes, scale and depth consistently serve the task. Orbit views reveal convincing case thickness, layered movement geometry and occlusion; the exploded view preserves part relationships; metallic, dial and jewel materials are coherent, with only minor abstract detailing at the caseback.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-57-47-225Z.jpeg",
+        "evidence/page-2026-11-12T12-57-56-145Z.jpeg",
+        "evidence/page-2026-11-12T12-59-39-769Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Primary, reverse, repeat and advertised secondary controls work naturally: Take apart/Reassemble, slow motion, orbit and zoom all provide visible state feedback, and Reset view remains present and reachable. Reload provides a clean recovery path, and keyboard focus reaches the slider.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-57-56-145Z.jpeg",
+        "evidence/page-2026-11-12T12-58-43-976Z.jpeg",
+        "evidence/page-2026-11-12T13-01-19-620Z.jpeg",
+        "evidence/page-2026-11-12T13-01-38-183Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "Composition, typography, color and 3D presentation form a coherent luxury-watchmaker expression. The gold, green and cream palette, editorial headline, and state change from intact to exploded all improve understanding while keeping controls subordinate to the watch.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-57-26-264Z.jpeg",
+        "evidence/page-2026-11-12T12-57-47-225Z.jpeg",
+        "evidence/page-2026-11-12T13-01-26-012Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "All tested standard and repeat flows were stable and readable on 1440x900 and 390x844. Reload restored the initial state reliably, and all application resources returned 200/304. The only console error is a non-blocking favicon 404.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-01-19-620Z.jpeg",
+        "evidence/page-2026-11-12T13-01-26-012Z.jpeg",
+        "evidence/page-2026-11-12T13-01-38-183Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "Reset view was observed in the UI but not clicked within the 40-call budget; camera recovery was instead verified through reload.",
+    "Intermediate slider drag values were not exercised; the slider's endpoint states were verified from the assembled/exploded controls and it was confirmed focusable by keyboard.",
+    "Touch-hardware behavior was not verified; 390x844 was tested as a viewport emulation only.",
+    "No audio or downloadable export is offered by this page, so those aspects were not evaluated.",
+    "Gear meshing realism was judged from rendered views and frame-to-frame motion, not from physical simulation.",
+    "Console and network diagnostics are saved at evidence/console.txt and evidence/network.txt; per instructions they are discussed in reasons rather than used as image evidence."
+  ]
+}

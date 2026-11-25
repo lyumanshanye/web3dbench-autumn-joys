@@ -1,0 +1,205 @@
+{
+  "summary": "The dashboard runs as a coherent, selectable three-floor energy model with twelve rooms and a bundled seven-day hourly sample dataset. It supports metric switching, floor isolation, synchronized table/3D/chart selection, two-room comparison, partial-data disclosure, and filtered CSV export. Desktop and 390px-wide layouts were inspected; the remaining unverified checks are page reload and keyboard focus traversal.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page opened at 1440x900 and remained interactive through all tested filters, selection, comparison, orbit, export, and mobile-layout states. Console diagnostics recorded 0 errors/warnings, and all listed local assets returned HTTP 200 (evidence/console.txt and evidence/network.txt).",
+    "evidence": [
+      "evidence/page-2026-11-12T12-26-35-306Z.jpeg",
+      "evidence/page-2026-11-12T12-33-07-555Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The scene is a genuine live 3D cutaway: floor slabs and four room volumes per level show depth, occlusion, lighting, and material response. Hiding or isolating floors changes the visible volumes, and an orbit drag visibly changed the camera perspective.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-26-35-306Z.jpeg",
+      "evidence/page-2026-11-12T12-27-36-765Z.jpeg",
+      "evidence/page-2026-11-12T12-29-05-252Z.jpeg",
+      "evidence/page-2026-11-12T12-33-07-555Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Depth and geometry were inspected in the full cutaway, with the third floor hidden, with the second floor isolated, and after an orbit drag. These views show different floor/room volumes, occlusion, and a changed camera perspective.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-35-306Z.jpeg",
+        "evidence/page-2026-11-12T12-27-36-765Z.jpeg",
+        "evidence/page-2026-11-12T12-29-05-252Z.jpeg",
+        "evidence/page-2026-11-12T12-33-07-555Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Composition, typography, dark-room contrast, room color encoding, legend placement, and chart readability form a coherent facilities dashboard. The selected-room tooltip and orange-to-teal scale remain legible across desktop and narrow layouts.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-35-306Z.jpeg",
+        "evidence/page-2026-11-12T12-27-10-171Z.jpeg",
+        "evidence/page-2026-11-12T12-28-40-366Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Primary controls produce meaningful state changes: table rows select and outline rooms, metric buttons switch the legend and figures, time presets alter the interval count, floor controls change visible rooms, and comparison selectors redraw the shared chart.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-59-419Z.jpeg",
+        "evidence/page-2026-11-12T12-27-22-633Z.jpeg",
+        "evidence/page-2026-11-12T12-28-40-366Z.jpeg",
+        "evidence/page-2026-11-12T12-29-05-252Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeat and reverse flows worked: Show all restored hidden floors, hiding the selected third floor cleared the room selection, isolation filtered both model and table, sorting reordered rows while retaining selection, and comparison updated after the time/floor change.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-36-765Z.jpeg",
+        "evidence/page-2026-11-12T12-28-10-509Z.jpeg",
+        "evidence/page-2026-11-12T12-28-53-286Z.jpeg",
+        "evidence/page-2026-11-12T12-29-05-252Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "reason": "The 1440x900 layout and a full-page 390x844 layout were inspected; the latter exposes the model, summary, table, floor controls, metric controls, and dataset note without unreachable page content. The narrow table shows only its leading columns without an obvious horizontal affordance, and page reload plus keyboard focus traversal were not exercised. Console had 0 errors/warnings and local resources were 200 OK per the saved diagnostics.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-35-306Z.jpeg",
+        "evidence/page-2026-11-12T12-32-24-314Z.jpeg",
+        "evidence/page-2026-11-12T12-33-07-555Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The header identifies bundled sample data for 03–09 Nov 2025 with 168 hourly intervals, 3 floors, and 12 rooms; each floor card reports four rooms. The table exposes stable room IDs, floor area in m², kWh and kWh/m² values, and 168-expected readings for the seven-day window, while model colors and charts reflect the same selected readings.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-35-306Z.jpeg",
+        "evidence/page-2026-11-12T12-28-10-509Z.jpeg",
+        "evidence/page-2026-11-12T12-29-05-252Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "The initial Finance Office chart exposes an after-hours 02:00 spike of 7.45 kWh; the Server Room chart shows continuous load across the day; the Meeting Room A comparison curve shows daytime activity; and the Quiet Office chart shows a distinct dashed missing run.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-35-306Z.jpeg",
+        "evidence/page-2026-11-12T12-26-59-419Z.jpeg",
+        "evidence/page-2026-11-12T12-27-10-171Z.jpeg",
+        "evidence/page-2026-11-12T12-29-05-252Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Total energy used a labeled 0/75/150 kWh legend and energy intensity used a labeled 0/5.2/10.3 kWh/m² legend. After hiding the selected third floor, the intensity legend endpoints remained unchanged. The Quiet Office chart renders missing readings as dashed/checkered segments, visually separate from zero-height bars.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-35-306Z.jpeg",
+        "evidence/page-2026-11-12T12-27-10-171Z.jpeg",
+        "evidence/page-2026-11-12T12-27-22-633Z.jpeg",
+        "evidence/page-2026-11-12T12-27-36-765Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "The Quiet Office is explicitly labeled Partial with 21/24 readings, and its detail panel states that 21 of 24 hourly readings are available. The seven-day view similarly labels it Partial at 165/168.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-10-171Z.jpeg",
+        "evidence/page-2026-11-12T12-28-10-509Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "Selecting the Server Room row highlighted the row and updated the 3D tooltip, room summary, and hourly chart. Sorting retained the Finance Office selection across table and 3D. Hiding the selected third floor cleared the selection and replaced summary/chart content with the shared 'No room selected' state.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-59-419Z.jpeg",
+        "evidence/page-2026-11-12T12-27-36-765Z.jpeg",
+        "evidence/page-2026-11-12T12-28-53-286Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PASS",
+      "reason": "Changing from 24h to 7 days changed the window to 168 intervals and updated table totals/completeness. Isolating the second floor reduced the model/table to four rooms and adjusted the comparison options. Finance Office versus Server Room produced a shared hourly chart with both series and totals.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-10-509Z.jpeg",
+        "evidence/page-2026-11-12T12-28-40-366Z.jpeg",
+        "evidence/page-2026-11-12T12-29-05-252Z.jpeg"
+      ]
+    },
+    {
+      "id": "T07",
+      "status": "PASS",
+      "reason": "The downloaded CSV was opened in the browser and shows exactly the four second-floor rows matching the active filter. Headers include total_energy_kwh, energy_intensity_kwh_per_m2, readings_available, readings_expected, completeness_percent, missing_readings, and data_status; every exported row is marked Complete with 24/24 readings.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-02-465Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All stated requirements were delivered coherently across the tested states: bundled seven-day hourly sample data, 3D room selection, metric and floor filtering, missing/partial handling, synchronized table/chart/model views, two-room comparison, fixed color scale, and filtered CSV export.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-35-306Z.jpeg",
+        "evidence/page-2026-11-12T12-27-10-171Z.jpeg",
+        "evidence/page-2026-11-12T12-28-10-509Z.jpeg",
+        "evidence/page-2026-11-12T12-28-40-366Z.jpeg",
+        "evidence/page-2026-11-12T12-30-02-465Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The cutaway's three stacked floor plates and twelve room volumes are consistently shaped, scaled, lit, and occluded. Floor-hiding, isolation, selection tooltips, and orbit movement preserve spatial understanding.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-35-306Z.jpeg",
+        "evidence/page-2026-11-12T12-27-36-765Z.jpeg",
+        "evidence/page-2026-11-12T12-29-05-252Z.jpeg",
+        "evidence/page-2026-11-12T12-33-07-555Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Selection, sorting, time presets, metric switching, hiding/showing, isolation, comparison, and CSV download all provide immediate and consistent feedback. Reverse and recovery flows, including hiding the selected floor and restoring all floors, remain reliable.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-36-765Z.jpeg",
+        "evidence/page-2026-11-12T12-28-40-366Z.jpeg",
+        "evidence/page-2026-11-12T12-28-53-286Z.jpeg",
+        "evidence/page-2026-11-12T12-29-05-252Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The dashboard has a purposeful dark analytical style, clear hierarchy, readable labels, coherent room color encoding, and useful state emphasis. The 3D model, legend, summary, and charts read as one designed system on desktop and mobile.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-35-306Z.jpeg",
+        "evidence/page-2026-11-12T12-28-40-366Z.jpeg",
+        "evidence/page-2026-11-12T12-32-24-314Z.jpeg",
+        "evidence/page-2026-11-12T12-33-07-555Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "Tested flows remained stable and all local resources loaded with no console errors. The 390px full-page layout exposes lower controls and remains readable, but the wide room table requires horizontal access for trailing columns; page reload and keyboard focus traversal were not verified.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-35-306Z.jpeg",
+        "evidence/page-2026-11-12T12-32-24-314Z.jpeg",
+        "evidence/page-2026-11-12T12-33-07-555Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "Page reload and keyboard focus traversal were not exercised, so G05 is marked PARTIAL and stability is scored 3 rather than 4.",
+    "The 390px full-page screenshot shows the room table's leading columns while trailing columns require horizontal access; the exact horizontal-scroll affordance was not separately exercised.",
+    "A 3D room click was not separately exercised; synchronization was verified from table-to-3D selection, summary/chart updates, sorting, and clearing through floor hiding.",
+    "The CSV export was sampled while the second-floor filter was active, so all four exported rows were complete; the exported completeness columns were verified, but a partial row was not present in that particular download.",
+    "Audio quality is not applicable, and internal dataset implementation details were not inspected beyond values visible through the UI and export."
+  ]
+}

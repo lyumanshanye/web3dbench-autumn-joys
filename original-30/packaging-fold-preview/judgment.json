@@ -1,0 +1,189 @@
+{
+  "summary": "Foldline delivers a coherent carton preflight workspace: a dimensioned flat tuck-lid net and a real-time 3D carton stay synchronized through dimension edits, linked panel selection, independent panel colors, multi-stage folding, sample reset, and an SVG proof export. The desktop and 390 px mobile layouts remained usable through the tested flows.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded normally and all tested controls responded, including dimensions, camera presets, fold slider, panel selection, artwork controls, reset, and SVG export. No blocking console or network failure was observed; app assets loaded with 200/304 responses.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-30-39-946Z.jpeg",
+      "evidence/page-2026-11-12T12-33-17-588Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The 3D preview is genuine, camera-relative rendering: ISO, TOP, and FRONT views reveal depth, foreshortening, inter-panel occlusion, and continuous shared-edge folding. The carton geometry also remains coherent from flat through intermediate and closed states.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-30-39-946Z.jpeg",
+      "evidence/page-2026-11-12T12-30-58-549Z.jpeg",
+      "evidence/page-2026-11-12T12-31-04-988Z.jpeg",
+      "evidence/page-2026-11-12T12-32-27-852Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct camera views were inspected. ISO shows box depth and face occlusion, TOP shows the opened net in plan, and FRONT shows the folded relationship between the front, sides, and lid without a static-image substitute.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-39-946Z.jpeg",
+        "evidence/page-2026-11-12T12-30-58-549Z.jpeg",
+        "evidence/page-2026-11-12T12-31-04-988Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The composition has clear hierarchy and consistent typography, color, and lighting. Dieline labels, proof notes, 3D surface artwork, and controls remain legible across sample, edited-color, and mobile states.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-39-946Z.jpeg",
+        "evidence/page-2026-11-12T12-32-03-745Z.jpeg",
+        "evidence/page-2026-11-12T12-36-17-838Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary UI gives meaningful feedback: dimension changes update both views, the fold slider and camera buttons alter the scene, panel selection mirrors across views, and artwork/color edits immediately affect the intended surfaces.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-17-009Z.jpeg",
+        "evidence/page-2026-11-12T12-31-49-618Z.jpeg",
+        "evidence/page-2026-11-12T12-32-03-745Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated and reverse folding worked from 0% to 50% to an animated close at 100%, after which Reset restored the sample. Selection changes also repeated reliably and did not corrupt prior artwork or colors.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-32-16-142Z.jpeg",
+        "evidence/page-2026-11-12T12-32-27-852Z.jpeg",
+        "evidence/page-2026-11-12T12-33-04-411Z.jpeg",
+        "evidence/page-2026-11-12T12-33-17-588Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Desktop at 1440x900 and mobile at 390x844 were inspected. The mobile page had no horizontal overflow, lower specification controls were reachable by scrolling, keyboard Tab reached the home link, and the fresh loaded page showed no console errors; network resources were 200/304. Earlier diagnostics contained only a nonblocking favicon.ico 404.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-39-946Z.jpeg",
+        "evidence/page-2026-11-12T12-36-10-779Z.jpeg",
+        "evidence/page-2026-11-12T12-36-17-838Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The initial flat proof identifies a 160 x 110 x 60 mm tuck-lid carton and the adjacent closed 3D carton represents the same rectangular proportions and panel structure. Width, height, and depth annotations are present on the flat net.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-39-946Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Changing all dimensions to 200 x 140 x 85 mm updated the dieline annotations and the 3D geometry together. Cut edges are solid/dark and folds are dashed/orange, with a visible Cut/Fold legend.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-39-946Z.jpeg",
+        "evidence/page-2026-11-12T12-31-17-009Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "The fold slider produced coherent flat, 50%, and closed states. Panels visibly rotate around shared boundaries, and intermediate states were inspected from ISO, TOP, and FRONT views; artwork and panel connections remained intact.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-48-736Z.jpeg",
+        "evidence/page-2026-11-12T12-30-58-549Z.jpeg",
+        "evidence/page-2026-11-12T12-31-04-988Z.jpeg",
+        "evidence/page-2026-11-12T12-32-16-142Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Front, back, both sides, and lid accepted distinct colors while the shop name appeared on each panel. Clicking a 3D side face selected both dieline side panels; selecting the dieline lid selected the 3D lid counterpart. Unrelated panel colors were preserved.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-49-618Z.jpeg",
+        "evidence/page-2026-11-12T12-32-03-745Z.jpeg",
+        "evidence/page-2026-11-12T12-37-38-120Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "The edited North & Pine design stayed attached to its panels through flat, intermediate, and closed states, with side-panel lettering following the side orientation. Reset restored the original Linen & Ink sample name, colors, 160 x 110 x 60 mm dimensions, and selection.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-32-16-142Z.jpeg",
+        "evidence/page-2026-11-12T12-32-27-852Z.jpeg",
+        "evidence/page-2026-11-12T12-33-04-411Z.jpeg",
+        "evidence/page-2026-11-12T12-33-17-588Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PASS",
+      "reason": "The downloaded SVG was opened in the browser and inspected. It shows the complete dimensioned flat net with artwork, solid cut marks, dashed fold marks, W/H/D dimensions, and the note that zero material thickness is used with no bleed or tolerance applied.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-35-41-361Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All stated flows are present and coherent: one tuck-lid carton, synchronized millimeter dimensions, differentiated cut/fold markings, inspectable folding, independent panel colors, linked selection, attached artwork, sample/reset, and a dimensioned SVG proof with the required scope disclosure.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-39-946Z.jpeg",
+        "evidence/page-2026-11-12T12-32-03-745Z.jpeg",
+        "evidence/page-2026-11-12T12-32-27-852Z.jpeg",
+        "evidence/page-2026-11-12T12-35-41-361Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The carton's proportions, connected panels, depth, occlusion, shared-edge folding, lighting, and artwork orientation remain coherent across three camera views and flat/intermediate/closed states.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-39-946Z.jpeg",
+        "evidence/page-2026-11-12T12-30-58-549Z.jpeg",
+        "evidence/page-2026-11-12T12-31-04-988Z.jpeg",
+        "evidence/page-2026-11-12T12-33-04-411Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "The primary controls, linked selections, repeated fold/reverse sequences, animated close, independent editing, export, and reset all behaved reliably with clear state feedback.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-49-618Z.jpeg",
+        "evidence/page-2026-11-12T12-32-16-142Z.jpeg",
+        "evidence/page-2026-11-12T12-33-17-588Z.jpeg",
+        "evidence/page-2026-11-12T12-37-38-120Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The proof-studio composition, restrained palette, serif/sans typography, panel artwork, and responsive layout form a coherent, purpose-built expression. State changes remain easy to read without visual ambiguity.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-39-946Z.jpeg",
+        "evidence/page-2026-11-12T12-32-03-745Z.jpeg",
+        "evidence/page-2026-11-12T12-36-10-779Z.jpeg",
+        "evidence/page-2026-11-12T12-36-17-838Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "Standard desktop and narrow layouts loaded and remained readable, lower mobile controls were reachable, repeated state changes and reset succeeded, and reload diagnostics showed only a nonblocking favicon 404 with all app assets available.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-33-17-588Z.jpeg",
+        "evidence/page-2026-11-12T12-36-10-779Z.jpeg",
+        "evidence/page-2026-11-12T12-36-17-838Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The 390x844 check used browser viewport emulation, not real touch hardware.",
+    "Orbit dragging and scroll zoom were advertised but not separately exercised; 3D verification used the ISO, TOP, and FRONT camera controls.",
+    "Direct file:// navigation was blocked by the browser backend, so the downloaded SVG was rendered through a local read-only HTTP viewer and captured with an MCP screenshot.",
+    "Earlier console diagnostics recorded only a missing favicon.ico; the fresh mobile load reported zero console messages, and the captured network log showed successful app-resource responses."
+  ]
+}

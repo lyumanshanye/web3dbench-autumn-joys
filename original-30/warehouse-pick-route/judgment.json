@@ -1,0 +1,206 @@
+{
+  "summary": "The workbench loads as a polished 3D warehouse pick-route tool with the requested six-item order, editable stops, visible route distances, playback, and aisle-blocking feedback. Desktop editing and rerouting flows are coherent; mobile and a few repeat/recovery checks remain only partially verified within the browser-call budget.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page opened successfully and remained interactive throughout the run. Essential HTML, CSS, JavaScript, and Three.js resources returned 200; the saved console contains only a nonblocking missing favicon.ico 404.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-31-53-672Z.jpeg",
+      "evidence/page-2026-11-12T12-36-12-111Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "Genuine real-time 3D is present: the oblique planning view shows shelving depth, aisle occlusion, a route line, bins, and the packing station, while the follow camera and animated picker establish a separate spatial viewpoint. The same scene remains live when switching to overhead playback.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-31-53-672Z.jpeg",
+      "evidence/page-2026-11-12T12-32-14-677Z.jpeg",
+      "evidence/page-2026-11-12T12-32-52-834Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "requirement": "Inspect genuine task-relevant depth and geometry across at least three distinct views where appropriate; fixed-camera designs may use read-only runtime probes.",
+      "reason": "Three distinct useful views were inspected: the oblique planning view, the picker-following view, and the overhead playback view. Shelf rows, cross-aisles, the packing counter, route geometry, and depth occlusion are visibly consistent between them.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-53-672Z.jpeg",
+        "evidence/page-2026-11-12T12-32-14-677Z.jpeg",
+        "evidence/page-2026-11-12T12-32-52-834Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "requirement": "Inspect composition, materials, light, color and legibility without preferring realism, a framework or a particular aesthetic.",
+      "reason": "The dark control rail, cyan route accents, warm shelf materials, directional lighting, and compact bin tags form a coherent workbench. Desktop hierarchy and legibility are strong; the follow view becomes locally dominated by the oversized packing sign, which is reflected in the visual score.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-53-672Z.jpeg",
+        "evidence/page-2026-11-12T12-32-14-677Z.jpeg",
+        "evidence/page-2026-11-12T12-36-12-111Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "requirement": "Exercise the primary UI and verify meaningful scene/state feedback; do not invent extra controls.",
+      "reason": "Primary controls produced meaningful feedback: quantity changes reset pickup progress and distance; item removal reduced the order to five stops and recomputed distance; reordering changed the route to 130.2 m; blocking changed or invalidated the route; play visibly moved the picker and pause changed the status to Paused.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-33-16-102Z.jpeg",
+        "evidence/page-2026-11-12T12-33-31-699Z.jpeg",
+        "evidence/page-2026-11-12T12-34-10-990Z.jpeg",
+        "evidence/page-2026-11-12T12-36-03-989Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PARTIAL",
+      "requirement": "Exercise repeat, reverse, boundary and recovery behavior appropriate to the requested and advertised flows.",
+      "reason": "Blocked-segment recovery and order reset were exercised, and repeated order edits recalculated the route. The advertised restart control and a full page reload were not directly exercised before the browser-call limit, so complete repeat/reverse coverage is unverified.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-33-48-399Z.jpeg",
+        "evidence/page-2026-11-12T12-34-10-990Z.jpeg",
+        "evidence/page-2026-11-12T12-34-30-586Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "requirement": "Inspect 1440x900 and 390x844 layouts, lower controls, reload and console/resource diagnostics. A narrow viewport does not certify real touch hardware.",
+      "reason": "Both required viewport sizes were inspected and the essential resources loaded with only a favicon 404. At 390 px the playback controls and order list remain present, but the scene is dominated by the packing sign, the status text truncates, and below-fold aisle/reset controls plus focus navigation were not fully exercised; reload was also not retested.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-53-672Z.jpeg",
+        "evidence/page-2026-11-12T12-36-12-111Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "requirement": "The 24x18m 3D warehouse shows four shelving rows, end cross-aisles, packing station and six distinct bins for the specified SKUs/quantities.",
+      "reason": "The viewport labels the warehouse as 24 x 18 m and visibly contains four parallel shelving rows, crossing perimeter/end aisles, and a packing start/return station. The initial order lists all six required SKUs, products, distinct bins, and quantities 3, 2, 1, 2, 4, and 1.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-53-672Z.jpeg",
+        "evidence/page-2026-11-12T12-32-04-775Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "requirement": "Order quantities, item removal and stop order are editable, with a useful initial order ready to play.",
+      "reason": "The seeded six-stop order is marked Ready. Increasing NB-01 to four reset playback; removing PN-02 produced five stops and a 116.0 m route; dragging NB-01 changed the sequence and recalculated the route to 130.2 m.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-33-16-102Z.jpeg",
+        "evidence/page-2026-11-12T12-33-31-699Z.jpeg",
+        "evidence/page-2026-11-12T12-33-48-399Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "requirement": "Each leg follows a shortest walkable path in the chosen order from packing through bins and back; routes avoid shelf footprints and show total meters.",
+      "reason": "The overhead views show the cyan route remaining in aisles and around shelf footprints between packing and the labeled stop faces, with total distance shown in meters. Reordering stops and blocking the west cross changed the visible path and totals from 138.4 m to 130.2 m and 167.9 m respectively, consistent with route recalculation; algorithmic shortestness cannot be independently proven from the rendered page.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-53-672Z.jpeg",
+        "evidence/page-2026-11-12T12-33-48-399Z.jpeg",
+        "evidence/page-2026-11-12T12-34-30-586Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PARTIAL",
+      "requirement": "Animated picking stops at the appropriate shelf faces and updates the matching picked quantities.",
+      "reason": "Play visibly moved the picker away from packing along the route, and pause reported 2% completion. The short run did not reach a shelf stop before the call budget, so the required stop-face alignment and matching picked-quantity update were not directly observed.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-32-26-357Z.jpeg",
+        "evidence/page-2026-11-12T12-32-52-834Z.jpeg",
+        "evidence/page-2026-11-12T12-36-03-989Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PARTIAL",
+      "requirement": "Play/pause/speed/restart work and editing the order resets playback/checklist rather than retaining stale progress.",
+      "reason": "Play, pause, and 3x speed selection worked; pause showed 2% completion and a paused status. Quantity, removal, and reorder edits all reset the checklist to zero and returned the interface to Ready. Restart itself was not directly exercised.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-33-16-102Z.jpeg",
+        "evidence/page-2026-11-12T12-33-48-399Z.jpeg",
+        "evidence/page-2026-11-12T12-36-03-989Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PASS",
+      "requirement": "Blocked aisle segments trigger rerouting or identify unreachable items and prevent starting an impossible route.",
+      "reason": "Blocking West cross recalculated the route from 138.4 m to 167.9 m while keeping all six stops Ready. Blocking Aisle A instead marked NB-01 as having no walkable access, changed the route total to dashes, displayed a Route unavailable banner, and disabled the play button.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-34-10-990Z.jpeg",
+        "evidence/page-2026-11-12T12-34-30-586Z.jpeg"
+      ]
+    },
+    {
+      "id": "T07",
+      "status": "PASS",
+      "requirement": "Overhead planning and following playback views retain a usable order list.",
+      "reason": "The overhead planning view and the following playback view both retain the complete desktop order panel with quantities, stop sequence, picked totals, aisle controls, and transport controls. The following view is locally occluded by the packing billboard at the start but still exposes the picker, route progress, and route context.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-32-14-677Z.jpeg",
+        "evidence/page-2026-11-12T12-32-52-834Z.jpeg",
+        "evidence/page-2026-11-12T12-36-03-989Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 3,
+      "reason": "Core preparation, route editing, blocking, recovery, and playback flows work coherently. Complete coverage is missing for observing a pick-stop quantity update and explicitly exercising restart and reload.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-53-672Z.jpeg",
+        "evidence/page-2026-11-12T12-34-30-586Z.jpeg",
+        "evidence/page-2026-11-12T12-36-03-989Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 3,
+      "reason": "Warehouse scale, four-row geometry, aisles, route clearance, picker placement, depth, and occlusion are coherent across planning and playback views. The following camera's start position is obstructed by the oversized packing sign, a local viewpoint defect.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-53-672Z.jpeg",
+        "evidence/page-2026-11-12T12-32-14-677Z.jpeg",
+        "evidence/page-2026-11-12T12-32-52-834Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "Editing, blocking, rerouting, playback, pause, speed selection, and reset-on-edit feedback are reliable. Restart and a full staged pickup remain unverified, preventing the highest anchor.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-33-16-102Z.jpeg",
+        "evidence/page-2026-11-12T12-34-10-990Z.jpeg",
+        "evidence/page-2026-11-12T12-36-03-989Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 3,
+      "reason": "The desktop composition, typography, cyan route hierarchy, warm shelf materials, and status toasts create a coherent operational interface. The packing billboard overwhelms the follow/mobile view and narrow-layout status text truncates, so the expression is not consistently polished across states.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-53-672Z.jpeg",
+        "evidence/page-2026-11-12T12-32-14-677Z.jpeg",
+        "evidence/page-2026-11-12T12-36-12-111Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "The tested flows remained responsive through repeated edits and scene updates, and essential assets loaded successfully. The only console issue was a nonblocking favicon 404; mobile has local clipping/oversized-scene issues and reload/focus-navigation checks were not completed.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-53-672Z.jpeg",
+        "evidence/page-2026-11-12T12-36-12-111Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The picker was observed moving, but the run did not reach a shelf stop, so shelf-face alignment and picked-quantity incrementing were not directly verified.",
+    "The Restart route control and a page reload were present but not exercised before the 40-call browser budget was exhausted.",
+    "Shortest-path correctness is inferred from visible aisle-following geometry and distance recalculations, not from internal implementation inspection.",
+    "Mobile focus navigation, internal scrolling to the lowest aisle/reset controls, and real touch hardware were not verified; the 390x844 screenshot shows local truncation and an oversized follow-view billboard.",
+    "Audio quality is not applicable, and no audio controls or media were present to evaluate."
+  ]
+}

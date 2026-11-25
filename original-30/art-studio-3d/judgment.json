@@ -1,0 +1,176 @@
+{
+  "summary": "Norb Studio's page runs and delivers a genuine real-time 3D experience: a full-screen WebGL hero sculpture that responds to pointer movement and clicks, a readable studio narrative with bold scroll transitions, a scroll-driven 3D helix gallery, and a 3D-treated contact form with strong hover/focus feedback. Desktop and 390x844 mobile layouts were usable. The main weakness is the loading cube, which was only observed through the accessibility snapshot (six faces reading N, R, O, B, S, ✦) and could not be captured in a delivered screenshot before it transitioned away, so the exact spin/letter delivery could not be fully verified visually.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "Page loaded successfully with title 'Norb Studio — Form Beyond the Familiar', a 1440x900 WebGL 2.0 canvas, and no blocking script errors. The only console entry was a favicon.ico 404; the full page, sections and 3D content rendered.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-49-02-458Z.jpeg",
+      "evidence/page-2026-11-12T12-49-19-232Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "Valid real-time 3D is present across the page: the hero shows a glossy lime torus knot with orbital rings, glass spheres and floating primitives at distinct depths with occlusion and changing scale/color, and the work section shows a perspective helix of artwork panels. Runtime probing confirmed a WebGL 2.0 canvas and matrix3d helix transforms.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-51-16-369Z.jpeg",
+      "evidence/page-2026-11-12T12-53-22-239Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Genuine depth and geometry were inspected across multiple distinct views: three hero states (rest, pointer-enlarged, click-mutated), the studio's 3D orbital study, and three helix angles (180°, 302°, 680°). Occlusion, perspective, scale and material changes are visible; runtime probes confirmed WebGL and 3D matrix transforms.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-51-16-369Z.jpeg",
+        "evidence/page-2026-11-12T12-52-22-648Z.jpeg",
+        "evidence/page-2026-11-12T12-52-51-289Z.jpeg",
+        "evidence/page-2026-11-12T12-53-22-239Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Composition, materials, lighting, color and legibility were inspected. The page has a coherent editorial art-studio identity: oversized type, cream/black/coral/lime palette, glossy 3D materials and counter-rotating cards. The giant 'OBJECTS IN orbit.' title intentionally overlays part of the gallery and reduces legibility of some cards, a local visual tension rather than a failure.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-52-00-770Z.jpeg",
+        "evidence/page-2026-11-12T12-53-12-569Z.jpeg",
+        "evidence/page-2026-11-12T12-54-10-952Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Primary UI interactions produced meaningful scene feedback: pointer movement enlarged/distorted the hero sculpture, clicking changed it to a coral material/orientation, scrolling rotated the helix, and hovering the contact field turned it lime with a beveled treatment.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-51-16-369Z.jpeg",
+        "evidence/page-2026-11-12T12-51-31-475Z.jpeg",
+        "evidence/page-2026-11-12T12-54-10-952Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeat and reverse behavior worked. Scrolling forward advanced the helix readout from 180° to 302° to 680° with different cards facing the camera; scrolling back restored the 302° state and the same card arrangement. The contact nav jump also recovered to a fully rendered section after a transient blank transition frame.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-52-51-289Z.jpeg",
+        "evidence/page-2026-11-12T12-53-22-239Z.jpeg",
+        "evidence/page-2026-11-12T12-53-36-051Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Both 1440x900 and 390x844 layouts were inspected. Desktop showed the full contact form, and mobile showed filled fields, the project selector, the send button and the footer/back-to-top control without horizontal clipping. Reload returned to a working hero. Console had only a favicon 404; network/resource diagnostics were recorded. Blank transition frames were observed but were nonblocking.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-49-19-232Z.jpeg",
+        "evidence/page-2026-11-12T12-53-56-034Z.jpeg",
+        "evidence/page-2026-11-12T12-55-46-698Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The full-screen hero contains interactive floating abstract 3D shapes. Pointer movement visibly enlarged and distorted the central knot, and clicking mutated it to a coral material/orientation while satellite shapes continued drifting.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-51-16-369Z.jpeg",
+        "evidence/page-2026-11-12T12-51-31-475Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PARTIAL",
+      "reason": "A loader was observed on first load with a percentage counter, repeated NORB STUDIO marquee and a six-face rotating cube whose faces read N, R, O, B, S and a star glyph; it then transitioned to the hero. However, no delivered screenshot captured the cube itself (screenshot calls waited for the post-load hero), so the spin and letter-to-face presentation could not be visually verified. The cube also does not spell the full 'Norb Studio' name across its faces.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-49-02-458Z.jpeg",
+        "evidence/page-2026-11-12T12-49-19-232Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "The narrative section presents readable studio story and goals ('We make the unreal feel touchable', independent 3D art studio statement, point-of-view copy and studio stats) with bold typography and scroll-triggered reveal transitions. A transient blank frame was captured between sections, followed by the fully readable composition.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-52-00-770Z.jpeg",
+        "evidence/page-2026-11-12T12-52-22-648Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "The gallery is a recognizable 3D helix: nine artwork cards sit on a vertical spiral with progressive Y-axis rotation and vertical offset, and the on-screen readout advanced 180° → 302° → 680° as I scrolled. Reversing scroll restored the 302° arrangement. Cards occlude and pass in front of each other in perspective.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-52-51-289Z.jpeg",
+        "evidence/page-2026-11-12T12-53-12-569Z.jpeg",
+        "evidence/page-2026-11-12T12-53-22-239Z.jpeg",
+        "evidence/page-2026-11-12T12-53-36-051Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "The contact form has a clear 3D treatment (raised cream panel over a green block, sphere behind it). Hovering the name field changed it to bright lime with a tactile bevel; on mobile the focused textarea turned purple and showed entered sample text. Name, email, project type and message inputs were filled through the UI and remained usable.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-54-10-952Z.jpeg",
+        "evidence/page-2026-11-12T12-55-46-698Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 3,
+      "reason": "All five requested sections and main flows are present and coherent. The specific minor omission is the loader cube: it carries N, R, O, B, S and a star rather than spelling/conveying the full 'Norb Studio' name on its faces, and its spin could not be confirmed in a delivered screenshot.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-49-19-232Z.jpeg",
+        "evidence/page-2026-11-12T12-51-31-475Z.jpeg",
+        "evidence/page-2026-11-12T12-53-22-239Z.jpeg",
+        "evidence/page-2026-11-12T12-55-46-698Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Shapes, spatial relations, lighting and materials consistently serve the brief. The hero knot, orbiting rings, floating primitives, studio orb and helix cards all show credible depth, occlusion, perspective and material variety across multiple tested views.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-51-16-369Z.jpeg",
+        "evidence/page-2026-11-12T12-52-22-648Z.jpeg",
+        "evidence/page-2026-11-12T12-53-12-569Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "Required and repeated flows work: hero hover/click, nav jumping, helix scroll and reverse, and form hover/focus/typing. Local issues are multi-second blank transition frames between sections and the un-captured loader, which reduce discoverability and certainty during transitions.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-51-16-369Z.jpeg",
+        "evidence/page-2026-11-12T12-53-36-051Z.jpeg",
+        "evidence/page-2026-11-12T12-54-10-952Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 3,
+      "reason": "Composition, typography, color and 3D form a coherent art-studio expression. Local defects include the oversized 'OBJECTS IN orbit.' overlay obscuring parts of gallery cards and blank full-screen transition frames that temporarily remove all information.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-52-00-770Z.jpeg",
+        "evidence/page-2026-11-12T12-52-38-468Z.jpeg",
+        "evidence/page-2026-11-12T12-53-22-239Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "The page remained usable across desktop, mobile, reload, repeated hero interaction and repeat/reverse gallery scrolling. The only console error was a favicon 404, and no crashes occurred. Multi-second blank transition frames are local nonblocking issues; mobile reload and network-request listing were not separately verified.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-49-19-232Z.jpeg",
+        "evidence/page-2026-11-12T12-53-56-034Z.jpeg",
+        "evidence/page-2026-11-12T12-55-46-698Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The loading cube could not be captured in a delivered screenshot: screenshot calls waited until the loader had transitioned to the hero. The loader was observed through the accessibility snapshot at 70%, showing faces N, R, O, B, S, ✦ and a repeated NORB STUDIO marquee; its actual spin cadence is therefore only partly verified.",
+    "The browser network-request listing was not called because the 40-call browser budget was reached. evidence/console.txt contains the auto-captured console entry (favicon.ico 404), and evidence/network.txt contains read-only HTTP resource checks; no other missing resources were observed.",
+    "Mobile page reload and form submission/backend delivery were not tested. Form submission beyond usable inputs is not part of the stated requirements.",
+    "Reverse scrolling was verified in the helix gallery but not separately captured for the narrative section.",
+    "A 390px viewport does not certify real touch hardware.",
+    "Audio quality and internal implementation details were not evaluated."
+  ]
+}

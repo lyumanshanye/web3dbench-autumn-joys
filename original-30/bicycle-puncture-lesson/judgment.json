@@ -1,0 +1,189 @@
+{
+  "summary": "The page is a genuine interactive 3D puncture-repair lesson. The wheel, cutaway, six-stage repair flow, pause/rotation model, direct step revisiting, part-identification practice, and repair-order practice all work on desktop. Both practice types provide corrective feedback and retry. The main weakness is responsive layout: at 390x844 the document remains about 752px wide, clipping lesson copy, parts of the 3D stage, the primary action, and later navigation steps unless the page is panned horizontally.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded, reloaded, and remained interactive at both tested viewport sizes. The console contained only a nonblocking favicon.ico 404, while the recorded application/module requests returned 200.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-29-16-082Z.jpeg",
+      "evidence/page-2026-11-12T12-36-08-213Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "A real interactive 3D wheel renders with perspective, depth, and occlusion across multiple camera angles. The tire, orange inner tube, rim, spokes, hub, and valve are distinguishable, and the cutaway clearly shows the tube between tire casing and rim.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-29-16-082Z.jpeg",
+      "evidence/page-2026-11-12T12-29-31-565Z.jpeg",
+      "evidence/page-2026-11-12T12-30-06-250Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct views show clear changes in wheel angle, rotational depth, tire/tube occlusion, and label placement, confirming genuine 3D rather than a static image.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-16-082Z.jpeg",
+        "evidence/page-2026-11-12T12-29-31-565Z.jpeg",
+        "evidence/page-2026-11-12T12-29-44-240Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Desktop composition is clear and cohesive: the instruction panel, large 3D stage, attached labels, pressure state, repair path, and warm workshop palette form a strong hierarchy. Materials and lighting remain legible through the lesson states.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-16-082Z.jpeg",
+        "evidence/page-2026-11-12T12-30-51-258Z.jpeg",
+        "evidence/page-2026-11-12T12-31-02-915Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Pause, next-step, step navigation, labels, reset view, and practice controls produce meaningful instructions, badges, pressure changes, and visible wheel-state changes rather than superficial responses.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-25-924Z.jpeg",
+        "evidence/page-2026-11-12T12-30-39-944Z.jpeg",
+        "evidence/page-2026-11-12T12-31-02-915Z.jpeg",
+        "evidence/page-2026-11-12T12-31-12-039Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Pause/resume worked, a previous lesson step could be revisited directly, incorrect part and sequence answers produced specific feedback, and the ordering exercise reset for another attempt. The thin rim/valve hit areas required some retries but remained usable.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-06-250Z.jpeg",
+        "evidence/page-2026-11-12T12-31-28-219Z.jpeg",
+        "evidence/page-2026-11-12T12-31-57-191Z.jpeg",
+        "evidence/page-2026-11-12T12-34-22-876Z.jpeg",
+        "evidence/page-2026-11-12T12-34-36-025Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "reason": "The 1440x900 layout, lower repair path, controls, and reload are stable. At 390x844, however, read-only DOM metrics showed scrollWidth 752 against innerWidth 390; screenshots show horizontally clipped lesson text, model content, the primary action, and later step buttons. Resource diagnostics otherwise showed 200 responses apart from favicon.ico.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-34-49-453Z.jpeg",
+        "evidence/page-2026-11-12T12-34-57-566Z.jpeg",
+        "evidence/page-2026-11-12T12-35-31-157Z.jpeg",
+        "evidence/page-2026-11-12T12-36-08-213Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The wheel clearly distinguishes tire, tire bead, tube, rim, spokes, hub, and valve. The cutaway exposes the orange tube seated between the tire casing and rim, and stage-specific views keep those spatial relationships visible.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-16-082Z.jpeg",
+        "evidence/page-2026-11-12T12-30-25-924Z.jpeg",
+        "evidence/page-2026-11-12T12-30-39-944Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "All six requested stages are present with short instructions and matching changes: deflation, one-bead unseating, tube removal, puncture location at 20 psi, patch application, and reassembly/inflation at 45 psi. Status badges and cutaway callouts change with each stage.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-25-924Z.jpeg",
+        "evidence/page-2026-11-12T12-30-39-944Z.jpeg",
+        "evidence/page-2026-11-12T12-30-51-258Z.jpeg",
+        "evidence/page-2026-11-12T12-31-02-915Z.jpeg",
+        "evidence/page-2026-11-12T12-31-12-039Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Pause changed to Resume while leaving rotation available, rotated views kept each label attached to its component, and selecting step 3 again restored its instruction and tube-removed model state.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-31-565Z.jpeg",
+        "evidence/page-2026-11-12T12-30-06-250Z.jpeg",
+        "evidence/page-2026-11-12T12-31-28-219Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Practice includes three part-identification taps and a six-card repair-ordering exercise. Mistaken tire and rim selections produced specific feedback with retry, a wrong sequence identified an out-of-order position, and Try another order cleared the sequence for another attempt.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-57-191Z.jpeg",
+        "evidence/page-2026-11-12T12-34-22-876Z.jpeg",
+        "evidence/page-2026-11-12T12-34-36-025Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PARTIAL",
+      "reason": "Labels and controls are large and readable, but the 390px layout does not reflow to the viewport. The content is about 752px wide, so lesson copy, the 3D wheel, Next step, and later repair steps are clipped until users pan horizontally.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-34-49-453Z.jpeg",
+        "evidence/page-2026-11-12T12-34-57-566Z.jpeg",
+        "evidence/page-2026-11-12T12-35-31-157Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 3,
+      "reason": "The subject, all six repair stages, pause/rotate/revisit behavior, and both practice modes are delivered coherently. The specific shortfall is the explicitly requested tablet/mobile usability: the narrow layout clips core controls and content instead of adapting cleanly.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-25-924Z.jpeg",
+        "evidence/page-2026-11-12T12-30-51-258Z.jpeg",
+        "evidence/page-2026-11-12T12-31-12-039Z.jpeg",
+        "evidence/page-2026-11-12T12-34-49-453Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Wheel geometry, cutaway placement, tube position, depth, occlusion, and camera parallax consistently support the repair lesson. The stylized materials and lighting make the tire, tube, rim, spokes, hub, valve, puncture, and patch easy to distinguish.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-16-082Z.jpeg",
+        "evidence/page-2026-11-12T12-29-31-565Z.jpeg",
+        "evidence/page-2026-11-12T12-29-44-240Z.jpeg",
+        "evidence/page-2026-11-12T12-30-39-944Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Stage progression, pause/resume, direct revisit, rotation, label toggling, part taps, mistake feedback, and both retry paths remained reliable. The small rim/valve hit targets caused a few extra attempts but did not block completion or recovery.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-06-250Z.jpeg",
+        "evidence/page-2026-11-12T12-31-28-219Z.jpeg",
+        "evidence/page-2026-11-12T12-31-57-191Z.jpeg",
+        "evidence/page-2026-11-12T12-34-22-876Z.jpeg",
+        "evidence/page-2026-11-12T12-34-36-025Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 3,
+      "reason": "Desktop typography, color, hierarchy, model styling, and state badges form a coherent workshop presentation. The narrow viewport breaks that composition through horizontal clipping, so the visual system is strong but not consistent across tested layouts.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-16-082Z.jpeg",
+        "evidence/page-2026-11-12T12-30-51-258Z.jpeg",
+        "evidence/page-2026-11-12T12-31-02-915Z.jpeg",
+        "evidence/page-2026-11-12T12-35-31-157Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 2,
+      "reason": "Desktop operation and reload are stable, and only a nonblocking favicon 404 appeared. At 390px the page has a major narrow-layout failure, with 752px of content forced into a 390px viewport and important controls text and navigation clipped.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-34-49-453Z.jpeg",
+        "evidence/page-2026-11-12T12-34-57-566Z.jpeg",
+        "evidence/page-2026-11-12T12-35-31-157Z.jpeg",
+        "evidence/page-2026-11-12T12-36-08-213Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The 390x844 assessment used viewport emulation, not real touch hardware; tap-size and touch-gesture behavior were inferred from rendered controls.",
+    "No export/download control or audio feature was present in the inspected interface, so those aspects were not evaluated.",
+    "No custom keyboard lesson controls were advertised; PageDown and Home were exercised for scrolling only.",
+    "The console recorded only a favicon.ico 404, and the network capture showed the application scripts and modules loading with 200 responses.",
+    "Application source files were not read; judgments rely on browser-visible behavior, screenshots, and read-only DOM/layout metrics."
+  ]
+}

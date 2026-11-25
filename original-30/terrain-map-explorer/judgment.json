@@ -1,0 +1,181 @@
+{
+  "summary": "Isla Verdant is a polished, interactive topographic 3D island. The desktop overview, Coast, Summit, orbit, zoom, and place-focus views all expose coherent peaks, valleys, coastline, depth, and contour styling. Desktop and narrow-layout flows are usable, though the 390px layout omits several map labels and the elevation legend, and resizing back to desktop briefly leaves the island undersized until Overview is selected.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded successfully with no console errors or warnings. All application, stylesheet, and Three.js requests returned 200 on first load and 304 on reload.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-26-38-406Z.jpeg",
+      "evidence/page-2026-11-12T12-30-33-726Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "Real-time 3D is evident across distinct Overview, Coast, Summit, orbit, and zoom views: perspective, occlusion, terrain relief, and the coastline change coherently with camera movement rather than behaving as a static image.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-26-38-406Z.jpeg",
+      "evidence/page-2026-11-12T12-26-49-925Z.jpeg",
+      "evidence/page-2026-11-12T12-27-00-807Z.jpeg",
+      "evidence/page-2026-11-12T12-27-12-474Z.jpeg",
+      "evidence/page-2026-11-12T12-27-22-103Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Five distinct views verify genuine task-relevant depth: the desktop overview, Coast, Summit, a dragged orbit, and a zoomed summit view all show consistent geometry and occlusion.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-38-406Z.jpeg",
+        "evidence/page-2026-11-12T12-26-49-925Z.jpeg",
+        "evidence/page-2026-11-12T12-27-00-807Z.jpeg",
+        "evidence/page-2026-11-12T12-27-12-474Z.jpeg",
+        "evidence/page-2026-11-12T12-27-22-103Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The cartographic composition is coherent: restrained sea and land colors, sculpted relief, contour bands, elevation color ramp, serif typography, north indicator, scale, and place labels work together as a crafted topographic sheet. Legibility is weaker at 390px but the visual expression remains recognizable.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-38-406Z.jpeg",
+        "evidence/page-2026-11-12T12-27-00-807Z.jpeg",
+        "evidence/page-2026-11-12T12-29-29-616Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Advertised controls provide meaningful feedback: Coast and Summit move the camera, dragging orbits the island and updates cursor elevation, scrolling zooms, and clicking Cypress Vale focuses a closer valley view.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-49-925Z.jpeg",
+        "evidence/page-2026-11-12T12-27-00-807Z.jpeg",
+        "evidence/page-2026-11-12T12-27-12-474Z.jpeg",
+        "evidence/page-2026-11-12T12-27-22-103Z.jpeg",
+        "evidence/page-2026-11-12T12-28-11-938Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeat and recovery flows work: Overview was used repeatedly to restore a useful camera, orbit/zoom changes were reversible through the same controls, place focus returned cleanly to Overview, and Tab plus Enter activated a viewpoint with a visible focus ring.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-33-281Z.jpeg",
+        "evidence/page-2026-11-12T12-28-11-938Z.jpeg",
+        "evidence/page-2026-11-12T12-28-42-544Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-492Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "reason": "Desktop and 390x844 layouts were inspected; the lower viewpoint strip stays on-screen, keyboard focus works, reload succeeds, and no console or resource failures occur. However, the narrow layout hides the elevation legend and the Cypress Vale and North Sound labels, and after resizing back to 1440x900 the island initially remains undersized until Overview is clicked.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-50-328Z.jpeg",
+        "evidence/page-2026-11-12T12-29-29-616Z.jpeg",
+        "evidence/page-2026-11-12T12-30-33-726Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-492Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The island has recognizable jagged peaks, a central high massif, valleys and slopes, a clear irregular coastline, and a surrounding bathymetric shelf. These remain spatially coherent when viewed from the supplied angles.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-38-406Z.jpeg",
+        "evidence/page-2026-11-12T12-26-49-925Z.jpeg",
+        "evidence/page-2026-11-12T12-27-00-807Z.jpeg",
+        "evidence/page-2026-11-12T12-28-11-938Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Height and structure are clearly communicated by layered 100 m contour bands that wrap the terrain, an elevation ramp with labelled 0-2,840 m range, relief shading, summit and ridge annotations, and bathymetric contours offshore.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-38-406Z.jpeg",
+        "evidence/page-2026-11-12T12-27-00-807Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-492Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Exploration is usable through three viewpoint buttons, direct orbit and zoom, and focusable place markers. Camera state visibly changes, cursor elevation responds to the terrain, and the Overview control reliably restores a useful view.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-49-925Z.jpeg",
+        "evidence/page-2026-11-12T12-27-22-103Z.jpeg",
+        "evidence/page-2026-11-12T12-28-11-938Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-492Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PARTIAL",
+      "reason": "Desktop views keep the island and map annotations legible without obstructive overlays. At 390px the island remains visible and the controls remain reachable, but Cypress Vale and North Sound are removed, the elevation legend and guidance disappear, and remaining terrain labels are small and low-contrast in the overview.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-38-406Z.jpeg",
+        "evidence/page-2026-11-12T12-28-50-328Z.jpeg",
+        "evidence/page-2026-11-12T12-29-29-616Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-492Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All stated requirements are delivered coherently: an imaginary mountain island with peaks, valleys, and coastline is presented as a genuine interactive 3D scene with a strongly crafted topographic-map look and usable exploration controls.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-38-406Z.jpeg",
+        "evidence/page-2026-11-12T12-27-00-807Z.jpeg",
+        "evidence/page-2026-11-12T12-29-29-616Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Shapes, scale relationships, depth, occlusion, lighting, and materials consistently serve the task. Peaks, ridges, valleys, shoreline, offshore shelf, and contour geometry remain coherent across overview, close, and orbit views.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-38-406Z.jpeg",
+        "evidence/page-2026-11-12T12-27-00-807Z.jpeg",
+        "evidence/page-2026-11-12T12-27-12-474Z.jpeg",
+        "evidence/page-2026-11-12T12-27-22-103Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Viewpoint sequences, direct orbit and zoom, place-marker focus, keyboard activation, repeated use, and recovery all remain reliable and natural, with visible camera and cursor-elevation feedback.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-49-925Z.jpeg",
+        "evidence/page-2026-11-12T12-27-12-474Z.jpeg",
+        "evidence/page-2026-11-12T12-28-11-938Z.jpeg",
+        "evidence/page-2026-11-12T12-28-42-544Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-492Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The composition, typography, restrained palette, lighting, contour treatment, and cartographic details form a distinctive and purposeful expression. View transitions preserve the same visual system and continue to clarify the island's structure.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-38-406Z.jpeg",
+        "evidence/page-2026-11-12T12-27-00-807Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-492Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "The app is stable across repeated operations, keyboard use, reload, and both target viewport sizes, with no console errors or failed resources. Local narrow-layout omissions and a transient undersized overview after resizing to desktop keep it below the fully stable anchor; selecting Overview recovers the full framing.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-50-328Z.jpeg",
+        "evidence/page-2026-11-12T12-29-43-313Z.jpeg",
+        "evidence/page-2026-11-12T12-30-33-726Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-492Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "No export or download control is present, so there was no downloaded-export flow to test; its absence was not treated as a task requirement.",
+    "The 390x844 viewport verifies responsive layout and keyboard focus, not physical touch hardware or native pinch gestures.",
+    "At 390px, the Cypress Vale and The North Sound marker buttons have display:none, and the elevation legend and cursor guidance are absent; this is reflected in T04 and G05.",
+    "After changing from the mobile viewport back to 1440x900, the Overview framing initially stayed small until the Overview button was selected again."
+  ]
+}

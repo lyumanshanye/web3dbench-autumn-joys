@@ -1,0 +1,198 @@
+{
+  "summary": "Gravity Works renders a polished tabletop marble-run course and supports adjustable launch settings, repeated physics-driven attempts, detected basin success, pause/resume, two camera modes, and a readable mobile layout. Off-course failure, retry/reset behavior, reload, and continuous follow-camera smoothness were not fully verified within the 40-call budget.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded successfully at both 1440x900 and 390x844, rendered the interactive course and controls, and remained responsive through repeated runs. The only console error was a nonblocking favicon 404; all listed application, Three.js and physics resources returned 200.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-39-45-142Z.jpeg",
+      "evidence/page-2026-11-12T12-44-31-631Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "Genuine 3D is visible across full-course, close following, in-motion, and mobile views. The elevated multilevel ramps, guardrails, gap, reflective marble, finish basin, cast shadows, depth cues, and changing marble positions establish real task-relevant geometry rather than a static image.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-39-45-142Z.jpeg",
+      "evidence/page-2026-11-12T12-40-07-022Z.jpeg",
+      "evidence/page-2026-11-12T12-41-39-763Z.jpeg",
+      "evidence/page-2026-11-12T12-44-31-631Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "The course was inspected in a wide full-course view, a close follow view, mid-run views, and a narrow mobile view. Depth, elevation, occlusion, and parallax are evident across these distinct viewpoints.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-39-45-142Z.jpeg",
+        "evidence/page-2026-11-12T12-40-07-022Z.jpeg",
+        "evidence/page-2026-11-12T12-44-31-631Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The composition centers the course with clear start-to-finish hierarchy. Colorful track segments, reflective materials, soft shadows, readable labels, and a cohesive control deck make the course and state changes legible.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-39-45-142Z.jpeg",
+        "evidence/page-2026-11-12T12-42-53-661Z.jpeg",
+        "evidence/page-2026-11-12T12-44-31-631Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Changing the ramp angle visibly changed the gap ramp geometry from 16 to 26 degrees. Release changed the status to rolling, locked setup controls, advanced the attempt counter, and a completed run presented a clear basin-success result.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-19-816Z.jpeg",
+        "evidence/page-2026-11-12T12-42-36-861Z.jpeg",
+        "evidence/page-2026-11-12T12-42-53-661Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PARTIAL",
+      "reason": "Repeated releases and pause/resume worked, including counter advancement and preserving the in-motion attempt. Off-course failure, retry, and full-reset recovery flows were not completed within the call budget, so their state restoration could not be verified.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-41-18-065Z.jpeg",
+        "evidence/page-2026-11-12T12-41-39-763Z.jpeg",
+        "evidence/page-2026-11-12T12-42-53-661Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "reason": "Desktop and mobile layouts were inspected; the 390x844 view showed the complete lower control deck without clipping. Console and network diagnostics were saved, with only a favicon 404 and otherwise successful resource loads. A reload was not performed, and this was viewport emulation rather than real touch hardware.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-39-45-142Z.jpeg",
+        "evidence/page-2026-11-12T12-44-31-631Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The full-course view clearly shows a tabletop course with an elevated segmented ramp, guardrails, a labeled jump gap, and a prominently marked finish basin.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-39-45-142Z.jpeg",
+        "evidence/page-2026-11-12T12-41-39-763Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Across multiple attempts the marble visibly moved along the elevated track, appeared at different positions over time, cleared the gap on successful runs, and settled in the basin. The motion and outcomes are consistent with gravity and visible course collisions.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-41-39-763Z.jpeg",
+        "evidence/page-2026-11-12T12-42-36-861Z.jpeg",
+        "evidence/page-2026-11-12T12-42-53-661Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Both sliders changed their displayed values before release. Increasing the ramp angle from 16 to 26 degrees visibly steepened the gap ramp, and the resulting run used the adjusted trajectory and completed in 2.8s.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-19-816Z.jpeg",
+        "evidence/page-2026-11-12T12-42-36-861Z.jpeg",
+        "evidence/page-2026-11-12T12-42-53-661Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "A default 5.4 impulse and 16-degree ramp reached the basin, and a 7.8 impulse and 26-degree ramp also reached it. The UI explicitly reported 'Basin reached!' and marked the control deck CLEARED.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-51-764Z.jpeg",
+        "evidence/page-2026-11-12T12-42-53-661Z.jpeg",
+        "evidence/page-2026-11-12T12-43-33-094Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PARTIAL",
+      "reason": "Release started one attempt, disabled setup controls, changed the status to MARBLE ROLLING, and advanced the attempts counter. An off-course failure result was not observed; the low-power run remained reported as rolling when the browser budget expired.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-36-861Z.jpeg",
+        "evidence/page-2026-11-12T12-44-20-650Z.jpeg",
+        "evidence/page-2026-11-12T12-44-31-631Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PARTIAL",
+      "reason": "Pause froze the in-progress attempt and resume continued it while retaining the attempt number and locked settings. Retry and full reset controls were visible, but their required zero-velocity and settings/count restoration behaviors were not executed before the call limit.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-41-18-065Z.jpeg",
+        "evidence/page-2026-11-12T12-41-39-763Z.jpeg"
+      ]
+    },
+    {
+      "id": "T07",
+      "status": "PARTIAL",
+      "reason": "The full-course view kept the whole route inspectable, and the mobile controls remained visible and usable. A separate follow view exists, but its close framing was heavily obstructed by nearby track or guardrail geometry and continuous smooth following could not be confirmed from the available snapshots.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-39-45-142Z.jpeg",
+        "evidence/page-2026-11-12T12-40-07-022Z.jpeg",
+        "evidence/page-2026-11-12T12-44-31-631Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 3,
+      "reason": "The core marble-run loop, setup adjustment, success detection, attempt counter, control locking, pause/resume, cameras, and mobile presentation work coherently. Off-course failure and retry/reset restoration were not fully verified, so the otherwise complete experience has a remaining requested-flow gap.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-19-816Z.jpeg",
+        "evidence/page-2026-11-12T12-41-18-065Z.jpeg",
+        "evidence/page-2026-11-12T12-42-53-661Z.jpeg",
+        "evidence/page-2026-11-12T12-44-31-631Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 3,
+      "reason": "Course geometry, elevation, guardrails, gap, basin, reflective marble, and shadows read clearly in the wide view. The close follow view introduces strong foreground occlusion, so spatial presentation is coherent overall but locally flawed in that mode.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-39-45-142Z.jpeg",
+        "evidence/page-2026-11-12T12-40-07-022Z.jpeg",
+        "evidence/page-2026-11-12T12-44-31-631Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "Primary controls provide meaningful feedback, repeated releases work, settings visibly affect the course, and pause/resume preserves an attempt. Recovery behavior for fall, retry, and reset remains the local unverified area.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-19-816Z.jpeg",
+        "evidence/page-2026-11-12T12-41-18-065Z.jpeg",
+        "evidence/page-2026-11-12T12-42-53-661Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "Color, typography, course geometry, status coloring, and success effects form a coherent, purposeful tabletop-lab presentation. State transitions are understandable at a glance on desktop and mobile.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-39-45-142Z.jpeg",
+        "evidence/page-2026-11-12T12-42-53-661Z.jpeg",
+        "evidence/page-2026-11-12T12-44-31-631Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "The page remained usable through repeated runs and both tested viewport sizes. Desktop and mobile controls stayed readable, and application resources loaded successfully; remaining issues are the nonblocking favicon 404, unperformed reload, and unverified recovery flow rather than a blocking failure.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-39-45-142Z.jpeg",
+        "evidence/page-2026-11-12T12-41-39-763Z.jpeg",
+        "evidence/page-2026-11-12T12-44-31-631Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The 40-browser-call budget was reached before an off-course failure result, retry action, or full reset action could be executed and observed.",
+    "The final low-power attempt still reported MARBLE ROLLING when the evidence collection ended, so failure latency or a possible stalled run remains unverified.",
+    "Page reload was not performed during the evaluation.",
+    "Continuous smoothness of the following camera was not verified; the captured follow view was heavily occluded by course geometry.",
+    "The 390x844 check used viewport emulation, not real touch hardware.",
+    "The console contained one favicon.ico 404; all listed application and library resources returned HTTP 200.",
+    "Visible physics behavior was assessed, but the specific physics package and internal collision implementation were not independently verified from source or runtime probes."
+  ]
+}

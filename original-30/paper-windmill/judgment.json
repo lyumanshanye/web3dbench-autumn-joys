@@ -1,0 +1,131 @@
+{
+  "summary": "The submission is a playful, polished Three.js paper-windmill demo. It renders genuine 3D folded sails with depth, occlusion and shadows; wind speed visibly changes rotation from still at 0 km/h to fast at 30 km/h; five blade color choices are offered and selecting one repaints the 3D model; pause/resume work; reduced-motion loads paused and stays still; and the labeled controls and windmill remain visible and usable at 390x844 with keyboard focus support.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "Page loaded successfully with title 'Breeze Mill \u2014 A Paper Windmill'. Read-only inspection found one full-viewport canvas with an active WebGL context and the Three.js runtime global. All application assets returned 200/304; the only console error is a nonblocking favicon.ico 404.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-26-10-072Z.jpeg",
+      "evidence/page-2026-11-12T12-30-39-503Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "Genuine real-time 3D is present: the four folded paper sails rotate around a hub, cast shadows, occlude and are occluded by the mill body, and sit in a layered landscape with consistent depth cues. Different capture times show distinct rotation phases at 30 km/h, while 0 km/h and paused states remain identical across timed screenshots.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-26-10-072Z.jpeg",
+      "evidence/page-2026-11-12T12-27-46-408Z.jpeg",
+      "evidence/page-2026-11-12T12-30-39-503Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Depth and task-relevant geometry were inspected in desktop, high-speed, reduced-motion and phone views. The camera is fixed as appropriate to this brief, so read-only runtime probing plus multiple rotation phases were used: the sails visibly pass in front of and behind the mill body with consistent perspective, shadow and occlusion.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-10-072Z.jpeg",
+        "evidence/page-2026-11-12T12-27-46-408Z.jpeg",
+        "evidence/page-2026-11-12T12-30-39-503Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Composition, materials, lighting, color and legibility are coherent. The cream control card, paper-textured mill, pastel landscape, folded sail panels, soft shadows and stacked typography form a consistent playful papercraft style; all control labels and values are readable at both viewport sizes.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-10-072Z.jpeg",
+        "evidence/page-2026-11-12T12-28-10-477Z.jpeg",
+        "evidence/page-2026-11-12T12-30-39-503Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary UI gives meaningful feedback: moving the slider to 0 km/h shows 'The air is calm' and a still rotor, moving it to 30 km/h shows 'Sails are turning' and fast rotation, and selecting Coral immediately recolors every sail and updates the current-color label.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-52-444Z.jpeg",
+        "evidence/page-2026-11-12T12-27-46-408Z.jpeg",
+        "evidence/page-2026-11-12T12-28-10-477Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeat and reverse behavior is reliable: two paused captures three seconds apart are visually identical, resuming produces a new rotation phase and restores 'Sails are turning', and a fresh reduced-motion load begins paused with two timed captures remaining identical. Low-to-high speed changes and the resume flow were exercised without errors.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-32-958Z.jpeg",
+        "evidence/page-2026-11-12T12-28-48-290Z.jpeg",
+        "evidence/page-2026-11-12T12-29-05-786Z.jpeg",
+        "evidence/page-2026-11-12T12-29-44-185Z.jpeg",
+        "evidence/page-2026-11-12T12-29-59-787Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Desktop 1440x900 and mobile 390x844 layouts both keep the windmill visible and the control sheet fully reachable. On mobile the slider was changed to 30 km/h through the UI, the values updated, and Tab navigation placed a visible focus ring on the blade-color control. Page reload and reduced-motion reload succeeded. Network diagnostics show the app, CSS, Three.js module and helper geometry loading successfully; only favicon.ico returned 404, a nonblocking cosmetic resource issue.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-39-503Z.jpeg",
+        "evidence/page-2026-11-12T12-30-56-239Z.jpeg",
+        "evidence/page-2026-11-12T12-31-09-899Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "Every stated requirement is delivered and coherent across tested states: playful paper windmill, adjustable wind speed, five blade colors, pause/resume, labeled phone-friendly controls, and a still initial view under reduced motion.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-10-072Z.jpeg",
+        "evidence/page-2026-11-12T12-28-10-477Z.jpeg",
+        "evidence/page-2026-11-12T12-29-44-185Z.jpeg",
+        "evidence/page-2026-11-12T12-30-39-503Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Folded sail panels, wooden spars, hub, tapered tower, conical roof and layered scenery read consistently in depth across rotation phases. Occlusion, cast shadows and the paper material treatment serve the task without spatial or material contradictions.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-10-072Z.jpeg",
+        "evidence/page-2026-11-12T12-27-46-408Z.jpeg",
+        "evidence/page-2026-11-12T12-30-39-503Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Speed, color, pause, resume, reduced-motion loading and keyboard focus all work with clear labels and status feedback. Sequences and recovery (pause then resume, low then high speed, reload under reduced motion) remain reliable and natural.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-46-408Z.jpeg",
+        "evidence/page-2026-11-12T12-28-10-477Z.jpeg",
+        "evidence/page-2026-11-12T12-28-48-290Z.jpeg",
+        "evidence/page-2026-11-12T12-31-09-899Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The composition balances a large framed windmill against a compact control card on desktop and a bottom sheet on mobile. Purposeful papercraft details, a cohesive pastel palette, clear type hierarchy, color swatches and state-responsive button/status styling consistently support understanding.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-10-072Z.jpeg",
+        "evidence/page-2026-11-12T12-28-10-477Z.jpeg",
+        "evidence/page-2026-11-12T12-30-39-503Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "The page remained usable and readable across desktop, mobile, reload, reduced-motion and repeated control operations. All app resources loaded successfully; the sole console error was a missing favicon, which is nonblocking and did not affect rendering or controls.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-39-503Z.jpeg",
+        "evidence/page-2026-11-12T12-30-56-239Z.jpeg",
+        "evidence/page-2026-11-12T12-31-09-899Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The camera is fixed by design; 3D depth was verified through multiple rotation phases, occlusion, shadows and a read-only canvas/WebGL/Three.js runtime probe rather than free camera movement.",
+    "The 390x844 mobile viewport was emulated in the browser; real touch hardware, touch latency and mobile GPU performance were not tested.",
+    "No export or download control is advertised, so no downloaded-image verification was applicable.",
+    "Audio quality and internal implementation details were not evaluated.",
+    "The console contains one nonblocking 404 for favicon.ico; the network log shows the application HTML, CSS, Three.js module and helper geometry all loading with 200 or 304 responses."
+  ]
+}

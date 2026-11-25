@@ -1,0 +1,221 @@
+{
+  "summary": "Parkwork is a polished, genuinely three-dimensional community festival planner with a meter-scaled sample park, synchronized inventory, equipment/schedule panels, obstacle-aware route visualization, schedule validation, booked-facility deletion recovery, local persistence, and a responsive mobile layout. The strongest verified flows are the routing-mode demonstration, schedule validation, and explicit booked-facility removal. Advanced editing, import/export, undo/redo scope, reset/print, and below-fold mobile controls were not fully exercised before the 40-call limit.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded successfully at both desktop and mobile widths, remained interactive after reload, and produced no blocking failure. The only console error was a nonblocking favicon.ico 404; page assets were served 200/304 as recorded in evidence/console.txt and evidence/network.txt.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-40-44-793Z.jpeg",
+      "evidence/page-2026-11-12T12-44-46-127Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The site is a real-time 3D scene rather than a static image: initial orbit and top-down screenshots show consistent footprints, extruded forms, ground-plane depth, occlusion, shadows, and changing spatial relationships. The mobile reload shows the same park from the orbit view with the edited inventory preserved.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-40-44-793Z.jpeg",
+      "evidence/page-2026-11-12T12-44-28-226Z.jpeg",
+      "evidence/page-2026-11-12T12-44-46-127Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three delivered views were inspected: the initial desktop orbit view, the top-down plan view, and the mobile orbit view after reload. Geometry, depth, occlusion, shadows, and footprint relationships remain coherent and reveal consistent 3D spatial structure.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-44-793Z.jpeg",
+        "evidence/page-2026-11-12T12-44-28-226Z.jpeg",
+        "evidence/page-2026-11-12T12-44-46-127Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Desktop composition has a clear hierarchy: park summary and additions at left, scene in the center, linked editing panels at right. The muted green/cream/orange palette, serif display type, legible labels, warning cards, and simple low-poly materials form a coherent planner-specific expression. Mobile retains the visual system, though its header overflow is noted under G05.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-44-793Z.jpeg",
+        "evidence/page-2026-11-12T12-44-28-226Z.jpeg",
+        "evidence/page-2026-11-12T12-44-46-127Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Primary interactions gave meaningful feedback: tab changes exposed object/access/schedule controls, destination and access-mode changes recomputed distance or no-route status, invalid and conflicting activities produced inline and warning feedback, and booked-facility deletion opened a consequence-specific dialog.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-58-722Z.jpeg",
+        "evidence/page-2026-11-12T12-41-07-998Z.jpeg",
+        "evidence/page-2026-11-12T12-41-39-143Z.jpeg",
+        "evidence/page-2026-11-12T12-42-10-371Z.jpeg",
+        "evidence/page-2026-11-12T12-42-33-388Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PARTIAL",
+      "reason": "Boundary and recovery behavior was exercised for touching schedule times, repeated activity creation, route failure, booked-facility cancel/remove, and persisted reload. Undo/redo behavior and invalid-import recovery were not exercised, so full reverse/recovery coverage is unverified.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-41-39-143Z.jpeg",
+        "evidence/page-2026-11-12T12-42-10-371Z.jpeg",
+        "evidence/page-2026-11-12T12-42-33-388Z.jpeg",
+        "evidence/page-2026-11-12T12-44-28-226Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "reason": "The 1440x900 layout is stable and readable, and the 390x844 reload remained usable with labeled tabs, camera controls, selection, and form fields. However, the mobile header visibly clips the Print action and omits Reset sample from the viewport; lower-page editing and focus navigation were not exercised. No real touch hardware was tested. Console/network diagnostics showed only a favicon 404 and successfully loaded page assets.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-44-793Z.jpeg",
+        "evidence/page-2026-11-12T12-44-46-127Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The sample park states 64x44 m, two entrances, 11 trees, fixed paths, an accessible restroom, and a disclaimer that this is not a compliance assessment. The initial inventory visibly includes a stage, seating, three food stalls, and an information desk.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-44-793Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PARTIAL",
+      "reason": "Selection synced between the 3D subject panel and the linked equipment list, footprint/height/capacity dimensions were shown, numeric X/Z/rotation fields and rotate/duplicate/delete controls existed, and booked-stage deletion worked. Add, drag-move, rotate, duplicate, and snap-toggle effects were not exercised, so full synchronization and edit coverage is unverified.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-44-793Z.jpeg",
+        "evidence/page-2026-11-12T12-42-33-388Z.jpeg",
+        "evidence/page-2026-11-12T12-44-28-226Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PARTIAL",
+      "reason": "Top-down view was activated successfully and the scene showed the grid, footprints, selection, and camera controls. The legend and UI expose overlap and footprint states, but outside-boundary placement, equipment-footprint overlap highlighting, Focus/zoom-to-selection, and reset-camera behavior were not exercised.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-44-793Z.jpeg",
+        "evidence/page-2026-11-12T12-44-28-226Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "NOT_EVALUATED",
+      "reason": "Undo/redo controls were present and Undo became enabled after edits, but no object edit was reversed/restored and no camera change was made immediately before undo. The required separation of object-history and camera history therefore could not be verified.",
+      "evidence": []
+    },
+    {
+      "id": "T05",
+      "status": "PARTIAL",
+      "reason": "West-gate routing displayed 61.5 m to the stage in step-free mode, reported no route to the restroom in step-free mode, and displayed a 56.5 m pedestrian route, demonstrating exclusion of the stepped shortcut. The access model includes a simplification disclaimer and graph toggle. South-gate routing, navigation-graph display, and route recomputation after a new layout edit were not exercised.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-58-722Z.jpeg",
+        "evidence/page-2026-11-12T12-41-07-998Z.jpeg",
+        "evidence/page-2026-11-12T12-41-16-495Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PARTIAL",
+      "reason": "The bundled Maintenance barrier demo produced a clear textual No route result in step-free mode, and warning cards name affected objects and expose target buttons rather than relying only on color. A warning target button was not selected to verify focus/location feedback.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-41-07-998Z.jpeg",
+        "evidence/page-2026-11-12T12-42-33-388Z.jpeg"
+      ]
+    },
+    {
+      "id": "T07",
+      "status": "PASS",
+      "reason": "An end time before start was rejected with an inline error. A booking beginning exactly at 11:45 after a 10:45-11:45 booking was accepted and listed. A 11:00-12:00 stage booking produced two overlapping-booking flags and a capacity flag at 300/250; the preloaded 265/250 booking also showed a capacity warning.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-41-39-143Z.jpeg",
+        "evidence/page-2026-11-12T12-42-10-371Z.jpeg",
+        "evidence/page-2026-11-12T12-42-33-388Z.jpeg"
+      ]
+    },
+    {
+      "id": "T08",
+      "status": "PASS",
+      "reason": "Deleting the booked stage opened an explicit dialog listing all five bookings and offering Cancel deletion versus Remove facility & 5 bookings. Cancellation was confirmed to leave the stage, cancel/remove options intact, and booked inventory; confirmed removal reduced Site inventory from 8 to 7, removed the five bookings, and left no dangling stage reference.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-33-388Z.jpeg",
+        "evidence/page-2026-11-12T12-44-28-226Z.jpeg"
+      ]
+    },
+    {
+      "id": "T09",
+      "status": "PARTIAL",
+      "reason": "The UI displayed a Saved locally indicator, and after deleting the booked stage and reloading, the mobile scene still showed the edited seven-object inventory and selected object ID SEAT-01, confirming local persistence. Export/import roundtrip, reproduction of bookings/routes, and invalid-import preservation were not exercised.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-44-793Z.jpeg",
+        "evidence/page-2026-11-12T12-44-46-127Z.jpeg"
+      ]
+    },
+    {
+      "id": "T10",
+      "status": "PARTIAL",
+      "reason": "The mobile layout exposed labeled editing forms and comfortable-looking controls, with numeric fields and selection state remaining readable alongside the scene. Print and Reset sample were visible on desktop and remained in the mobile DOM, but their dialogs/outputs were not opened, keyboard navigation was not exercised, and the narrow header clipped the Print/Reset area.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-44-793Z.jpeg",
+        "evidence/page-2026-11-12T12-44-46-127Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 3,
+      "reason": "Core requested flows are implemented coherently: the sample 3D park, linked inventory, route switching with a blocked-route demo, schedule validation, deletion recovery, and local reload were all observed. Several explicitly requested flows, especially undo/redo scope, JSON roundtrip/import failure, reset/print, and complete mobile lower-control checks, remain unverified rather than shown broken.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-44-793Z.jpeg",
+        "evidence/page-2026-11-12T12-41-07-998Z.jpeg",
+        "evidence/page-2026-11-12T12-42-10-371Z.jpeg",
+        "evidence/page-2026-11-12T12-42-33-388Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Meter-scaled proportions, extruded equipment, paths, gates, trees, restroom, shadows, and occlusion form a coherent site in both orbit and top-down views. Switching views preserves spatial relationships, and the mobile framing remains consistent. The stylized geometry and materials consistently serve the planning task.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-44-793Z.jpeg",
+        "evidence/page-2026-11-12T12-44-28-226Z.jpeg",
+        "evidence/page-2026-11-12T12-44-46-127Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "Repeated schedule additions, validation feedback, access-mode switching, route recalculation, booked-facility cancel/remove, and reload persistence worked. Undo/redo scope, import failure recovery, witness-target selection, and mobile lower-control sequences were not fully verified, leaving recovery coverage short of the top anchor.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-41-07-998Z.jpeg",
+        "evidence/page-2026-11-12T12-41-16-495Z.jpeg",
+        "evidence/page-2026-11-12T12-42-10-371Z.jpeg",
+        "evidence/page-2026-11-12T12-42-33-388Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 3,
+      "reason": "The desktop composition, typography, color system, warning hierarchy, scene materials, and control grouping are coherent and purpose-built. The mobile header overflow clips actions and prevents the strongest visual consistency across viewports, so it does not fully reach the top anchor.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-44-793Z.jpeg",
+        "evidence/page-2026-11-12T12-44-28-226Z.jpeg",
+        "evidence/page-2026-11-12T12-44-46-127Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "The app loaded and reloaded without blocking errors, persisted edited state, and remained usable in both tested viewports. The only console issue was a favicon 404, but the mobile header clipping and unverified lower-page/focus sequences are local nonblocking issues.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-40-44-793Z.jpeg",
+        "evidence/page-2026-11-12T12-44-28-226Z.jpeg",
+        "evidence/page-2026-11-12T12-44-46-127Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The 40-browser-call cap was reached before add/move/rotate/duplicate/snap, equipment-footprint overlap, outside-boundary prevention, Focus/zoom, and reset-camera actions could be exercised.",
+    "Undo/redo was not exercised, so separation of object-edit history from camera navigation remains unverified.",
+    "JSON export/import, invalid-import preservation, printed summary output, reset confirmation, and downloaded-export inspection were not exercised.",
+    "Keyboard navigation and below-the-fold mobile editing controls were not fully traversed; mobile testing used viewport emulation rather than real touch hardware.",
+    "Console/network logs are cited only as diagnostics: evidence/console.txt contains a favicon.ico 404, and evidence/network.txt shows the page shell, scripts, model, and Three.js resources loading successfully.",
+    "Audio quality was not evaluated; the task is visual and no audio control was exercised. Internal implementation details were not inspected because only browser observations were permitted."
+  ]
+}

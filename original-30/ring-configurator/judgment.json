@@ -1,0 +1,175 @@
+{
+  "summary": "The configurator runs as a genuine interactive Three.js-style 3D wedding-band preview. Three distinct metal finishes, full-range band-width changes, editable and inspectable interior engraving, three camera views, and a downloadable design image all worked on desktop and at a 390x844 viewport. The page also survived reloads and keyboard focus remained visible.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded with a rendered 3D band and usable controls on both tested viewports. Reload returned to the default 4 mm yellow-gold configuration. The console contained only a nonblocking favicon.ico 404, while the network log showed the app, Three.js modules, font, and assets responding with 200/304.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-26-39-502Z.jpeg",
+      "evidence/page-2026-11-12T12-31-10-924Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The scene is genuine task-relevant 3D rather than a static image: the ring shows changing perspective, thickness, inner-wall depth, self-occlusion, specular highlights, and cast shadow across three-quarter, front, and inside views.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-26-39-502Z.jpeg",
+      "evidence/page-2026-11-12T12-27-44-119Z.jpeg",
+      "evidence/page-2026-11-12T12-27-55-077Z.jpeg",
+      "evidence/page-2026-11-12T12-28-09-617Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct camera views expose the band's depth and geometry: the three-quarter view shows the ring face and shadow, the front view changes the ellipse and visible inner wall, and the inside view reveals the curved interior where engraving sits.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-39-502Z.jpeg",
+        "evidence/page-2026-11-12T12-27-44-119Z.jpeg",
+        "evidence/page-2026-11-12T12-27-55-077Z.jpeg",
+        "evidence/page-2026-11-12T12-28-09-617Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The cream-and-deep-green composition, serif display type, restrained control hierarchy, metallic material response, and soft studio lighting form a coherent jewelry-atelier presentation. Labels and values remain legible across the tested states.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-39-502Z.jpeg",
+        "evidence/page-2026-11-12T12-26-57-034Z.jpeg",
+        "evidence/page-2026-11-12T12-27-07-174Z.jpeg",
+        "evidence/page-2026-11-12T12-28-09-617Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Metal radios changed both the rendered material and price, the width slider changed the ring thickness and the 2-6 mm value, the engraving field changed the interior lettering, and camera buttons changed the viewpoint with clear pressed-state feedback.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-57-034Z.jpeg",
+        "evidence/page-2026-11-12T12-27-27-083Z.jpeg",
+        "evidence/page-2026-11-12T12-28-09-617Z.jpeg",
+        "evidence/page-2026-11-12T12-29-04-544Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated metal changes, movement from 4 mm to the 6 mm maximum and back to the 2 mm minimum, camera changes after editing, download, and reload all remained usable. The only local awkwardness was the fixed inside camera becoming edge-on at the 2 mm extreme; the three-quarter view remained a clear recovery view.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-27-083Z.jpeg",
+        "evidence/page-2026-11-12T12-30-02-457Z.jpeg",
+        "evidence/page-2026-11-12T12-30-16-371Z.jpeg",
+        "evidence/page-2026-11-12T12-31-10-924Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "At 390x844 the 3D preview, metal cards, width slider, engraving field, inspection button, and download action remained reachable after scrolling; no required content was clipped. A Tab press produced a visible focus ring on the Front control, and reload returned a complete default layout. Network resources were 200/304 except the nonblocking favicon 404.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-30-100Z.jpeg",
+        "evidence/page-2026-11-12T12-30-37-349Z.jpeg",
+        "evidence/page-2026-11-12T12-30-52-365Z.jpeg",
+        "evidence/page-2026-11-12T12-31-10-924Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The recognizable 3D wedding band rendered clearly distinguishable yellow-gold, platinum, and rose-gold surfaces; the selected swatch, descriptive text, price, and scene material all changed together.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-39-502Z.jpeg",
+        "evidence/page-2026-11-12T12-26-57-034Z.jpeg",
+        "evidence/page-2026-11-12T12-27-07-174Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "The band visibly widened when the slider moved from 4.0 to 6.0 mm and became substantially thinner at 2.0 mm, with matching value and design-label updates.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-39-502Z.jpeg",
+        "evidence/page-2026-11-12T12-27-27-083Z.jpeg",
+        "evidence/page-2026-11-12T12-30-16-371Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Replacing the default text with ALWAYS & FOREVER updated the interior preview; the inside view clearly shows the edited lettering embossed along the curved inner surface and the same text appears in the side annotation.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-55-077Z.jpeg",
+        "evidence/page-2026-11-12T12-28-09-617Z.jpeg",
+        "evidence/page-2026-11-12T12-30-16-371Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "A design image was downloaded after selecting rose gold, 6 mm width, and ALWAYS & FOREVER. The browser-opened PNG shows the rose-gold band and current design labels, including the engraving annotation. The export uses a canonical three-quarter composition rather than preserving the selected inside camera, but it still reflects the chosen configuration.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-04-544Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All explicitly requested flows are present and coherent: compare the three named metals, adjust band width, edit and inspect inner engraving, and download an image of the configured design.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-07-174Z.jpeg",
+        "evidence/page-2026-11-12T12-27-27-083Z.jpeg",
+        "evidence/page-2026-11-12T12-28-09-617Z.jpeg",
+        "evidence/page-2026-11-12T12-29-04-544Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The ring's geometry, thickness changes, inner surface, camera-dependent perspective, occlusion, highlights, and shadow consistently support the configuring and inspection task. Materials are visually distinct and plausible across all three metals.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-39-502Z.jpeg",
+        "evidence/page-2026-11-12T12-27-44-119Z.jpeg",
+        "evidence/page-2026-11-12T12-27-55-077Z.jpeg",
+        "evidence/page-2026-11-12T12-30-16-371Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Primary controls, view changes, keyboard slider boundaries, repeated metal switching, engraving edits, export, and reload behaved reliably with immediate visual and textual feedback. The interface remains understandable after repeated operations.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-27-083Z.jpeg",
+        "evidence/page-2026-11-12T12-28-09-617Z.jpeg",
+        "evidence/page-2026-11-12T12-29-04-544Z.jpeg",
+        "evidence/page-2026-11-12T12-31-10-924Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "Purposeful editorial typography, disciplined color, clear hierarchy, elegant material rendering, and restrained state details consistently improve comprehension of the jewelry configuration.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-39-502Z.jpeg",
+        "evidence/page-2026-11-12T12-26-57-034Z.jpeg",
+        "evidence/page-2026-11-12T12-27-07-174Z.jpeg",
+        "evidence/page-2026-11-12T12-29-04-544Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "Desktop and narrow layouts loaded correctly, required controls remained reachable, repeat operations succeeded, downloads completed, focus was visible, and reload restored the page. The only diagnostic issue was the harmless missing favicon.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-26-39-502Z.jpeg",
+        "evidence/page-2026-11-12T12-30-37-349Z.jpeg",
+        "evidence/page-2026-11-12T12-30-52-365Z.jpeg",
+        "evidence/page-2026-11-12T12-31-10-924Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The 390x844 check used viewport emulation, so physical touch hardware behavior was not verified.",
+    "Animation frame rate and long-session performance were not measured quantitatively; only visible responsiveness and repeat-operation stability were assessed.",
+    "The downloaded PNG had to be opened through a temporary local read-only HTTP server because browser file:// navigation was blocked; the cited evidence is a fresh browser screenshot of that delivered image, not a code-generated screenshot.",
+    "The exported image uses a canonical three-quarter composition and represents the engraving with an export annotation rather than preserving the selected inside camera view."
+  ]
+}

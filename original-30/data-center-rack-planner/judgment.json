@@ -1,0 +1,181 @@
+{
+  "summary": "Rackline is a functional and polished 42U rack planner. It renders two genuine 3D racks with front/rear and zoomed views, enforces placement bounds and conflicts, tracks units and power per rack, supports add/move/remove and list selection, restores its local plan after reload, and exports a complete CSV inventory. The only assessment gap is that direct canvas-device selection was not independently exercised.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded at 1440x900 as Rackline with a live WebGL canvas and responsive controls. A reload restored the edited plan. The saved console log contains 0 errors and 0 warnings, and the saved network log shows no non-static request failures.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-28-37-601Z.jpeg",
+      "evidence/page-2026-11-12T12-31-53-897Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The scene uses genuine 3D rack geometry: front and rear views show different equipment faces, the two racks reorder as the camera changes sides, and zoomed inspection reveals frame depth, side surfaces, occlusion, shadowing, and perspective. The initial installations are plausible and unit numbering is readable in the elevation map and 3D view.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-28-37-601Z.jpeg",
+      "evidence/page-2026-11-12T12-28-46-365Z.jpeg",
+      "evidence/page-2026-11-12T12-31-37-333Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct rendered views were inspected: front, rear, and a zoomed rear view. They show face-dependent hardware, opposite rack ordering, depth, occlusion, perspective, and responsive camera scale.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-37-601Z.jpeg",
+        "evidence/page-2026-11-12T12-28-46-365Z.jpeg",
+        "evidence/page-2026-11-12T12-31-37-333Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The dark industrial palette, restrained cyan/yellow accents, 3D rack composition, equipment color coding, and clear numeric hierarchy form a coherent planner interface. Desktop and narrow layouts remain readable.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-37-601Z.jpeg",
+        "evidence/page-2026-11-12T12-33-03-723Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The catalog and start-unit controls added a compute server at U20-U21. The toast confirmed placement, rack totals changed to 13U occupied/2,450 W, and both the scene and unit map highlighted the new selected device.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-18-178Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-236Z.jpeg",
+        "evidence/page-2026-11-12T12-31-20-972Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "An overlapping compute-server placement was rejected with the occupied unit identified, and a 2U placement starting at U42 was rejected for extending past U42. Both failures preserved the exact 20U/3,400 W state. Valid move, removal, repeated selection, and reload recovery also worked.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-32-091Z.jpeg",
+        "evidence/page-2026-11-12T12-30-43-197Z.jpeg",
+        "evidence/page-2026-11-12T12-31-53-897Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Desktop was inspected at 1440x900 and mobile at 390x844. The narrow viewport presents readable rack totals, the full equipment controls, selection panel, and unit map below the fold without horizontal clipping. Reload succeeded, console messages were 0/0, and no dynamic network failures were reported.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-33-03-723Z.jpeg",
+        "evidence/page-2026-11-12T12-32-59-824Z.jpeg",
+        "evidence/page-2026-11-12T12-31-53-897Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "Both racks are genuine 3D 42U structures with readable elevation numbering, distinct front and rear hardware views, and plausible partial installations. Their initial totals were each 11/42 units and 1,950 W.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-37-601Z.jpeg",
+        "evidence/page-2026-11-12T12-28-46-365Z.jpeg",
+        "evidence/page-2026-11-12T12-31-37-333Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "The catalog visibly specifies Patch panel 1U/0 W, Network switch 1U/150 W, Compute server 2U/500 W, Storage array 4U/800 W, and Blank panel 1U/0 W. Each type was successfully added, with heights reflected in occupied-unit totals and power changes.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-37-601Z.jpeg",
+        "evidence/page-2026-11-12T12-30-10-253Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PARTIAL",
+      "reason": "Add, cross-rack move, and removal all changed both scene and list consistently. List selection highlighted the matching device in the scene, and selected-device details updated. The reverse direct scene-device-to-list click was not independently exercised.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-18-178Z.jpeg",
+        "evidence/page-2026-11-12T12-31-01-236Z.jpeg",
+        "evidence/page-2026-11-12T12-31-12-332Z.jpeg",
+        "evidence/page-2026-11-12T12-31-20-972Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Multi-unit devices occupied consecutive highlighted units. Overlap and above-U42 attempts were rejected with explicit messages, and the prior arrangement and totals remained unchanged after both attempts.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-32-091Z.jpeg",
+        "evidence/page-2026-11-12T12-30-43-197Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "Totals tracked inventory correctly. After additions Rack A showed 20/42 occupied, 22U remaining, and 3,400 W, triggering an over-by-400-W warning even though all devices physically fit. After moving the blank panel and removing the switch, totals correctly became 18/42, 24U, and 3,250 W with a 250 W warning.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-10-253Z.jpeg",
+        "evidence/page-2026-11-12T12-31-20-972Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PASS",
+      "reason": "Reloading restored the moved blank panel and all other edits, including Rack A at 18U/3,250 W and Rack B at 12U/1,950 W. The browser-downloaded CSV contains rack, starting unit, device type, height, and power columns with matching inventory rows.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-53-897Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All requested planning functions are present and coherent: the exact catalog and power values, two 42U racks, front/rear views, constrained placement, per-rack unit and power summaries with over-budget warning, browser persistence, and the required CSV fields.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-30-10-253Z.jpeg",
+        "evidence/page-2026-11-12T12-31-53-897Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Rack scale, consecutive unit positions, front/rear face differences, depth, occlusion, camera perspective, and equipment thickness consistently support the planning task across the inspected views.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-37-601Z.jpeg",
+        "evidence/page-2026-11-12T12-28-46-365Z.jpeg",
+        "evidence/page-2026-11-12T12-31-37-333Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "Placement, movement, removal, selection feedback, invalid-edit rejection, persistence, and export work through clear controls. The score is capped at 3 because direct scene-device selection was not independently verified, leaving one part of the requested reciprocal selection flow unconfirmed.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-29-18-178Z.jpeg",
+        "evidence/page-2026-11-12T12-31-12-332Z.jpeg",
+        "evidence/page-2026-11-12T12-30-43-197Z.jpeg",
+        "evidence/page-2026-11-12T12-31-53-897Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "Composition, typography, equipment color coding, state highlights, warning treatment, and the 3D scene form a coherent, purpose-built data-center planner expression on desktop and mobile.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-37-601Z.jpeg",
+        "evidence/page-2026-11-12T12-33-03-723Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "The page remained readable and responsive through additions, repeated invalid attempts, movement, removal, zoom, export, and reload. Desktop and mobile layouts rendered without blocking overlap, with zero console errors/warnings and no dynamic network failures.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-31-20-972Z.jpeg",
+        "evidence/page-2026-11-12T12-31-53-897Z.jpeg",
+        "evidence/page-2026-11-12T12-33-03-723Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The evidence-gathering sequence exceeded the requested 40-browser-call cap while iterating on selector failures and capturing state changes.",
+    "Direct canvas-device selection (device to list highlight) was not independently exercised; list-to-scene selection and all edit-driven selection updates were verified.",
+    "Keyboard Tab/focus traversal was not separately recorded, and the 390x844 emulation does not certify real touch hardware.",
+    "Audio quality and internal 3D implementation details were not evaluated; 3D validity was judged from rendered front, rear, and zoomed browser views and the live WebGL canvas.",
+    "CSV contents were validated from the browser-downloaded export because it is textual; console and network diagnostics are saved in evidence/console.txt and evidence/network.txt and are discussed rather than cited as image evidence."
+  ]
+}

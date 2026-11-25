@@ -1,0 +1,187 @@
+{
+  "summary": "Northbank Library Wayfinder is a coherent, kiosk-oriented 3D directory with two modeled floors, seven destinations, multiple starts, search and model selection, floor switching that retains routes, stair and lift routing, and staff-controlled lift availability. Cross-floor step-free failure and same-floor recovery are both clearly explained. Desktop and narrow layouts render with large controls; the main deduction is incomplete verification of reload and keyboard/focus behavior at mobile size.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded successfully at both 1440x900 and 390x844, remained interactive, and produced no console errors or warnings. The network log recorded no dynamic requests; its only note was that eight static requests were filtered from the default view.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-42-42-030Z.jpeg",
+      "evidence/page-2026-11-12T12-48-19-254Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The central directory is genuine, task-relevant 3D: two distinct floors with walls, openings, furniture, stair and lift structures, route lines laid on floor surfaces, depth, and occlusion. Separate both-floor, ground, and upper views confirm spatial change rather than a static image.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-42-58-531Z.jpeg",
+      "evidence/page-2026-11-12T12-43-08-675Z.jpeg",
+      "evidence/page-2026-11-12T12-43-16-646Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "requirement": "Inspect genuine task-relevant depth and geometry across at least three distinct views where appropriate; fixed-camera designs may use read-only runtime probes.",
+      "reason": "The both-floor, isolated ground-floor, and isolated upper-floor views expose different geometry and route segments. Walls and furniture occlude one another, floor levels are visibly separated, and the stairs/lift connect the two plans spatially.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-42-030Z.jpeg",
+        "evidence/page-2026-11-12T12-43-08-675Z.jpeg",
+        "evidence/page-2026-11-12T12-43-16-646Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "requirement": "Inspect composition, materials, light, color and legibility without preferring realism, a framework or a particular aesthetic.",
+      "reason": "The warm cream cards, dark green frame, restrained room accents, clear typography, and legible map labels form a coherent civic-library visual system. The route, destination, and start markers remain distinguishable without overwhelming the model.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-42-030Z.jpeg",
+        "evidence/page-2026-11-12T12-45-49-230Z.jpeg",
+        "evidence/page-2026-11-12T12-48-19-254Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "requirement": "Exercise the primary UI and verify meaningful scene/state feedback; do not invent extra controls.",
+      "reason": "Choosing a destination by list, search, and map marker all updated the route heading, highlighted destination, route line, directions, distance, and floor status. Enabling step-free access changed the cross-floor route and directions from stairs to lift.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-43-45-230Z.jpeg",
+        "evidence/page-2026-11-12T12-45-15-640Z.jpeg",
+        "evidence/page-2026-11-12T12-43-29-534Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "requirement": "Exercise repeat, reverse, boundary and recovery behavior appropriate to the requested and advertised flows.",
+      "reason": "Repeated destination changes recomputed routes; lift disablement produced an explicit unavailable state; a same-floor destination still routed; an empty search produced a recoverable no-results message; and the lift service control was returned to normal.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-45-35-221Z.jpeg",
+        "evidence/page-2026-11-12T12-45-49-230Z.jpeg",
+        "evidence/page-2026-11-12T12-45-59-816Z.jpeg",
+        "evidence/page-2026-11-12T12-46-13-263Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "requirement": "Inspect 1440x900 and 390x844 layouts, lower controls, reload and console/resource diagnostics. A narrow viewport does not certify real touch hardware.",
+      "reason": "Both viewports rendered without horizontal clipping. At 390px the model and panels stack vertically with large controls, but the lower route content begins below the fold. Reload and full keyboard-focus traversal were not separately exercised, so this check is only partially verified.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-42-030Z.jpeg",
+        "evidence/page-2026-11-12T12-48-19-254Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "requirement": "The local 3D library has two floors, entrance/help/children/toilets, upstairs reading and two meeting rooms, connected by stairs and lift.",
+      "reason": "The seven-place directory and model include Main Entrance, Help Desk, Children's Section, Toilets, Reading Room upstairs, Meeting Room 1 downstairs, and Meeting Room 2 upstairs. Both floor models visibly include stair and lift structures.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-42-030Z.jpeg",
+        "evidence/page-2026-11-12T12-43-08-675Z.jpeg",
+        "evidence/page-2026-11-12T12-43-16-646Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "requirement": "Search or model selection chooses destinations and supports several starting points.",
+      "reason": "A search for Meeting Room 1 selected it from a Toilets start, and clicking the Children's map marker selected that destination from the same non-entrance start. The start selector lists all seven places, not just the entrance.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-43-45-230Z.jpeg",
+        "evidence/page-2026-11-12T12-45-15-640Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "requirement": "Routes and directions agree through corridors and doorways; switching displayed floors preserves the route.",
+      "reason": "The entrance-to-Reading-Room route renders across both levels, uses the stairs, then follows the upper gallery to the Reading Room. The written directions match the stair transition and turns. Ground and upper views retain the same destination and show the relevant route segment with continuation banners.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-58-531Z.jpeg",
+        "evidence/page-2026-11-12T12-43-08-675Z.jpeg",
+        "evidence/page-2026-11-12T12-43-16-646Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "requirement": "Step-free mode uses the lift, avoids stairs and recomputes when staff mark it out of service.",
+      "reason": "With step-free enabled, the cross-floor Reading Room route changed to Lift between floors and the direction explicitly said to take the lift. After staff marked the lift out of service, the same destination changed to an unavailable step-free state.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-43-29-534Z.jpeg",
+        "evidence/page-2026-11-12T12-45-35-221Z.jpeg",
+        "evidence/page-2026-11-12T12-45-49-230Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "requirement": "An unavailable cross-floor step-free route is explained, while same-floor routes still work; kiosk touch controls avoid reliance on precise camera manipulation.",
+      "reason": "The disabled-lift Reading Room state says no step-free route is available and explains that the lift is out of service. A Toilets-to-Help-Desk step-free route still renders on the ground floor. Destinations, starts, floor switching, and route controls are direct large-button interactions rather than precise 3D gestures.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-45-49-230Z.jpeg",
+        "evidence/page-2026-11-12T12-45-59-816Z.jpeg",
+        "evidence/page-2026-11-12T12-48-19-254Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All explicit task requirements were delivered coherently: two floors, the named rooms, search and model selection, multiple starts, floor-preserving routes, directions, lift-based step-free routing, staff lift failure, unavailable-route explanation, same-floor recovery, and large kiosk controls.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-42-030Z.jpeg",
+        "evidence/page-2026-11-12T12-45-49-230Z.jpeg",
+        "evidence/page-2026-11-12T12-48-19-254Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The two-floor model maintains coherent room placement, walls, openings, stairs and lift locations, route continuity, depth, and occlusion across the tested views. Ground and upper route segments meet at the level change.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-58-531Z.jpeg",
+        "evidence/page-2026-11-12T12-43-08-675Z.jpeg",
+        "evidence/page-2026-11-12T12-43-16-646Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Search, list selection, model selection, start changes, floor views, step-free toggling, lift failure, same-floor fallback, empty search, and service restoration all produced clear and consistent state feedback.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-43-45-230Z.jpeg",
+        "evidence/page-2026-11-12T12-45-49-230Z.jpeg",
+        "evidence/page-2026-11-12T12-45-59-816Z.jpeg",
+        "evidence/page-2026-11-12T12-46-13-263Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "Composition, typography, color, map labels, route encoding, status badges, and the 3D materials consistently reinforce the wayfinding task. Warning and unavailable states are visibly distinct without breaking the overall visual language.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-42-030Z.jpeg",
+        "evidence/page-2026-11-12T12-43-29-534Z.jpeg",
+        "evidence/page-2026-11-12T12-45-49-230Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "Tested desktop flows and the 390px reflow were stable, readable, and free of console errors or missing-resource failures. A fully satisfied top anchor is withheld because reload and keyboard focus traversal were not separately verified and the lower mobile route area was below the captured fold.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-42-030Z.jpeg",
+        "evidence/page-2026-11-12T12-45-59-816Z.jpeg",
+        "evidence/page-2026-11-12T12-48-19-254Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The mobile layout was emulated at 390x844; real touch hardware, gesture precision, and physical target spacing were not certified.",
+    "The lower route details at mobile size were below the screenshot fold; scrolling and interaction with those lower controls were not separately captured.",
+    "Reload persistence and full keyboard focus order were not tested before the browser interaction budget was exhausted.",
+    "No audio is advertised by the page, so audio quality was not applicable and was not evaluated.",
+    "Console diagnostics contained zero messages, warnings, or errors. The network export recorded no dynamic requests and noted eight filtered static requests, consistent with locally bundled map assets."
+  ]
+}

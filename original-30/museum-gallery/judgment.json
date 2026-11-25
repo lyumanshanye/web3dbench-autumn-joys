@@ -1,0 +1,167 @@
+{
+  "summary": "The submitted page is a working, immersive Three.js museum rotunda with six selectable antique artifacts. Desktop and mobile exhibit selection, camera orbit, wheel zoom, return-to-rotunda, keyboard activation, boundary selection, and reload were tested successfully; console and resource diagnostics were clean.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded at 127.0.0.1:8765 with the title 'The Obscura Collection — Antiquities in Motion,' rendered the gallery, and remained responsive through resizing, navigation, and reload.",
+    "evidence": [
+      "evidence/page-2026-11-12T13-22-08-867Z.jpeg",
+      "evidence/page-2026-11-12T13-24-27-340Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The scene is genuine interactive 3D rather than a static image: the armillary's nested rings, amphora volume and handles, facial relief of the mask, layered scarab, and tablet slab show depth and occlusion, and their apparent spatial relationships change after orbit and zoom.",
+    "evidence": [
+      "evidence/page-2026-11-12T13-22-08-867Z.jpeg",
+      "evidence/page-2026-11-12T13-22-31-652Z.jpeg",
+      "evidence/page-2026-11-12T13-25-41-949Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Depth and geometry were inspected across an overview, an orbited amphora view, a zoomed rotunda view, and focused mask/scarab/tablet views. Pedestal occlusion, foreground/background parallax, and self-occluding rings confirm effective 3D.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-22-08-867Z.jpeg",
+        "evidence/page-2026-11-12T13-22-31-652Z.jpeg",
+        "evidence/page-2026-11-12T13-25-41-949Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The dark rotunda, warm gold linework, serif typography, and amber artifact materials form a coherent museum presentation. Artifact cards remain legible and mobile compression preserves the main hierarchy.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-22-08-867Z.jpeg",
+        "evidence/page-2026-11-12T13-22-22-518Z.jpeg",
+        "evidence/page-2026-11-12T13-24-00-518Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Collection buttons switched the focused exhibit and updated title, number, date, place, and description. Dragging changed the camera viewpoint, and a large wheel gesture visibly enlarged the rotunda, matching the advertised orbit and zoom controls.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-22-22-518Z.jpeg",
+        "evidence/page-2026-11-12T13-25-33-576Z.jpeg",
+        "evidence/page-2026-11-12T13-25-41-949Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated exhibit changes, the final collection item, return to the rotunda, and reload all worked. The prior Armillary state was recoverable after inspecting other artifacts, and keyboard Tab/Enter selection also succeeded.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-22-50-529Z.jpeg",
+        "evidence/page-2026-11-12T13-24-00-518Z.jpeg",
+        "evidence/page-2026-11-12T13-26-21-298Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Both 1440x900 and 390x844 layouts loaded with the lower collection controls visible and reachable. Mobile keyboard focus was visibly outlined and Enter activated the focused item; reload returned to a stable default. Console had 0 errors/warnings and all recorded resources returned 200 or 304.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-23-15-287Z.jpeg",
+        "evidence/page-2026-11-12T13-23-50-289Z.jpeg",
+        "evidence/page-2026-11-12T13-24-27-340Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The rotunda coherently presents six distinguishable exhibits: Armillary, Amphora, Astrolabe, Mask, Scarab, and Tablet, each on a labeled pedestal with distinct modeled geometry.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-22-08-867Z.jpeg",
+        "evidence/page-2026-11-12T13-22-22-518Z.jpeg",
+        "evidence/page-2026-11-12T13-24-00-518Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Artifacts are modeled in 3D and explorable: orbiting the amphora revealed changing handle and body silhouettes, while the armillary and other focused exhibits retain volumetric depth and occlusion rather than behaving as flat image substitutions.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-22-31-652Z.jpeg",
+        "evidence/page-2026-11-12T13-22-38-270Z.jpeg",
+        "evidence/page-2026-11-12T13-25-41-949Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "The persistent rotunda context and numbered collection navigation make several exhibits reachable, update the accompanying artifact record, and allow return to an earlier Armillary exhibit.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-22-22-518Z.jpeg",
+        "evidence/page-2026-11-12T13-22-50-529Z.jpeg",
+        "evidence/page-2026-11-12T13-23-50-289Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Artifact titles, inventory numbers, dates, locations, and controls remain readable in the immersive layout. The 390px card simplifies content but preserves identification and navigation; focus outlines are visible and the bottom controls remain inside the viewport.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-22-22-518Z.jpeg",
+        "evidence/page-2026-11-12T13-23-50-289Z.jpeg",
+        "evidence/page-2026-11-12T13-24-00-518Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All stated requirements are delivered coherently: a Three.js gallery, multiple antique artifacts modeled in 3D, and interactive exploration through selection, orbit, and zoom in an immersive museum setting.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-22-08-867Z.jpeg",
+        "evidence/page-2026-11-12T13-22-31-652Z.jpeg",
+        "evidence/page-2026-11-12T13-25-41-949Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Shapes, pedestal placement, depth cues, occlusion, lighting, and material color consistently serve the gallery. The nested armillary, rounded amphora, mask relief, scarab layers, and inscribed tablet remain spatially coherent across tested views.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-22-08-867Z.jpeg",
+        "evidence/page-2026-11-12T13-22-31-652Z.jpeg",
+        "evidence/page-2026-11-12T13-26-21-298Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Selection sequences, camera orbit, wheel zoom, return to rotunda, keyboard activation, the last-item boundary, and reload were reliable. Scene and information updates provide clear feedback and the tested recovery paths work naturally.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-22-50-529Z.jpeg",
+        "evidence/page-2026-11-12T13-24-00-518Z.jpeg",
+        "evidence/page-2026-11-12T13-26-21-298Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The warm-gold-on-black palette, editorial serif typography, luminous floor rings, and restrained artifact cards create a purposeful gallery identity. Hierarchy remains clear across desktop and mobile, and camera transitions reinforce the immersive presentation.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-22-08-867Z.jpeg",
+        "evidence/page-2026-11-12T13-23-50-289Z.jpeg",
+        "evidence/page-2026-11-12T13-25-33-576Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "Desktop and narrow layouts, repeated selections, keyboard interaction, zoom, and reload remained stable. The console contained no messages, errors, or warnings, and the recorded scripts and styles returned successful 200 or cached 304 responses.",
+      "evidence": [
+        "evidence/page-2026-11-12T13-23-15-287Z.jpeg",
+        "evidence/page-2026-11-12T13-24-27-340Z.jpeg",
+        "evidence/page-2026-11-12T13-25-41-949Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "A 390x844 viewport was used for the mobile checks; real touch hardware and native pinch gestures were not tested, so the touch-specific pinch claim is not certified.",
+    "Internal implementation and rendering-source details were not inspected; Three.js usage is supported only by browser-observed rendered 3D and successful three.module.js network loading.",
+    "No download/export control was visible or advertised, so no export workflow was available to test.",
+    "The keyboard check covered visible focus traversal and Enter activation in the collection navigation, not every possible keyboard shortcut.",
+    "One post-reload control reference became stale; a fresh accessibility lookup found the same Tablet control and it activated successfully."
+  ]
+}

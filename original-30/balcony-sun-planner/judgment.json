@@ -1,0 +1,183 @@
+{
+  "summary": "Sunroom is a complete balcony sun-study app: it renders an orbitable furnished balcony with wall, railing, overhang, furniture and planters; updates solar position from sample location, date and compass orientation; scrubs daylight with clear sun/shade feedback; supports moving planters in two side-by-side top views; and exposes its simplified solar assumptions without location or API credentials. Desktop and 390x844 flows remained usable, reload/reset recovered the default state, and diagnostics were clean.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page opened and completed its 3D scene load, all tested controls responded, reload recovered the default Dubai study, and the saved console log contains 0 errors and 0 warnings. The saved network log shows the document, CSS, app and three.js modules returning 200 on first load and 304 on reload.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-56-06-024Z.jpeg",
+      "evidence/page-2026-11-12T12-56-46-797Z.jpeg",
+      "evidence/page-2026-11-12T12-58-40-192Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "This is genuine interactive 3D rather than a static image: orbiting produced three distinct viewpoints with stable geometry, depth, occlusion and parallax. The furnished balcony has a solid side wall, railings, a projecting overhang, deck, seating, tables and visible planters, and daylight changes alter broad shaded areas and planter sun/shade indicators coherently.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-56-06-024Z.jpeg",
+      "evidence/page-2026-11-12T12-56-16-333Z.jpeg",
+      "evidence/page-2026-11-12T12-56-23-467Z.jpeg",
+      "evidence/page-2026-11-12T12-57-43-995Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three orbit views show consistent balcony depth, railing occlusion, overhang placement and furniture/planter positions. Moving the camera produces real spatial changes rather than a fixed or unrelated canvas.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-56-06-024Z.jpeg",
+        "evidence/page-2026-11-12T12-56-16-333Z.jpeg",
+        "evidence/page-2026-11-12T12-56-23-467Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The warm editorial controls and muted furnished scene form a coherent composition. Solar readouts, arrangement status, direct-sun/shade legend, type hierarchy and plan thumbnails remain legible on desktop and the narrow layout.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-56-06-024Z.jpeg",
+        "evidence/page-2026-11-12T12-57-43-995Z.jpeg",
+        "evidence/page-2026-11-12T12-58-14-221Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary controls produced meaningful feedback: changing location/date/orientation changed coordinates, solar azimuth/elevation and sunrise/noon/sunset; scrubbing changed the 3D lighting and the 0-6 sun counts; dragging a top-view planter moved it and updated the scene.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-56-46-797Z.jpeg",
+        "evidence/page-2026-11-12T12-57-02-165Z.jpeg",
+        "evidence/page-2026-11-12T12-57-22-051Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Boundary and reverse behavior worked: End reached 5:26 PM with all six planters shaded, dragging back to 9:38 AM restored mixed sun states, A/B switching retained the same time and distinct arrangements, reload restored defaults, and Reset reported 'Plans reset'.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-56-46-797Z.jpeg",
+        "evidence/page-2026-11-12T12-57-43-995Z.jpeg",
+        "evidence/page-2026-11-12T12-57-51-030Z.jpeg",
+        "evidence/page-2026-11-12T12-58-40-192Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "At 1440x900 and 390x844 the 3D scene, time scrubber, comparison cards, location/date/orientation controls and assumptions remained reachable. Tab navigation visibly focused the play control. Reload completed successfully; console.txt reports no messages/errors and network.txt shows successful asset loads. Real touch hardware was not available.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-58-14-221Z.jpeg",
+        "evidence/page-2026-11-12T12-58-20-427Z.jpeg",
+        "evidence/page-2026-11-12T12-58-30-682Z.jpeg",
+        "evidence/page-2026-11-12T12-58-40-192Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The furnished balcony clearly contains a solid side wall, railing and large overhang. Across orbit and daylight states, shaded floor regions and planter indicators change consistently with those structures, including full shading near sunset.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-56-06-024Z.jpeg",
+        "evidence/page-2026-11-12T12-56-16-333Z.jpeg",
+        "evidence/page-2026-11-12T12-56-46-797Z.jpeg",
+        "evidence/page-2026-11-12T12-57-43-995Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Sydney, 21 June 2026 and East orientation replaced Dubai/South and updated the displayed coordinates, sunrise/noon/sunset, compass view and solar position. Daylight scrubbing changed the sun/shade result, including 0 of 6 at sunset and 4/3 of 6 at 9:38 AM.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-56-46-797Z.jpeg",
+        "evidence/page-2026-11-12T12-57-02-165Z.jpeg",
+        "evidence/page-2026-11-12T12-57-43-995Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Arrangement A's planter was dragged from the upper-left area to the lower-right in top view. The plan thumbnail moved, the active 3D arrangement reflected the changed layout, and the per-planter sun/shade treatment remained inspectable at the fixed selected time.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-57-02-165Z.jpeg",
+        "evidence/page-2026-11-12T12-57-22-051Z.jpeg",
+        "evidence/page-2026-11-12T12-57-43-995Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Arrangements A and B are distinct and remain visible together in the comparison panel at the same selected time. At 9:38 AM A shows 4 of 6 in sun while B shows 3 of 6, with different planter positions; switching the 3D stage between A and B preserves both layouts and the shared time.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-57-43-995Z.jpeg",
+        "evidence/page-2026-11-12T12-57-51-030Z.jpeg",
+        "evidence/page-2026-11-12T12-58-14-221Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "Six bundled sample locations are offered and the app opened immediately without a location prompt, API key or account. The visible model-assumptions disclosure states NOAA-style clear-sky geometry, standard UTC offsets without daylight saving, ignored refraction/weather/external obstructions, and canopy shade tracing.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-56-06-024Z.jpeg",
+        "evidence/page-2026-11-12T12-57-02-165Z.jpeg",
+        "evidence/page-2026-11-12T12-58-20-427Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All stated requirements were delivered coherently in tested states: furnished shadow-casting balcony, editable solar context, daylight scrub, movable planters, two arrangements at one time, visible assumptions and bundled sample locations without credentials.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-56-06-024Z.jpeg",
+        "evidence/page-2026-11-12T12-57-43-995Z.jpeg",
+        "evidence/page-2026-11-12T12-58-20-427Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Geometry, depth, occlusion, furniture scale and daylight shading consistently serve the balcony-placement task across three camera views and multiple solar states.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-56-16-333Z.jpeg",
+        "evidence/page-2026-11-12T12-56-23-467Z.jpeg",
+        "evidence/page-2026-11-12T12-56-46-797Z.jpeg",
+        "evidence/page-2026-11-12T12-57-43-995Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "The primary sequence is reliable and understandable: set context, scrub time, inspect the 3D scene, drag planters, switch arrangements and compare counts. Boundary, reverse, reset and reload recovery all behaved correctly with immediate visual feedback.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-56-46-797Z.jpeg",
+        "evidence/page-2026-11-12T12-57-22-051Z.jpeg",
+        "evidence/page-2026-11-12T12-57-43-995Z.jpeg",
+        "evidence/page-2026-11-12T12-57-51-030Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "Composition, typography, warm color, solar-state transitions and plan thumbnails reinforce the purpose and remain readable. The responsive layout preserves the same hierarchy and useful comparison context.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-56-06-024Z.jpeg",
+        "evidence/page-2026-11-12T12-57-43-995Z.jpeg",
+        "evidence/page-2026-11-12T12-58-14-221Z.jpeg",
+        "evidence/page-2026-11-12T12-58-20-427Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "Loads, repeated controls, reset and reload were stable; desktop and narrow layouts remained usable; no console warnings/errors appeared and all required assets loaded successfully.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-58-14-221Z.jpeg",
+        "evidence/page-2026-11-12T12-58-30-682Z.jpeg",
+        "evidence/page-2026-11-12T12-58-40-192Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "Touch gestures and real mobile hardware were not tested; mobile assessment used a 390x844 viewport per the rubric.",
+    "Numerical solar accuracy and exact shadow projection were not independently validated against astronomy data; the assessment relies on visible coherence and the app's disclosed simplified assumptions.",
+    "No export or download control was advertised, so there was no exported image to open and inspect."
+  ]
+}

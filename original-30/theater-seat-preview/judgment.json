@@ -1,0 +1,186 @@
+{
+  "summary": "The Orpheum is a polished, functioning 3D community-theater seat picker. The auditorium shows a raked 96-seat house, stage, balcony structure, limited-view side seats, live eye-level previews, side-by-side comparison, adjacent-seat totals, disabled reserved seats, a local-only reservation summary, and a scrollable 390px phone layout.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded at both tested viewport sizes, exposed the complete seat and booking UI, accepted all normal interactions, and reloaded to a clean initial booking state. Console output contained only a nonblocking favicon.ico 404; HTML, CSS, JavaScript, and Three.js module requests completed successfully (200/304).",
+    "evidence": [
+      "evidence/page-2026-11-12T12-50-18-465Z.jpeg",
+      "evidence/page-2026-11-12T12-54-11-950Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "Real-time 3D is present and task-relevant: the house view shows built seating with depth and rake, while seat selections produce distinct eye-level camera positions. Stage scale, foreground seat occlusion, side perspective, lighting, and balcony/limited-view sightlines change coherently across the tested views.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-50-18-465Z.jpeg",
+      "evidence/page-2026-11-12T12-50-40-751Z.jpeg",
+      "evidence/page-2026-11-12T12-50-57-094Z.jpeg",
+      "evidence/page-2026-11-12T12-51-33-379Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Depth and geometry were inspected in the house view, the A6 eye-level view, the F1 side view, and the F1/H12 comparison. These views show meaningful parallax, stage scale changes, seat-back occlusion, and different side sightlines rather than a static scene.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-50-18-465Z.jpeg",
+        "evidence/page-2026-11-12T12-50-40-751Z.jpeg",
+        "evidence/page-2026-11-12T12-50-57-094Z.jpeg",
+        "evidence/page-2026-11-12T12-51-33-379Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Composition is clear and legible at desktop size: the 3D auditorium dominates the primary pane, booking controls have a distinct sidebar, and the warm red/gold stage palette, teal seats, serif display type, and state colors form one coherent theater identity. The summary modal also preserves the visual hierarchy.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-50-18-465Z.jpeg",
+        "evidence/page-2026-11-12T12-51-33-379Z.jpeg",
+        "evidence/page-2026-11-12T12-53-55-297Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary UI gives meaningful feedback: selecting A6 showed $58 and moved to a centered front view; selecting F1 showed $26 and a constricted side view; compare mode produced labeled side-by-side views. The scene, price card, seat marker, and status text update together.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-50-40-751Z.jpeg",
+        "evidence/page-2026-11-12T12-50-57-094Z.jpeg",
+        "evidence/page-2026-11-12T12-51-33-379Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeat and recovery flows worked: H12 and adjacent H11 produced a 2-seat, $58 order; removing H11 returned the total to $26; Clear returned the selected count and total to zero; compare could be entered and exited; and reserved A4 remained disabled when activation was attempted.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-52-14-073Z.jpeg",
+        "evidence/page-2026-11-12T12-53-36-983Z.jpeg",
+        "evidence/page-2026-11-12T12-55-38-693Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "reason": "Desktop 1440x900 and mobile 390x844 layouts were inspected, lower seat rows were reached through the phone panel's internal scrolling, fixed total/review controls stayed available, reload returned to a clean state, and console/network diagnostics were saved. Keyboard tab-order and focus-visible behavior were not separately exercised, so the focus-navigation portion is only partially verified.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-50-18-465Z.jpeg",
+        "evidence/page-2026-11-12T12-54-11-950Z.jpeg",
+        "evidence/page-2026-11-12T12-55-38-693Z.jpeg",
+        "evidence/page-2026-11-12T12-53-55-297Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The plan exposes eight labeled rows A-H with twelve seats per row (96 total; 82 open), represented as a raked 3D house facing a modeled stage. Balcony/rail structure and limited-view side positions are visible, and F1/H12 previews preserve obstructed or restricted side sightlines.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-50-18-465Z.jpeg",
+        "evidence/page-2026-11-12T12-51-33-379Z.jpeg",
+        "evidence/page-2026-11-12T12-55-38-693Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Available seats showed their prices and changed to plausible eye-level views from their actual positions. A6 showed $58 with a close centered stage view; F1 showed $26 with a lower left-side perspective and prominent foreground seating; H12 showed $26 with a far-side limited view.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-50-40-751Z.jpeg",
+        "evidence/page-2026-11-12T12-50-57-094Z.jpeg",
+        "evidence/page-2026-11-12T12-51-33-379Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Compare mode pinned F1 and then showed F1 versus H12 side by side. The two labeled panes retained materially different stage scale, side angle, and foreground seat occlusion, making the positional and sightline difference understandable.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-51-15-471Z.jpeg",
+        "evidence/page-2026-11-12T12-51-33-379Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Adjacent H11 ($32) and H12 ($26) were selected together, producing the correct $58 running total. Removing H11 changed the total to $26. Reserved seats, including A4, were disabled and could not be booked.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-52-14-073Z.jpeg",
+        "evidence/page-2026-11-12T12-53-36-983Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "The local reservation summary matched the remaining H12 selection at $26 and explicitly stated that no payment was taken. At 390px, the seating plan was scrollable to Row H, a lower-row seat tap updated the limited-view preview/price, and the fixed total and review controls remained reachable without a payment service.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-53-55-297Z.jpeg",
+        "evidence/page-2026-11-12T12-54-11-950Z.jpeg",
+        "evidence/page-2026-11-12T12-55-38-693Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All requested behavior was delivered coherently: a full 8x12 raked auditorium, stage and limited-view structure, seat-specific pricing and eye-level previews, two-view comparison, adjacent selection with correct totals, unavailable reserved seats, a local-only summary, and a phone-usable plan.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-50-18-465Z.jpeg",
+        "evidence/page-2026-11-12T12-50-40-751Z.jpeg",
+        "evidence/page-2026-11-12T12-51-33-379Z.jpeg",
+        "evidence/page-2026-11-12T12-52-14-073Z.jpeg",
+        "evidence/page-2026-11-12T12-53-55-297Z.jpeg",
+        "evidence/page-2026-11-12T12-55-38-693Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Shapes, scales, rake, stage relation, seat occlusion, lighting, and camera viewpoints consistently serve the sightline-comparison task. Tested seat views remain spatially coherent and visibly distinct.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-50-18-465Z.jpeg",
+        "evidence/page-2026-11-12T12-50-40-751Z.jpeg",
+        "evidence/page-2026-11-12T12-50-57-094Z.jpeg",
+        "evidence/page-2026-11-12T12-51-33-379Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Preview, compare, add, remove, clear, exit-compare, and review sequences were discoverable and reliable. Selected, unavailable, total, and summary feedback stayed synchronized through repeated and reversed operations.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-50-40-751Z.jpeg",
+        "evidence/page-2026-11-12T12-51-33-379Z.jpeg",
+        "evidence/page-2026-11-12T12-52-14-073Z.jpeg",
+        "evidence/page-2026-11-12T12-53-36-983Z.jpeg",
+        "evidence/page-2026-11-12T12-53-55-297Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "Typography, warm theatrical lighting, seat and curtain materials, compare labels, selection colors, and the reservation modal form a purposeful visual system that consistently clarifies state changes rather than merely decorating them.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-50-18-465Z.jpeg",
+        "evidence/page-2026-11-12T12-51-33-379Z.jpeg",
+        "evidence/page-2026-11-12T12-53-55-297Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "Standard desktop and mobile flows, repeat/remove operations, reload, and resource loading were stable, with the phone seat rows reachable through an internal scroll. The only observed defect was a nonblocking favicon 404, and keyboard focus traversal was not separately verified, leaving local rather than complete coverage.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-50-18-465Z.jpeg",
+        "evidence/page-2026-11-12T12-54-11-950Z.jpeg",
+        "evidence/page-2026-11-12T12-55-38-693Z.jpeg",
+        "evidence/page-2026-11-12T12-53-55-297Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "Keyboard tab-order and focus-visible behavior were not separately exercised; pointer/role-based interactions and accessible control states were inspected instead.",
+    "The 390x844 phone layout was verified through viewport emulation, not physical touch hardware, so real-device touch ergonomics remain unverified.",
+    "The mobile lower-row seat tap and preview were verified, but the final Add seat to local summary sequence was completed at desktop size rather than repeated at 390px.",
+    "No download or export control was advertised, so no download flow was available to test.",
+    "Audio quality and internal implementation details such as exact pricing and camera formulas were not evaluated; findings are based on rendered browser observations.",
+    "The console retained one nonblocking 404 for favicon.ico. Network diagnostics show successful loading of the page CSS, JavaScript, Three.js, OrbitControls, and RoundedBoxGeometry resources."
+  ]
+}

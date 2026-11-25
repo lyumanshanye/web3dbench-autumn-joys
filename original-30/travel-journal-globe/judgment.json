@@ -1,0 +1,192 @@
+{
+  "summary": "The submission is a polished, working travel-journal globe. Six locally loaded trips cover six continents; list, globe-marker, and clustered-marker selection all open synchronized trip details with highlighted locations. Filters, chronological view, empty-state recovery, reset-with-filter-preservation, shareable URL reload, and back navigation work. Valid real-time 3D is evident from the rotating globe's changing geography, marker occlusion, and spatial highlight changes. The 390px layout remains readable and exposes the controls, though keyboard activation and reduced-motion camera behavior were not directly exercised within the call budget.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded at 1440x900 with the Meridian title, full interface, and WebGL globe. All application and photo resources in the network log returned 200; the only console error was a nonblocking missing favicon.ico (404).",
+    "evidence": [
+      "evidence/page-2026-11-12T12-35-24-630Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The scene is a genuine interactive 3D globe rather than a static image: coastlines, lighting, surface shading, depth, and marker projections remain spatially coherent as the camera changes between Europe/Africa, Asia, and the Americas views.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-35-24-630Z.jpeg",
+      "evidence/page-2026-11-12T12-36-46-282Z.jpeg",
+      "evidence/page-2026-11-12T12-38-52-601Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct views show real depth and changing geometry: the initial Europe/Africa hemisphere, the Banff-focused Americas hemisphere, and a dragged Asia-centered view. Markers move with the sphere and far-side markers disappear behind it.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-35-24-630Z.jpeg",
+        "evidence/page-2026-11-12T12-36-46-282Z.jpeg",
+        "evidence/page-2026-11-12T12-38-52-601Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Composition, typography, color, and materials form a coherent editorial field-journal presentation. The cream archive panel, dark globe, green landmasses, and orange markers maintain clear hierarchy and legibility across desktop and mobile.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-35-24-630Z.jpeg",
+        "evidence/page-2026-11-12T12-39-41-682Z.jpeg",
+        "evidence/page-2026-11-12T12-42-23-167Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Primary UI actions produce meaningful feedback: selecting Kyoto from the list, Banff from its globe marker, and Lisbon from the nearby-trips popup each opened the corresponding article, updated the URL, and focused/highlighted the matching globe location.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-35-36-792Z.jpeg",
+        "evidence/page-2026-11-12T12-36-46-282Z.jpeg",
+        "evidence/page-2026-11-12T12-38-15-831Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeat and recovery flows work: combined search and year filtering reduced the archive to one result, a conflicting combination produced an explanatory empty state with a clear recovery action, timeline mode ordered trips newest to oldest, reset restored the full globe without clearing filters, and share/refresh/back navigation restored coherent journal context.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-38-39-183Z.jpeg",
+        "evidence/page-2026-11-12T12-39-19-012Z.jpeg",
+        "evidence/page-2026-11-12T12-39-02-062Z.jpeg",
+        "evidence/page-2026-11-12T12-39-41-682Z.jpeg",
+        "evidence/page-2026-11-12T12-41-32-050Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Desktop 1440x900 and mobile 390x844 layouts were inspected. The mobile full-page view keeps the globe, filter controls, all six trip entries, lower reset control, and footer content visible and readable. Reload preserved the direct trip URL. Network resources were healthy; the sole console issue was a nonblocking favicon 404.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-35-24-630Z.jpeg",
+        "evidence/page-2026-11-12T12-42-23-167Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The six-entry archive covers Europe, Asia, North America, Africa, Oceania, and South America. Each list entry exposes a locally bundled photo with meaningful alt text, specific dates, country, continent, and a diary summary; opened details for Kyoto, Banff, and Patagonia include full diary text and geographic coordinates. The network log confirms all six local JPEG assets loaded with 200 responses.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-23-167Z.jpeg",
+        "evidence/page-2026-11-12T12-35-36-792Z.jpeg",
+        "evidence/page-2026-11-12T12-41-32-050Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "List and globe selection open the same journal context and matching highlight. Kyoto selected from the list opened Trip 02 and focused the Kyoto marker; Banff selected from its map marker opened Trip 03 and moved the globe to North America; the cluster-selected Lisbon opened Trip 01. Markers are placed consistently with the listed coordinates and continent.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-35-36-792Z.jpeg",
+        "evidence/page-2026-11-12T12-36-46-282Z.jpeg",
+        "evidence/page-2026-11-12T12-38-15-831Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Far-side trip markers are not exposed or selectable in the tested views; only markers on the visible hemisphere appear. The nearby Lisbon and Marrakech markers are disambiguated by a two-item popup, and each button independently selects its trip.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-35-24-630Z.jpeg",
+        "evidence/page-2026-11-12T12-36-46-282Z.jpeg",
+        "evidence/page-2026-11-12T12-38-15-831Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Search and year filters combine correctly, timeline mode is chronological (2025 to 2023), and zero matches produce a useful 'Nothing pinned here' explanation with a clear-search-and-year recovery action. After orbiting the camera with a lake/2024 filter active, Reset view restored the full globe while the active search and year remained unchanged.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-38-39-183Z.jpeg",
+        "evidence/page-2026-11-12T12-39-19-012Z.jpeg",
+        "evidence/page-2026-11-12T12-39-02-062Z.jpeg",
+        "evidence/page-2026-11-12T12-39-41-682Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "A direct #trip=patagonia URL was loaded and reloaded; it restored Trip 06/06, the Patagonia article, coordinates, and map focus. Browser back returned to the root journal with all six journeys and Timeline mode still selected. The duplicate same-URL navigation used for the refresh required one extra back step but did not lose journal context.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-41-32-050Z.jpeg",
+        "evidence/page-2026-11-12T12-39-41-682Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PARTIAL",
+      "reason": "All six trips are exposed as native buttons in the accessibility tree, and the 390px full-page layout is readable with ordinary document content below the globe and explicit vertical-scroll guidance on the canvas. However, actual Tab/Enter activation of every list item and the reduced-motion camera transition were not directly exercised within the call budget, so these aspects remain only partially verified.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-42-23-167Z.jpeg",
+        "evidence/page-2026-11-12T12-35-24-630Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 3,
+      "reason": "Core requested flows and content are delivered coherently, including trip synchronization, geographic placement, clustered markers, filtering, chronological view, empty-state recovery, reset behavior, shareable URLs, and back navigation. The score stops short of 4 because keyboard activation and reduced-motion camera handling were not directly verified.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-35-36-792Z.jpeg",
+        "evidence/page-2026-11-12T12-39-19-012Z.jpeg",
+        "evidence/page-2026-11-12T12-41-32-050Z.jpeg",
+        "evidence/page-2026-11-12T12-42-23-167Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The globe consistently behaves as a sphere across multiple viewpoints. Continents and markers stay geographically coherent, near-side markers remain visible, far-side markers are occluded, and the selected location is highlighted without spatial contradictions.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-35-24-630Z.jpeg",
+        "evidence/page-2026-11-12T12-36-46-282Z.jpeg",
+        "evidence/page-2026-11-12T12-38-52-601Z.jpeg",
+        "evidence/page-2026-11-12T12-39-02-062Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "The primary flows, combinations, and recovery behavior are reliable: list and marker selection, cluster disambiguation, filtering, empty-state recovery, timeline switching, reset without filter loss, direct-trip reload, and back navigation all produced the expected visible state changes.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-35-36-792Z.jpeg",
+        "evidence/page-2026-11-12T12-38-15-831Z.jpeg",
+        "evidence/page-2026-11-12T12-39-19-012Z.jpeg",
+        "evidence/page-2026-11-12T12-39-02-062Z.jpeg",
+        "evidence/page-2026-11-12T12-41-32-050Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The distressed editorial typography, restrained cream and dark-green palette, map linework, photography, and orange pin accents consistently support the field-journal concept. Hierarchy remains clear in the desktop detail view, timeline, empty state, and mobile stacked layout.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-35-24-630Z.jpeg",
+        "evidence/page-2026-11-12T12-35-36-792Z.jpeg",
+        "evidence/page-2026-11-12T12-39-19-012Z.jpeg",
+        "evidence/page-2026-11-12T12-42-23-167Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "Tested desktop, mobile, reload, filtering, selection, and history flows remained usable. Application and photo assets loaded successfully, but the console contains a nonblocking favicon 404, and one automated cluster-button click timed out because the animated marker was not stable while the camera settled.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-35-24-630Z.jpeg",
+        "evidence/page-2026-11-12T12-38-15-831Z.jpeg",
+        "evidence/page-2026-11-12T12-41-32-050Z.jpeg",
+        "evidence/page-2026-11-12T12-42-23-167Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The 40-call budget prevented a direct Tab/Enter pass through every trip button and an emulated prefers-reduced-motion camera-transition test; T06 is therefore marked PARTIAL.",
+    "Mobile evaluation used a 390x844 viewport rather than real touch hardware. The full-page render and scroll guidance confirm a scrollable document, but no physical touch gesture was performed.",
+    "Coordinates and full diary text were opened directly for Kyoto, Banff, and Patagonia; the other three entries were verified from list metadata, local photo assets, and consistently structured selection UI rather than individually opened detail panels.",
+    "No export/download control was present or advertised, so no downloaded-export flow applied.",
+    "Console and network diagnostics are recorded in evidence/console.txt and evidence/network.txt; they are not included in screenshot evidence arrays."
+  ]
+}

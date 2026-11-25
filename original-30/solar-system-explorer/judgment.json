@@ -1,0 +1,172 @@
+{
+  "summary": "Helios is a genuine, polished real-time 3D solar-system explorer. The Sun and eight planets are visible in a spatially coherent overview, planets move over time, and users can travel to close inspectable planet views from desktop and mobile navigation. Orbital drag, speed adjustment in the desktop view, keyboard recovery, horizontal mobile rail scrolling, visible keyboard focus, and reload all worked. The main local defect is that the mobile layout hides the footer playback controls and requires non-obvious horizontal scrolling to reach the last planets.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded successfully at both viewport sizes and survived a repeat navigation reload. The scene canvas reported three.js r160; console diagnostics contained 0 errors and 0 warnings, and network resources loaded successfully (200 initially, 304 on reload).",
+    "evidence": [
+      "evidence/page-2026-11-12T12-27-21-286Z.jpeg",
+      "evidence/page-2026-11-12T12-30-11-597Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The scene is a genuine real-time 3D solar system rather than a static image: the Sun, eight labeled planets, orbit paths and an asteroid belt render with depth, perspective and lighting. Traveling to Earth, Saturn and Neptune revealed distinct volumetric planet views, including Earth's atmospheric globe and Saturn's layered ring geometry.",
+    "evidence": [
+      "evidence/page-2026-11-12T12-27-21-286Z.jpeg",
+      "evidence/page-2026-11-12T12-27-37-343Z.jpeg",
+      "evidence/page-2026-11-12T12-31-58-604Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Depth and geometry were inspected across the wide overview, Earth close-up, Saturn close-up, Neptune mobile close-up, and a dragged orbital overview. Planet spheres, ring occlusion, orbital perspective and camera parallax remain coherent across these distinct views.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-21-286Z.jpeg",
+        "evidence/page-2026-11-12T12-27-37-343Z.jpeg",
+        "evidence/page-2026-11-12T12-28-57-221Z.jpeg",
+        "evidence/page-2026-11-12T12-30-35-122Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Composition, typography, restrained color and lighting form a coherent celestial-atlas presentation. The warm Sun and orbit traces contrast with the blue-black star field, labels remain legible in the desktop overview, and planet close-ups have distinct materials and silhouettes.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-21-286Z.jpeg",
+        "evidence/page-2026-11-12T12-27-37-343Z.jpeg",
+        "evidence/page-2026-11-12T12-31-58-604Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Traveling to Earth and Saturn changed both the camera view and the planet detail panel, while the active Saturn row became visible in the navigation. Mouse dragging also changed the overview's orbital perspective, confirming meaningful 3D feedback rather than superficial control reactions.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-37-343Z.jpeg",
+        "evidence/page-2026-11-12T12-31-58-604Z.jpeg",
+        "evidence/page-2026-11-12T12-30-35-122Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated travel between destinations worked, Escape returned from a planet view to the full system, speed-up changed the displayed orbital rate, and reload restored a working overview. On mobile, horizontal scrolling revealed the boundary destinations Uranus and Neptune and Neptune remained selectable.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-11-456Z.jpeg",
+        "evidence/page-2026-11-12T12-28-48-225Z.jpeg",
+        "evidence/page-2026-11-12T12-28-57-221Z.jpeg",
+        "evidence/page-2026-11-12T12-30-11-597Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "reason": "Desktop 1440x900, mobile 390x844, reload and diagnostics were inspected. The page remains usable on mobile and the bottom planet rail is reachable by horizontal scrolling, with a visible keyboard focus outline on the detail close button. However, Uranus and Neptune begin clipped off-screen with no clear scroll affordance, and the footer playback/speed controls disappear entirely at 390px, so the mobile adaptation has a local control omission.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-23-156Z.jpeg",
+        "evidence/page-2026-11-12T12-28-48-225Z.jpeg",
+        "evidence/page-2026-11-12T12-28-57-221Z.jpeg",
+        "evidence/page-2026-11-12T12-30-11-597Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The wide view visibly contains a radiant 3D Sun and recognizable Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus and Neptune. Close travel views further confirm the planets are modeled 3D bodies, including Saturn's rings.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-21-286Z.jpeg",
+        "evidence/page-2026-11-12T12-27-37-343Z.jpeg",
+        "evidence/page-2026-11-12T12-31-58-604Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "At 2x speed, the mission clock advanced from roughly day 1.3 to day 8.4 and the visible positions of Earth, Mars, Venus and other worlds shifted between overview captures while orbit paths stayed fixed. This demonstrates actual animated orbital motion rather than only changing text.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-21-286Z.jpeg",
+        "evidence/page-2026-11-12T12-28-11-456Z.jpeg",
+        "evidence/page-2026-11-12T12-30-35-122Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "The user can travel directly to Earth, Saturn and Neptune, inspect detailed close views, return to the wider system, and rotate the overview by dragging. The same destination navigation remains reachable on mobile after scrolling the bottom rail.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-37-343Z.jpeg",
+        "evidence/page-2026-11-12T12-31-58-604Z.jpeg",
+        "evidence/page-2026-11-12T12-28-57-221Z.jpeg",
+        "evidence/page-2026-11-12T12-30-35-122Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "The dramatic Sun, concentric orbit system, particle belt, star field and close planetary portraits communicate scale and wonder while the persistent planet rail preserves navigation. Artistic rather than literal physical scaling is appropriate to the task.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-21-286Z.jpeg",
+        "evidence/page-2026-11-12T12-28-11-456Z.jpeg",
+        "evidence/page-2026-11-12T12-28-57-221Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "The requested immersive explorable solar system is delivered coherently: the Sun and planets render in 3D, orbit in real time, and can be visited from an always-present navigation system on desktop and mobile.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-21-286Z.jpeg",
+        "evidence/page-2026-11-12T12-28-11-456Z.jpeg",
+        "evidence/page-2026-11-12T12-28-57-221Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Shapes, orbital relations, depth cues, ring occlusion, lighting and planet materials remain coherent across the overview and multiple close viewpoints. The scene consistently serves the astronomical exploration task.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-21-286Z.jpeg",
+        "evidence/page-2026-11-12T12-27-37-343Z.jpeg",
+        "evidence/page-2026-11-12T12-31-58-604Z.jpeg",
+        "evidence/page-2026-11-12T12-30-35-122Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Planet travel, camera drag, speed adjustment, Escape recovery, keyboard focus and repeat navigation all produced clear, reliable scene or state changes. The destination rail remains usable at both tested widths.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-37-343Z.jpeg",
+        "evidence/page-2026-11-12T12-28-48-225Z.jpeg",
+        "evidence/page-2026-11-12T12-30-35-122Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The restrained atlas typography, warm celestial lighting, layered orbit graphics and distinct planet treatments create a purposeful and legible experience. State-specific detail panels and active navigation reinforce understanding without obscuring the main scene.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-27-21-286Z.jpeg",
+        "evidence/page-2026-11-12T12-27-37-343Z.jpeg",
+        "evidence/page-2026-11-12T12-31-58-604Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "Loads, reloads, travel sequences and diagnostics were reliable, with no console errors and no failed resources. A local nonblocking mobile issue remains: the footer playback controls are absent at 390px and the last two destinations require a subtly clipped horizontal rail scroll.",
+      "evidence": [
+        "evidence/page-2026-11-12T12-28-23-156Z.jpeg",
+        "evidence/page-2026-11-12T12-28-48-225Z.jpeg",
+        "evidence/page-2026-11-12T12-30-11-597Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "No audio feature was offered, so audio quality could not be evaluated.",
+    "No download or export action was advertised, so an exported-image workflow was not applicable.",
+    "The 390x844 checks used viewport emulation, not real touch hardware.",
+    "At 390px the footer time controls and the labeled System overview button are hidden; the header logo still returns to overview, and all planets remain reachable by horizontally scrolling the bottom rail.",
+    "The 'scroll to travel' camera gesture was not separately exercised; direct planet buttons and drag-to-orbit provided the tested navigation and 3D camera evidence."
+  ]
+}
