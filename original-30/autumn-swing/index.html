@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#d98b5e" />
+    <meta name="description" content="Autumn Joys — a cozy low-poly swing set in a golden autumn neighborhood." />
+    <title>Autumn Joys</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23c96348' d='M48 11C29 12 17 23 18 39c1 10 8 14 8 14s5-17 22-32c-14 18-21 33-22 34 9 5 21 0 25-12 5-14-3-32-3-32Z'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <canvas id="scene" aria-label="A low-poly autumn neighborhood with a wooden swing set"></canvas>
+
+      <div class="sky-wash" aria-hidden="true"></div>
+      <div class="film-grain" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <div class="brand">
+          <svg class="brand-mark" viewBox="0 0 44 44" aria-hidden="true">
+            <path d="M34 7C20 8 11 17 13 28c1 7 6 9 6 9s4-12 16-22C25 28 20 39 20 39c7 3 15 0 18-9 3-10-4-23-4-23Z"/>
+            <path class="brand-vein" d="M19 38c4-13 10-22 18-30"/>
+          </svg>
+          <span class="brand-copy">
+            <strong>Maple Lane</strong>
+            <small>Neighborhood</small>
+          </span>
+        </div>
+
+        <div class="weather-pill">
+          <span class="sun-dot" aria-hidden="true"></span>
+          <span>Golden hour</span>
+          <span class="weather-rule" aria-hidden="true"></span>
+          <span>5:42 pm</span>
+        </div>
+      </header>
+
+      <main class="title-block">
+        <p class="eyebrow"><span>No. 04</span> The cozy season</p>
+        <h1>Autumn <em>Joys</em></h1>
+        <p class="subtitle">A little swing in the amber light.</p>
+      </main>
+
+      <div class="side-note" aria-hidden="true">
+        <span class="side-note-line"></span>
+        <span>Sweater weather<br />58° &amp; falling leaves</span>
+      </div>
+
+      <footer class="bottom-bar">
+        <div class="swing-status">
+          <span class="status-icon" aria-hidden="true">
+            <svg viewBox="0 0 28 28"><path d="M5 3v19M23 3v19M5 6h18M8 6v10h12V6M8 16h12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </span>
+          <span>Two swings,<br /><strong>endless autumn</strong></span>
+        </div>
+
+        <button class="explore-hint" id="explore-hint" type="button" aria-label="Pause the gentle camera movement">
+          <span class="hint-line" aria-hidden="true"></span>
+          <span>Move to wander</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </footer>
+
+      <div class="loading-screen" id="loading-screen" aria-live="polite">
+        <div class="loading-leaf" aria-hidden="true"></div>
+        <span>Gathering golden leaves…</span>
+      </div>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

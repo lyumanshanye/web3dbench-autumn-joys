@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#09111b" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f1a27'/%3E%3Cpath d='M8 10h16v3H8zm0 6h12v3H8zm0 6h8v3H8z' fill='%23f2c45d'/%3E%3C/svg%3E" />
+    <meta
+      name="description"
+      content="Sample-data dashboard for finding after-hours energy waste across a three-floor office building."
+    />
+    <title>Northstar — After-hours energy</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="brand-mark" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div>
+            <p class="eyebrow">Northstar / Facilities intelligence</p>
+            <h1>After-hours energy</h1>
+          </div>
+        </div>
+        <div class="header-status">
+          <div class="sample-badge">
+            <span class="status-dot" aria-hidden="true"></span>
+            <div>
+              <strong>Sample data</strong>
+              <span>03–09 Nov 2025 · 168 hourly intervals</span>
+            </div>
+          </div>
+          <div class="header-stat" aria-label="Three floors and twelve rooms">
+            <span>03</span>
+            <small>floors</small>
+          </div>
+          <div class="header-stat">
+            <span>12</span>
+            <small>rooms</small>
+          </div>
+        </div>
+      </header>
+
+      <section class="rangebar" aria-label="Analysis time range">
+        <div class="range-intro">
+          <p class="eyebrow">Analysis window</p>
+          <p class="range-copy" id="rangeCopy">Thursday 06 November · 24 intervals</p>
+        </div>
+        <div class="range-actions">
+          <div class="preset-group" role="group" aria-label="Preset time ranges">
+            <button type="button" class="preset-button is-active" data-range-days="1">24h</button>
+            <button type="button" class="preset-button" data-range-days="3">3 days</button>
+            <button type="button" class="preset-button" data-range-days="7">7 days</button>
+          </div>
+          <div class="date-range">
+            <label class="date-field" for="startDate">
+              <span>From</span>
+              <input id="startDate" type="date" min="2025-11-03" max="2025-11-09" value="2025-11-06" />
+            </label>
+            <span class="date-arrow" aria-hidden="true">→</span>
+            <label class="date-field" for="endDate">
+              <span>To</span>
+              <input id="endDate" type="date" min="2025-11-03" max="2025-11-09" value="2025-11-06" />
+            </label>
+          </div>
+          <span class="timezone-chip">UTC</span>
+        </div>
+      </section>
+
+      <main class="dashboard">
+        <aside class="sidebar">
+          <section class="panel control-panel" aria-labelledby="floorHeading">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Model filter</p>
+                <h2 id="floorHeading">Floor visibility</h2>
+              </div>
+              <button type="button" class="text-button" id="showAllFloors">Show all</button>
+            </div>
+            <div class="floor-list" id="floorList"></div>
+            <p class="control-note">Color scale stays fixed while floors are hidden.</p>
+          </section>
+
+          <section class="panel control-panel" aria-labelledby="metricHeading">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Color encoding</p>
+                <h2 id="metricHeading">Compare rooms by</h2>
+              </div>
+            </div>
+            <div class="metric-switch" role="group" aria-label="Room color metric">
+              <button type="button" class="metric-button is-active" data-metric="total">
+                <span>Total energy</span>
+                <small>kWh</small>
+              </button>
+              <button type="button" class="metric-button" data-metric="intensity">
+                <span>Energy intensity</span>
+                <small>kWh/m²</small>
+              </button>
+            </div>
+            <div class="metric-note" id="metricNote">
+              Whole-room consumption over the selected window.
+            </div>
+          </section>
+
+          <section class="sample-note" aria-label="Dataset note">
+            <div class="sample-note-icon" aria-hidden="true">i</div>
+            <div>
+              <strong>Bundled sample dataset</strong>
+              <p>Deterministic synthetic readings. No building-management service or network requests are used.</p>
+            </div>
+          </section>
+        </aside>
+
+        <section class="panel scene-card" aria-labelledby="sceneHeading">
+          <header class="panel-heading scene-heading">
+            <div>
+              <p class="eyebrow">Selectable model</p>
+              <h2 id="sceneHeading">Building cutaway</h2>
+            </div>
+            <div class="scene-meta">
+              <span class="status-dot" aria-hidden="true"></span>
+              <span id="roomCountLabel">12 rooms visible</span>
+            </div>
+          </header>
+          <div class="building-stage" id="buildingStage">
+            <div class="stage-topline">
+              <span>Northstar House</span>
+              <span class="stage-separator"></span>
+              <span id="sceneRangeLabel">Thu 06 Nov</span>
+            </div>
+            <div class="stage-hint">Drag to orbit <span>·</span> Scroll to zoom</div>
+            <div class="legend-card" aria-label="Energy color legend">
+              <div class="legend-heading">
+                <span id="legendTitle">Total energy</span>
+                <strong id="legendUnit">kWh</strong>
+              </div>
+              <div class="legend-gradient" id="legendGradient"></div>
+              <div class="legend-ticks">
+                <span id="legendMin">0</span>
+                <span id="legendMid">—</span>
+                <span id="legendMax">—</span>
+              </div>
+              <div class="legend-footer">
+                <span class="missing-swatch" aria-hidden="true"></span>
+                <span>Incomplete data</span>
+                <span class="legend-lock" title="Scale is calculated across all rooms and does not change with floor visibility">scale locked</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel detail-card" id="detailCard" aria-live="polite">
+          <div class="detail-content" id="detailContent"></div>
+        </section>
+
+        <section class="panel table-card" aria-labelledby="tableHeading">
+          <div class="table-heading-row">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Same readings, tabular view</p>
+                <h2 id="tableHeading">Room summaries</h2>
+              </div>
+            </div>
+            <div class="table-actions">
+              <p id="tableSummary">12 rooms · 24 intervals</p>
+              <button type="button" class="export-button" id="exportCsv">
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M10 2v10m0 0 3.4-3.4M10 12 6.6 8.6M3.5 14.5v2h13v-2" />
+                </svg>
+                Download CSV
+              </button>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table class="room-table">
+              <thead>
+                <tr>
+                  <th scope="col"><button type="button" class="sort-button" data-sort="name">Room <span>↕</span></button></th>
+                  <th scope="col"><button type="button" class="sort-button" data-sort="floor">Floor <span>↕</span></button></th>
+                  <th scope="col"><button type="button" class="sort-button" data-sort="area">Area <span>↕</span></button></th>
+                  <th scope="col"><button type="button" class="sort-button is-sorted" data-sort="total">Energy <span>↓</span></button></th>
+                  <th scope="col"><button type="button" class="sort-button" data-sort="intensity">Intensity <span>↕</span></button></th>
+                  <th scope="col"><button type="button" class="sort-button" data-sort="completeness">Readings <span>↕</span></button></th>
+                </tr>
+              </thead>
+              <tbody id="roomTableBody"></tbody>
+            </table>
+          </div>
+          <p class="table-footnote">Missing readings are excluded from totals. Rows marked partial show available readings only.</p>
+        </section>
+      </main>
+    </div>
+
+    <div class="sr-only" id="screenReaderStatus" aria-live="polite"></div>
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

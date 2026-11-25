@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Design a wedding band in yellow gold, platinum, or rose gold. Adjust the width, preview a personal engraving, and download your design."
+    />
+    <title>VOW. — The Wedding Band Atelier</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#configurator" aria-label="VOW. wedding band atelier">
+        <svg class="brand-mark" viewBox="0 0 42 30" aria-hidden="true">
+          <ellipse cx="21" cy="15" rx="12.5" ry="12.5" />
+          <ellipse cx="21" cy="15" rx="8.5" ry="8.5" />
+          <path d="M27.5 3.5 31 0l3.5 3.5L31 7z" />
+        </svg>
+        <span class="brand-word">VOW.</span>
+        <span class="brand-tag">Fine jewelry</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a class="active" href="#configurator">Configure</a>
+        <a href="#metals">Metals</a>
+        <a href="#engraving">Engraving</a>
+      </nav>
+
+      <div class="header-actions">
+        <span class="atelier-line">Handcrafted in New York</span>
+        <button class="header-download" id="downloadTop" type="button">
+          <span>Download design</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M4 18.5V21h16v-2.5" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="studio" id="configurator">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow"><span>Atelier 01</span> Wedding bands</p>
+        <h1 id="page-title">Two souls.<br /><em>One circle.</em></h1>
+        <p class="lede">
+          Design a band as enduring as the promise it holds. Every curve considered. Every detail, yours.
+        </p>
+      </section>
+
+      <section class="config-panel" aria-label="Wedding band configurator">
+        <div class="config-scroll">
+          <section class="config-section metal-section" id="metals">
+            <div class="section-heading">
+              <h2><span>01</span> Precious metal</h2>
+              <button class="text-button" id="compareButton" type="button">
+                Compare
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M4 12 12 4M6 4h6v6" />
+                </svg>
+              </button>
+            </div>
+
+            <div class="metal-grid" role="radiogroup" aria-label="Choose a precious metal">
+              <button
+                class="metal-option selected"
+                type="button"
+                role="radio"
+                aria-checked="true"
+                data-metal="yellow"
+              >
+                <span class="metal-swatch swatch-yellow" aria-hidden="true"></span>
+                <span class="metal-name">Yellow<br />gold</span>
+                <svg class="metal-check" viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="m3 8 3 3 7-7" />
+                </svg>
+              </button>
+              <button
+                class="metal-option"
+                type="button"
+                role="radio"
+                aria-checked="false"
+                data-metal="platinum"
+              >
+                <span class="metal-swatch swatch-platinum" aria-hidden="true"></span>
+                <span class="metal-name">Platinum</span>
+                <svg class="metal-check" viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="m3 8 3 3 7-7" />
+                </svg>
+              </button>
+              <button
+                class="metal-option"
+                type="button"
+                role="radio"
+                aria-checked="false"
+                data-metal="rose"
+              >
+                <span class="metal-swatch swatch-rose" aria-hidden="true"></span>
+                <span class="metal-name">Rose<br />gold</span>
+                <svg class="metal-check" viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="m3 8 3 3 7-7" />
+                </svg>
+              </button>
+            </div>
+            <p class="metal-note" id="metalNote">18k yellow gold · Warm, archival, unmistakably classic</p>
+          </section>
+
+          <section class="config-section width-section">
+            <div class="section-heading width-heading">
+              <h2><span>02</span> Band width</h2>
+              <output class="width-output" id="widthOutput" for="widthSlider">4.0 <small>mm</small></output>
+            </div>
+
+            <div class="range-wrap">
+              <input
+                id="widthSlider"
+                type="range"
+                min="2"
+                max="6"
+                step="1"
+                value="4"
+                aria-label="Band width in millimeters"
+              />
+              <div class="range-ticks" aria-hidden="true">
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+                <span>6 mm</span>
+              </div>
+            </div>
+            <p class="width-note"><span></span> Comfort-fit interior · High-polish finish</p>
+          </section>
+
+          <section class="config-section engraving-section" id="engraving">
+            <div class="section-heading">
+              <h2><span>03</span> Inner engraving</h2>
+              <span class="character-count" id="characterCount">16 / 24</span>
+            </div>
+
+            <label class="engraving-field" for="engravingInput">
+              <span class="quote-mark" aria-hidden="true">“</span>
+              <input
+                id="engravingInput"
+                type="text"
+                maxlength="24"
+                value="J + M · 06.14.26"
+                autocomplete="off"
+                spellcheck="false"
+                aria-describedby="engravingHelp"
+              />
+              <button class="clear-engraving" id="clearEngraving" type="button" aria-label="Clear engraving">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="m4 4 8 8m0-8-8 8" />
+                </svg>
+              </button>
+            </label>
+            <div class="engraving-meta">
+              <span id="engravingHelp">Uppercase serif · 0.7 mm depth</span>
+              <button class="inside-button" id="insideButton" type="button">
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M2 10s3-5 8-5 8 5 8 5-3 5-8 5-8-5-8-5Z" />
+                  <circle cx="10" cy="10" r="2.2" />
+                </svg>
+                <span>View engraving</span>
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <div class="panel-footer">
+          <div class="price-block">
+            <span>Your design</span>
+            <strong id="priceValue">$1,480</strong>
+          </div>
+          <button class="primary-download" id="downloadMain" type="button">
+            Download image
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M4 18.5V21h16v-2.5" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <section class="stage" aria-label="Interactive 3D wedding band preview">
+        <div class="stage-arch" aria-hidden="true"></div>
+        <div class="stage-glow" aria-hidden="true"></div>
+
+        <div class="stage-topbar">
+          <div class="live-chip"><span></span> Live 3D preview</div>
+          <div class="view-switch" role="group" aria-label="Camera view">
+            <button class="active" type="button" data-view="hero">
+              <span class="long-label">Three-quarter</span><span class="short-label">3D</span>
+            </button>
+            <button type="button" data-view="front">Front</button>
+            <button type="button" data-view="inside">Inside</button>
+          </div>
+        </div>
+
+        <div class="canvas-mount" id="canvasMount"></div>
+        <div class="stage-loader" id="stageLoader" aria-hidden="true">
+          <span></span>
+          <p>Polishing your band</p>
+        </div>
+
+        <div class="stage-caption">
+          <span class="caption-rule"></span>
+          <div>
+            <p>The Signature Band</p>
+            <span id="stageSpec">18k Yellow Gold · 4 mm</span>
+          </div>
+        </div>
+
+        <div class="stage-hint" aria-hidden="true">
+          <svg viewBox="0 0 20 20">
+            <path d="M15.5 8.5A6 6 0 1 1 10 4m5.5 4.5V4m0 4.5H11" />
+          </svg>
+          Drag to explore <span>·</span> Scroll to zoom
+        </div>
+
+        <div class="engraving-readout">
+          <div>
+            <span>Engraved inside</span>
+            <strong id="engravingReadout">J + M · 06.14.26</strong>
+          </div>
+          <button id="engravingReadoutButton" type="button" aria-label="Preview engraving inside the ring">
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M2 10s3-5 8-5 8 5 8 5-3 5-8 5-8-5-8-5Z" />
+              <circle cx="10" cy="10" r="2.2" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="export-toast" id="toast" role="status" aria-live="polite">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 10 4 4 8-8" /></svg>
+          Your design is downloading
+        </div>
+      </section>
+    </main>
+
+    <dialog class="compare-dialog" id="compareDialog">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow"><span>Metal library</span> Side by side</p>
+          <h2>Three metals. One silhouette.</h2>
+        </div>
+        <button class="dialog-close" id="closeCompare" type="button" aria-label="Close comparison">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 4 12 12m0-12L4 16" /></svg>
+        </button>
+      </div>
+      <p class="dialog-intro">
+        Compare the character of each precious metal. Select any finish to see it rendered live on your band.
+      </p>
+      <div class="compare-grid">
+        <button class="compare-card" type="button" data-compare-metal="yellow">
+          <span class="compare-number">01</span>
+          <span class="large-swatch swatch-yellow" aria-hidden="true"></span>
+          <strong>18k Yellow Gold</strong>
+          <p>Warm and luminous, with a rich tone that deepens beautifully with time.</p>
+          <span class="compare-price">From $1,480</span>
+          <span class="compare-action">View on band <span>→</span></span>
+        </button>
+        <button class="compare-card" type="button" data-compare-metal="platinum">
+          <span class="compare-number">02</span>
+          <span class="large-swatch swatch-platinum" aria-hidden="true"></span>
+          <strong>950 Platinum</strong>
+          <p>Dense, cool, and naturally white. A quiet strength made for every day.</p>
+          <span class="compare-price">From $2,150</span>
+          <span class="compare-action">View on band <span>→</span></span>
+        </button>
+        <button class="compare-card" type="button" data-compare-metal="rose">
+          <span class="compare-number">03</span>
+          <span class="large-swatch swatch-rose" aria-hidden="true"></span>
+          <strong>18k Rose Gold</strong>
+          <p>A soft blush warmth created with copper, romantic in both tone and feel.</p>
+          <span class="compare-price">From $1,560</span>
+          <span class="compare-action">View on band <span>→</span></span>
+        </button>
+      </div>
+    </dialog>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#09111a" />
+    <title>BenchFit — 3D Print Preparation</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1 class="sr-only">BenchFit 3D print preparation workbench</h1>
+    <div class="app-shell">
+      <aside class="control-rail" aria-label="Print preparation controls">
+        <header class="brand-bar">
+          <div class="brand-lockup">
+            <div class="brand-glyph" aria-hidden="true">
+              <svg viewBox="0 0 36 36" fill="none">
+                <path d="M6 12.2 18 5.5l12 6.7v12L18 31 6 24.2v-12Z" />
+                <path d="m6 12.2 12 6.8 12-6.8M18 19v12" />
+              </svg>
+            </div>
+            <div>
+              <div class="brand-name">BENCH<span>FIT</span></div>
+              <div class="brand-kicker">3D PRINT PREP</div>
+            </div>
+          </div>
+          <div class="local-badge"><span></span>LOCAL</div>
+        </header>
+
+        <div class="rail-scroll">
+          <section class="source-panel" id="drop-zone" aria-labelledby="source-title">
+            <div class="section-heading source-heading">
+              <div>
+                <p class="eyebrow">Part source</p>
+                <h2 id="source-title"><span id="source-name">Procedural L-bracket</span></h2>
+              </div>
+              <span class="source-kind" id="source-kind">DEMO</span>
+            </div>
+            <div class="source-meta">
+              <span id="source-detail">112 × 64 × 112 mm</span>
+              <span class="dot-separator"></span>
+              <span>STL · millimeters</span>
+            </div>
+            <div class="source-actions">
+              <label class="button button-primary" for="file-input">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 14V3m0 0L6 7m4-4 4 4M3 13v3.2A.8.8 0 0 0 3.8 17h12.4a.8.8 0 0 0 .8-.8V13"/></svg>
+                Upload STL
+              </label>
+              <input id="file-input" type="file" accept=".stl,model/stl,application/sla" hidden />
+              <button class="button button-quiet" id="demo-button" type="button">Load demo</button>
+            </div>
+            <p class="drop-hint">Drop an ASCII or binary STL anywhere here</p>
+            <div class="file-message" id="file-message" role="status" aria-live="polite"></div>
+          </section>
+
+          <section class="control-section" aria-labelledby="transform-title">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">01 · Position</p>
+                <h2 id="transform-title">Transform</h2>
+              </div>
+              <button class="text-action bed-action" id="place-bed" type="button">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 15.5h14M5.5 12 10 16l4.5-4M10 3v12"/></svg>
+                Place on bed
+              </button>
+            </div>
+
+            <div class="rotation-head" aria-hidden="true">
+              <span>Rotation</span>
+              <span class="rotation-head-actions">−90° / +90°</span>
+            </div>
+            <div class="rotation-list">
+              <div class="rotation-row">
+                <span class="axis-tag axis-x">X</span>
+                <label class="sr-only" for="rot-x">Rotation around X in degrees</label>
+                <div class="number-field">
+                  <input id="rot-x" data-rotation="x" type="number" min="-360" max="360" step="1" value="0" />
+                  <span>°</span>
+                </div>
+                <button class="turn-button" type="button" data-rot-axis="x" data-rot-direction="-1" aria-label="Rotate minus 90 degrees around X">−90</button>
+                <button class="turn-button" type="button" data-rot-axis="x" data-rot-direction="1" aria-label="Rotate plus 90 degrees around X">+90</button>
+              </div>
+              <div class="rotation-row">
+                <span class="axis-tag axis-y">Y</span>
+                <label class="sr-only" for="rot-y">Rotation around Y in degrees</label>
+                <div class="number-field">
+                  <input id="rot-y" data-rotation="y" type="number" min="-360" max="360" step="1" value="0" />
+                  <span>°</span>
+                </div>
+                <button class="turn-button" type="button" data-rot-axis="y" data-rot-direction="-1" aria-label="Rotate minus 90 degrees around Y">−90</button>
+                <button class="turn-button" type="button" data-rot-axis="y" data-rot-direction="1" aria-label="Rotate plus 90 degrees around Y">+90</button>
+              </div>
+              <div class="rotation-row">
+                <span class="axis-tag axis-z">Z</span>
+                <label class="sr-only" for="rot-z">Rotation around Z in degrees</label>
+                <div class="number-field">
+                  <input id="rot-z" data-rotation="z" type="number" min="-360" max="360" step="1" value="0" />
+                  <span>°</span>
+                </div>
+                <button class="turn-button" type="button" data-rot-axis="z" data-rot-direction="-1" aria-label="Rotate minus 90 degrees around Z">−90</button>
+                <button class="turn-button" type="button" data-rot-axis="z" data-rot-direction="1" aria-label="Rotate plus 90 degrees around Z">+90</button>
+              </div>
+            </div>
+
+            <div class="field-stack">
+              <div class="field-row">
+                <label for="scale-input">Uniform scale</label>
+                <div class="number-field compact">
+                  <input id="scale-input" type="number" min="0.1" max="5" step="0.01" value="1.00" />
+                  <span>×</span>
+                </div>
+              </div>
+              <input class="range accent-range" id="scale-slider" type="range" min="0.1" max="5" step="0.01" value="1" aria-label="Uniform scale slider" />
+            </div>
+
+            <div class="position-grid">
+              <div class="field-stack">
+                <div class="field-row">
+                  <label for="pos-x">Move X</label>
+                  <div class="number-field compact">
+                    <input id="pos-x" type="number" min="-250" max="250" step="1" value="0" />
+                    <span>mm</span>
+                  </div>
+                </div>
+                <input class="range" id="pos-x-slider" type="range" min="-250" max="250" step="1" value="0" aria-label="Move part along bed X" />
+              </div>
+              <div class="field-stack">
+                <div class="field-row">
+                  <label for="pos-z">Move Y</label>
+                  <div class="number-field compact">
+                    <input id="pos-z" type="number" min="-250" max="250" step="1" value="0" />
+                    <span>mm</span>
+                  </div>
+                </div>
+                <input class="range" id="pos-z-slider" type="range" min="-250" max="250" step="1" value="0" aria-label="Move part along bed Y" />
+              </div>
+            </div>
+            <div class="coord-note"><span class="coord-crosshair" aria-hidden="true"></span>Bed plane is X / Y · offsets from loaded coordinates</div>
+          </section>
+
+          <section class="control-section" aria-labelledby="overhang-title">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">02 · Print check</p>
+                <h2 id="overhang-title">Overhang scan</h2>
+              </div>
+              <span class="warning-count" id="overhang-count"><strong>0</strong> faces</span>
+            </div>
+            <div class="field-row threshold-row">
+              <label for="overhang-input">Warning threshold</label>
+              <div class="number-field compact">
+                <input id="overhang-input" type="number" min="0" max="90" step="1" value="45" />
+                <span>°</span>
+              </div>
+            </div>
+            <input class="range warning-range" id="overhang-slider" type="range" min="0" max="90" step="1" value="45" aria-label="Overhang warning angle threshold" />
+            <div class="scale-labels" aria-hidden="true"><span>Vertical wall</span><span>Flat underside</span></div>
+            <p class="convention-note"><strong>Angle convention:</strong> measured below horizontal, from the downward face normal. 0° is a vertical wall; 90° is a flat underside. Bed-contact faces are excluded.</p>
+            <div class="legend-row" aria-label="Highlight legend">
+              <span><i class="legend-swatch outside-swatch"></i>Outside volume</span>
+              <span><i class="legend-swatch overhang-swatch"></i>Overhang risk</span>
+            </div>
+          </section>
+
+          <section class="control-section" aria-labelledby="section-title">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">03 · Inspect</p>
+                <h2 id="section-title">Section plane</h2>
+              </div>
+              <label class="switch">
+                <input id="section-enabled" type="checkbox" />
+                <span class="switch-track" aria-hidden="true"><span></span></span>
+                <span class="sr-only">Enable horizontal section view</span>
+              </label>
+            </div>
+            <div class="field-row threshold-row">
+              <label for="section-input">Section height</label>
+              <div class="number-field compact">
+                <input id="section-input" type="number" min="0" max="250" step="0.5" value="55" />
+                <span>mm</span>
+              </div>
+            </div>
+            <input class="range section-range" id="section-slider" type="range" min="0" max="250" step="0.5" value="55" aria-label="Section plane height" />
+            <div class="section-status" id="section-status"><span></span>Section view is off</div>
+          </section>
+
+        </div>
+
+          <section class="export-panel" aria-labelledby="export-title">
+            <div>
+              <p class="eyebrow">04 · Output</p>
+              <h2 id="export-title">Bake &amp; export</h2>
+              <p>Scale, rotation, and bed placement are written into the STL geometry.</p>
+            </div>
+            <button class="button button-export" id="export-button" type="button">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0 4-4m-4 4L6 9M3 15.5V17h14v-1.5"/></svg>
+              Download STL
+            </button>
+            <button class="reset-link" id="reset-button" type="button">Reset transforms to loaded part</button>
+          </section>
+      </aside>
+
+      <main class="stage" aria-label="3D print fit viewer">
+        <div class="stage-backdrop" aria-hidden="true"></div>
+        <div id="viewport" class="viewport"></div>
+
+        <div class="mobile-brand">
+          <div class="brand-name">BENCH<span>FIT</span></div>
+          <div class="local-badge"><span></span>LOCAL</div>
+        </div>
+
+        <div class="metrics-card glass" aria-label="Transformed part dimensions">
+          <div class="metrics-topline">
+            <span class="metrics-label">Transformed size</span>
+            <span class="fit-pill" id="fit-pill"><i></i><span id="fit-text">FITS VOLUME</span></span>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric"><span>WIDTH</span><strong id="dim-width">112.0</strong><em>mm</em></div>
+            <div class="metric"><span>DEPTH</span><strong id="dim-depth">64.0</strong><em>mm</em></div>
+            <div class="metric"><span>HEIGHT</span><strong id="dim-height">112.0</strong><em>mm</em></div>
+          </div>
+          <div class="volume-line"><span class="volume-swatch"></span>BUILD VOLUME <b>220 × 220 × 250 mm</b></div>
+        </div>
+
+        <div class="view-switcher glass" role="group" aria-label="Camera views">
+          <button class="view-button is-active" type="button" data-view="orbit"><span class="view-icon orbit-icon" aria-hidden="true"></span>Orbit</button>
+          <button class="view-button" type="button" data-view="front"><span class="view-icon front-icon" aria-hidden="true"></span>Front</button>
+          <button class="view-button" type="button" data-view="side"><span class="view-icon side-icon" aria-hidden="true"></span>Side</button>
+          <button class="view-button" type="button" data-view="top"><span class="view-icon top-icon" aria-hidden="true"></span>Top</button>
+        </div>
+
+        <div class="orientation-chip glass">
+          <span class="orientation-dot"></span>
+          <span id="orientation-readout">ISO · 0° / 0° / 0°</span>
+        </div>
+
+        <div class="section-readout glass" id="section-readout" hidden>
+          <span class="section-line-icon"></span>
+          <span>SECTION <b id="section-readout-value">55.0</b> mm</span>
+        </div>
+
+        <div class="stage-hint">
+          <span>LMB orbit</span><span>RMB pan</span><span>Scroll zoom</span><span class="hint-accent">Camera is independent of part coordinates</span>
+        </div>
+
+        <div class="corner-mark corner-mark-tl" aria-hidden="true"></div>
+        <div class="corner-mark corner-mark-br" aria-hidden="true"></div>
+      </main>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

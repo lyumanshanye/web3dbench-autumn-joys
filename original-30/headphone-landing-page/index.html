@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#07090d" />
+    <meta
+      name="description"
+      content="AURA Sonics VOLT Reference 01 — planar magnetic headphones tuned for the current."
+    />
+    <title>AURA Sonics — VOLT / Reference 01</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="page">
+      <div class="backdrop" aria-hidden="true">
+        <div class="cobalt-field"></div>
+        <div class="flare flare--top"></div>
+        <div class="flare flare--bottom"></div>
+        <div class="technical-grid"></div>
+        <div class="scanlines"></div>
+      </div>
+
+      <canvas id="scene" aria-label="Interactive 3D view of the VOLT Reference 01 headphones"></canvas>
+
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="AURA Sonics home">
+          <span class="brand__mark">A</span>
+          <span class="brand__type">AURA<small>SONICS</small></span>
+        </a>
+
+        <nav class="nav" aria-label="Main navigation">
+          <a href="#driver">The driver</a>
+          <a href="#engineering">Engineering</a>
+          <a href="#journal">Journal</a>
+        </nav>
+
+        <a class="preorder" href="#preorder">
+          <span class="preorder__dot"></span>
+          Pre-order
+          <span class="preorder__price">$899</span>
+        </a>
+      </header>
+
+      <main class="hero">
+        <section class="hero-copy">
+          <p class="eyebrow reveal reveal--1">
+            <span class="eyebrow__line"></span>
+            New reference / 001
+          </p>
+
+          <h1 class="headline" aria-label="Hear the current.">
+            <span class="reveal reveal--2">HEAR</span>
+            <span class="headline__outline reveal reveal--3">THE</span>
+            <span class="headline__accent reveal reveal--4">CURRENT<i>.</i></span>
+          </h1>
+
+          <p class="mobile-product reveal reveal--5">
+            <span>VOLT / REFERENCE 01</span>
+            <span>Planar magnetic · $899</span>
+          </p>
+
+          <p class="intro reveal reveal--5">
+            A planar magnetic instrument built for the charge between artist and
+            listener. No smoothing. No safe choices. Just the full voltage of the
+            recording.
+          </p>
+
+          <div class="hero-actions reveal reveal--6">
+            <a class="button button--primary" href="#preorder">
+              <span>Own the current</span>
+              <span class="button__arrow">↗</span>
+            </a>
+            <a class="text-link" href="#driver">
+              <span class="text-link__line"></span>
+              Explore the build
+            </a>
+          </div>
+
+          <dl class="quick-specs reveal reveal--7">
+            <div>
+              <dt>Impedance</dt>
+              <dd>32<span>Ω</span></dd>
+            </div>
+            <div>
+              <dt>Sensitivity</dt>
+              <dd>104<span>dB</span></dd>
+            </div>
+            <div>
+              <dt>Response</dt>
+              <dd>5<span>—50k</span></dd>
+            </div>
+          </dl>
+        </section>
+
+        <aside class="product-meta" aria-label="Product details">
+          <div class="model-label">
+            <span class="model-label__index">VLT—01</span>
+            <span class="model-label__name">VOLT<br />REFERENCE</span>
+            <span class="model-label__strokes" aria-hidden="true"></span>
+          </div>
+
+          <div class="annotation annotation--driver">
+            <span class="annotation__dot"></span>
+            <span class="annotation__line"></span>
+            <span class="annotation__copy">Planar<br />magnetic</span>
+          </div>
+
+          <div class="annotation annotation--motor">
+            <span class="annotation__copy">Velocity<br />motor array</span>
+            <span class="annotation__line"></span>
+            <span class="annotation__dot"></span>
+          </div>
+
+          <div class="signal-card">
+            <div class="signal-card__head">
+              <span>Signal / live</span>
+              <span class="signal-card__pulse"></span>
+            </div>
+            <div class="signal-card__readout">
+              <strong>98.4</strong>
+              <span>dB<br />SPL</span>
+            </div>
+            <div class="waveform" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <div class="signal-card__foot">
+              <span>5Hz — 50kHz</span>
+              <span>±0.1dB</span>
+            </div>
+          </div>
+
+          <div class="colorways" aria-label="Select accent color">
+            <span class="colorways__label">Finish</span>
+            <button class="swatch is-active" data-color="acid" style="--swatch: #d8ff3e" aria-label="Acid finish"></button>
+            <button class="swatch" data-color="cobalt" style="--swatch: #3151ff" aria-label="Cobalt finish"></button>
+            <button class="swatch" data-color="blaze" style="--swatch: #ff5a36" aria-label="Blaze finish"></button>
+          </div>
+        </aside>
+
+        <div class="drag-hint" aria-hidden="true">
+          <span class="drag-hint__icon">↔</span>
+          <span>Drag to rotate</span>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <span>Designed in Berlin / 2026</span>
+        <span class="footer__center"><i></i> Spatial object 001</span>
+        <span>Built for the obsessive</span>
+      </footer>
+    </div>
+
+    <noscript>This experience requires JavaScript to render the 3D product.</noscript>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

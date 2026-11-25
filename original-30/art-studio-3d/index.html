@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0b0c" />
+  <meta name="description" content="Norb Studio is an independent 3D art and motion practice shaping strange, tactile worlds." />
+  <title>Norb Studio — Form Beyond the Familiar</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../../vendor/three/three.module.js",
+        "three/addons/": "../../vendor/three/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="loader-grid"></div>
+    <div class="loader-top">
+      <span>Norb Studio®</span>
+      <span>Loading the unreal</span>
+    </div>
+
+    <div class="loader-repeats" aria-hidden="true">
+      <div>NORB STUDIO <i>✳</i> NORB STUDIO <i>✳</i> NORB STUDIO <i>✳</i> NORB STUDIO <i>✳</i> NORB STUDIO <i>✳</i> NORB STUDIO <i>✳</i></div>
+    </div>
+
+    <div class="loader-center">
+      <div class="cube-scene">
+        <div class="cube">
+          <div class="cube-face cube-front"><span>N</span></div>
+          <div class="cube-face cube-back"><span>R</span></div>
+          <div class="cube-face cube-right"><span>O</span></div>
+          <div class="cube-face cube-left"><span>B</span></div>
+          <div class="cube-face cube-top"><span>S</span></div>
+          <div class="cube-face cube-bottom"><span>✦</span></div>
+        </div>
+      </div>
+      <div class="loader-wordmark">NORB <i>STUDIO</i></div>
+    </div>
+
+    <div class="loader-bottom">
+      <div class="loader-progress"><span id="loaderBar"></span></div>
+      <div class="loader-counter"><span id="loaderCount">00</span><small>%</small></div>
+    </div>
+  </div>
+
+  <div class="noise" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <header class="site-nav" id="siteNav">
+    <a class="brand" href="#home" aria-label="Norb Studio home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 36 36" fill="none">
+          <circle cx="18" cy="18" r="16" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M9 24V12l9 12V12l9 12" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span>Norb Studio<sup>®</sup></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="#work">Work <small>01</small></a>
+      <a href="#studio">Studio <small>02</small></a>
+      <a href="#contact">Contact <small>03</small></a>
+    </nav>
+    <div class="availability"><span></span> Available Q1 / 2027</div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <canvas id="hero-canvas" aria-label="Interactive three-dimensional sculpture"></canvas>
+      <div class="hero-vignette" aria-hidden="true"></div>
+      <div class="hero-orbital-type" aria-hidden="true">FORM / FEELING / FUTURE / FORM / FEELING / </div>
+
+      <div class="hero-content">
+        <p class="eyebrow hero-eyebrow"><span>Independent 3D art practice</span><span>Amsterdam — Worldwide</span></p>
+        <h1 class="hero-title" aria-label="Form beyond the familiar.">
+          <span class="title-line"><span>Form</span></span>
+          <span class="title-line title-indent"><span class="stroke-text">beyond</span></span>
+          <span class="title-line"><span>the familiar.</span></span>
+        </h1>
+        <div class="hero-copy-row">
+          <p class="hero-copy">We sculpt strange, tactile worlds for brands, artists and people who refuse to blend in.</p>
+          <a class="circle-link" href="#contact" aria-label="Start a project with Norb Studio">
+            <span>Start a<br/>project</span>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M8 5h11v11" stroke="currentColor" stroke-width="1.6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-footer">
+        <div class="hero-folio">NBR—<span>001</span></div>
+        <div class="hero-hint"><span class="hint-plus">+</span> Move to distort <span class="hide-mobile">/ Click to mutate</span></div>
+        <div class="hero-scroll">
+          <span>Scroll to enter</span>
+          <i></i>
+        </div>
+      </div>
+
+      <div class="side-label" aria-hidden="true">3D DIRECTION · MOTION · SPATIAL · 2026</div>
+    </section>
+
+    <section class="studio" id="studio">
+      <div class="section-rail">
+        <span class="section-index">02</span>
+        <span>The studio</span>
+        <span>Amsterdam / NL</span>
+      </div>
+
+      <div class="studio-intro">
+        <p class="eyebrow reveal">A place for curious objects</p>
+        <h2 class="display-statement reveal">
+          <span class="statement-line">We make the</span>
+          <span class="statement-line"><span class="statement-accent">unreal</span> <span class="statement-script">feel</span></span>
+          <span class="statement-line statement-outline">touchable.</span>
+        </h2>
+        <div class="intro-aside reveal">
+          <p>Norb is an independent 3D art studio operating somewhere between sculpture, motion and code. We build visual worlds with weight, texture and a mind of their own.</p>
+          <p>Small by design. Fast by instinct. Always chasing the image we have not seen before.</p>
+        </div>
+      </div>
+
+      <div class="manifesto-grid">
+        <div class="manifesto-art reveal" aria-hidden="true">
+          <div class="kinetic-orb">
+            <div class="orb-core"></div>
+            <div class="orb-ring ring-one"></div>
+            <div class="orb-ring ring-two"></div>
+            <div class="orb-ring ring-three"></div>
+            <span class="orb-chip chip-one">PLAY</span>
+            <span class="orb-chip chip-two">FEEL</span>
+          </div>
+          <span class="art-caption">Study 014 / Synthetic tactility</span>
+        </div>
+
+        <div class="manifesto-copy">
+          <p class="manifesto-kicker reveal">Our point of view / 01</p>
+          <p class="manifesto-lead reveal">Perfect is a closed door. We are more interested in what happens when form gets a little <em>restless.</em></p>
+          <p class="reveal">Every Norb project begins with a question: what should this thing make people feel? Then we build outward — material by material, frame by frame — until the answer becomes something you can almost hold.</p>
+          <div class="manifesto-stats reveal">
+            <div><strong>42</strong><span>Worlds built</span></div>
+            <div><strong>09</strong><span>Design awards</span></div>
+            <div><strong>∞</strong><span>Bad first drafts</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>ART DIRECTION</span><i>✦</i><span>3D SCULPTURE</span><i>✦</i><span>MOTION SYSTEMS</span><i>✦</i><span>SPATIAL IDENTITY</span><i>✦</i>
+          <span>ART DIRECTION</span><i>✦</i><span>3D SCULPTURE</span><i>✦</i><span>MOTION SYSTEMS</span><i>✦</i><span>SPATIAL IDENTITY</span><i>✦</i>
+        </div>
+      </div>
+    </section>
+
+    <section class="work" id="work">
+      <div class="work-sticky">
+        <div class="work-head">
+          <div class="section-rail light">
+            <span class="section-index">03</span>
+            <span>Selected objects</span>
+            <span>2023 — 2026</span>
+          </div>
+          <div class="work-title-wrap">
+            <p class="eyebrow reveal">A helix of recent experiments</p>
+            <h2 class="work-title reveal">Objects in<br/><span>orbit.</span></h2>
+          </div>
+          <div class="orbit-reading"><span id="orbitAngle">000°</span><small>Helix rotation</small></div>
+        </div>
+
+        <div class="helix-stage" id="helixStage">
+          <div class="helix-floor" aria-hidden="true"></div>
+          <div class="helix" id="helix">
+            <article class="art-card card-01">
+              <div class="art-surface">
+                <span class="art-shape shape-a"></span><span class="art-shape shape-b"></span>
+                <span class="art-grid"></span>
+              </div>
+              <div class="art-card-meta"><span>01</span><div><b>Sonic Bloom</b><small>Kinetic identity / 2026</small></div></div>
+            </article>
+            <article class="art-card card-02">
+              <div class="art-surface">
+                <span class="art-type">A<br/>A</span>
+                <span class="art-shape shape-a"></span><span class="art-shape shape-b"></span>
+              </div>
+              <div class="art-card-meta"><span>02</span><div><b>Soft Machine</b><small>Digital sculpture / 2025</small></div></div>
+            </article>
+            <article class="art-card card-03">
+              <div class="art-surface">
+                <span class="art-ring"></span><span class="art-ring second"></span>
+                <span class="art-sphere"></span>
+              </div>
+              <div class="art-card-meta"><span>03</span><div><b>After Gravity</b><small>Campaign / 2025</small></div></div>
+            </article>
+            <article class="art-card card-04">
+              <div class="art-surface">
+                <span class="art-pill"></span><span class="art-pill second"></span><span class="art-pill third"></span>
+              </div>
+              <div class="art-card-meta"><span>04</span><div><b>New Kinship</b><small>Worldbuilding / 2026</small></div></div>
+            </article>
+            <article class="art-card card-05">
+              <div class="art-surface">
+                <span class="art-orbit"></span><span class="art-orbit second"></span><span class="art-dot"></span>
+              </div>
+              <div class="art-card-meta"><span>05</span><div><b>Night Orchard</b><small>Motion study / 2024</small></div></div>
+            </article>
+            <article class="art-card card-06">
+              <div class="art-surface">
+                <span class="art-cross"></span><span class="art-cross second"></span><span class="art-cross third"></span>
+              </div>
+              <div class="art-card-meta"><span>06</span><div><b>Liquid Type</b><small>Type experiment / 2025</small></div></div>
+            </article>
+            <article class="art-card card-07">
+              <div class="art-surface">
+                <span class="art-arch"></span><span class="art-arch second"></span><span class="art-arch third"></span>
+              </div>
+              <div class="art-card-meta"><span>07</span><div><b>Future Relic</b><small>Spatial identity / 2024</small></div></div>
+            </article>
+            <article class="art-card card-08">
+              <div class="art-surface">
+                <span class="art-eye"></span><span class="art-lash lash-a"></span><span class="art-lash lash-b"></span>
+              </div>
+              <div class="art-card-meta"><span>08</span><div><b>Watchful</b><small>Character study / 2026</small></div></div>
+            </article>
+            <article class="art-card card-09">
+              <div class="art-surface">
+                <span class="art-ripple r1"></span><span class="art-ripple r2"></span><span class="art-ripple r3"></span>
+              </div>
+              <div class="art-card-meta"><span>09</span><div><b>Signal / Noise</b><small>Installation / 2023</small></div></div>
+            </article>
+          </div>
+        </div>
+
+        <div class="work-foot">
+          <span>Scroll to rotate the archive</span>
+          <div class="progress-line"><i id="galleryProgress"></i></div>
+          <a href="#contact">Commission a world <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="contact-glow" aria-hidden="true"></div>
+      <div class="contact-inner">
+        <div class="contact-copy">
+          <div class="section-rail light">
+            <span class="section-index">04</span>
+            <span>Start something</span>
+            <span>Say hello</span>
+          </div>
+          <p class="eyebrow reveal">Have a world in mind?</p>
+          <h2 class="contact-title reveal">Let's make<br/><span class="stroke-text">something</span><br/>impossible.</h2>
+          <div class="contact-detail reveal">
+            <div>
+              <small>New business</small>
+              <a href="mailto:hello@norb.studio">hello@norb.studio</a>
+            </div>
+            <div>
+              <small>Follow the process</small>
+              <a href="#home">Instagram ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-scene reveal">
+          <div class="form-object" aria-hidden="true">
+            <div class="form-sphere"></div>
+            <div class="form-hoop hoop-a"></div>
+            <div class="form-hoop hoop-b"></div>
+          </div>
+          <form class="contact-form" id="contactForm">
+            <div class="form-head">
+              <span>Project transmission</span>
+              <span class="form-status"><i></i> Open</span>
+            </div>
+            <div class="fields">
+              <label class="field">
+                <span class="field-top"><i>01</i> Your name</span>
+                <input type="text" name="name" placeholder="What should we call you?" autocomplete="name" required />
+                <span class="field-arrow">↗</span>
+              </label>
+              <label class="field">
+                <span class="field-top"><i>02</i> Email address</span>
+                <input type="email" name="email" placeholder="you@somewhere.com" autocomplete="email" required />
+                <span class="field-arrow">↗</span>
+              </label>
+              <label class="field">
+                <span class="field-top"><i>03</i> What are we making?</span>
+                <select name="project" required>
+                  <option value="" selected disabled>Choose a project type</option>
+                  <option>3D identity</option>
+                  <option>Motion campaign</option>
+                  <option>Digital sculpture</option>
+                  <option>Spatial experience</option>
+                  <option>Something strange</option>
+                </select>
+                <span class="field-arrow">⌄</span>
+              </label>
+              <label class="field field-message">
+                <span class="field-top"><i>04</i> Tell us the dream</span>
+                <textarea name="message" rows="3" placeholder="A world, a feeling, a reference..."></textarea>
+                <span class="field-arrow">↗</span>
+              </label>
+            </div>
+            <div class="form-bottom">
+              <p>We reply within 2 working days.<br/>No decks required.</p>
+              <button type="submit" class="submit-btn">
+                <span>Send transmission</span>
+                <span class="submit-icon">↗</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-top">
+      <a class="footer-logo" href="#home">NORB<span>✳</span>STUDIO</a>
+      <p>Independent 3D art & motion studio.<br/>Making the unreal feel inevitable.</p>
+      <a class="back-top" href="#home">Back to top ↑</a>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Norb Studio</span>
+      <span>Amsterdam / 52.3676° N</span>
+      <span>Built from curiosity</span>
+    </div>
+  </footer>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

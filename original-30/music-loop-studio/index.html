@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0c1712" />
+    <meta
+      name="description"
+      content="Loop Garden is a local four-track browser music studio with an animated 3D garden ensemble."
+    />
+    <title>Loop Garden · Local music studio</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+    <script type="module" src="./js/app.js"></script>
+  </head>
+  <body>
+    <svg class="svg-sprite" aria-hidden="true">
+      <symbol id="icon-play" viewBox="0 0 24 24">
+        <path d="M8.5 5.5 18 12l-9.5 6.5z" />
+      </symbol>
+      <symbol id="icon-pause" viewBox="0 0 24 24">
+        <path d="M7.5 5h3.2v14H7.5zM13.3 5h3.2v14h-3.2z" />
+      </symbol>
+      <symbol id="icon-stop" viewBox="0 0 24 24">
+        <path d="M6.5 6.5h11v11h-11z" />
+      </symbol>
+      <symbol id="icon-grid" viewBox="0 0 24 24">
+        <path d="M4 5.5h6v5H4zM14 5.5h6v5h-6zM4 13.5h6v5H4zM14 13.5h6v5h-6z" />
+      </symbol>
+      <symbol id="icon-spark" viewBox="0 0 24 24">
+        <path d="M12 3.2c.7 4.7 2.1 6.1 6.8 6.8-4.7.7-6.1 2.1-6.8 6.8-.7-4.7-2.1-6.1-6.8-6.8 4.7-.7 6.1-2.1 6.8-6.8ZM18.2 14.3c.3 2.2 1 2.9 3.2 3.2-2.2.3-2.9 1-3.2 3.2-.3-2.2-1-2.9-3.2-3.2 2.2-.3 2.9-1 3.2-3.2Z" />
+      </symbol>
+      <symbol id="icon-clear" viewBox="0 0 24 24">
+        <path d="m5.2 15.2 7.7-7.7 4.9 4.9-7.7 7.7H5.7zM13.8 5.3l2.1-2.1 4.9 4.9-2.1 2.1z" />
+        <path d="M5.5 20.2h13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-save" viewBox="0 0 24 24">
+        <path d="M5 4.5h11l3 3v12H5zM8 4.5v5h7v-5M8 19.5v-6h8v6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-close" viewBox="0 0 24 24">
+        <path d="m5.6 4.2 14.2 14.2-1.4 1.4L4.2 5.6zM18.4 4.2 4.2 18.4l1.4 1.4L19.8 5.6z" />
+      </symbol>
+      <symbol id="icon-pencil" viewBox="0 0 24 24">
+        <path d="m5 16.7-.8 3.1 3.1-.8L18.4 7.9l-2.3-2.3zM15 7.1l1.9-1.9 2.3 2.3-1.9 1.9z" />
+      </symbol>
+      <symbol id="icon-trash" viewBox="0 0 24 24">
+        <path d="M7 7.5h10l-.8 12H7.8zM5.5 5.5h13M9.5 5.5v-2h5v2M10 10v6M14 10v6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-download" viewBox="0 0 24 24">
+        <path d="M11 3.5h2v10l3.2-3.2 1.4 1.4-5.6 5.6-5.6-5.6 1.4-1.4 3.2 3.2zM5 19.5h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-upload" viewBox="0 0 24 24">
+        <path d="M11 20.5h2v-10l3.2 3.2 1.4-1.4L12 6.7l-5.6 5.6 1.4 1.4L11 10.5zM5 3.5h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24">
+        <path d="M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7z" />
+      </symbol>
+    </svg>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 52 52" role="presentation">
+              <path class="brand-loop brand-loop-a" d="M26 25C14 24 8 17 11 10c3-7 12-6 15 3 2 7 2 12 0 18" />
+              <path class="brand-loop brand-loop-b" d="M26 25c1-12 8-18 15-15 7 3 6 12-3 15-7 2-12 2-18 0" />
+              <circle cx="26" cy="25" r="3.2" />
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <p>LOCAL WEB AUDIO STUDIO</p>
+            <h1>Loop Garden</h1>
+          </div>
+        </div>
+        <div class="header-actions">
+          <div class="audio-pill" id="audioPill" data-state="idle">
+            <span class="audio-dot" aria-hidden="true"></span>
+            <span id="audioStateText">Audio starts on Play</span>
+          </div>
+          <label class="motion-control" title="Reduce large movement in the 3D garden">
+            <span class="switch">
+              <input id="reducedMotionToggle" type="checkbox" role="switch" aria-label="Reduced motion, calm motion" />
+              <span class="switch-ui" aria-hidden="true"></span>
+            </span>
+            <span>Calm motion</span>
+          </label>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="panel editor-panel" aria-labelledby="editorTitle">
+          <div class="editor-heading">
+            <div>
+              <p class="eyebrow">FOUR-TRACK SEQUENCER · 16 STEPS</p>
+              <h2 id="editorTitle">Morning Dew</h2>
+            </div>
+            <div class="save-cluster">
+              <div class="save-state" id="saveState" data-state="saved" role="status" aria-live="polite">
+                <span class="save-dot" aria-hidden="true"></span>
+                <span id="saveStateText">Saved locally</span>
+              </div>
+              <button class="button button-quiet button-compact" id="saveButton" type="button">
+                <svg aria-hidden="true"><use href="#icon-save"></use></svg>
+                <span>Save</span>
+              </button>
+              <button class="button button-dark button-compact" id="patternsButton" type="button" aria-haspopup="dialog">
+                <svg aria-hidden="true"><use href="#icon-grid"></use></svg>
+                <span>Patterns</span>
+                <span class="button-count" id="patternCount">3</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="transport" aria-label="Transport and pattern controls">
+            <div class="transport-primary">
+              <button class="transport-button transport-play" id="playButton" type="button" aria-label="Play">
+                <svg aria-hidden="true"><use href="#icon-play"></use></svg>
+                <span id="playLabel">Play</span>
+              </button>
+              <button class="transport-button" id="pauseButton" type="button" aria-label="Pause" disabled>
+                <svg aria-hidden="true"><use href="#icon-pause"></use></svg>
+                <span>Pause</span>
+              </button>
+              <button class="transport-button" id="stopButton" type="button" aria-label="Stop" disabled>
+                <svg aria-hidden="true"><use href="#icon-stop"></use></svg>
+                <span>Stop</span>
+              </button>
+            </div>
+
+            <div class="transport-state" aria-label="Playback status">
+              <div class="status-badge" id="statusBadge" data-state="stopped">
+                <span class="status-dot" id="statusDot" aria-hidden="true"></span>
+                <span id="statusLabel">Stopped</span>
+              </div>
+              <p id="statusDetail">Step 1 of 16 · 104 BPM</p>
+              <p id="statusNote">Press play to wake the garden.</p>
+            </div>
+
+            <div class="tempo-control">
+              <div class="tempo-heading">
+                <label for="tempoRange">Tempo</label>
+                <span><output id="tempoValue" for="tempoRange">104</output> <small>BPM</small></span>
+              </div>
+              <div class="tempo-row">
+                <button id="tempoDown" type="button" aria-label="Decrease tempo">−</button>
+                <input id="tempoRange" type="range" min="50" max="200" step="1" value="104" aria-label="Tempo in beats per minute" />
+                <button id="tempoUp" type="button" aria-label="Increase tempo">+</button>
+              </div>
+            </div>
+
+            <div class="transport-tools">
+              <button class="button button-quiet button-small" id="clearButton" type="button">
+                <svg aria-hidden="true"><use href="#icon-clear"></use></svg>
+                <span>Clear</span>
+              </button>
+              <button class="button button-quiet button-small" id="demoButton" type="button">
+                <svg aria-hidden="true"><use href="#icon-spark"></use></svg>
+                <span>Restore demo</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="sequencer-section">
+            <div class="sequencer-toolbar">
+              <p><span class="toolbar-dot" aria-hidden="true"></span>Click or tap a step to plant a note</p>
+              <p class="key-hint">Arrows move focus · Enter or Space toggles</p>
+            </div>
+            <div class="grid-scroller" id="gridScroller">
+              <div class="sequencer" id="sequencer" role="group" aria-label="Four-track, sixteen-step pattern editor">
+                <div class="sequence-ruler" id="sequenceRuler"></div>
+                <div class="track-rows" id="trackRows"></div>
+                <div class="playhead-column" id="playheadColumn" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+
+          <footer class="editor-footer">
+            <p><kbd>Space</kbd> play / pause <span aria-hidden="true">·</span> <kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> move</p>
+            <p>Patterns live only in this browser</p>
+          </footer>
+        </section>
+
+        <aside class="panel stage-panel" id="stagePanel" aria-labelledby="stageTitle">
+          <canvas
+            id="sceneCanvas"
+            role="img"
+            aria-label="A glowing 3D garden with drums, an upright bass, a marimba and flowering bells arranged together"
+          ></canvas>
+          <div class="stage-atmosphere" aria-hidden="true"></div>
+          <div class="stage-vignette" aria-hidden="true"></div>
+
+          <div class="stage-heading">
+            <div>
+              <p class="stage-kicker"><span id="stageLiveDot" class="stage-live-dot" aria-hidden="true"></span> 3D ARRANGEMENT</p>
+              <h2 id="stageTitle">Garden ensemble</h2>
+            </div>
+            <div class="stage-step-badge" aria-label="Current step">
+              <span id="stageStep">01</span>
+              <small>/ 16</small>
+            </div>
+          </div>
+
+          <div class="scene-fallback" id="sceneFallback" hidden>
+            <span aria-hidden="true">✿</span>
+            <p>The 3D garden could not start in this browser. The sequencer and local audio still work.</p>
+          </div>
+
+          <div class="stage-console">
+            <div class="now-playing" id="nowPlayingCard">
+              <span class="now-pulse" id="nowPulse" aria-hidden="true"></span>
+              <div>
+                <span>NOW SOUNDING</span>
+                <strong id="nowPlaying">Waiting for play</strong>
+              </div>
+            </div>
+            <div class="instrument-chips" id="instrumentChips"></div>
+            <p class="stage-status" id="stageStatusText">Stopped · Step 1 of 16</p>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <dialog class="modal library-modal" id="patternsDialog" aria-labelledby="patternsTitle">
+      <div class="modal-shell">
+        <header class="modal-header">
+          <div>
+            <p class="eyebrow">LOCAL PATTERN LIBRARY</p>
+            <h2 id="patternsTitle">Saved patterns</h2>
+          </div>
+          <button class="icon-button" id="closePatternsButton" type="button" aria-label="Close pattern library">
+            <svg aria-hidden="true"><use href="#icon-close"></use></svg>
+          </button>
+        </header>
+        <p class="modal-intro">Keep up to 12 patterns on this device. Export versioned JSON to take one with you.</p>
+
+        <div class="library-actions">
+          <button class="button button-dark button-small" id="saveFromLibraryButton" type="button">
+            <svg aria-hidden="true"><use href="#icon-save"></use></svg>
+            <span>Save current</span>
+          </button>
+          <button class="button button-quiet button-small" id="exportButton" type="button">
+            <svg aria-hidden="true"><use href="#icon-download"></use></svg>
+            <span>Export JSON</span>
+          </button>
+          <button class="button button-quiet button-small" id="importButton" type="button">
+            <svg aria-hidden="true"><use href="#icon-upload"></use></svg>
+            <span>Import JSON</span>
+          </button>
+          <input id="importInput" type="file" accept="application/json,.json" hidden />
+        </div>
+
+        <div class="library-message" id="libraryMessage" role="alert" hidden></div>
+
+        <div class="pattern-list-heading">
+          <span>Patterns</span>
+          <span id="libraryCount">3 of 12</span>
+        </div>
+        <div class="pattern-list" id="patternList"></div>
+
+        <form class="new-pattern-form" id="newPatternForm">
+          <label for="newPatternName">Create a blank pattern</label>
+          <div>
+            <input id="newPatternName" type="text" maxlength="40" placeholder="Name your next planting" autocomplete="off" />
+            <button class="button button-dark button-small" id="createPatternButton" type="submit">
+              <svg aria-hidden="true"><use href="#icon-plus"></use></svg>
+              <span>Create</span>
+            </button>
+          </div>
+        </form>
+
+        <p class="modal-footnote">Malformed imports are rejected before your current pattern is touched.</p>
+      </div>
+    </dialog>
+
+    <dialog class="modal confirm-modal" id="confirmDialog" aria-labelledby="confirmTitle">
+      <form method="dialog" class="confirm-shell">
+        <p class="eyebrow" id="confirmEyebrow">PLEASE CONFIRM</p>
+        <h2 id="confirmTitle">Replace this pattern?</h2>
+        <p id="confirmMessage"></p>
+        <div class="confirm-actions">
+          <button class="button button-quiet" id="confirmCancelButton" value="cancel" type="submit">Cancel</button>
+          <button class="button button-danger" id="confirmOkButton" value="confirm" type="submit">Continue</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast-region" id="toastRegion" role="status" aria-live="polite" aria-atomic="true"></div>
+    <p class="sr-only" id="playbackLive" role="status" aria-live="polite" aria-atomic="true"></p>
+    <noscript>Loop Garden needs JavaScript enabled to play and edit patterns.</noscript>
+  </body>
+</html>

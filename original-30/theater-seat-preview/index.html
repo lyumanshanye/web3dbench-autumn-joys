@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#090c10" />
+  <meta name="description" content="Choose your seat at The Orpheum and preview the stage from your exact sightline." />
+  <title>The Orpheum · Find your view</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../../vendor/three/three.module.js",
+        "three/addons/": "../../vendor/three/addons/"
+      }
+    }
+  </script>
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="masthead">
+      <a class="brand" href="#" aria-label="The Orpheum home">
+        <span class="brand-mark" aria-hidden="true">O</span>
+        <span class="brand-copy">
+          <strong>The Orpheum</strong>
+          <small>Community Playhouse</small>
+        </span>
+      </a>
+      <div class="show-meta">
+        <span class="show-kicker">Tonight · 7:30 PM</span>
+        <span class="show-name">An Evening of One Acts</span>
+      </div>
+      <div class="box-office">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span>Box office open</span>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="stage-card" aria-label="Interactive three-dimensional auditorium">
+        <div id="scene-container" class="scene-container">
+          <canvas id="scene-canvas" aria-label="3D seating plan. Select a seat to preview its view."></canvas>
+        </div>
+        <div class="scene-vignette" aria-hidden="true"></div>
+
+        <div class="hero-copy">
+          <p class="eyebrow"><span>Main stage</span><span class="eyebrow-rule"></span><span>Live sightlines</span></p>
+          <h1>A seat with<br /><em>a point of view.</em></h1>
+          <p class="hero-sub">Pick a seat and see the stage from exactly where you’ll sit.</p>
+        </div>
+
+        <div class="scene-actions">
+          <button id="house-view" class="glass-button" type="button">
+            <span class="house-icon" aria-hidden="true"></span>
+            House view
+          </button>
+          <span class="availability-pill"><span class="live-dot" aria-hidden="true"></span><span id="available-count">82 seats open</span></span>
+        </div>
+
+        <div class="scene-footer">
+          <div class="scene-legend" aria-label="Seat legend">
+            <span><i class="legend-dot is-open"></i>Open</span>
+            <span><i class="legend-dot is-selected"></i>Your seats</span>
+            <span><i class="legend-dot is-limited"></i>Limited view</span>
+            <span><i class="legend-dot is-reserved"></i>Reserved</span>
+          </div>
+          <button id="seat-hint" class="seat-hint" type="button">
+            <span class="cursor-orbit" aria-hidden="true"></span>
+            Tap a lit seat to preview its view
+          </button>
+        </div>
+
+        <div id="compare-overlay" class="compare-overlay" hidden>
+          <div class="compare-toolbar">
+            <span><i class="compare-icon" aria-hidden="true"></i>Comparing sightlines</span>
+            <button id="exit-compare" class="compare-exit" type="button">Exit compare <span aria-hidden="true">×</span></button>
+          </div>
+          <div class="compare-pane compare-pane-a">
+            <span class="compare-letter">A</span>
+            <span id="compare-a-label" class="compare-pane-label">View A</span>
+          </div>
+          <div class="compare-pane compare-pane-b">
+            <span class="compare-letter">B</span>
+            <span id="compare-b-label" class="compare-pane-label">View B</span>
+          </div>
+          <div class="compare-divider" aria-hidden="true"></div>
+        </div>
+
+        <div id="scene-loader" class="scene-loader" aria-hidden="true">
+          <span class="loader-line"></span>
+          <span>Setting the stage</span>
+        </div>
+      </section>
+
+      <aside class="booking-panel" aria-label="Choose seats and review your order">
+        <div class="panel-heading">
+          <div>
+            <p class="panel-kicker">Reserve seats</p>
+            <h2>Your view</h2>
+          </div>
+          <button id="clear-seats" class="text-button" type="button" hidden>Clear</button>
+        </div>
+
+        <div class="panel-scroll">
+          <section id="preview-card" class="preview-card" aria-live="polite">
+            <div id="preview-empty" class="preview-empty">
+              <span class="empty-orbit" aria-hidden="true"><i></i></span>
+              <div>
+                <h3>Choose a seat to begin</h3>
+                <p>Tap any open seat in the house or in the plan below. We’ll show the exact eye-level view.</p>
+              </div>
+            </div>
+
+            <div id="preview-content" class="preview-content" hidden>
+              <div class="preview-title-row">
+                <span id="view-seat-badge" class="seat-badge">A1</span>
+                <div class="preview-title">
+                  <h3 id="view-seat-name">Orchestra · Row A</h3>
+                  <p id="view-seat-meta">Seat 1 · Clear sightline</p>
+                </div>
+                <strong id="view-price" class="preview-price">$58</strong>
+              </div>
+              <p id="view-note" class="view-note">A full, centered view of the stage.</p>
+              <div id="compare-banner" class="compare-banner" hidden>
+                <span class="compare-banner-copy"><b>View A pinned</b><span id="compare-pinned-label">Row A · Seat 1</span></span>
+                <span class="compare-banner-action">Choose another seat</span>
+              </div>
+              <div class="preview-actions">
+                <button id="add-seat" class="primary-button" type="button">Add seat</button>
+                <button id="compare-seat" class="secondary-button" type="button">
+                  <span class="compare-icon small" aria-hidden="true"></span>
+                  Compare view
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <section class="seat-map-section" aria-label="Seating plan">
+            <div class="seat-map-heading">
+              <h3>Seating plan</h3>
+              <span>Orchestra · 96 seats</span>
+            </div>
+            <div class="stage-mark"><span>STAGE</span></div>
+            <div id="seat-map" class="seat-map"></div>
+            <div class="map-caption">
+              <span><i class="map-key is-open"></i>Open</span>
+              <span><i class="map-key is-selected"></i>Selected</span>
+              <span><i class="map-key is-reserved"></i>Unavailable</span>
+              <span class="map-caption-tip">Seat 1 is house left</span>
+            </div>
+          </section>
+
+          <section class="order-section" aria-label="Selected seats">
+            <div class="order-heading">
+              <h3>Your seats</h3>
+              <span id="seat-count">0 seats</span>
+            </div>
+            <div id="order-empty" class="order-empty">No seats selected yet.</div>
+            <div id="order-seats" class="order-seats"></div>
+          </section>
+        </div>
+
+        <footer class="order-footer">
+          <div class="total-row">
+            <div>
+              <span>Running total</span>
+              <small>All taxes included</small>
+            </div>
+            <strong id="order-total">$0</strong>
+          </div>
+          <button id="review-booking" class="review-button" type="button" disabled>
+            Review booking
+            <span class="button-arrow" aria-hidden="true">→</span>
+          </button>
+          <p class="footer-note">A local reservation summary. No payment is taken.</p>
+        </footer>
+      </aside>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="summary-dialog" class="summary-dialog">
+    <div class="summary-ticket">
+      <button id="close-summary" class="dialog-close" type="button" aria-label="Close booking summary">×</button>
+      <div class="ticket-top">
+        <p class="ticket-kicker">The Orpheum · Main stage</p>
+        <h2>Reservation summary</h2>
+        <p>An Evening of One Acts<br />Tonight · 7:30 PM</p>
+      </div>
+      <div class="ticket-perforation" aria-hidden="true"><span></span></div>
+      <div class="ticket-body">
+        <div class="summary-meta-grid">
+          <div><span>Performance</span><strong>Fri · 7:30 PM</strong></div>
+          <div><span>House</span><strong>Orchestra</strong></div>
+          <div><span>Party</span><strong id="summary-party">0 seats</strong></div>
+          <div><span>Held locally</span><strong id="summary-reference">—</strong></div>
+        </div>
+        <div id="summary-seats" class="summary-seats"></div>
+        <div id="summary-lines" class="summary-lines"></div>
+        <div class="summary-total"><span>Total</span><strong id="summary-total">$0</strong></div>
+        <p class="summary-note">This is a local booking preview only. No seats have been purchased and no payment has been taken.</p>
+        <button id="summary-done" class="primary-button summary-done" type="button">Done</button>
+      </div>
+    </div>
+  </dialog>
+
+  <noscript>This seat picker needs JavaScript enabled.</noscript>
+</body>
+</html>

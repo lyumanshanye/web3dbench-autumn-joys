@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f2eee3" />
+    <meta
+      name="description"
+      content="An interactive 3D bicycle puncture-repair lesson for community repair workshops."
+    />
+    <title>Spoke &mdash; Bicycle Puncture Repair Lab</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <svg class="svg-sprite" aria-hidden="true">
+      <symbol id="icon-deflate" viewBox="0 0 24 24">
+        <path d="M4 14a8 8 0 0 1 16 0" />
+        <path d="M12 14l4-4" />
+        <path d="M3 18h18M7 21h10" />
+      </symbol>
+      <symbol id="icon-lever" viewBox="0 0 24 24">
+        <path d="M5 19 16.5 7.5c.8-.8 2.1-.8 2.8 0l.2.2c.8.8.8 2.1 0 2.8L8 22" />
+        <path d="m14 6 4 4M4 20l-2 2" />
+      </symbol>
+      <symbol id="icon-remove" viewBox="0 0 24 24">
+        <path d="M17.5 7.5a6 6 0 1 1-7 9.4" />
+        <path d="M8 3v5h5" />
+        <path d="M12 12h9M17 8l4 4-4 4" />
+      </symbol>
+      <symbol id="icon-locate" viewBox="0 0 24 24">
+        <circle cx="10.5" cy="10.5" r="5.5" />
+        <path d="m15 15 5 5M10.5 8v5M8 10.5h5" />
+      </symbol>
+      <symbol id="icon-patch" viewBox="0 0 24 24">
+        <rect x="4" y="4" width="16" height="16" rx="4" />
+        <path d="m8 12 2.5 2.5L16 9" />
+      </symbol>
+      <symbol id="icon-refit" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="8" />
+        <circle cx="12" cy="12" r="3" />
+        <path d="M12 4v5M12 15v5M4 12h5M15 12h5" />
+      </symbol>
+      <symbol id="icon-hands" viewBox="0 0 24 24">
+        <path d="M8 12V6.5a1.5 1.5 0 0 1 3 0V11" />
+        <path d="M11 10V5.5a1.5 1.5 0 0 1 3 0V11" />
+        <path d="M14 10V7a1.5 1.5 0 0 1 3 0v7.5A6.5 6.5 0 0 1 10.5 21H10a6 6 0 0 1-4.2-1.8L3.5 17a1.7 1.7 0 0 1 2.4-2.4L8 16.5" />
+      </symbol>
+      <symbol id="icon-orbit" viewBox="0 0 24 24">
+        <ellipse cx="12" cy="12" rx="9" ry="4.5" />
+        <circle cx="12" cy="12" r="3" />
+        <path d="m18.5 9 2.5 3-2.5 3" />
+      </symbol>
+    </svg>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Spoke repair lab home">
+          <span class="brand-mark" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </span>
+          <span class="brand-copy">
+            <strong>Spoke</strong>
+            <small>repair lab</small>
+          </span>
+        </a>
+
+        <div class="topbar-context">
+          <span class="live-tag"><i></i> Hands-on lesson</span>
+          <span class="context-divider"></span>
+          <span>Community repair workshop</span>
+        </div>
+
+        <div class="topbar-actions">
+          <button class="utility-button" id="pauseButton" type="button" aria-pressed="false">
+            <span class="pause-glyph" aria-hidden="true"><i></i><i></i></span>
+            <span class="utility-label">Pause</span>
+          </button>
+          <button class="practice-button" id="practiceButton" type="button" aria-pressed="false">
+            <svg aria-hidden="true"><use href="#icon-hands"></use></svg>
+            <span>Practice round</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="panel-column" aria-live="polite">
+          <section class="lesson-card" id="lessonCard">
+            <div class="panel-kicker">
+              <span id="stepKicker">Step 01 / 06</span>
+              <span class="skill-tag">Bench basics</span>
+            </div>
+
+            <div class="step-heading">
+              <div class="step-badge" aria-hidden="true">
+                <svg id="stepIcon"><use href="#icon-deflate"></use></svg>
+                <span id="stepNumber">01</span>
+              </div>
+              <div>
+                <p class="step-eyebrow" id="stepEyebrow">Start here</p>
+                <h1 id="stepTitle">Let the air out</h1>
+              </div>
+            </div>
+
+            <p class="instruction" id="stepInstruction">
+              Remove the valve cap and press the valve core to release all the air. A flat tube is easier to work with.
+            </p>
+
+            <div class="bench-note">
+              <span class="note-mark" aria-hidden="true">!</span>
+              <div>
+                <strong>Bench note</strong>
+                <p id="benchNote">Catch the valve cap in your parts tray. It is small enough to vanish under a workbench.</p>
+              </div>
+            </div>
+
+            <div class="pressure-card" id="pressureCard">
+              <div class="pressure-heading">
+                <span>Air pressure</span>
+                <strong id="pressureValue">72 psi</strong>
+              </div>
+              <div class="pressure-meter" aria-hidden="true">
+                <i id="pressureFill"></i>
+                <span class="pressure-ticks"></span>
+              </div>
+              <p id="pressureHint">Firm before deflating</p>
+            </div>
+
+            <div class="step-actions">
+              <button class="control-button secondary" id="prevButton" type="button">
+                <span aria-hidden="true">&larr;</span>
+                <span>Back</span>
+              </button>
+              <button class="control-button primary" id="nextButton" type="button">
+                <span id="nextLabel">Next step</span>
+                <span aria-hidden="true">&rarr;</span>
+              </button>
+            </div>
+
+            <button class="replay-button" id="replayButton" type="button">
+              <svg aria-hidden="true"><use href="#icon-orbit"></use></svg>
+              <span>Replay this change</span>
+            </button>
+          </section>
+
+          <section class="lesson-card practice-card" id="practicePanel" hidden>
+            <div class="practice-topline">
+              <span class="practice-kicker">Practice round</span>
+              <button class="practice-close" id="practiceClose" type="button" aria-label="Close practice round">&times;</button>
+            </div>
+            <div id="practiceBody"></div>
+          </section>
+
+          <p class="panel-footnote">
+            <span class="footnote-dot"></span>
+            Model is slowed down for learning. Always inspect the tire before refitting.
+          </p>
+        </aside>
+
+        <section class="stage-card" aria-label="Interactive 3D bicycle wheel">
+          <div class="stage-toolbar">
+            <div class="stage-badge"><i></i> Interactive cutaway</div>
+            <div class="stage-tools">
+              <button class="stage-tool" id="labelsButton" type="button" aria-pressed="true">
+                <svg aria-hidden="true"><use href="#icon-locate"></use></svg>
+                <span>Labels on</span>
+              </button>
+              <button class="stage-tool" id="resetViewButton" type="button">
+                <svg aria-hidden="true"><use href="#icon-orbit"></use></svg>
+                <span>Reset view</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="canvas-wrap" id="canvasWrap">
+            <div id="sceneMount" class="scene-mount"></div>
+            <div class="canvas-wash" aria-hidden="true"></div>
+            <div class="cutaway-key" aria-hidden="true">
+              <span></span>
+              Cutaway view
+            </div>
+            <div class="model-status" id="modelStatus">
+              <i></i><span id="modelStatusText">Air released</span>
+            </div>
+            <div class="stage-caption">
+              <span id="captionKicker">WHEEL SYSTEM</span>
+              <strong id="captionTitle">Tube seated inside tire</strong>
+              <p id="captionBody">Explore the cutaway, then follow the repair steps.</p>
+            </div>
+            <div class="rotate-hint" id="rotateHint">
+              <svg aria-hidden="true"><use href="#icon-orbit"></use></svg>
+              <span>Drag to rotate</span>
+            </div>
+          </div>
+
+          <div class="stage-footer">
+            <div class="part-legend" aria-label="Visible wheel parts">
+              <span><i class="legend-tire"></i>Tire</span>
+              <span><i class="legend-tube"></i>Tube</span>
+              <span><i class="legend-metal"></i>Rim &amp; spokes</span>
+            </div>
+            <span class="view-note">Rotate freely &middot; pinch or scroll to zoom</span>
+          </div>
+        </section>
+      </main>
+
+      <nav class="step-rail" aria-label="Repair steps">
+        <div class="rail-label">
+          <span>Repair path</span>
+          <strong id="railProgress">1 of 6</strong>
+        </div>
+        <div class="rail-track" id="railTrack"></div>
+      </nav>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <noscript>This lesson needs JavaScript to display the interactive 3D wheel.</noscript>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

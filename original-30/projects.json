@@ -1,0 +1,152 @@
+[
+  {
+    "task": "art-studio-3d",
+    "title": "Art Studio 3D",
+    "url": "art-studio-3d/"
+  },
+  {
+    "task": "autumn-swing",
+    "title": "Autumn Swing",
+    "url": "autumn-swing/"
+  },
+  {
+    "task": "balcony-sun-planner",
+    "title": "Balcony Sun Planner",
+    "url": "balcony-sun-planner/"
+  },
+  {
+    "task": "bicycle-puncture-lesson",
+    "title": "Bicycle Puncture Lesson",
+    "url": "bicycle-puncture-lesson/"
+  },
+  {
+    "task": "building-energy-explorer",
+    "title": "Building Energy Explorer",
+    "url": "building-energy-explorer/"
+  },
+  {
+    "task": "community-event-planner",
+    "title": "Community Event Planner",
+    "url": "community-event-planner/"
+  },
+  {
+    "task": "data-center-rack-planner",
+    "title": "Data Center Rack Planner",
+    "url": "data-center-rack-planner/"
+  },
+  {
+    "task": "headphone-landing-page",
+    "title": "Headphone Landing Page",
+    "url": "headphone-landing-page/"
+  },
+  {
+    "task": "library-wayfinding",
+    "title": "Library Wayfinding",
+    "url": "library-wayfinding/"
+  },
+  {
+    "task": "luggage-fit-checker",
+    "title": "Luggage Fit Checker",
+    "url": "luggage-fit-checker/"
+  },
+  {
+    "task": "marble-run-3d",
+    "title": "Marble Run 3D",
+    "url": "marble-run-3d/"
+  },
+  {
+    "task": "mechanical-watch-explorer",
+    "title": "Mechanical Watch Explorer",
+    "url": "mechanical-watch-explorer/"
+  },
+  {
+    "task": "moon-phase-lesson",
+    "title": "Moon Phase Lesson",
+    "url": "moon-phase-lesson/"
+  },
+  {
+    "task": "museum-gallery",
+    "title": "Museum Gallery",
+    "url": "museum-gallery/"
+  },
+  {
+    "task": "music-loop-studio",
+    "title": "Music Loop Studio",
+    "url": "music-loop-studio/"
+  },
+  {
+    "task": "packaging-fold-preview",
+    "title": "Packaging Fold Preview",
+    "url": "packaging-fold-preview/"
+  },
+  {
+    "task": "paper-windmill",
+    "title": "Paper Windmill",
+    "url": "paper-windmill/"
+  },
+  {
+    "task": "pelican-3d",
+    "title": "Pelican 3D",
+    "url": "pelican-3d/"
+  },
+  {
+    "task": "personal-blog",
+    "title": "Personal Blog",
+    "url": "personal-blog/"
+  },
+  {
+    "task": "photographer-landing-page",
+    "title": "Photographer Landing Page",
+    "url": "photographer-landing-page/"
+  },
+  {
+    "task": "print-orientation-workbench",
+    "title": "Print Orientation Workbench",
+    "url": "print-orientation-workbench/"
+  },
+  {
+    "task": "product-photo-lighting",
+    "title": "Product Photo Lighting",
+    "url": "product-photo-lighting/"
+  },
+  {
+    "task": "recipe-kitchen",
+    "title": "Recipe Kitchen",
+    "url": "recipe-kitchen/"
+  },
+  {
+    "task": "ring-configurator",
+    "title": "Ring Configurator",
+    "url": "ring-configurator/"
+  },
+  {
+    "task": "room-planner-3d",
+    "title": "Room Planner 3D",
+    "url": "room-planner-3d/"
+  },
+  {
+    "task": "solar-system-explorer",
+    "title": "Solar System Explorer",
+    "url": "solar-system-explorer/"
+  },
+  {
+    "task": "terrain-map-explorer",
+    "title": "Terrain Map Explorer",
+    "url": "terrain-map-explorer/"
+  },
+  {
+    "task": "theater-seat-preview",
+    "title": "Theater Seat Preview",
+    "url": "theater-seat-preview/"
+  },
+  {
+    "task": "travel-journal-globe",
+    "title": "Travel Journal Globe",
+    "url": "travel-journal-globe/"
+  },
+  {
+    "task": "warehouse-pick-route",
+    "title": "Warehouse Pick Route",
+    "url": "warehouse-pick-route/"
+  }
+]

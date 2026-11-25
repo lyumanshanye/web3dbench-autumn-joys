@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#11130f" />
+    <title>Northlight — Tabletop Studio</title>
+    <meta name="description" content="A virtual tabletop photography studio for styling and exporting ceramic product shots." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%2311130f'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23dce8a2'/%3E%3Ccircle cx='16' cy='16' r='2.4' fill='%23dce8a2'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="./index.html" aria-label="Northlight studio home">
+          <span class="brand-mark" aria-hidden="true">
+            <span class="brand-mark__aperture"></span>
+          </span>
+          <span class="brand-copy">
+            <span class="brand-name">NORTHLIGHT</span>
+            <span class="brand-sub">TABLETOP STUDIO</span>
+          </span>
+        </a>
+
+        <div class="session-label" aria-label="Live studio session">
+          <span class="live-dot"></span>
+          <span>LIVE SESSION</span>
+          <span class="session-slash">/</span>
+          <span class="session-item">CERAMIC MUG 01</span>
+        </div>
+
+        <div class="topbar-actions">
+          <button class="button button--quiet" id="resetButton" type="button" title="Restore the starting light setup">
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M4.4 7.2A6.5 6.5 0 1 1 3.7 12" />
+              <path d="M3.8 3.7v3.8h3.8" />
+            </svg>
+            <span class="button-label">Reset setup</span>
+          </button>
+          <button class="button button--primary" id="exportButton" type="button">
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 2.8v9.4" />
+              <path d="m6.6 9 3.4 3.4L13.4 9" />
+              <path d="M4 14.5v1.7h12v-1.7" />
+            </svg>
+            <span>Export PNG</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="stage" aria-label="Camera preview">
+          <div class="stage-toolbar">
+            <div class="camera-id">
+              <span class="camera-icon" aria-hidden="true">
+                <span></span>
+              </span>
+              <span>CAMERA 01</span>
+              <span class="toolbar-separator"></span>
+              <span class="camera-lens" id="lensLabel">50MM</span>
+            </div>
+            <div class="preview-status">
+              <span id="frameMeta">1:1 SQUARE</span>
+              <span class="status-pip"></span>
+              <span>LIVE PREVIEW</span>
+            </div>
+          </div>
+
+          <div class="preview-wrap" id="previewWrap">
+            <div class="preview-frame" id="previewFrame">
+              <canvas id="sceneCanvas" aria-label="Interactive 3D camera preview of a ceramic mug in a photography studio"></canvas>
+              <div class="preview-vignette" aria-hidden="true"></div>
+              <div class="preview-hud preview-hud--top" aria-hidden="true">
+                <span>NL—MUG / 001</span>
+                <span>RAW PREVIEW</span>
+              </div>
+              <div class="preview-hud preview-hud--bottom" aria-hidden="true">
+                <span>50 MM</span>
+                <span>F4.0</span>
+                <span>1/125</span>
+                <span id="hudExposure">+0.2 EV</span>
+              </div>
+              <div class="preview-loading" id="loadingScreen">
+                <span class="loading-ring"></span>
+                <span>LIGHTING SET</span>
+              </div>
+              <div class="preview-error" id="previewError" hidden>
+                WebGL could not start. Try a browser with hardware acceleration.
+              </div>
+            </div>
+          </div>
+
+          <div class="stage-footer">
+            <p><span class="footer-grip" aria-hidden="true"></span>Drag light and reflector markers in the studio plan to reshape the shot.</p>
+            <span class="stage-footer__note">AUTO-SAVED LOCALLY</span>
+          </div>
+        </section>
+
+        <aside class="control-panel" aria-label="Studio controls">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">SCENE CONTROLS</span>
+              <h1>Light the object.</h1>
+            </div>
+            <span class="panel-index">01—04</span>
+          </div>
+
+          <section class="control-section control-section--frame">
+            <div class="section-heading">
+              <h2>Frame</h2>
+              <span id="frameSizeLabel">2000 × 2000 PX</span>
+            </div>
+            <div class="crop-choices" role="group" aria-label="Output crop">
+              <button class="crop-choice is-active" type="button" data-crop="square" aria-pressed="true">
+                <span class="crop-symbol crop-symbol--square" aria-hidden="true"></span>
+                <span class="crop-label"><strong>Square</strong><small>1 : 1</small></span>
+              </button>
+              <button class="crop-choice" type="button" data-crop="portrait" aria-pressed="false">
+                <span class="crop-symbol crop-symbol--portrait" aria-hidden="true"></span>
+                <span class="crop-label"><strong>Portrait</strong><small>4 : 5</small></span>
+              </button>
+            </div>
+          </section>
+
+          <section class="control-section control-section--backdrop">
+            <div class="section-heading">
+              <h2>Backdrop</h2>
+              <span id="backdropName">Dune</span>
+            </div>
+            <div class="swatch-row" role="group" aria-label="Backdrop color">
+              <button class="swatch is-active" type="button" data-color="#b7aa95" data-name="Dune" style="--swatch:#b7aa95" aria-label="Dune backdrop" aria-pressed="true"><span></span></button>
+              <button class="swatch" type="button" data-color="#d6c9b4" data-name="Oat" style="--swatch:#d6c9b4" aria-label="Oat backdrop" aria-pressed="false"><span></span></button>
+              <button class="swatch" type="button" data-color="#818975" data-name="Sage" style="--swatch:#818975" aria-label="Sage backdrop" aria-pressed="false"><span></span></button>
+              <button class="swatch" type="button" data-color="#8a6c5b" data-name="Clay" style="--swatch:#8a6c5b" aria-label="Clay backdrop" aria-pressed="false"><span></span></button>
+              <button class="swatch" type="button" data-color="#6c777c" data-name="Slate" style="--swatch:#6c777c" aria-label="Slate backdrop" aria-pressed="false"><span></span></button>
+              <label class="custom-swatch" title="Choose a custom backdrop color">
+                <input id="customColor" type="color" value="#b7aa95" aria-label="Custom backdrop color" />
+                <span aria-hidden="true"></span>
+              </label>
+            </div>
+            <div class="color-readout">
+              <span>SEAMLESS PAPER</span>
+              <code id="colorHex">#B7AA95</code>
+            </div>
+          </section>
+
+          <section class="control-section control-section--lights">
+            <div class="section-heading">
+              <h2>Light rig</h2>
+              <span class="drag-hint"><span class="drag-hint__icon" aria-hidden="true">↔</span> DRAG TO MOVE</span>
+            </div>
+
+            <div class="studio-map" id="studioMap" aria-label="Top-down studio plan. Drag the key light, fill light, and reflector.">
+              <div class="studio-map__grid" aria-hidden="true"></div>
+              <span class="studio-map__label studio-map__label--back">BACKDROP</span>
+              <span class="studio-map__label studio-map__label--front">CAMERA</span>
+              <div class="backdrop-line" aria-hidden="true"></div>
+              <svg class="beam-lines" viewBox="0 0 300 172" preserveAspectRatio="none" aria-hidden="true">
+                <line id="keyBeam" class="beam beam--key" x1="80" y1="45" x2="150" y2="98" />
+                <line id="fillBeam" class="beam beam--fill" x1="225" y1="58" x2="150" y2="98" />
+                <line id="reflectorBeam" class="beam beam--bounce" x1="220" y1="105" x2="150" y2="98" />
+              </svg>
+              <div class="subject-marker" id="subjectMarker" aria-hidden="true">
+                <span></span>
+                <em>MUG</em>
+              </div>
+              <div class="camera-marker" aria-hidden="true">
+                <svg viewBox="0 0 28 20">
+                  <path d="M3 5.5h5l1.7-2h8.6l1.7 2h5v11H3z" />
+                  <circle cx="14" cy="11" r="3.5" />
+                </svg>
+                <em>CAM</em>
+              </div>
+
+              <button class="rig-marker rig-marker--key" id="keyMarker" type="button" data-rig="key" aria-label="Move key softbox" aria-describedby="keyMarkerCoords">
+                <span class="rig-marker__halo"></span>
+                <span class="rig-marker__body"><i></i></span>
+                <span class="rig-marker__tag">KEY</span>
+                <span class="rig-marker__coords" id="keyMarkerCoords">-2.6 / 1.7</span>
+              </button>
+              <button class="rig-marker rig-marker--fill" id="fillMarker" type="button" data-rig="fill" aria-label="Move fill softbox" aria-describedby="fillMarkerCoords">
+                <span class="rig-marker__halo"></span>
+                <span class="rig-marker__body"><i></i></span>
+                <span class="rig-marker__tag">FILL</span>
+                <span class="rig-marker__coords" id="fillMarkerCoords">2.5 / 1.2</span>
+              </button>
+              <button class="rig-marker rig-marker--reflector" id="reflectorMarker" type="button" data-rig="reflector" aria-label="Move reflector" aria-describedby="reflectorMarkerCoords">
+                <span class="rig-marker__halo"></span>
+                <span class="rig-marker__body"><i></i></span>
+                <span class="rig-marker__tag">BOUNCE</span>
+                <span class="rig-marker__coords" id="reflectorMarkerCoords">2.0 / 2.2</span>
+              </button>
+            </div>
+
+            <div class="light-meters">
+              <div class="light-meter">
+                <div class="meter-heading">
+                  <span class="meter-name"><i class="light-dot light-dot--key"></i>Key softbox</span>
+                  <output id="keyOutput" for="keyPower">78%</output>
+                </div>
+                <label class="sr-only" for="keyPower">Key softbox power</label>
+                <input class="range range--key" id="keyPower" type="range" min="12" max="100" value="78" step="1" />
+                <div class="meter-scale"><span>SOFT</span><span>BRIGHT</span></div>
+              </div>
+
+              <div class="light-meter">
+                <div class="meter-heading">
+                  <span class="meter-name"><i class="light-dot light-dot--fill"></i>Fill softbox</span>
+                  <output id="fillOutput" for="fillPower">42%</output>
+                </div>
+                <label class="sr-only" for="fillPower">Fill softbox power</label>
+                <input class="range range--fill" id="fillPower" type="range" min="5" max="100" value="42" step="1" />
+                <div class="meter-scale"><span>SHADOW</span><span>OPEN</span></div>
+              </div>
+            </div>
+
+            <div class="reflector-control">
+              <div class="reflector-title">
+                <span class="reflector-icon" aria-hidden="true"></span>
+                <span>Reflector bounce</span>
+                <output id="reflectorOutput" for="reflectorBounce">58%</output>
+              </div>
+              <label class="sr-only" for="reflectorBounce">Reflector bounce strength</label>
+              <input class="range range--bounce" id="reflectorBounce" type="range" min="0" max="100" value="58" step="1" />
+            </div>
+          </section>
+
+          <section class="control-section control-section--camera">
+            <div class="section-heading">
+              <h2>Camera</h2>
+              <span>50 MM · F4.0</span>
+            </div>
+            <div class="exposure-control">
+              <label for="exposureRange">Exposure</label>
+              <input class="range" id="exposureRange" type="range" min="-1" max="1" value="0.15" step="0.05" aria-describedby="exposureValue" />
+              <output id="exposureValue" for="exposureRange">+0.2 EV</output>
+            </div>
+            <div class="camera-readouts" aria-hidden="true">
+              <span><i></i>SHUTTER 1/125</span>
+              <span><i></i>WB 5600K</span>
+              <span><i></i>sRGB</span>
+            </div>
+          </section>
+
+          <div class="panel-footer">
+            <span class="saved-indicator"><i></i>Setup restored automatically</span>
+            <button id="saveHint" type="button" class="text-button">Defaults</button>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

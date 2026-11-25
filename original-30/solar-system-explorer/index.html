@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#02040a" />
+    <meta
+      name="description"
+      content="Helios is an interactive, immersive solar system rendered in real time."
+    />
+    <title>Helios — A Solar System in Motion</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='10' fill='%23f2b45f'/%3E%3Ccircle cx='32' cy='32' r='23' fill='none' stroke='%23e3c295' stroke-width='2'/%3E%3Cellipse cx='32' cy='32' rx='30' ry='10' fill='none' stroke='%23e3c295' stroke-width='1.5' transform='rotate(-28 32 32)'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene" aria-label="Interactive 3D model of the solar system"></canvas>
+      <div id="labels" class="labels" aria-hidden="true"></div>
+      <div class="grain" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <button class="brand" id="home-button" aria-label="Return to solar system overview">
+          <span class="brand-mark" aria-hidden="true"><i></i></span>
+          <span class="brand-type">
+            <strong>HELIOS</strong>
+            <small>SOLAR ATLAS</small>
+          </span>
+        </button>
+
+        <div class="telemetry">
+          <div class="live-status"><span class="live-dot"></span> LIVE SIMULATION</div>
+          <span class="telemetry-rule"></span>
+          <div class="sim-clock">
+            <small>MISSION ELAPSED</small>
+            <span id="sim-clock">DAY 001.00</span>
+          </div>
+        </div>
+      </header>
+
+      <aside class="planet-rail" aria-label="Solar system navigation">
+        <div class="rail-heading">
+          <span>NAVIGATION</span>
+          <span>08 WORLDS</span>
+        </div>
+        <nav id="planet-nav" class="planet-nav"></nav>
+        <button class="overview-button" id="overview-button">
+          <span class="overview-icon" aria-hidden="true"></span>
+          <span>System overview</span>
+          <kbd>ESC</kbd>
+        </button>
+      </aside>
+
+      <section class="hero" id="hero">
+        <p class="eyebrow"><span></span> THE LOCAL STELLAR NEIGHBORHOOD</p>
+        <h1>A solar system<br /><em>in motion.</em></h1>
+        <p class="hero-copy">
+          Eight worlds. One star. Trace their endless orbits and drift among the planets of our
+          celestial home.
+        </p>
+        <div class="hero-meta" aria-label="Solar system facts">
+          <div><strong>01</strong><span>STAR</span></div>
+          <div><strong>08</strong><span>PLANETS</span></div>
+          <div><strong>4.6</strong><span>BILLION YEARS</span></div>
+        </div>
+        <button class="explore-button" id="explore-button">
+          <span>Explore the worlds</span>
+          <span class="explore-arrow" aria-hidden="true">↗</span>
+        </button>
+      </section>
+
+      <section class="planet-card" id="planet-card" aria-live="polite">
+        <button class="card-close" id="card-close" aria-label="Close planet details">×</button>
+        <div class="card-kicker"><span id="card-index">03</span><span id="card-type">TERRESTRIAL</span></div>
+        <h2 id="card-name">Earth</h2>
+        <p id="card-description">The pale blue dot. A water world wrapped in a thin, luminous atmosphere.</p>
+        <div class="card-metrics">
+          <div><span>DISTANCE</span><strong id="card-distance">1.00 AU</strong></div>
+          <div><span>DAY</span><strong id="card-day">24 HRS</strong></div>
+          <div><span>ORBIT</span><strong id="card-year">365 DAYS</strong></div>
+          <div><span>MOONS</span><strong id="card-moons">01</strong></div>
+        </div>
+        <div class="card-footer">
+          <span class="card-orbit-icon" aria-hidden="true"></span>
+          <span id="card-note">You are here</span>
+        </div>
+      </section>
+
+      <div class="interaction-hint" id="interaction-hint">
+        <span class="mouse-icon" aria-hidden="true"><i></i></span>
+        <span>DRAG TO ORBIT</span>
+        <span class="hint-divider"></span>
+        <span>SCROLL TO TRAVEL</span>
+      </div>
+
+      <footer class="bottom-bar">
+        <div class="speed-readout">
+          <span>ORBITAL RATE</span>
+          <strong id="speed-readout">1.0×</strong>
+        </div>
+        <div class="transport" aria-label="Simulation playback controls">
+          <button class="transport-button" id="speed-down" aria-label="Slow down time">−</button>
+          <button class="play-button" id="play-toggle" aria-label="Pause simulation">
+            <span id="play-icon" class="pause-icon" aria-hidden="true"></span>
+          </button>
+          <button class="transport-button" id="speed-up" aria-label="Speed up time">+</button>
+        </div>
+        <div class="coordinate">
+          <span>ECLIPTIC PLANE</span>
+          <strong>0° 00′ 00″</strong>
+        </div>
+      </footer>
+
+      <div class="loading-screen" id="loading-screen" aria-hidden="true">
+        <div class="loader-orbit"><i></i><i></i><i></i></div>
+        <span>ALIGNING ORBITS</span>
+      </div>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

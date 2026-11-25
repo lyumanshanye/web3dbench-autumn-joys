@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive 3D lesson about the phases of the Moon for middle-school students."
+    />
+    <meta name="theme-color" content="#050810" />
+    <title>Orbit Lab · Moon Phases</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%2308101c'/%3E%3Ccircle cx='25' cy='32' r='12' fill='%23ffc45f'/%3E%3Ccircle cx='47' cy='23' r='4' fill='%23d9e4f5'/%3E%3Cellipse cx='32' cy='32' rx='27' ry='11' fill='none' stroke='%2379d9ee' stroke-width='1.5' transform='rotate(-24 32 32)'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#model-title">Skip to the lesson</a>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true">
+            <span class="brand-orbit"></span>
+            <span class="brand-planet"></span>
+          </div>
+          <div>
+            <p class="brand-name">ORBIT LAB</p>
+            <h1>Moon Phases</h1>
+          </div>
+        </div>
+
+        <div class="top-meta" aria-label="Model information">
+          <span class="meta-pill">
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <circle cx="8" cy="8" r="5.6"></circle>
+              <path d="M8 2.4v11.2M2.4 8h11.2"></path>
+            </svg>
+            29.5-day cycle
+          </span>
+          <span class="meta-pill not-scale">
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M2.5 5.5h11M2.5 10.5h11M4 3v10M8 4.5v7M12 3v10"></path>
+            </svg>
+            Not to scale
+          </span>
+        </div>
+      </header>
+
+      <main class="lesson-grid">
+        <section class="panel model-panel" aria-labelledby="model-title">
+          <div class="panel-heading model-heading">
+            <div>
+              <p class="eyebrow">INTERACTIVE MODEL</p>
+              <h2 id="model-title">Follow the Moon's orbit</h2>
+            </div>
+            <div class="phase-now" aria-live="polite" aria-atomic="true">
+              <span class="phase-now-dot" aria-hidden="true"></span>
+              <span id="phaseNow">First quarter</span>
+            </div>
+          </div>
+
+          <div
+            class="scene"
+            id="scene"
+            role="img"
+            aria-label="Top-down 3D model of the Sun, Earth, and Moon. The Moon moves around Earth along a circular path while sunlight arrives from the Sun on the left. Sizes and distances are not to scale."
+          >
+            <canvas id="orbitCanvas" aria-hidden="true"></canvas>
+            <div class="scene-vignette" aria-hidden="true"></div>
+
+            <div class="sunlight-note">
+              <span class="sunlight-icon" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </span>
+              Sunlight from the left
+            </div>
+
+            <div class="scene-scale-note" aria-hidden="true">
+              Sizes &amp; distances<br />not to scale
+            </div>
+
+            <div class="label-layer" id="labelLayer">
+              <div class="object-label sun-label" id="sunLabel">
+                <span class="label-dot label-dot-sun" aria-hidden="true"></span>
+                <span class="label-copy">
+                  <strong>Sun</strong>
+                  <small>light source</small>
+                </span>
+              </div>
+              <div class="object-label earth-label" id="earthLabel">
+                <span class="label-dot label-dot-earth" aria-hidden="true"></span>
+                <span class="label-copy">
+                  <strong>Earth</strong>
+                  <small>your view</small>
+                </span>
+              </div>
+              <div class="object-label moon-label" id="moonLabel">
+                <span class="label-dot label-dot-moon" aria-hidden="true"></span>
+                <span class="label-copy">
+                  <strong>Moon</strong>
+                  <small id="moonDayLabel">Day 7.4</small>
+                </span>
+              </div>
+            </div>
+
+            <p class="key-idea">
+              <span class="key-idea-mark" aria-hidden="true">1/2</span>
+              The Sun always lights half of the Moon.
+            </p>
+          </div>
+
+          <div class="control-deck">
+            <div class="timeline-heading">
+              <label for="daySlider" class="timeline-label">
+                <span class="eyebrow">DAY OF CYCLE</span>
+                <span class="day-readout"><output id="dayOutput" for="daySlider">7.4</output><span class="day-total">/ 29.5 days</span></span>
+              </label>
+              <span class="illum-inline"><span id="illumInline">50</span>% illuminated</span>
+            </div>
+
+            <input
+              id="daySlider"
+              class="day-slider"
+              type="range"
+              min="0"
+              max="29.5"
+              step="0.125"
+              value="7.4"
+              aria-describedby="sliderHint"
+            />
+
+            <div class="timeline-ticks" aria-hidden="true">
+              <span><i></i>New</span>
+              <span><i></i>First quarter</span>
+              <span><i></i>Full</span>
+              <span><i></i>Last quarter</span>
+            </div>
+
+            <div class="controls-row">
+              <button class="button button-play" id="playButton" type="button" aria-pressed="false">
+                <span class="play-symbol" id="playSymbol" aria-hidden="true">▶</span>
+                <span id="playText">Play</span>
+              </button>
+
+              <div class="phase-buttons" role="group" aria-label="Jump to a phase">
+                <button class="phase-button" type="button" data-day="0" aria-label="New moon">New</button>
+                <button class="phase-button is-active" type="button" data-day="7.375">First quarter</button>
+                <button class="phase-button" type="button" data-day="14.75" aria-label="Full moon">Full</button>
+                <button class="phase-button" type="button" data-day="22.125">Last quarter</button>
+              </div>
+
+              <button class="button button-reset" id="resetButton" type="button" title="Reset the cycle and quiz">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M3.2 5.3A5.4 5.4 0 1 1 2.7 9"></path>
+                  <path d="M3.2 2.6v2.7h2.7"></path>
+                </svg>
+                <span>Reset</span>
+              </button>
+            </div>
+
+            <p class="keyboard-hint" id="sliderHint">
+              Use <kbd>←</kbd><kbd>→</kbd> on the slider to explore every day of the cycle.
+            </p>
+          </div>
+        </section>
+
+        <aside class="side-column" aria-label="Earth view and quiz">
+          <section class="panel preview-panel" aria-labelledby="preview-title">
+            <div class="panel-heading preview-heading">
+              <div>
+                <p class="eyebrow">EARTH VIEW</p>
+                <h2 id="preview-title">What we see</h2>
+              </div>
+              <span class="illum-badge" id="illumBadge">50% lit</span>
+            </div>
+
+            <div class="preview-body">
+              <div class="moon-viewport">
+                <div class="moon-disc" aria-hidden="true">
+                  <span class="disc-stars"></span>
+                  <canvas id="previewCanvas"></canvas>
+                </div>
+                <span class="view-tag">from Earth</span>
+              </div>
+
+              <div class="preview-copy">
+                <p class="phase-kicker" id="phaseKicker">Waxing · Day 7.4</p>
+                <h3 id="previewPhase">First Quarter</h3>
+                <p id="phaseDescription">
+                  We see exactly half of the Moon's sunlit side. The bright half is growing.
+                </p>
+                <div class="illum-meter" aria-hidden="true">
+                  <span id="illumFill"></span>
+                </div>
+              </div>
+            </div>
+
+            <p class="phase-misconception">
+              <span class="info-mark" aria-hidden="true">i</span>
+              <span>The phase is our changing view of the Sunlit half — not Earth's shadow.</span>
+            </p>
+          </section>
+
+          <section class="panel quiz-panel" aria-labelledby="quiz-title">
+            <div class="panel-heading quiz-heading">
+              <div>
+                <p class="eyebrow">QUICK CHECK</p>
+                <h2 id="quiz-title">3 questions</h2>
+              </div>
+              <div class="quiz-dots" id="quizDots" aria-label="Question 1 of 3"></div>
+            </div>
+            <div class="quiz-content" id="quizContent" aria-live="polite" aria-atomic="true"></div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

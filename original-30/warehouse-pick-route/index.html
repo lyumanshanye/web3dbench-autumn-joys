@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1217" />
+    <title>Route Lab — Fulfillment Picking Workbench</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <aside class="sidebar" aria-label="Order and route controls">
+        <header class="brand-row">
+          <div class="brand-mark" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="brand-copy">
+            <strong>ROUTE LAB</strong>
+            <span>Fulfillment workbench</span>
+          </div>
+          <div class="warehouse-pill">WH-01</div>
+        </header>
+
+        <section class="order-heading">
+          <div>
+            <p class="eyebrow">Active order</p>
+            <h1>Shift pick <span>2408</span></h1>
+          </div>
+          <div id="order-status" class="status-chip ready">
+            <i></i><span>Ready</span>
+          </div>
+        </section>
+
+        <section class="route-summary" aria-label="Route summary">
+          <div class="distance-block">
+            <span class="summary-label">Route distance</span>
+            <div><strong id="total-distance">0.0</strong><span>m</span></div>
+          </div>
+          <div class="summary-cell">
+            <span class="summary-label">Walk time</span>
+            <strong id="walk-time">0:00</strong>
+          </div>
+          <div class="summary-cell">
+            <span class="summary-label">Stops</span>
+            <strong id="stop-count">0</strong>
+          </div>
+        </section>
+
+        <section class="order-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Sequence</p>
+              <h2>Pick order</h2>
+            </div>
+            <span class="section-hint">Drag to reorder</span>
+          </div>
+          <div id="order-list" class="order-list" aria-live="polite"></div>
+          <div id="empty-order" class="empty-order" hidden>
+            <span>0</span>
+            <p>No stops selected. Reset the order to restore the shift pick.</p>
+          </div>
+        </section>
+
+        <section class="aisle-section">
+          <div class="section-heading aisle-heading">
+            <div>
+              <p class="eyebrow">Planning</p>
+              <h2>Aisle access</h2>
+            </div>
+            <button id="clear-blocks" class="text-button" type="button">Clear all</button>
+          </div>
+          <div id="blocked-list" class="blocked-list"></div>
+          <p id="block-note" class="block-note">Select a segment to simulate a temporary obstruction.</p>
+        </section>
+
+        <footer class="sidebar-footer">
+          <span class="pulse-dot"></span>
+          <span>Route engine online</span>
+          <button id="reset-order" class="reset-button" type="button">Reset order</button>
+        </footer>
+      </aside>
+
+      <main class="viewport-shell">
+        <div id="scene-container" class="scene-container" aria-label="3D warehouse route view"></div>
+        <div class="scene-vignette" aria-hidden="true"></div>
+
+        <div class="scene-topbar">
+          <div class="warehouse-badge">
+            <span class="live-dot"></span>
+            <div>
+              <span>Warehouse 01</span>
+              <strong>24 × 18 m</strong>
+            </div>
+          </div>
+          <div class="view-switch" role="group" aria-label="Camera view">
+            <button class="view-button active" data-view="plan" type="button">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 15.5 10 4l7 11.5H3Z"/><path d="M10 8v7"/></svg>
+              Overhead
+            </button>
+            <button class="view-button" data-view="follow" type="button">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="5" r="2"/><path d="M7 16.5 10 10l3 6.5M7.2 9.2 10 7l2.8 2.2"/></svg>
+              Follow
+            </button>
+          </div>
+        </div>
+
+        <div class="scene-stat-card">
+          <span class="scene-stat-label">Route plan</span>
+          <div class="scene-stat-value"><strong id="scene-distance">0.0</strong><span>m</span></div>
+          <div class="scene-stat-meta"><span id="scene-stops">0 stops</span><i></i><span id="scene-status-copy">Ready</span></div>
+        </div>
+
+        <div id="unreachable-banner" class="unreachable-banner" hidden>
+          <span class="warning-icon">!</span>
+          <div>
+            <strong>Route unavailable</strong>
+            <p id="unreachable-copy">One or more items are cut off.</p>
+          </div>
+        </div>
+
+        <div class="legend" aria-hidden="true">
+          <span><i class="legend-route"></i>Pick route</span>
+          <span><i class="legend-stop"></i>Shelf stop</span>
+          <span><i class="legend-block"></i>Blocked</span>
+        </div>
+
+        <div class="playback-dock">
+          <div class="playback-main">
+            <button id="restart-button" class="icon-button" type="button" aria-label="Restart route" title="Restart">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V4m0 0h4M4 4l4.5 4.5A7 7 0 1 1 5 14"/></svg>
+            </button>
+            <button id="play-button" class="play-button" type="button" aria-label="Play route" title="Play route">
+              <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z"/></svg>
+              <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM14 5h4v14h-4z"/></svg>
+            </button>
+            <div class="playback-copy">
+              <div class="playback-title-row">
+                <strong id="playback-title">Ready to pick</strong>
+                <span id="playback-time">0:00</span>
+              </div>
+              <div class="progress-track" role="progressbar" aria-label="Route progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div id="progress-fill" class="progress-fill"></div>
+                <span id="progress-picker" class="progress-picker"></span>
+              </div>
+            </div>
+          </div>
+          <div class="speed-control" role="group" aria-label="Playback speed">
+            <span>Speed</span>
+            <button class="speed-button" data-speed="0.5" type="button">0.5×</button>
+            <button class="speed-button active" data-speed="1" type="button">1×</button>
+            <button class="speed-button" data-speed="2" type="button">2×</button>
+            <button class="speed-button" data-speed="3" type="button">3×</button>
+          </div>
+        </div>
+
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+      </main>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

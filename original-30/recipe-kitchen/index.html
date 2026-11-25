@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Weeknight Kitchen is a small collection of reliable weeknight recipes with an interactive 3D ingredient counter."
+    />
+    <title>Weeknight Kitchen</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <button class="drawer-backdrop" id="drawer-backdrop" aria-label="Close recipe browser" tabindex="-1"></button>
+
+    <header class="site-header">
+      <a class="brand" href="#/recipe/lemon-herb-chicken" aria-label="Weeknight Kitchen home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 44 44" fill="none">
+            <circle cx="22" cy="22" r="15.5" stroke="currentColor" stroke-width="1.6" />
+            <circle cx="22" cy="22" r="9.5" stroke="currentColor" stroke-width="1.2" opacity=".45" />
+            <path d="M15.7 23.4c3.5-1.2 5.9-3.8 6.6-7.6 4 1.3 6.3 4.5 6.1 8.5-.2 3.5-2.7 6.1-6.2 6.3-3.2.2-5.8-2.1-6.5-7.2Z" fill="currentColor" opacity=".9" />
+            <path d="M18.5 26.9c1.2-2.2 3.1-3.9 5.8-5" stroke="#f7f1e6" stroke-width="1.2" stroke-linecap="round" />
+          </svg>
+        </span>
+        <span class="brand-name">Weeknight <em>Kitchen</em></span>
+      </a>
+      <p class="header-note">Eight good dinners. Zero guesswork.</p>
+      <div class="header-actions">
+        <button class="header-button random-button" id="random-button" type="button">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M3 6h2.2c2.7 0 4 1.5 5.4 3.7 1.3 2 2.5 3.3 4.7 3.3H17" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+            <path d="m14.8 11.2 2.4 1.8-2.4 1.8M3 14h2.2c1.2 0 2.1-.3 2.9-.9M17 6h-1.7c-1.3 0-2.3.4-3.1 1.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Surprise me</span>
+        </button>
+        <button class="header-button browse-toggle" id="browse-toggle" type="button" aria-controls="browser-panel" aria-expanded="false">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+          <span>Browse</span>
+          <span class="mobile-count" id="mobile-count">8</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="app-layout">
+      <aside class="browser-panel" id="browser-panel" aria-label="Recipe browser">
+        <div class="drawer-heading">
+          <span>Browse recipes</span>
+          <button class="drawer-close" id="drawer-close" type="button" aria-label="Close recipe browser">
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="m5 5 10 10M15 5 5 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="browser-intro">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> The midweek edit</p>
+          <h1>Find something<br /><em>worth cooking.</em></h1>
+          <p class="browser-lede">Eight reliable dinners for the part of the day when inspiration runs low.</p>
+        </div>
+
+        <div class="search-field">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <circle cx="8.8" cy="8.8" r="5.3" stroke="currentColor" stroke-width="1.4" />
+            <path d="m12.8 12.8 3.5 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+          </svg>
+          <label class="sr-only" for="recipe-search">Search recipes by name or ingredient</label>
+          <input id="recipe-search" type="search" placeholder="Search recipes or ingredients" autocomplete="off" />
+          <button class="search-clear" id="search-clear" type="button" aria-label="Clear search" hidden>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="m6 6 8 8M14 6l-8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="filter-row">
+          <button class="veg-filter" id="veg-filter" type="button" aria-pressed="false">
+            <span class="toggle-line">
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M16.1 3.8C11.3 3.7 7 5.3 5.2 8.2c-1.7 2.8-.5 5.6 2.1 6.5 2.9 1 5.5-1 6.6-3.6 1.1-2.6 1.3-5.1 2.2-7.3Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" />
+                <path d="M4.3 16c1.1-3.1 3.2-5.4 6.4-7.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+              </svg>
+              Vegetarian
+            </span>
+            <span class="switch" aria-hidden="true"><span></span></span>
+          </button>
+          <label class="prep-filter" for="prep-filter">
+            <span>Prep time</span>
+            <span class="select-line">
+              <select id="prep-filter">
+                <option value="any">Any time</option>
+                <option value="10">10 min or less</option>
+                <option value="15">15 min or less</option>
+                <option value="20">20 min or less</option>
+              </select>
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </span>
+          </label>
+        </div>
+
+        <div class="results-heading">
+          <span id="result-summary" aria-live="polite">8 recipes</span>
+          <button class="clear-filters" id="clear-filters" type="button" hidden>Clear filters</button>
+        </div>
+        <div class="recipe-list" id="recipe-list" aria-live="polite"></div>
+
+        <div class="browser-footnote">
+          <span>Built for the middle of the week.</span>
+          <span class="footnote-line"></span>
+        </div>
+      </aside>
+
+      <section class="recipe-panel" aria-label="Selected recipe">
+        <div class="main-empty" id="main-empty" hidden>
+          <div class="empty-illustration" aria-hidden="true">
+            <svg viewBox="0 0 80 80" fill="none">
+              <circle cx="40" cy="40" r="29" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 5" />
+              <path d="M26 41h28c-1.6 8.3-6.4 12.4-14 12.4S27.6 49.3 26 41Z" stroke="currentColor" stroke-width="1.5" />
+              <path d="M30 34c0-4 3-5 3-9M40 34c0-4 3-5 3-9M50 34c0-4 3-5 3-9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".55" />
+            </svg>
+          </div>
+          <p class="eyebrow">Nothing on the menu</p>
+          <h2>No recipes match<br /><em>that search.</em></h2>
+          <p>Try a different ingredient, loosen the prep-time filter, or start fresh.</p>
+          <button class="primary-button empty-reset" id="empty-reset" type="button">Reset filters</button>
+        </div>
+
+        <div class="recipe-content" id="recipe-content">
+          <header class="recipe-masthead">
+            <div class="mast-copy">
+              <div class="recipe-index-line">
+                <span id="recipe-number">01</span>
+                <span class="index-rule"></span>
+                <span id="recipe-category">One pan</span>
+              </div>
+              <h2 id="recipe-title">Lemon-Herb Chicken</h2>
+              <p class="recipe-kicker" id="recipe-kicker">with crisp asparagus &amp; pan jus</p>
+              <p class="recipe-description" id="recipe-description"></p>
+              <div class="recipe-facts" id="recipe-facts"></div>
+            </div>
+            <div class="mast-actions">
+              <button class="primary-button cook-launch" id="cook-button" type="button">
+                <span>Start cooking</span>
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <span class="cook-hint">One step at a time</span>
+            </div>
+          </header>
+
+          <section class="scene-card" aria-label="Interactive 3D ingredient counter">
+            <div class="scene-wrap" id="scene-wrap">
+              <canvas id="scene-canvas" aria-label="Stylized 3D models of this recipe's ingredients on a kitchen counter"></canvas>
+              <div class="scene-topline">
+                <span class="scene-label"><span></span> On the counter</span>
+                <span class="scene-hint desktop-only">Drag to look · Tap to inspect</span>
+                <span class="scene-hint mobile-only">Tap to inspect</span>
+              </div>
+              <div class="scene-callout" id="ingredient-callout" aria-live="polite">
+                <span class="callout-orb" id="callout-orb"></span>
+                <span class="callout-copy">
+                  <span>Selected ingredient</span>
+                  <strong id="callout-name">Chicken</strong>
+                </span>
+                <span class="callout-qty" id="callout-qty">1½ lb</span>
+              </div>
+              <div class="scene-fallback" id="scene-fallback" hidden>
+                <div class="fallback-bowl" aria-hidden="true"></div>
+                <strong>The counter is taking a quick break.</strong>
+                <span>Every ingredient is still listed below.</span>
+              </div>
+            </div>
+            <div class="stage-tray">
+              <div class="stage-tray-heading">
+                <span>Ingredients on the counter</span>
+                <span id="stage-count">8 items</span>
+              </div>
+              <div class="stage-ingredients" id="stage-ingredients" aria-label="Select an ingredient to inspect"></div>
+            </div>
+          </section>
+
+          <div class="recipe-columns">
+            <section class="info-card ingredients-card" aria-labelledby="ingredients-title">
+              <div class="card-heading ingredients-heading">
+                <div>
+                  <p class="eyebrow">What you need</p>
+                  <h3 id="ingredients-title">Ingredients</h3>
+                </div>
+                <div class="serving-stepper" role="group" aria-label="Serving count">
+                  <button id="servings-minus" type="button" aria-label="Decrease servings">−</button>
+                  <span class="serving-value"><strong id="servings-value">4</strong><span id="servings-label">servings</span></span>
+                  <button id="servings-plus" type="button" aria-label="Increase servings">+</button>
+                </div>
+              </div>
+              <p class="scaled-note" id="scaled-note">Quantities shown for 4 servings.</p>
+              <div class="ingredient-list" id="ingredient-list"></div>
+            </section>
+
+            <section class="info-card method-card" aria-labelledby="method-title">
+              <div class="card-heading">
+                <div>
+                  <p class="eyebrow">The plan</p>
+                  <h3 id="method-title">Method</h3>
+                </div>
+                <button class="text-button" id="method-cook-button" type="button">
+                  Cook step by step
+                  <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4 9h9M10 6l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </button>
+              </div>
+              <ol class="step-list" id="step-list"></ol>
+              <div class="recipe-tip" id="recipe-tip"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="cook-view" id="cook-view" role="dialog" aria-modal="true" aria-labelledby="cook-step-title" hidden>
+      <div class="cook-chrome">
+        <div class="cook-brand">
+          <span class="cook-brand-mark" aria-hidden="true"></span>
+          <span>Weeknight Kitchen</span>
+          <span class="cook-mode-label">Cook mode</span>
+        </div>
+        <div class="cook-chrome-right">
+          <span id="cook-progress-label">Step 1 of 5</span>
+          <button class="cook-close" id="cook-close" type="button" aria-label="Close cook mode">
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
+          </button>
+        </div>
+      </div>
+      <div class="cook-progress-track"><div class="cook-progress-bar" id="cook-progress-bar"></div></div>
+
+      <div class="cook-layout">
+        <aside class="cook-sidebar" aria-label="Cooking ingredients">
+          <div class="cook-sidebar-heading">
+            <p class="eyebrow">Mise en place</p>
+            <h2>Ingredients</h2>
+            <p id="cook-servings-note">Scaled for 4 servings.</p>
+          </div>
+          <div class="cook-ingredient-list" id="cook-ingredient-list"></div>
+          <div class="cook-sidebar-foot">
+            <span id="cook-checked-summary">0 of 8 checked</span>
+            <button id="cook-reset" type="button">Reset this recipe</button>
+          </div>
+        </aside>
+
+        <section class="cook-stage" aria-live="polite">
+          <div class="cook-recipe-line">
+            <span id="cook-recipe-name">Lemon-Herb Chicken</span>
+            <span id="cook-step-count">01 / 05</span>
+          </div>
+          <div class="cook-step-copy" id="cook-step-copy">
+            <p class="eyebrow">Current step</p>
+            <h2 id="cook-step-title">Heat the oven</h2>
+            <p id="cook-step-body"></p>
+          </div>
+          <div class="cook-tip" id="cook-tip" hidden>
+            <span>Kitchen note</span>
+            <p></p>
+          </div>
+          <div class="cook-controls">
+            <button class="secondary-button cook-prev" id="cook-prev" type="button">
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M16 10H5M9 6l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              Previous
+            </button>
+            <div class="cook-dots" id="cook-dots" aria-hidden="true"></div>
+            <button class="primary-button cook-next" id="cook-next" type="button">
+              <span>Next step</span>
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <noscript>
+      <div class="noscript-message">Weeknight Kitchen needs JavaScript to show the recipes and interactive counter.</div>
+    </noscript>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

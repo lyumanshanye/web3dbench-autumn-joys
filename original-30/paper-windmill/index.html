@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#d8eee4" />
+    <meta
+      name="description"
+      content="A playful paper windmill made with Three.js. Change the wind, pick a blade color, and pause the breeze."
+    />
+    <title>Breeze Mill — A Paper Windmill</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="scene" aria-hidden="true"></div>
+    <div class="paper-grain" aria-hidden="true"></div>
+
+    <header class="brand" aria-label="Breeze Mill">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="img">
+          <circle cx="24" cy="24" r="4.5" />
+          <path d="M24 20.5c-1.1-6.9.1-12.8 5.3-15.4 4.1-.1 5.7 3.8 3.3 8.5-2.4 4.7-5.6 6.7-8.6 6.9Z" />
+          <path d="M27.5 24c6.9-1.1 12.8.1 15.4 5.3.1 4.1-3.8 5.7-8.5 3.3-4.7-2.4-6.7-5.6-6.9-8.6Z" />
+          <path d="M24 27.5c1.1 6.9-.1 12.8-5.3 15.4-4.1.1-5.7-3.8-3.3-8.5 2.4-4.7 5.6-6.7 8.6-6.9Z" />
+          <path d="M20.5 24c-6.9 1.1-12.8-.1-15.4-5.3-.1-4.1 3.8-5.7 8.5-3.3 4.7 2.4 6.7 5.6 6.9 8.6Z" />
+        </svg>
+      </span>
+      <span class="brand-copy">
+        <span class="eyebrow">Papercraft No. 04</span>
+        <span class="wordmark">Breeze Mill</span>
+      </span>
+    </header>
+
+    <div class="wind-readout" aria-hidden="true">
+      <span class="wind-arrow">➜</span>
+      <span id="floatingWind">14 km/h</span>
+    </div>
+
+    <main class="controls" aria-label="Windmill controls">
+      <div class="controls-intro">
+        <p class="kicker">Make some wind</p>
+        <h1>A windmill for slow afternoons.</h1>
+      </div>
+
+      <div class="control-block wind-control">
+        <div class="control-label-row">
+          <label for="windSpeed">Wind speed</label>
+          <output id="windValue" for="windSpeed">14 km/h</output>
+        </div>
+        <input
+          id="windSpeed"
+          class="wind-slider"
+          type="range"
+          min="0"
+          max="30"
+          step="1"
+          value="14"
+          aria-describedby="windHint"
+        />
+        <div class="slider-scale" id="windHint">
+          <span>calm</span>
+          <span>gusty</span>
+        </div>
+      </div>
+
+      <fieldset class="control-block color-control">
+        <legend>Blade color</legend>
+        <div class="swatches" role="radiogroup" aria-label="Blade color">
+          <button
+            class="swatch"
+            type="button"
+            role="radio"
+            aria-checked="true"
+            aria-label="Marigold blades"
+            data-color="#f6b73c"
+            data-color-name="Marigold"
+            style="--swatch: #f6b73c"
+          ></button>
+          <button
+            class="swatch"
+            type="button"
+            role="radio"
+            aria-checked="false"
+            aria-label="Coral blades"
+            data-color="#ef7466"
+            data-color-name="Coral"
+            style="--swatch: #ef7466"
+          ></button>
+          <button
+            class="swatch"
+            type="button"
+            role="radio"
+            aria-checked="false"
+            aria-label="Sky blue blades"
+            data-color="#59bddb"
+            data-color-name="Sky blue"
+            style="--swatch: #59bddb"
+          ></button>
+          <button
+            class="swatch"
+            type="button"
+            role="radio"
+            aria-checked="false"
+            aria-label="Mint blades"
+            data-color="#66c8a4"
+            data-color-name="Mint"
+            style="--swatch: #66c8a4"
+          ></button>
+          <button
+            class="swatch"
+            type="button"
+            role="radio"
+            aria-checked="false"
+            aria-label="Plum blades"
+            data-color="#9b82c9"
+            data-color-name="Plum"
+            style="--swatch: #9b82c9"
+          ></button>
+        </div>
+        <span class="color-name" id="colorName">Marigold</span>
+      </fieldset>
+
+      <button class="motion-button" id="pauseButton" type="button" aria-pressed="false">
+        <span class="motion-icon" aria-hidden="true">
+          <span></span><span></span>
+        </span>
+        <span id="pauseLabel">Pause the breeze</span>
+      </button>
+
+      <p class="status-line" id="statusText" aria-live="polite">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span id="statusLabel">Sails are turning</span>
+      </p>
+    </main>
+
+    <p class="scene-note" aria-hidden="true">Paper, glue &amp; a little Three.js</p>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

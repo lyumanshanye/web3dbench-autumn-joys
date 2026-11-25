@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#071820" />
+  <title>Gravity Works — Tabletop Marble Run</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../../vendor/three/three.module.js",
+        "three/addons/": "../../vendor/three/addons/",
+        "cannon-es": "../../vendor/cannon-es/cannon-es.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <main id="app">
+    <div id="scene" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <span class="brand-orbit"></span>
+          <span class="brand-ball"></span>
+        </div>
+        <div class="brand-copy">
+          <h1>GRAVITY <span>WORKS</span></h1>
+          <p>TABLETOP MARBLE LAB</p>
+        </div>
+      </div>
+
+      <div class="attempts" aria-label="Attempt counter">
+        <span class="attempts-label">ATTEMPTS</span>
+        <strong id="attemptCount">00</strong>
+      </div>
+    </header>
+
+    <nav class="view-controls" aria-label="View and simulation controls">
+      <div class="view-switch" role="group" aria-label="Camera view">
+        <button class="view-btn active" id="courseCamBtn" type="button" aria-pressed="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5v-9Z"/><path d="m3 7.5 9 4.5 9-4.5M12 12v9"/></svg>
+          <span>Course</span>
+        </button>
+        <button class="view-btn" id="followCamBtn" type="button" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M3.6 8.5a9 9 0 0 1 16.8 0M5.5 11a6.6 6.6 0 0 1 13 0"/></svg>
+          <span>Follow</span>
+        </button>
+      </div>
+      <button class="pause-btn" id="pauseBtn" type="button" disabled aria-label="Pause simulation">
+        <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>
+        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z"/></svg>
+        <span>Pause</span>
+      </button>
+    </nav>
+
+    <div class="result-card" id="resultCard" role="status" aria-live="polite">
+      <div class="result-icon" id="resultIcon" aria-hidden="true">
+        <svg class="check" viewBox="0 0 24 24"><path d="m5 12.5 4.2 4L19 6.8"/></svg>
+        <svg class="cross" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </div>
+      <div class="result-copy">
+        <span id="resultKicker">RUN COMPLETE</span>
+        <h2 id="resultTitle">Basin reached!</h2>
+        <p id="resultText">The marble made it home.</p>
+      </div>
+      <div class="result-actions">
+        <button id="resultRetryBtn" class="result-retry" type="button">Run it again</button>
+        <button id="resultTuneBtn" class="result-tune" type="button">Tune setup</button>
+      </div>
+    </div>
+
+    <section class="control-deck" aria-label="Launch setup">
+      <div class="deck-top">
+        <div>
+          <span class="eyebrow">CONTROL DECK</span>
+          <h2 id="runStatus">Ready to roll</h2>
+        </div>
+        <span class="status-pill ready" id="stateBadge"><i></i><span>READY</span></span>
+      </div>
+
+      <p class="goal-line">
+        <span class="goal-target" aria-hidden="true"><i></i></span>
+        Drop the marble into the finish basin.
+      </p>
+
+      <div class="sliders">
+        <label class="slider-row" for="impulseInput">
+          <span class="slider-label">
+            <span>Launch impulse</span>
+            <output id="impulseValue" for="impulseInput">5.4</output>
+          </span>
+          <input id="impulseInput" type="range" min="2.8" max="8.2" step="0.1" value="5.4" />
+          <span class="range-extents"><span>SOFT</span><span>STRONG</span></span>
+        </label>
+
+        <label class="slider-row" for="angleInput">
+          <span class="slider-label">
+            <span>Gap ramp angle</span>
+            <output id="angleValue" for="angleInput">16°</output>
+          </span>
+          <input id="angleInput" type="range" min="-6" max="26" step="1" value="16" />
+          <span class="range-extents"><span>LOW</span><span>STEEP</span></span>
+        </label>
+      </div>
+
+      <div class="deck-actions">
+        <button class="release-btn" id="releaseBtn" type="button">
+          <span class="release-ball" aria-hidden="true"></span>
+          <span>RELEASE MARBLE</span>
+          <kbd>SPACE</kbd>
+        </button>
+        <button class="tool-btn" id="retryBtn" type="button" aria-label="Retry attempt">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9a8 8 0 1 1-1 5"/><path d="M4 4v5h5"/></svg>
+          <span>Retry</span>
+        </button>
+        <button class="tool-btn reset" id="resetBtn" type="button" aria-label="Full reset">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18"/></svg>
+          <span>Reset</span>
+        </button>
+      </div>
+      <p class="deck-hint" id="deckHint">Set the power and ramp angle before you release.</p>
+    </section>
+
+    <div class="pause-overlay" id="pauseOverlay" aria-hidden="true">
+      <div class="pause-panel">
+        <span class="eyebrow">SIMULATION PAUSED</span>
+        <h2>Take a breath.</h2>
+        <p>The marble is frozen exactly where you left it.</p>
+        <button id="resumeBtn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z"/></svg>
+          Resume run
+        </button>
+      </div>
+    </div>
+
+    <div class="rotate-hint" id="rotateHint">
+      <span>↻</span> Rotate your device for a wider view
+    </div>
+    <div class="sr-status" id="srStatus" aria-live="polite"></div>
+  </main>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

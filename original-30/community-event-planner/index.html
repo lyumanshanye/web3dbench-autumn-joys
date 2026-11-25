@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="Parkwork is an editable 3D planning sandbox for a community outdoor festival."
+    />
+    <title>Parkwork · Community festival planner</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand-block">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" role="img">
+              <path d="M7 31V13l13-6 13 6v18" />
+              <path d="M13 31V19h14v12M4 31h32" />
+              <circle cx="20" cy="15" r="2.3" />
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <div class="brand-title">Parkwork</div>
+            <div class="brand-subtitle">Community outdoor festival planner</div>
+          </div>
+          <span class="demo-badge">Planning demo</span>
+        </div>
+        <div class="header-save" aria-live="polite">
+          <span class="save-dot" aria-hidden="true"></span>
+          <span id="save-status">Sample plan loaded</span>
+        </div>
+        <nav class="header-actions" aria-label="Plan actions">
+          <button class="toolbar-button" id="undo-btn" type="button" title="Undo equipment edit" disabled>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7 4 12l5 5M5 12h8a5 5 0 0 1 5 5v1" /></svg>
+            <span>Undo</span>
+          </button>
+          <button class="toolbar-button" id="redo-btn" type="button" title="Redo equipment edit" disabled>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 7 5 5-5 5m4-5h-8a5 5 0 0 0-5 5v1" /></svg>
+            <span>Redo</span>
+          </button>
+          <span class="toolbar-divider" aria-hidden="true"></span>
+          <button class="toolbar-button" id="export-btn" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" /></svg>
+            <span>Export</span>
+          </button>
+          <button class="toolbar-button" id="import-btn" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L8 8m4-4 4 4M5 17v3h14v-3" /></svg>
+            <span>Import</span>
+          </button>
+          <button class="toolbar-button" id="print-btn" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8V4h10v4M7 17H4V9h16v8h-3M7 14h10v6H7z" /></svg>
+            <span>Print</span>
+          </button>
+          <button class="toolbar-button subtle" id="reset-btn" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10a8 8 0 1 1 2 7M4 4v6h6" /></svg>
+            <span>Reset sample</span>
+          </button>
+        </nav>
+      </header>
+
+      <main class="workspace">
+        <aside class="left-panel" aria-label="Plan overview and warnings">
+          <section class="park-overview">
+            <div class="eyebrow">Bundled sample park</div>
+            <h1 id="park-name">Riverbend Community Park</h1>
+            <div class="park-dimensions">
+              <strong id="park-width">64</strong><span>m</span>
+              <i aria-hidden="true">×</i>
+              <strong id="park-depth">44</strong><span>m</span>
+            </div>
+            <div class="park-facts">
+              <span>2 entrances</span>
+              <span id="tree-count">11 trees</span>
+              <span>Fixed paths</span>
+              <span>Accessible restroom</span>
+            </div>
+            <p class="disclaimer-inline">Simplified planning aid. Not a certified safety or accessibility assessment.</p>
+          </section>
+
+          <section class="side-section add-section">
+            <div class="section-heading">
+              <div>
+                <div class="eyebrow">Build the layout</div>
+                <h2>Add equipment</h2>
+              </div>
+              <span class="section-note">New items land in a clear grid space</span>
+            </div>
+            <div class="add-grid" id="add-equipment-grid"></div>
+          </section>
+
+          <section class="side-section warnings-section">
+            <div class="section-heading">
+              <div>
+                <div class="eyebrow">Validation</div>
+                <h2>Warnings <span class="count-pill" id="warning-count">0</span></h2>
+              </div>
+              <span class="section-note">Select a target to locate it</span>
+            </div>
+            <div class="warning-list" id="warnings-list" aria-live="polite"></div>
+          </section>
+
+          <div class="side-footer-note">
+            <strong>Local-first.</strong> Layout and schedule save in this browser. Export JSON for a portable copy.
+          </div>
+        </aside>
+
+        <section class="viewport-shell" aria-label="Editable 3D site">
+          <div id="scene-container" class="scene-container"></div>
+          <div class="scene-top-left">
+            <div class="scene-kicker">SITE / LIVE 3D PLAN</div>
+            <div class="scene-title-row">
+              <span class="live-dot" aria-hidden="true"></span>
+              <span id="scene-selection-label">Nothing selected</span>
+            </div>
+          </div>
+          <div class="camera-toolbar" role="toolbar" aria-label="Camera controls">
+            <button type="button" class="camera-button" id="top-view-btn" title="Switch to top-down view">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 8 8-4 8 4-8 4zM4 8v8l8 4 8-4V8M12 12v8" /></svg>
+              <span>Top-down</span>
+            </button>
+            <button type="button" class="camera-button" id="orbit-view-btn" title="Switch to orbit view">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15a8 6 0 0 1 16 0M8 20l-4-5 6-1M16 20l4-5-6-1" /></svg>
+              <span>Orbit</span>
+            </button>
+            <button type="button" class="camera-button" id="focus-btn" title="Zoom to selected equipment">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5" /><path d="M9 3H3v6m12-6h6v6M9 21H3v-6m12 6h6v-6" /></svg>
+              <span>Focus</span>
+            </button>
+            <button type="button" class="camera-button" id="reset-camera-btn" title="Reset the camera">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10a8 8 0 1 1 2 7M4 4v6h6" /></svg>
+              <span>Reset view</span>
+            </button>
+          </div>
+          <div class="scene-toggles">
+            <label class="scene-toggle">
+              <input type="checkbox" id="snap-toggle" checked />
+              <span>Snap 1 m</span>
+            </label>
+            <label class="scene-toggle">
+              <input type="checkbox" id="grid-toggle" />
+              <span>Grid</span>
+            </label>
+          </div>
+          <div class="scene-legend" aria-label="Site legend">
+            <span><i class="legend-swatch selected"></i>Selected</span>
+            <span><i class="legend-swatch overlap"></i>Overlap</span>
+            <span><i class="legend-swatch route"></i>Route</span>
+            <span><i class="legend-swatch footprint"></i>Footprint</span>
+          </div>
+          <div class="scene-help">Drag equipment to move · Drag empty ground to orbit · Select from the site or list</div>
+        </section>
+
+        <aside class="right-panel" aria-label="Plan editing panels">
+          <div class="panel-tabs" role="tablist" aria-label="Editing panels">
+            <button type="button" class="panel-tab active" id="tab-button-inspector" data-tab="inspector" role="tab" aria-selected="true" aria-controls="tab-inspector">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16M8 4v6m8 4v6" /></svg>
+              <span>Objects</span>
+            </button>
+            <button type="button" class="panel-tab" id="tab-button-access" data-tab="access" role="tab" aria-selected="false" aria-controls="tab-access">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="2" /><circle cx="18" cy="6" r="2" /><path d="M7.5 16.5 16.5 7.5M12 4v4m8 8h-4" /></svg>
+              <span>Access</span>
+            </button>
+            <button type="button" class="panel-tab" id="tab-button-schedule" data-tab="schedule" role="tab" aria-selected="false" aria-controls="tab-schedule">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M7 3v4m10-4v4M3 10h18M8 14h2m4 0h2m-8 4h2" /></svg>
+              <span>Schedule</span>
+            </button>
+            <button type="button" class="panel-tab mobile-only" id="tab-button-warnings" data-tab="warnings" role="tab" aria-selected="false" aria-controls="tab-warnings">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 17H3z" /><path d="M12 9v5m0 3v.1" /></svg>
+              <span>Warnings <b id="mobile-warning-count">0</b></span>
+            </button>
+          </div>
+
+          <div class="tab-panel" id="tab-inspector" role="tabpanel" aria-labelledby="tab-button-inspector">
+            <section class="inspector-section">
+              <div class="panel-heading">
+                <div>
+                  <div class="eyebrow">Synchronized selection</div>
+                  <h2>Selected object</h2>
+                </div>
+                <span class="selection-chip" id="selection-chip">Nothing selected</span>
+              </div>
+              <div id="selected-empty" class="empty-selection">
+                <div class="empty-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M5 5h14v14H5zM9 9h6v6H9z" /></svg>
+                </div>
+                <div>
+                  <strong>Select equipment in the site or list.</strong>
+                  <span>Its footprint, dimensions, position, and rotation will appear here.</span>
+                </div>
+              </div>
+              <div id="selected-editor" class="selected-editor" hidden>
+                <div class="selected-title-row">
+                  <div class="selected-icon" id="selected-icon" aria-hidden="true"></div>
+                  <div>
+                    <h3 id="selected-name"></h3>
+                    <div class="selected-meta"><span id="selected-id"></span><span id="selected-type"></span></div>
+                  </div>
+                  <span class="state-badge" id="selected-state">Ready</span>
+                </div>
+                <div class="metric-grid">
+                  <div class="metric"><span>Footprint</span><strong id="selected-footprint"></strong></div>
+                  <div class="metric"><span>Height</span><strong id="selected-height"></strong></div>
+                  <div class="metric"><span>Capacity</span><strong id="selected-capacity"></strong></div>
+                </div>
+                <fieldset class="transform-fieldset" id="transform-fields">
+                  <legend>Position and rotation</legend>
+                  <div class="number-grid">
+                    <label>X position <span class="unit">m</span><input type="number" id="position-x" step="0.1" inputmode="decimal" /></label>
+                    <label>Z position <span class="unit">m</span><input type="number" id="position-z" step="0.1" inputmode="decimal" /></label>
+                    <label>Rotation <span class="unit">°</span><input type="number" id="rotation-input" step="1" inputmode="numeric" /></label>
+                  </div>
+                  <div class="rotate-row">
+                    <button type="button" class="secondary-button" id="rotate-left-btn">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8H3V4m0 4a9 9 0 1 1-1 7" /></svg>
+                      Rotate −15°
+                    </button>
+                    <button type="button" class="secondary-button" id="rotate-right-btn">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8h4V4m0 4a9 9 0 1 0 1 7" /></svg>
+                      Rotate +15°
+                    </button>
+                  </div>
+                  <p class="field-help">Grid snapping affects dragging. Numeric fields stay exact and are clamped to the park.</p>
+                </fieldset>
+                <div class="object-actions">
+                  <button type="button" class="secondary-button" id="duplicate-btn">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="1" /><path d="M16 8V5H5v11h3" /></svg>
+                    Duplicate
+                  </button>
+                  <button type="button" class="danger-button" id="delete-btn">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m3 0-1 13H7L6 7m4 4v5m4-5v5" /></svg>
+                    Delete
+                  </button>
+                </div>
+                <p class="locked-note" id="locked-note" hidden></p>
+              </div>
+            </section>
+
+            <section class="equipment-section">
+              <div class="panel-heading">
+                <div>
+                  <div class="eyebrow">Linked equipment list</div>
+                  <h2>Site inventory <span class="count-pill" id="equipment-count">0</span></h2>
+                </div>
+                <span class="section-note">Selection stays in sync</span>
+              </div>
+              <div class="mobile-only mobile-add">
+                <div class="sub-label">Add equipment</div>
+                <div class="add-grid compact" id="add-equipment-grid-mobile"></div>
+              </div>
+              <div class="equipment-list" id="equipment-list"></div>
+            </section>
+          </div>
+
+          <div class="tab-panel" id="tab-access" role="tabpanel" aria-labelledby="tab-button-access" hidden>
+            <section class="access-section">
+              <div class="panel-heading">
+                <div>
+                  <div class="eyebrow">Walking access</div>
+                  <h2>Entrance-to-facility route</h2>
+                </div>
+                <span class="model-badge">Simplified model</span>
+              </div>
+              <div class="route-controls">
+                <label class="field-label" for="route-destination">Destination facility</label>
+                <select id="route-destination"></select>
+                <div class="split-fields">
+                  <div>
+                    <label class="field-label" for="route-entrance">Start entrance</label>
+                    <select id="route-entrance">
+                      <option value="west">West gate</option>
+                      <option value="south">South gate</option>
+                    </select>
+                  </div>
+                  <div>
+                    <span class="field-label">Access mode</span>
+                    <div class="segmented" role="group" aria-label="Access mode">
+                      <label><input type="radio" name="access-mode" value="stepFree" checked /><span>Step-free</span></label>
+                      <label><input type="radio" name="access-mode" value="pedestrian" /><span>Pedestrian</span></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="route-result" id="route-result" aria-live="polite"></div>
+              <div class="route-actions">
+                <button type="button" class="secondary-button" id="focus-route-destination">Locate destination</button>
+                <button type="button" class="secondary-button" id="choose-other-entrance">Try other entrance</button>
+              </div>
+              <details class="method-note">
+                <summary>How walking access is modeled</summary>
+                <p id="nav-documentation"></p>
+                <p>
+                  Equipment footprints close intersecting path edges. The fixed stepped shortcut is excluded in
+                  step-free mode. Distances are path lengths, not real-world walking audits.
+                </p>
+              </details>
+              <label class="switch-row">
+                <input type="checkbox" id="show-graph-toggle" />
+                <span><strong>Show navigation graph</strong><small>Display fixed nodes and path edges in the site.</small></span>
+              </label>
+              <p class="compliance-note">
+                <strong>Do not treat this as an accessibility compliance result.</strong> The simplified network does
+                not model grades, surfaces, door widths, turning space, or temporary site conditions.
+              </p>
+            </section>
+          </div>
+
+          <div class="tab-panel" id="tab-schedule" role="tabpanel" aria-labelledby="tab-button-schedule" hidden>
+            <section class="schedule-section">
+              <div class="panel-heading">
+                <div>
+                  <div class="eyebrow">Stages and seating</div>
+                  <h2>Activity schedule</h2>
+                </div>
+                <button type="button" class="primary-button" id="new-activity-btn">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+                  Add activity
+                </button>
+              </div>
+              <div class="schedule-summary" id="schedule-summary"></div>
+              <form id="activity-form" class="activity-form" hidden novalidate>
+                <div class="form-title-row">
+                  <h3 id="activity-form-title">Add activity</h3>
+                  <button type="button" class="icon-text-button" id="cancel-activity-btn">Cancel</button>
+                </div>
+                <label class="field-label" for="activity-title">Activity title</label>
+                <input id="activity-title" name="title" type="text" maxlength="80" autocomplete="off" placeholder="e.g. Lantern parade" required />
+                <div class="split-fields">
+                  <div>
+                    <label class="field-label" for="activity-facility">Assigned facility</label>
+                    <select id="activity-facility" name="facilityId"></select>
+                  </div>
+                  <div>
+                    <label class="field-label" for="activity-attendance">Expected attendance</label>
+                    <input id="activity-attendance" name="attendance" type="number" min="0" step="1" inputmode="numeric" value="50" required />
+                  </div>
+                </div>
+                <div class="split-fields">
+                  <div>
+                    <label class="field-label" for="activity-start">Start time</label>
+                    <input id="activity-start" name="start" type="time" value="12:00" required />
+                  </div>
+                  <div>
+                    <label class="field-label" for="activity-end">End time</label>
+                    <input id="activity-end" name="end" type="time" value="13:00" required />
+                  </div>
+                </div>
+                <div class="form-error" id="activity-form-error" role="alert" hidden></div>
+                <div class="form-actions">
+                  <button type="submit" class="primary-button" id="save-activity-btn">Add to schedule</button>
+                  <span class="field-help">Touching start/end times are allowed.</span>
+                </div>
+              </form>
+              <div class="activity-list" id="activity-list"></div>
+              <p class="schedule-note">Capacity warnings compare expected attendance with the assigned facility's planning capacity. They do not certify safe occupancy.</p>
+            </section>
+          </div>
+
+          <div class="tab-panel mobile-only" id="tab-warnings" role="tabpanel" aria-labelledby="tab-button-warnings" hidden>
+            <section class="warnings-section mobile-warning-panel">
+              <div class="panel-heading">
+                <div>
+                  <div class="eyebrow">Validation</div>
+                  <h2>Warnings</h2>
+                </div>
+                <span class="count-pill" id="warning-count-mobile">0</span>
+              </div>
+              <div class="warning-list" id="warnings-list-mobile" aria-live="polite"></div>
+            </section>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+    <div id="modal-root" class="modal-root" hidden></div>
+    <input type="file" id="import-file" accept="application/json,.json" hidden />
+
+    <section id="print-summary" class="print-summary" aria-hidden="true">
+      <div id="print-content"></div>
+    </section>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

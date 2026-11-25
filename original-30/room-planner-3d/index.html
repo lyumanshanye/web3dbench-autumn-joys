@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f1eee7" />
+    <meta
+      name="description"
+      content="Roomcraft is a playful, browser-based 3D room planner for arranging furniture."
+    />
+    <title>Roomcraft — 3D Room Planner</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23405443'/%3E%3Cpath d='M7 11.5 16 6.7l9 4.8v9.2L16 25.5l-9-4.8v-9.2Z' fill='none' stroke='%23f7f3e9' stroke-width='1.7'/%3E%3Cpath d='m7.2 11.5 8.8 4.8 8.8-4.8M16 16.3v9' fill='none' stroke='%23f7f3e9' stroke-width='1.7'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Roomcraft home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M6.5 11.2 16 6l9.5 5.2v9.6L16 26l-9.5-5.2v-9.6Z" stroke="currentColor" stroke-width="1.8" />
+              <path d="m6.8 11.3 9.2 5.1 9.2-5.1M16 16.4V26" stroke="currentColor" stroke-width="1.8" />
+              <path d="m11.8 8.6 9.3 5.1v5.1" stroke="currentColor" stroke-width="1.8" opacity=".55" />
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <strong>Roomcraft</strong>
+            <small>3D room planner</small>
+          </span>
+        </a>
+
+        <div class="project-meta" aria-live="polite">
+          <span class="project-kicker">Current scene</span>
+          <span class="project-title">Sunlit living room</span>
+          <span class="save-state" id="saveState">Initial layout</span>
+        </div>
+
+        <div class="topbar-actions" aria-label="Layout controls">
+          <button class="action-button" id="saveButton" type="button" title="Save layout (Ctrl+S)">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 4h11.5L20 7.5V20H5V4Z" />
+              <path d="M8 4v6h8V4M8 20v-6h8v6" />
+            </svg>
+            <span class="button-label">Save</span>
+          </button>
+          <button class="action-button" id="restoreButton" type="button" title="Restore saved layout">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4.8 9.2A8 8 0 1 1 5 15" />
+              <path d="M4.8 4.8v4.8h4.8" />
+            </svg>
+            <span class="button-label">Restore</span>
+          </button>
+          <span class="action-divider" aria-hidden="true"></span>
+          <button class="action-button icon-only" id="resetButton" type="button" title="Reset initial layout">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 7v5h5M20 17v-5h-5" />
+              <path d="M6.6 16.5A7 7 0 0 0 19.5 13M17.4 7.5A7 7 0 0 0 4.5 11" />
+            </svg>
+            <span class="sr-only">Reset initial layout</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <aside class="sidebar" aria-label="Furniture palette and placement settings">
+          <div class="sidebar-heading">
+            <div>
+              <p class="eyebrow">Build your space</p>
+              <h1>Furniture</h1>
+            </div>
+            <span class="piece-count" id="pieceCount">4 pieces</span>
+          </div>
+
+          <div class="palette" id="palette" aria-label="Add furniture"></div>
+
+          <div class="sidebar-rule" aria-hidden="true"></div>
+
+          <div class="placement-settings">
+            <div class="setting-heading">
+              <span>Placement</span>
+              <span class="grid-size">0.25 m</span>
+            </div>
+            <label class="toggle-row" for="snapToggle">
+              <span class="toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 4h16v16H4V4Zm4 0v16M12 4v16M16 4v16M4 8h16M4 12h16M4 16h16" />
+                </svg>
+              </span>
+              <span class="toggle-copy">
+                <strong>Snap to grid</strong>
+                <small>Align pieces precisely</small>
+              </span>
+              <input id="snapToggle" type="checkbox" checked />
+              <span class="switch" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <div class="room-summary">
+            <div class="room-summary-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 18V8l8-4 8 4v10l-8 3-8-3Z" />
+                <path d="M4 8l8 4 8-4M12 12v9" />
+              </svg>
+            </div>
+            <div>
+              <strong>6 × 4 m room</strong>
+              <span>24 m² open floor plan</span>
+            </div>
+          </div>
+
+          <p class="sidebar-tip"><span aria-hidden="true">✦</span> Select any piece to move, rotate, or restyle it.</p>
+        </aside>
+
+        <main class="stage" id="stage" aria-label="3D room canvas">
+          <canvas id="scene" aria-label="Interactive 3D living room"></canvas>
+
+          <div class="view-switcher" role="group" aria-label="Camera view">
+            <button class="view-button is-active" id="perspectiveView" type="button" aria-pressed="true">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 17V8l8-4 8 4v9l-8 3-8-3Z" />
+                <path d="m4 8 8 4 8-4M12 12v8" />
+              </svg>
+              <span>Perspective</span>
+            </button>
+            <button class="view-button" id="topView" type="button" aria-pressed="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 4h16v16H4V4Z" />
+                <path d="M8 4v16M16 4v16M4 8h16M4 16h16" />
+              </svg>
+              <span>Floor plan</span>
+            </button>
+          </div>
+
+          <div class="scene-label">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span id="sceneLabel">Perspective view</span>
+          </div>
+
+          <section class="selection-card" id="selectionPanel" aria-label="Selected furniture controls" hidden>
+            <div class="selection-heading">
+              <div>
+                <p class="eyebrow">Selected piece</p>
+                <h2 id="selectedName">Sofa</h2>
+              </div>
+              <button class="delete-button" id="deleteButton" type="button" title="Delete selected furniture" aria-label="Delete selected furniture">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5" />
+                </svg>
+              </button>
+            </div>
+
+            <button class="rotate-button" id="rotateButton" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5.5 9A7.5 7.5 0 1 1 5 14" />
+                <path d="M5.5 4.5V9H10" />
+              </svg>
+              <span>Rotate</span>
+              <strong>90°</strong>
+            </button>
+
+            <div class="color-heading">
+              <span>Finish</span>
+              <span id="colorName">Clay</span>
+            </div>
+            <div class="swatches" id="swatches" role="group" aria-label="Furniture color"></div>
+
+            <div class="selection-meta">
+              <span id="positionLabel">X 0.0 · Z 0.0</span>
+              <span class="meta-separator" aria-hidden="true"></span>
+              <span id="rotationLabel">0°</span>
+            </div>
+          </section>
+
+          <div class="interaction-hint" id="interactionHint">
+            <span class="mouse-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <rect x="7" y="2.5" width="10" height="19" rx="5" />
+                <path d="M12 7v5" />
+              </svg>
+            </span>
+            <span id="hintText">Drag to orbit · scroll to zoom</span>
+          </div>
+
+          <div class="toast" id="toast" role="status" aria-live="polite">
+            <span class="toast-dot" aria-hidden="true"></span>
+            <span id="toastText">Ready to design</span>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

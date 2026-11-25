@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10232b">
+  <meta name="description" content="Meridian Field Journal — six travel notes pinned to an interactive world globe.">
+  <title>Meridian — Field Journal</title>
+  <link rel="preload" href="./assets/lisbon.jpg" as="image">
+  <link rel="preload" href="./assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./css/styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../../vendor/three/three.module.js",
+        "three/addons/": "../../vendor/three/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Meridian Field Journal home">
+        <span class="brand-mark" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+        <span class="brand-word">Meridian</span>
+        <span class="brand-slash">/</span>
+        <span class="brand-sub">Field Journal</span>
+      </a>
+
+      <div class="topbar-center" aria-hidden="true">
+        <span class="topbar-line"></span>
+        <span class="topbar-place">42.13° N · 9.40° W</span>
+        <span class="topbar-line"></span>
+      </div>
+
+      <div class="topbar-meta">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Field notes 2023—2025</span>
+      </div>
+    </header>
+
+    <main class="workspace" id="workspace">
+      <aside class="archive" aria-label="Trip archive">
+        <div class="archive-intro">
+          <p class="eyebrow"><span>Vol. 01</span> The long way round</p>
+          <h1>Six places<br>that stayed.</h1>
+          <p class="intro-copy">A small atlas of rain, altitude, late trains, and the kind of light you try to carry home.</p>
+
+          <div class="intro-stats" aria-label="Journal summary">
+            <div><strong>06</strong><span>journeys</span></div>
+            <div><strong>06</strong><span>continents</span></div>
+            <div><strong>48</strong><span>days away</span></div>
+          </div>
+        </div>
+
+        <section class="browse-controls" aria-label="Find a trip">
+          <div class="control-grid">
+            <label class="search-field">
+              <span class="sr-only">Search trips</span>
+              <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="10.8" cy="10.8" r="6.4"></circle>
+                <path d="M15.6 15.6 21 21"></path>
+              </svg>
+              <input id="searchInput" type="search" placeholder="Search places or notes" autocomplete="off" spellcheck="false">
+              <button class="clear-search" id="clearSearch" type="button" aria-label="Clear search" hidden>×</button>
+            </label>
+
+            <label class="year-field">
+              <span class="field-label">Year</span>
+              <select id="yearFilter" aria-label="Filter trips by year">
+                <option value="all">All years</option>
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+              </select>
+              <svg viewBox="0 0 12 8" aria-hidden="true"><path d="m1 1 5 5 5-5"></path></svg>
+            </label>
+          </div>
+
+          <div class="results-row">
+            <p class="results-copy" id="resultsCopy" aria-live="polite"><span id="resultCount">6</span> journeys · <span id="filterLabel">all years</span></p>
+            <div class="view-switch" role="group" aria-label="Choose trip list view">
+              <button type="button" class="view-button is-active" data-view="index" aria-pressed="true">Index</button>
+              <button type="button" class="view-button" data-view="timeline" aria-pressed="false">Timeline</button>
+            </div>
+          </div>
+        </section>
+
+        <div class="trip-scroll" id="tripScroll">
+          <div class="trip-list" id="tripList" aria-label="Trips"></div>
+
+          <div class="empty-state" id="emptyState" hidden>
+            <div class="empty-orbit" aria-hidden="true">
+              <span class="empty-sun"></span>
+              <span class="empty-ring"></span>
+              <span class="empty-cross">+</span>
+            </div>
+            <p class="eyebrow">No coordinates found</p>
+            <h2>Nothing pinned here.</h2>
+            <p>Try another place, a wider year, or wipe the field notes clean.</p>
+            <button type="button" class="text-button" id="clearFilters">Clear search &amp; year <span aria-hidden="true">↗</span></button>
+          </div>
+        </div>
+
+        <footer class="archive-footer">
+          <span>Independent field notes</span>
+          <span class="archive-footer-dot" aria-hidden="true"></span>
+          <span>Photos · Unsplash</span>
+          <span class="archive-footer-dot" aria-hidden="true"></span>
+          <span>Map · Natural Earth</span>
+        </footer>
+      </aside>
+
+      <section class="globe-stage" id="globeStage" aria-label="Interactive globe of all trips">
+        <div class="stage-sky" aria-hidden="true"></div>
+        <div class="globe-canvas" id="globeCanvas" aria-hidden="true"></div>
+
+        <div class="stage-top">
+          <div class="stage-kicker">
+            <span class="stage-pulse" aria-hidden="true"></span>
+            <span>Live atlas</span>
+          </div>
+          <p class="stage-count" id="globeStatus">6 pins · world view</p>
+        </div>
+
+        <div class="compass" aria-hidden="true">
+          <span class="compass-n">N</span>
+          <svg viewBox="0 0 52 52">
+            <circle cx="26" cy="26" r="19"></circle>
+            <circle cx="26" cy="26" r="3"></circle>
+            <path d="M26 5v7M26 40v7M5 26h7M40 26h7"></path>
+            <path class="compass-needle" d="m26 14 4 12-4 12-4-12z"></path>
+          </svg>
+        </div>
+
+        <div class="marker-layer" id="markerLayer"></div>
+
+        <div class="cluster-popover" id="clusterPopover" role="dialog" aria-label="Nearby trips" hidden>
+          <p class="popover-kicker">Pins in this orbit</p>
+          <div id="clusterList"></div>
+        </div>
+
+        <div class="globe-empty-note" id="globeEmptyNote" hidden>
+          <span aria-hidden="true">✳</span>
+          <p>No pins match this view.</p>
+        </div>
+
+        <div class="stage-bottom">
+          <button type="button" class="reset-view" id="resetView" title="Return to the full globe (filters stay in place)">
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M4.2 7.2A6.7 6.7 0 1 1 3.5 12"></path>
+              <path d="M3.7 3.5v4h4"></path>
+            </svg>
+            Reset view
+          </button>
+          <p class="drag-hint"><span class="desktop-hint">Drag to orbit · double-click to zoom · R resets</span><span class="mobile-hint">Swipe sideways to orbit · keep scrolling the page below</span></p>
+        </div>
+
+        <div class="orbit-caption" aria-hidden="true">1 : 52,000,000</div>
+      </section>
+
+      <article class="trip-detail" id="tripDetail" aria-labelledby="detailTitle" aria-live="polite" hidden>
+        <div class="detail-head">
+          <span class="eyebrow" id="detailNumber">Trip 01</span>
+          <button type="button" class="close-detail" id="closeDetail" aria-label="Close trip details">
+            <span></span><span></span>
+          </button>
+        </div>
+
+        <figure class="detail-photo">
+          <img id="detailImage" src="" alt="">
+          <figcaption id="detailCaption"></figcaption>
+          <span class="photo-stamp" id="detailYear">2025</span>
+        </figure>
+
+        <div class="detail-copy">
+          <p class="detail-location" id="detailLocation">Kyoto · Japan</p>
+          <h2 id="detailTitle">Kyoto in the rain</h2>
+          <p class="detail-date" id="detailDate">24—29 March 2025</p>
+          <p class="detail-entry" id="detailEntry"></p>
+
+          <dl class="detail-facts">
+            <div><dt>Coordinates</dt><dd id="detailCoords"></dd></div>
+            <div><dt>Continent</dt><dd id="detailContinent"></dd></div>
+          </dl>
+
+          <div class="detail-actions">
+            <button type="button" class="share-button" id="shareTrip">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M8 12.2 15.2 5M10 4.7h5.5V10M15 12v3.2H4.5V4.8H9"></path></svg>
+              <span>Copy trip link</span>
+            </button>
+            <span class="share-note">Share this exact journal entry</span>
+          </div>
+        </div>
+      </article>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Link copied</div>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A 3D boot-packing studio for checking whether every suitcase fits before the road trip."
+    />
+    <meta name="theme-color" content="#17231f" />
+    <title>Trunkfit — 3D boot packing studio</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2317231f'/%3E%3Crect x='8' y='10' width='16' height='15' rx='3' fill='%23e45d32'/%3E%3Cpath d='M13 10V8h6v2' fill='none' stroke='%2317231f' stroke-width='2'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Trunkfit home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <rect x="6.5" y="8.5" width="19" height="18" rx="4" stroke="currentColor" stroke-width="2" />
+              <path d="M12 8.5V6.8a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1.7M11.5 13v9M20.5 13v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              <path d="M6.5 16.5h19" stroke="currentColor" stroke-width="2" />
+            </svg>
+          </span>
+          <span class="brand-word">TRUNK<span>FIT</span></span>
+        </a>
+
+        <div class="topbar-context">
+          <span>Road-trip packing studio</span>
+          <span class="context-rule" aria-hidden="true"></span>
+          <span class="mono">CM / 3D</span>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="live-status" aria-label="Live fit check active">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span>Live fit check</span>
+          </div>
+          <button class="button button-ghost" id="resetLayoutBtn" type="button">
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M4.2 7.4A7 7 0 1 1 3.4 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+              <path d="M3.5 3.8v4h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Reset bags</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="panel setup-panel" aria-labelledby="boot-heading">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow"><span>01</span> Boot space</p>
+              <h2 id="boot-heading">Set the space</h2>
+            </div>
+            <span class="unit-badge">CM</span>
+          </div>
+          <p class="panel-intro">Measure the widest, deepest and tallest clear space behind the seats.</p>
+
+          <div class="dimension-fields">
+            <label class="dimension-field" for="bootWidth">
+              <span class="field-label">Width <span>W</span></span>
+              <span class="input-shell">
+                <input id="bootWidth" type="number" inputmode="numeric" min="40" max="240" step="1" value="120" />
+                <span>cm</span>
+              </span>
+            </label>
+            <label class="dimension-field" for="bootDepth">
+              <span class="field-label">Depth <span>D</span></span>
+              <span class="input-shell">
+                <input id="bootDepth" type="number" inputmode="numeric" min="40" max="200" step="1" value="82" />
+                <span>cm</span>
+              </span>
+            </label>
+            <label class="dimension-field" for="bootHeight">
+              <span class="field-label">Height <span>H</span></span>
+              <span class="input-shell">
+                <input id="bootHeight" type="number" inputmode="numeric" min="25" max="140" step="1" value="52" />
+                <span>cm</span>
+              </span>
+            </label>
+          </div>
+
+          <div class="preset-block">
+            <div class="subhead-row">
+              <span class="micro-label">Quick presets</span>
+              <span class="preset-note">Typical clear space</span>
+            </div>
+            <div class="preset-grid" role="group" aria-label="Boot size presets">
+              <button class="preset-button" type="button" data-preset="hatch">
+                <span>Hatch</span>
+                <small>95 × 70 × 48</small>
+              </button>
+              <button class="preset-button is-active" type="button" data-preset="estate">
+                <span>Estate</span>
+                <small>120 × 82 × 52</small>
+              </button>
+              <button class="preset-button" type="button" data-preset="suv">
+                <span>SUV</span>
+                <small>115 × 95 × 60</small>
+              </button>
+            </div>
+          </div>
+
+          <div class="boot-facts">
+            <div>
+              <span class="micro-label">Floor area</span>
+              <strong id="floorArea">0.98 m²</strong>
+            </div>
+            <div>
+              <span class="micro-label">Clear height</span>
+              <strong id="clearHeight">52 cm</strong>
+            </div>
+          </div>
+
+          <div class="measure-note">
+            <span class="measure-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M3.5 17.5 17.5 3.5l3 3-14 14-3-3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                <path d="m7 14 2 2m2-6 2 2m2-6 2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </span>
+            <p><strong>Measure the opening too.</strong> A boot can hold the volume but still not swallow a tall case through the hatch.</p>
+          </div>
+        </aside>
+
+        <section class="stage-card" aria-labelledby="stage-heading">
+          <header class="stage-heading">
+            <div class="stage-title">
+              <p class="eyebrow"><span class="status-pip"></span> Live layout</p>
+              <div class="stage-title-row">
+                <h1 id="stage-heading">Will the boot close?</h1>
+                <span class="boot-size-readout" id="bootSizeReadout">120 × 82 × 52 cm</span>
+              </div>
+            </div>
+            <div class="stage-tools">
+              <div class="view-switch" role="group" aria-label="Camera view">
+                <button class="view-button is-active" type="button" data-view="perspective">3/4</button>
+                <button class="view-button" type="button" data-view="top">Top</button>
+              </div>
+              <div class="fit-badge is-clear" id="fitBadge">
+                <span class="fit-badge-icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" fill="none"><path d="m5 10.5 3.1 3L15 6.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+                <span id="fitBadgeText">All clear</span>
+              </div>
+            </div>
+          </header>
+
+          <div class="viewport" id="viewport">
+            <div class="scene-corners" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <div class="scene-caption scene-caption-left">
+              <span class="caption-index">01</span>
+              <span>Boot interior<br /><strong>Rectangular model</strong></span>
+            </div>
+            <div class="scene-caption scene-caption-right">
+              <span class="axis-key"><i class="axis-x"></i> W</span>
+              <span class="axis-key"><i class="axis-y"></i> H</span>
+              <span class="axis-key"><i class="axis-z"></i> D</span>
+            </div>
+            <div class="annotation-layer" id="annotationLayer" aria-hidden="true"></div>
+            <div class="drag-hint" id="dragHint">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M9 11V7.5a1.5 1.5 0 0 1 3 0V10m0-2.5a1.5 1.5 0 0 1 3 0V10m0-1.5a1.5 1.5 0 0 1 3 0v4.8c0 3.2-2.2 5.7-5.5 5.7h-.7a5 5 0 0 1-4-2l-3.1-4.1a1.6 1.6 0 0 1 2.5-2l1.8 1.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Drag bags to move</span>
+            </div>
+            <div class="toast" id="toast" role="status" aria-live="polite"></div>
+          </div>
+
+          <div class="selection-bar" id="selectionBar">
+            <div class="selected-bag" id="selectedBag">
+              <span class="selected-swatch" id="selectedSwatch" aria-hidden="true"></span>
+              <div>
+                <span class="micro-label">Selected bag</span>
+                <strong id="selectedName">Grand Tourer</strong>
+              </div>
+            </div>
+            <div class="selected-spec" id="selectedSpec">
+              <span id="selectedDims">68 × 30 × 46 cm</span>
+              <small id="selectedPosition">X −17 · Z −25</small>
+            </div>
+            <div class="selection-actions">
+              <button class="icon-button selection-button" id="turnLeftBtn" type="button" aria-label="Turn selected bag left" title="Turn left (Shift + R)">
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M7.2 5.2H4v-3.2M4.4 4.9A7 7 0 1 1 3.2 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M10 6.8v3.8l2.6 1.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+                </svg>
+              </button>
+              <button class="button button-dark selection-button rotate-button" id="turnRightBtn" type="button" aria-label="Turn selected bag right" title="Turn right (R)">
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M12.8 5.2H16v-3.2M15.6 4.9A7 7 0 1 0 16.8 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M10 6.8v3.8l2.6 1.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+                </svg>
+                <span>Turn 90°</span>
+              </button>
+            </div>
+            <p class="selection-hint"><span>Drag</span> to move · <span>R</span> to turn · <span>←↑↓→</span> nudge</p>
+          </div>
+        </section>
+
+        <aside class="panel list-panel" aria-labelledby="pack-heading">
+          <div class="panel-heading list-heading">
+            <div>
+              <p class="eyebrow"><span>02</span> Cargo</p>
+              <h2 id="pack-heading">Pack list</h2>
+            </div>
+            <button class="button button-add" id="addBagBtn" type="button">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2.8v10.4M2.8 8h10.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" /></svg>
+              <span>Add bag</span>
+            </button>
+          </div>
+
+          <section class="fit-summary is-clear" id="fitSummary" aria-live="polite">
+            <div class="fit-summary-top">
+              <div class="summary-count"><strong id="fitCount">3</strong><span>/ <span id="bagCount">3</span> fit</span></div>
+              <span class="summary-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="m6 12.4 3.8 3.7L18.5 7.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </span>
+            </div>
+            <h3 id="fitTitle">The boot will close.</h3>
+            <p id="fitMessage">Every bag clears the walls, floor and ceiling.</p>
+            <div class="fit-meter" aria-hidden="true"><span id="fitMeterFill"></span></div>
+          </section>
+
+          <div class="cargo-stats">
+            <div><span class="micro-label">Floor used</span><strong id="floorUsed">34%</strong></div>
+            <div><span class="micro-label">Bag volume</span><strong id="bagVolume">184 L</strong></div>
+            <div><span class="micro-label">Issues</span><strong id="issueCount">0</strong></div>
+          </div>
+
+          <div class="bag-list" id="bagList" aria-label="Suitcases"></div>
+
+          <div class="list-footer">
+            <p><strong>Every edge is checked.</strong> Volume alone can’t tell you whether a case will block the hatch or crush against the tailgate.</p>
+            <div class="legend-row" aria-label="Legend">
+              <span><i class="legend-dot fits"></i> Fits</span>
+              <span><i class="legend-dot issue"></i> Needs a move</span>
+            </div>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

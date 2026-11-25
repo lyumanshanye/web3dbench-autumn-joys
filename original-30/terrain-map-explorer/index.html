@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#d9e1d9" />
+    <meta
+      name="description"
+      content="Explore Isla Verdant, an imaginary mountain island rendered as an interactive three-dimensional topographic map."
+    />
+    <title>Isla Verdant — An Imaginary Island</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23d7e1da'/%3E%3Cpath d='M8 48 25 17l9 17 7-11 15 25Z' fill='%2320302d'/%3E%3Cpath d='M25 17 34 34l-7-3Z' fill='%23f0ead9'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main id="app">
+      <div id="viewport" aria-label="Interactive three-dimensional topographic map of Isla Verdant"></div>
+
+      <div class="paper-grain" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+
+      <header class="masthead">
+        <div class="eyebrow"><span class="eyebrow-rule"></span> Cartographica · Sheet XII</div>
+        <h1>Isla <em>Verdant</em></h1>
+        <p class="deck">An imaginary mountain island<br class="mobile-break" /> in the Meridian Sea.</p>
+        <div class="sheet-meta">
+          <span>42°18′ N</span>
+          <span>9°40′ W</span>
+          <span>Surveyed MMXXVI</span>
+        </div>
+      </header>
+
+      <aside class="compass-card" aria-label="Map orientation, north is up">
+        <div class="compass-ring">
+          <span class="compass-n">N</span>
+          <span class="compass-tick tick-n"></span>
+          <span class="compass-tick tick-e"></span>
+          <span class="compass-tick tick-s"></span>
+          <span class="compass-tick tick-w"></span>
+          <span class="compass-star"></span>
+        </div>
+        <div class="compass-copy">True north<br /><strong>Meridian grid</strong></div>
+      </aside>
+
+      <div id="labels" class="labels"></div>
+
+      <section class="legend" aria-label="Elevation legend">
+        <div class="legend-topline">
+          <span>Elevation</span>
+          <span class="legend-unit">metres</span>
+        </div>
+        <div class="elevation-bar" aria-hidden="true"></div>
+        <div class="legend-ticks"><span>0</span><span>1,000</span><span>2,000</span><span>2,840</span></div>
+        <div class="legend-foot">
+          <span>Contour interval 100 m</span>
+          <span class="legend-key"><i></i> Hiking trail</span>
+        </div>
+      </section>
+
+      <div class="readout" id="readout" aria-live="polite">
+        <span class="readout-label">Cursor elevation</span>
+        <span class="readout-value" id="cursor-elevation">—</span>
+      </div>
+
+      <nav class="view-switcher" aria-label="Camera viewpoints">
+        <button class="view-button is-active" type="button" data-view="overview">
+          <span class="view-index">01</span><span>Overview</span>
+        </button>
+        <button class="view-button" type="button" data-view="coast">
+          <span class="view-index">02</span><span>Coast</span>
+        </button>
+        <button class="view-button" type="button" data-view="summit">
+          <span class="view-index">03</span><span>Summit</span>
+        </button>
+      </nav>
+
+      <div class="map-hint"><span class="mouse-mark"></span> Drag to orbit <i></i> Scroll to zoom</div>
+
+      <div class="scalebar" aria-hidden="true">
+        <span>0</span><span class="scale-rule"></span><span>10 km</span>
+      </div>
+
+      <div class="loader" id="loader">
+        <div class="loader-mark"><span></span></div>
+        <div class="loader-copy">Charting the island</div>
+      </div>
+    </main>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
