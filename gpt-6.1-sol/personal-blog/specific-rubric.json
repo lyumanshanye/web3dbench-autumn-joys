@@ -1,0 +1,85 @@
+{
+  "version": "3.0",
+  "task": "personal-blog",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Maya Chen has six complete local posts about cities, food and everyday experiments, with reading-first typography.",
+      "action": "Read the post list and open all six sample articles.",
+      "expected": "Maya Chen's six complete local posts cover cities, food and everyday experiments with readable typography.",
+      "dimension": "instruction"
+    },
+    {
+      "id": "T02",
+      "requirement": "A small genuinely interactive 3D desk adds personality without obstructing or delaying article access.",
+      "action": "Use the offered desk interaction, then immediately open a post.",
+      "expected": "A genuinely interactive 3D desk adds personality while article access remains unobstructed.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "Topic filtering updates posts and article views provide full readable content.",
+      "action": "Change topic filters and open matching articles.",
+      "expected": "Filters update the list and article views contain full readable content.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "Article URLs are shareable and survive refresh; browser back returns coherent reading/list context.",
+      "action": "Open an article URL directly, refresh it and use browser back.",
+      "expected": "The URL restores the same article and back returns coherent reading/list context.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "Keyboard access, narrow-screen reading and reduced-motion behavior preserve usable content.",
+      "action": "Navigate by keyboard, inspect phone reading and enable reduced motion.",
+      "expected": "Content remains usable with keyboard, narrow layouts and reduced-motion preferences.",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the blog and desk while confirming immediate access to posts.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Filter by topic, open and read a full article, and use offered desk interactions.",
+      "criteria": [
+        "G03",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Refresh an article URL, use browser back, inspect keyboard focus and mobile reading; do not require an unrequested writing backend.",
+      "criteria": [
+        "G04",
+        "T04",
+        "T05"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

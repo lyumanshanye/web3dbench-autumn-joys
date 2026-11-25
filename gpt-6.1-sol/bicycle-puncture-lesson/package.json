@@ -1,0 +1,12 @@
+{
+  "name": "web3dbench-demo",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server --bind 127.0.0.1"
+  },
+  "dependencies": {
+    "three": "0.160.1"
+  }
+}

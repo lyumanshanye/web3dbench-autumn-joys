@@ -1,0 +1,94 @@
+{
+  "version": "3.0",
+  "task": "recipe-kitchen",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Eight complete bundled recipes have readable ingredients/steps and a 3D kitchen counter whose ingredient models track the selected recipe.",
+      "action": "Open each of the eight sample recipes and inspect counter, ingredients and steps.",
+      "expected": "Complete local recipe content is readable and the 3D ingredient arrangement matches the chosen recipe.",
+      "dimension": "instruction"
+    },
+    {
+      "id": "T02",
+      "requirement": "Search matches names/ingredients; vegetarian/time filters, empty results and reset work consistently.",
+      "action": "Search names/ingredients, combine vegetarian/time filters, produce empty results and reset.",
+      "expected": "Results respect all active filters, an empty state is clear and reset restores recipes.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Serving changes scale ingredient quantities with useful units and fractions.",
+      "action": "Change serving counts for recipes with fractional quantities.",
+      "expected": "Ingredient quantities scale consistently with useful units and fractions.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "Stable recipe URLs survive refresh, with correct recipe content.",
+      "action": "Open a recipe URL directly and refresh.",
+      "expected": "The same recipe and complete content are restored.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "Cooking view has previous/next steps and ingredient checkboxes; progress is stored separately per recipe across refresh.",
+      "action": "Check ingredients and change steps, switch recipes and refresh.",
+      "expected": "Previous/next works and each recipe's checked ingredients and step persist separately.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "Resetting one recipe does not mix its progress with another; ingredient names and mobile cooking remain usable outside the canvas.",
+      "action": "Reset one recipe, revisit another and use a narrow phone layout.",
+      "expected": "Only the selected recipe resets; ingredient names remain available outside the canvas and cooking needs no camera manipulation.",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect recipes, ingredient list and linked 3D counter.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Search by ingredient, combine filters, adjust servings and advance cooking steps while checking ingredients.",
+      "criteria": [
+        "G03",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Refresh, switch recipes and return to verify separated progress, exercise empty/reset states and reload a recipe URL.",
+      "criteria": [
+        "G04",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

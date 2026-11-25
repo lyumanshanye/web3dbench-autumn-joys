@@ -1,0 +1,76 @@
+{
+  "version": "3.0",
+  "task": "luggage-fit-checker",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "A rectangular 3D boot has editable dimensions with centimeter measurements and several differently sized bags.",
+      "action": "Inspect the initial bags and edit the boot dimensions.",
+      "expected": "Several differently sized bags occupy a rectangular 3D boot with editable centimeter measurements.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Bags can be moved and turned, and their visible geometry follows the edits.",
+      "action": "Move and rotate differently sized bags.",
+      "expected": "Visible bag geometry follows the selected positions and rotations.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Geometric overlaps and outside bags are flagged, including rotated cases; total volume alone is not treated as proof of fit.",
+      "action": "Create overlapping bags and protruding bags, including a rotated case.",
+      "expected": "Geometric overlap and outside warnings follow actual placements rather than total volume alone.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "The displayed number of fitting bags updates coherently as bags or boot dimensions change.",
+      "action": "Move a bag outside and back, then resize the boot.",
+      "expected": "The number of fitting bags updates consistently with the displayed fit conditions.",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect dimensions and the initial bag arrangement/count.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Move and rotate one bag and change a boot dimension while comparing visual fit and counts.",
+      "criteria": [
+        "G03",
+        "T02"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Create an overlap and outside case, then recover a valid layout and inspect measurements on mobile.",
+      "criteria": [
+        "G04",
+        "T03",
+        "T04"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f3ea">
+<title>Little Winds — A paper playground</title>
+<link rel="stylesheet" href="./style.css">
+<script type="importmap">{"imports":{"three":"../../vendor/three/three.module.js","three/addons/":"../../vendor/three/addons/"}}</script>
+</head>
+<body>
+<header><a class="brand" href="./" aria-label="Little Winds home"><span class="brand-mark">✳</span> little winds<span class="brand-dot">®</span></a><div class="header-note">SMALL THINGS. SIMPLE JOYS.</div><a class="about-link" href="#controls">LET’S PLAY <span>↗</span></a></header>
+<main>
+<section class="intro"><div class="eyebrow"><span></span> YOUR EVERYDAY MOMENT OF PLAY</div><h1>A little wind.<br>A lot of <em>wonder.</em><svg viewBox="0 0 280 14" aria-hidden="true"><path d="M3 8Q117-3 275 5M48 12Q167 4 251 10"/></svg></h1><p>A paper pinwheel, a passing breeze.<br>Slow down and see where the wind takes you.</p></section>
+<section class="playground" aria-label="Interactive paper pinwheel">
+<div class="scene" id="scene"><div class="scene-top"><span class="pill"><i></i> A LITTLE PAPER MAGIC</span><span class="scene-no">NO. 001</span></div><div id="canvas-wrap"></div><div class="scene-bottom"><span class="orbit-icon">↔</span><span>Drag to take a little look around</span><button id="reset-view" aria-label="Reset camera view" title="Reset camera view">↺</button></div><div class="scene-tag">hand-folded.<br>wind-powered.</div></div>
+<aside id="controls"><div class="panel-heading"><span class="eyebrow">THE PLAY PANEL</span><span class="tiny-star">✳</span></div><h2>Follow your breeze.</h2><p class="panel-subtitle">A few little tweaks. Endless possibilities.</p>
+<div class="control-section"><div class="control-title"><label for="wind-speed">Wind speed</label><span class="wind-value"><output id="speed-output" for="wind-speed">3.2</output> <small>m/s</small></span></div><input id="wind-speed" type="range" min="0" max="10" step="0.1" value="3.2" aria-describedby="speed-caption"><div class="range-labels"><span>Still</span><span>Gusty</span></div><div class="breeze-state" id="speed-caption"><span>〰</span> <span id="breeze-label">A gentle breeze</span></div></div>
+<div class="control-section color-section"><div class="control-title"><span>Blade colors</span><span class="small-note">MAKE IT YOURS</span></div><div class="color-inputs"><label class="color-control" style="--swatch:#ef754a"><input type="color" value="#ef754a" aria-label="Blade 1 color" data-blade="0"><span>01</span></label><label class="color-control" style="--swatch:#efb744"><input type="color" value="#efb744" aria-label="Blade 2 color" data-blade="1"><span>02</span></label><label class="color-control" style="--swatch:#a9beb0"><input type="color" value="#a9beb0" aria-label="Blade 3 color" data-blade="2"><span>03</span></label><label class="color-control" style="--swatch:#f1b29a"><input type="color" value="#f1b29a" aria-label="Blade 4 color" data-blade="3"><span>04</span></label></div><div class="preset-row"><span>Or try a palette</span><button class="palette selected" data-palette="0" aria-label="Warm afternoon palette" aria-pressed="true"><i style="background:#ef754a"></i><i style="background:#efb744"></i><i style="background:#a9beb0"></i></button><button class="palette" data-palette="1" aria-label="Ocean day palette" aria-pressed="false"><i style="background:#538d9c"></i><i style="background:#a9ced0"></i><i style="background:#e4dabf"></i></button><button class="palette" data-palette="2" aria-label="Berry garden palette" aria-pressed="false"><i style="background:#ab6685"></i><i style="background:#d6a1b0"></i><i style="background:#8f9d76"></i></button></div></div>
+<button class="pause-button" id="pause" aria-pressed="false"><span id="pause-icon">Ⅱ</span><span id="pause-text">Pause the moment</span><span class="button-arrow">↗</span></button><div class="live-note"><span id="status-dot"></span><span id="status" role="status">Spinning, without a care</span></div>
+</aside></section>
+<footer><div><span class="footer-flower">✳</span> Made of paper. Powered by play.</div><span>A TINY INTERACTIVE ESCAPE <span class="footer-dot">•</span> EST. TODAY</span></footer>
+</main>
+<script type="module" src="./main.js"></script>
+</body></html>

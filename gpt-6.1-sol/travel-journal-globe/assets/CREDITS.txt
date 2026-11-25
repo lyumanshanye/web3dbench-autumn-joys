@@ -1,0 +1,32 @@
+Elsewhere sample journal — bundled asset sources
+
+All images are served locally. Photo originals were downloaded from Unsplash image CDN;
+the IDs below identify the exact source photograph. Images are covered by the Unsplash
+License: https://unsplash.com/license
+
+kyoto.jpg
+https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e
+
+tokyo.jpg
+https://images.unsplash.com/photo-1540959733332-eab4deabeeaf
+
+lisbon.jpg
+https://images.unsplash.com/photo-1555881400-74d7acaacd8b
+
+marrakech.jpg
+https://images.unsplash.com/photo-1489749798305-4fea3ae63d43
+
+peru.jpg
+https://images.unsplash.com/photo-1587595431973-160d0d94add1
+
+newyork.jpg
+https://images.unsplash.com/photo-1485871981521-5b1fd3805eee
+
+countries.json: Natural Earth 1:110m land geography, public domain.
+https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_land.geojson
+https://www.naturalearthdata.com/about/terms-of-use/
+
+world-map.png: generated locally from the above Natural Earth data, with original
+cartographic coloring, graticules, and stipple treatment for this demo.
+
+Jamie Lee and all diary entries are fictional sample content authored for this demo.

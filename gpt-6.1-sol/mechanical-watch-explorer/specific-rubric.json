@@ -1,0 +1,71 @@
+{
+  "version": "3.0",
+  "task": "mechanical-watch-explorer",
+  "task_type": "open",
+  "must_assertions": [],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "A recognizable, detailed 3D mechanical watch exposes an internal movement rather than a static picture.",
+      "action": "Inspect the assembled watch and its internal movement.",
+      "expected": "A recognizable 3D mechanical watch contains inspectable internal components.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Disassembly separates meaningful watch components and reassembly restores their coherent arrangement.",
+      "action": "Disassemble and reassemble the watch, then repeat.",
+      "expected": "Meaningful parts separate and return to their coherent assembled positions.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Tiny gears visibly turn in a way that communicates a working mechanical movement.",
+      "action": "Observe the exposed gears at several time points.",
+      "expected": "Tiny gears visibly turn and communicate an operating mechanical movement.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "The user can inspect the inside and manipulate available views without losing access to assembly controls.",
+      "action": "Inspect interior views while switching assembly states.",
+      "expected": "The inside remains inspectable and assembly controls remain reachable.",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the assembled watch and movement at close range.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Take it apart, examine the gears over time and inspect interior components.",
+      "criteria": [
+        "G03",
+        "T02"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Reassemble, repeat and use offered views; check for misplaced parts or controls obscured by the model.",
+      "criteria": [
+        "G04",
+        "T03",
+        "T04"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

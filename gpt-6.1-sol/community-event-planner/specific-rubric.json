@@ -1,0 +1,130 @@
+{
+  "version": "3.0",
+  "task": "community-event-planner",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07",
+    "T08",
+    "T09",
+    "T10"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "The meter-based 3D park includes two entrances, fixed paths, trees, accessible restroom and a useful initial stage/stalls/seating/info plan.",
+      "action": "Inspect the sample park, its dimensions and initial equipment.",
+      "expected": "The meter-based site includes two entrances, paths, trees, restroom, stage, stalls, seating and information desk.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Add/select/move/rotate/duplicate/delete edits, dimensions, numeric fields and snapping stay synchronized with the equipment list.",
+      "action": "Add, select, move, rotate, duplicate and delete equipment using dragging and numeric fields; toggle snapping.",
+      "expected": "Scene and equipment list share selection and edits; footprints and dimensions match the objects.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Outside placements are prevented and footprint overlaps visibly identified; top/orbit/zoom/reset-camera remain usable.",
+      "action": "Attempt an outside placement and an overlapping placement; use top, orbit, zoom-to-selection and reset views.",
+      "expected": "Outside placement is prevented, overlaps are highlighted, and the required camera views remain usable.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "Undo/redo cover object edits without undoing camera navigation.",
+      "action": "Make object edits and camera changes, then undo and redo.",
+      "expected": "Object edits reverse and restore without undoing camera navigation.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "Documented obstacle-aware pedestrian and step-free routes connect either entrance to facilities, show meters, recompute after edits and exclude the stepped shortcut in step-free mode.",
+      "action": "Route from each entrance to a facility in pedestrian and step-free modes, then edit obstacles.",
+      "expected": "Routes avoid equipment, show meters and update after edits; step-free routes exclude the stepped shortcut and routing assumptions are documented.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "A reproducible blocked-route edit reports no route, and warnings select the relevant objects without reliance on color alone.",
+      "action": "Apply the sample route-blocking edit and select a resulting warning.",
+      "expected": "No-route conditions are reported and warnings select relevant objects without relying only on color.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T07",
+      "requirement": "Activities validate end-after-start, detect overlapping bookings at one facility while allowing touching boundaries, and warn about capacity.",
+      "action": "Create valid, reversed-time, overlapping, touching-boundary and over-capacity activities.",
+      "expected": "Invalid end times are rejected, same-facility overlaps and excessive attendance warn, and touching boundaries remain allowed.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T08",
+      "requirement": "Deleting a booked facility explicitly offers cancellation or removal of its bookings, preventing dangling references.",
+      "action": "Delete a booked facility once by cancelling and once by removing its bookings.",
+      "expected": "Cancellation preserves the facility and bookings; confirmed deletion removes its bookings without dangling references.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T09",
+      "requirement": "Local save and validated JSON import/export reproduce identifiers, positions, bookings and routing; invalid imports preserve current work.",
+      "action": "Save and reload; export/import a plan, then attempt an invalid import.",
+      "expected": "IDs, positions, bookings and routes restore; invalid input preserves the current plan.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T10",
+      "requirement": "Confirmed reset and printable layout/equipment/schedule/warnings summary work; keyboard and mobile editing forms remain usable.",
+      "action": "Exercise confirmed sample reset, print summary, keyboard actions and mobile forms.",
+      "expected": "Reset requires confirmation, the summary contains layout/equipment/schedule/warnings, and keyboard/mobile editing stays usable.",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the sample park, equipment, initial schedule and documented routing assumptions.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Edit equipment with numeric and drag controls, test undo/redo and routes in both access modes, then change a booking.",
+      "criteria": [
+        "G03",
+        "T02",
+        "T03",
+        "T04",
+        "T05"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Block a route, submit invalid placement/time/import, test touching and overlapping bookings, cancel a booked-facility deletion and roundtrip a saved plan.",
+      "criteria": [
+        "G04",
+        "T06",
+        "T07",
+        "T08",
+        "T09",
+        "T10"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

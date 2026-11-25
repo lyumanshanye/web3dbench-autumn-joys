@@ -1,0 +1,103 @@
+{
+  "version": "3.0",
+  "task": "room-planner-3d",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "A furnished open-sided 6-by-4-meter 3D room starts with sofa, coffee table, armchair and floor lamp plus an adding palette.",
+      "action": "Inspect the initial room, its dimensions and furniture palette.",
+      "expected": "A 6-by-4-meter open-sided room contains sofa, coffee table, armchair and floor lamp with an adding palette.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Selection highlights furniture and supports rotate-by-90, color changes, deletion and adding more instances.",
+      "action": "Select, add, rotate by 90 degrees, recolor and delete instances of the specified furniture.",
+      "expected": "Selection highlights the intended object and each edit changes that furniture consistently.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Dragging moves furniture on the floor, optional snapping works and camera rotation is disabled during drag.",
+      "action": "Drag furniture with snapping off and on while attempting a camera drag.",
+      "expected": "Furniture moves on the floor, optional snapping works and the camera does not rotate during furniture dragging.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "The specified placeable furniture stays within room bounds and does not overlap other placeable furniture; invalid moves/rotations visibly warn and preserve the last valid placement. Do not extend this assertion to decorative plants without a task-defined placement role.",
+      "action": "Move and rotate specified furniture against room bounds and other placeable furniture.",
+      "expected": "Furniture footprints stay inside the room and do not overlap; invalid edits visibly warn and retain the last valid placement. Decorative plants are not automatically part of this required furniture-collision boundary.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "Perspective/orbit and top-down views preserve the same arrangement and selection.",
+      "action": "Switch between orbitable perspective and top-down views after editing/selecting furniture.",
+      "expected": "The arrangement and selection stay unchanged across views.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "Save/restore persist the arrangement in local storage; reset recovers the initial room.",
+      "action": "Save the arrangement, change it, restore it after reload and reset.",
+      "expected": "Browser-local save/restore recovers the saved arrangement and reset recovers the initial layout; storage technology requires evidence if not browser-observable.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T07",
+      "requirement": "The palette and editing controls are comfortable to use on narrow touch layouts.",
+      "action": "Use the palette and furniture edits in a narrow touch viewport.",
+      "expected": "Adding, selecting and editing furniture remain reachable and comfortable with touch.",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the room dimensions and initial furniture/palette.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Add/select/edit an item, move it on the floor and switch between perspective and plan views.",
+      "criteria": [
+        "G03",
+        "T02",
+        "T03",
+        "T04"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Try an overlapping or outside placement and an invalid rotation, then save/reload/restore and reset while comparing visible states.",
+      "criteria": [
+        "G04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

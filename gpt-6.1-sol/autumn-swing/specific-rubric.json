@@ -1,0 +1,63 @@
+{
+  "version": "3.0",
+  "task": "autumn-swing",
+  "task_type": "open",
+  "must_assertions": [],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "A genuine 3D scene contains a clearly recognizable swing set in a cozy autumn neighborhood.",
+      "action": "Inspect the scene from the available views.",
+      "expected": "A recognizable swing set sits within a cozy autumn neighborhood with coherent depth.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "The title Autumn Joys is visible and the composition uses a warm palette and low-poly aesthetic.",
+      "action": "Read the title and inspect colors and geometry.",
+      "expected": "The title is Autumn Joys; warm colors and low-poly forms express the requested atmosphere.",
+      "dimension": "visual"
+    },
+    {
+      "id": "T03",
+      "requirement": "Scene depth, neighborhood details and swing placement remain legible at the available camera and viewport sizes.",
+      "action": "Inspect the scene at desktop and narrow-phone sizes using offered navigation.",
+      "expected": "The swing and neighborhood remain understandable without losing the main subject.",
+      "dimension": "spatial"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the whole scene, title and depth cues.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Explore any camera or motion controls the submission actually offers; inspect the swing and neighborhood details.",
+      "criteria": [
+        "G03",
+        "T02"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Resize and reload; do not demand wind, pause or other controls absent from the original brief.",
+      "criteria": [
+        "G04",
+        "T03"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

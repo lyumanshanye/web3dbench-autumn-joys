@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5f3ed"><title>Elsewhere — a personal travel journal</title>
+<link rel="stylesheet" href="./style.css">
+<script type="importmap">{"imports":{"three":"../../vendor/three/three.module.js","three/addons/":"../../vendor/three/addons/"}}</script>
+</head>
+<body>
+<header class="site-header"><a class="brand" href="#" aria-label="Elsewhere home"><span class="brand-icon">✳</span> elsewhere<span class="brand-dot">.</span></a><nav aria-label="Main navigation"><a href="#" class="nav-current">My journal <span>06</span></a><button id="about-button">About this journal <span aria-hidden="true">↗</span></button></nav><div class="author"><span class="avatar">JL</span><span>A journal by Jamie Lee</span></div></header>
+<main>
+<section class="intro"><div><div class="eyebrow"><span></span> A PERSONAL TRAVEL JOURNAL</div><h1>Places become <em>stories.</em></h1><p>A few stamps in a passport. A world of things to remember.</p></div><div class="intro-note"><span class="handwritten">Collect moments,<br>not coordinates.</span><svg viewBox="0 0 100 50" aria-hidden="true"><path d="M8 8 Q48 54 84 14 M69 13 L86 12 L82 29"/></svg></div></section>
+<section class="journal" aria-label="Explore the travel journal">
+<div class="globe-panel">
+<div class="map-heading"><div class="eyebrow">MY LITTLE CORNER OF THE WORLD</div><span class="live-dot"></span><span id="map-count">6 places, countless memories</span></div>
+<div id="globe-stage" role="img" aria-label="Interactive three dimensional globe. Drag to rotate, or select any trip from the journal list."><canvas id="globe-canvas"></canvas><div id="marker-layer"></div><div class="globe-loading">Drawing the world…</div></div>
+<div class="map-caption"><span class="coordinate-cross">+</span><span id="coordinates">23.000° N &nbsp; 15.000° E</span></div>
+<div class="map-controls"><button id="reset-view" title="Reset globe view, keeping filters"><svg viewBox="0 0 20 20"><path d="M4 7a6 6 0 1 1-1 6M4 3v5h5"/></svg>Reset view</button><div class="zoom-controls"><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button></div></div>
+<div class="map-bottom"><div class="compass"><span>N</span><svg viewBox="0 0 40 40"><path d="M20 6 25 28 20 24 15 28Z"/></svg></div><span>DRAG TO EXPLORE <span class="hint-dot">·</span> SELECT A MEMORY</span><span class="map-edition">EST. 2023</span></div>
+<div id="selected-caption" class="selected-caption" hidden></div>
+</div>
+<aside class="journal-panel" aria-label="Trip journal">
+<div class="panel-top"><div><span class="eyebrow">THE TRAVEL COLLECTION</span><h2>My journal <span>06</span></h2></div><span class="little-globe" aria-hidden="true">◎</span></div>
+<div class="filters"><label class="search"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4 4"/></svg><input id="search" type="search" placeholder="Find a place or a memory…" aria-label="Search trips"></label><div class="filter-row"><label class="year-label"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="5" width="14" height="12" rx="2"/><path d="M6 3v4m8-4v4M3 10h14"/></svg><select id="year" aria-label="Filter by year"><option value="all">All years</option><option>2025</option><option>2024</option><option>2023</option></select></label><div class="view-toggle" aria-label="Journal view"><button id="list-mode" class="active" aria-label="List view" aria-pressed="true"><svg viewBox="0 0 18 18"><path d="M6 4h10M6 9h10M6 14h10M2 4h1M2 9h1M2 14h1"/></svg></button><button id="chrono-mode" aria-label="Chronological view" aria-pressed="false"><svg viewBox="0 0 18 18"><path d="M5 2v14M9 4h7M9 9h7M9 14h7"/><circle cx="5" cy="4" r="1.5"/><circle cx="5" cy="9" r="1.5"/><circle cx="5" cy="14" r="1.5"/></svg></button></div></div></div>
+<div class="results-heading"><span id="result-count">6 ENTRIES</span><span id="sort-label">A collection of little escapes</span></div>
+<div id="trip-list" class="trip-list"></div>
+<div id="trip-detail" class="trip-detail" hidden></div>
+<div class="panel-footer"><span class="footer-spark">✳</span> There’s always another story out there.</div>
+</aside>
+</section>
+<footer class="page-footer"><span>Made of miles & memories.</span><span>5 CONTINENTS <i>·</i> 6 STORIES <i>·</i> ONE CURIOUS SOUL</span><span>Keep wandering <span class="orange">↗</span></span></footer>
+</main>
+<dialog id="about-dialog"><button class="dialog-close" aria-label="Close about dialog">×</button><span class="eyebrow">A NOTE FROM JAMIE</span><h2>A world worth remembering.</h2><p>Elsewhere is my little travel journal: six places that stayed with me, from quiet Kyoto lanes to the rooftops of Marrakech.</p><p>Turn the globe, pick a place, and read a memory. Search the journal or follow it through time. Every entry has its own link to share.</p><p class="dialog-credit">Sample journal by Jamie Lee. Photography from Unsplash, bundled locally. Globe geography: Natural Earth, public domain.</p></dialog>
+<div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+<script type="module" src="./app.js"></script>
+</body></html>

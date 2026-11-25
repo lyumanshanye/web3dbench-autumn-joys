@@ -1,0 +1,71 @@
+{
+  "version": "3.0",
+  "task": "headphone-landing-page",
+  "task_type": "open",
+  "must_assertions": [],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "The landing page prominently presents a recognizable, genuinely 3D headphone product.",
+      "action": "Inspect the product and its offered changing views.",
+      "expected": "The primary product is a recognizable real-time 3D headphone.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "The headphone presentation can be explored interactively and responds visibly to user input.",
+      "action": "Use the offered product exploration and reverse it.",
+      "expected": "User input visibly changes the product presentation and remains repeatable.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Bold color, modern layout and niche audiophile styling communicate the product coherently.",
+      "action": "Inspect the complete landing page at desktop and phone sizes.",
+      "expected": "Bold colors, modern layout and niche audiophile styling form a coherent presentation.",
+      "dimension": "visual"
+    },
+    {
+      "id": "T04",
+      "requirement": "Product information and any offered page controls remain readable while interacting with the model; do not require checkout or audio playback.",
+      "action": "Explore the model and activate any displayed page controls.",
+      "expected": "Product information stays readable and displayed controls work; checkout and audio playback are not required.",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial headphone silhouette, depth and product-page composition.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Use the offered interaction to examine the product from another state or angle.",
+      "criteria": [
+        "G03",
+        "T02"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Reverse the interaction and inspect the rest of the landing page; do not add unrequested ecommerce requirements.",
+      "criteria": [
+        "G04",
+        "T03",
+        "T04"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5ec">
+  <meta name="description" content="Take the scenic route with Percy, a pelican on a bicycle. A little interactive Three.js beach escape.">
+  <title>The Slow Coast — A little seaside escape</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%232b6057'/%3E%3Cpath d='M12 36q10-12 20 0t20 0M12 45q10-12 20 0t20 0' fill='none' stroke='%23f7f5ec' stroke-width='4'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">{"imports":{"three":"../../vendor/three/three.module.js","three/addons/":"../../vendor/three/addons/"}}</script>
+</head>
+<body>
+  <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></symbol>
+    <symbol id="icon-camera" viewBox="0 0 24 24"><path d="M8 6l1.5-2h5L16 6h4a1 1 0 0 1 1 1v12H3V7a1 1 0 0 1 1-1z"/><circle cx="12" cy="12.5" r="3.5"/></symbol>
+    <symbol id="icon-reset" viewBox="0 0 24 24"><path d="M4 9a8 8 0 1 1 0 6M4 4v5h5"/></symbol>
+    <symbol id="icon-sound" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4zM17 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></symbol>
+    <symbol id="icon-wave" viewBox="0 0 24 24"><path d="M2 8q2.5-4 5 0t5 0t5 0t5 0M2 15q2.5-4 5 0t5 0t5 0t5 0"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5l5 5-5 5"/></symbol>
+    <symbol id="icon-orbit" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(-30 12 12)"/><circle cx="12" cy="12" r="2"/></symbol>
+  </svg>
+
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="The Slow Coast home">
+      <span class="brand-mark"><svg><use href="#icon-wave"/></svg></span>
+      <span>the slow coast<span class="brand-dot">.</span></span>
+    </a>
+    <span class="header-note">LITTLE WORLDS. LONG WAY HOME.</span>
+    <button class="postcard-button" id="postcard" aria-label="Take a postcard"><svg><use href="#icon-camera"/></svg><span>Take a postcard</span><span class="button-arrow">↗</span></button>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div class="eyebrow"><span></span> A LITTLE SEASIDE ESCAPE</div>
+      <h1 id="page-title">Life in the<br><em>slow lane.</em></h1>
+      <p>Some days, the best plan<br>is to take the scenic route.</p>
+      <div class="meet-percy"><span class="handdrawn-arrow">⤵</span><span>Meet Percy.<br>He’s in no hurry.</span></div>
+    </section>
+
+    <div id="scene" role="region" aria-label="Interactive 3D beach with Percy the pelican riding a bicycle">
+      <div id="loading" role="status"><span></span>A little sunshine is on its way…</div>
+      <div id="scene-error" role="alert" hidden>This little world needs WebGL. Please enable hardware acceleration and reload.</div>
+    </div>
+
+    <aside class="scene-caption" aria-label="Scene setting"><span class="live-dot"></span><span>A PERFECTLY ORDINARY, EXTRAORDINARY DAY</span></aside>
+
+    <section class="ride-controls" aria-label="Ride controls">
+      <div class="control-heading"><span>SET YOUR OWN PACE</span><span class="control-number">01 / ∞</span></div>
+      <div class="ride-row">
+        <button id="play" class="play-button" aria-label="Pause the ride" aria-pressed="false"><span id="play-symbol" class="pause-symbol" aria-hidden="true"></span></button>
+        <div class="ride-status"><strong id="ride-status">Enjoying the ride</strong><span>Absolutely nowhere to be.</span></div>
+      </div>
+      <div class="pace-label"><label for="pace">Cruising pace</label><output id="pace-value" for="pace">Easy breezy</output></div>
+      <input id="pace" type="range" min="0.3" max="1.8" step="0.05" value="0.8" aria-label="Cruising pace">
+      <div class="range-labels"><span>Slow</span><span>A little less slow</span></div>
+      <div class="ambience-controls">
+        <button id="sunlight" aria-pressed="false"><svg><use href="#icon-sun"/></svg><span>Golden hour</span><span class="switch" aria-hidden="true"></span></button>
+        <button id="sound" aria-pressed="false"><svg><use href="#icon-sound"/></svg><span>Ocean sounds</span><span class="sound-state">OFF</span></button>
+      </div>
+    </section>
+
+    <nav class="view-controls" aria-label="Camera views">
+      <div class="view-tabs"><button data-view="postcard" class="active" aria-pressed="true">Postcard</button><button data-view="close" aria-pressed="false">Meet Percy</button></div>
+      <button class="reset-button" id="reset" aria-label="Reset camera view" title="Reset camera view"><svg><use href="#icon-reset"/></svg></button>
+    </nav>
+
+    <div class="weather-note"><svg><use href="#icon-sun"/></svg><span><strong id="weather">27° & sunny</strong><span>With a chance of doing nothing.</span></span></div>
+  </main>
+
+  <footer class="site-footer"><span class="edition">THE SLOW COAST <b>/</b> VOL. 001</span><span class="explore-hint"><svg><use href="#icon-orbit"/></svg> Drag to look around <b>·</b> Scroll to wander closer</span><span class="footer-note">A moment, just for you. <span>✳</span></span></footer>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

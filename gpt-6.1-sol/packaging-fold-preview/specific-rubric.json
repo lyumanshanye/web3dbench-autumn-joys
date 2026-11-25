@@ -1,0 +1,94 @@
+{
+  "version": "3.0",
+  "task": "packaging-fold-preview",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "A linked flat dieline and 3D rectangular tuck-lid carton represent the same width/depth/height in millimeters.",
+      "action": "Compare the initial flat dieline and carton with their dimensions.",
+      "expected": "Both views represent the same rectangular tuck-lid carton in millimeters.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Changing dimensions updates both views, with clearly distinct cut and fold markings.",
+      "action": "Change width, depth and height and compare both views.",
+      "expected": "Both geometries update and cut edges remain distinguishable from fold lines.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "The fold slider rotates connected panels about actual shared edges from flat to closed, with inspectable intermediate states.",
+      "action": "Move the fold slider through flat, intermediate and closed positions; inspect different angles.",
+      "expected": "Connected panels rotate about their shared edges and remain coherent throughout folding.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "Front/back/sides/lid can receive independent shop-name artwork and colors; panel selection is linked across both views.",
+      "action": "Select panels from each view and edit front, back, sides and lid artwork/colors independently.",
+      "expected": "Selection is linked and changes affect the intended counterpart panel without overwriting unrelated panels.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "Artwork stays attached and properly oriented while folding, with working sample and reset actions.",
+      "action": "Fold an edited carton, then reset to the sample.",
+      "expected": "Artwork stays attached and correctly oriented; reset restores the sample design.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T06",
+      "requirement": "Downloaded dimensioned SVG includes artwork and separate cut/fold marks; the prototype discloses zero thickness and excluded manufacturing tolerances/bleed.",
+      "action": "Download and inspect the dimensioned SVG and proof notes.",
+      "expected": "SVG includes artwork and separate cut/fold markings; zero thickness and excluded tolerances/bleed are disclosed.",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect matching dimensions, flat net, closed carton and proof assumptions.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Change dimensions, select a panel from each view, change its artwork/color and inspect several fold positions.",
+      "criteria": [
+        "G03",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Fold fully flat then closed, reset/load sample and inspect the downloaded SVG dimensions, artwork and cut/fold distinctions.",
+      "criteria": [
+        "G04",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

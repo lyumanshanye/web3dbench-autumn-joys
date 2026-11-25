@@ -1,0 +1,103 @@
+{
+  "version": "3.0",
+  "task": "marble-run-3d",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "A tabletop 3D course visibly includes elevated ramps, guardrails, a jump gap and a marked finish basin.",
+      "action": "Inspect the course in the full-course view.",
+      "expected": "The tabletop course includes elevated ramps, guardrails, a jump gap and a marked finish basin.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "The marble rolls, falls and collides consistently with the visible course; distinguish this from a decorative scripted loop.",
+      "action": "Release attempts that roll, fall and contact course surfaces.",
+      "expected": "The marble visibly responds to gravity and visible collisions; browser-only evidence does not establish which physics package is used.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "Launch impulse and ramp angle can be adjusted before release; changing the ramp affects the visible geometry and the trajectory/collision outcome.",
+      "action": "Change impulse and ramp angle before releasing several attempts.",
+      "expected": "Both settings can be changed, the ramp visibly moves, and trajectories/collisions respond consistently.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "At least one settings combination reaches the finish through the visible physics course, with success detected when the marble lands in the basin.",
+      "action": "Try settings until a successful combination is found within the evaluation budget.",
+      "expected": "At least one attempt lands in the finish basin and is reported as success; insufficient search remains unverified.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "Release starts one attempt, locks setup controls, counts attempts and reports failure when the marble falls off.",
+      "action": "Release one attempt and inspect setup controls, counter and an off-course failure.",
+      "expected": "One attempt starts, setup controls lock, the counter updates and falling off reports failure.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "Pause/resume preserve the current attempt; retry zeroes motion at the start while retaining chosen settings; full reset also resets settings/count.",
+      "action": "Pause/resume an attempt, retry after motion and perform a full reset.",
+      "expected": "Pause preserves the attempt; retry returns the marble motionless to the start with chosen settings; reset also restores settings/count.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T07",
+      "requirement": "Full-course and smoothly following cameras remain inspectable and controls work with mouse or touch.",
+      "action": "Switch full-course/following views and use controls on desktop and touch layouts.",
+      "expected": "The course stays inspectable, following is continuous, and mouse/touch controls remain usable.",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the full course and identify start, gap, ramp and basin.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Adjust a setting, run an attempt, observe multiple time points and try a plausible successful configuration without private state hooks.",
+      "criteria": [
+        "G03",
+        "T02",
+        "T03",
+        "T04"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Test pause/resume, retry, a failed run and full reset; verify setup locking and attempt counts before/after.",
+      "criteria": [
+        "G04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

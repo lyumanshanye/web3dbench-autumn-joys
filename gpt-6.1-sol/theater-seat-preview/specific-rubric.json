@@ -1,0 +1,85 @@
+{
+  "version": "3.0",
+  "task": "theater-seat-preview",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "The 3D auditorium has eight raked rows of twelve seats, stage and balcony supports that obstruct some views.",
+      "action": "Inspect the auditorium, seat grid, stage and obstructed views.",
+      "expected": "Eight raked rows of twelve seats and balcony supports form a plausible 3D auditorium with some obstructed sightlines.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Selecting an available seat shows its price and a plausible eye-level view from that actual location.",
+      "action": "Select several available seats and compare their previews and prices.",
+      "expected": "Each selection shows its price and moves to an eye-level view from that seat's actual location.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Two seat views can be compared and differences in position/obstruction remain visually meaningful.",
+      "action": "Compare two seats with different positions or obstructions.",
+      "expected": "The two previews preserve meaningful differences in sightline and location.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "Adjacent seats can be selected with a correct running total; reserved seats stay unavailable.",
+      "action": "Select adjacent seats, inspect the total and attempt to select reserved seats.",
+      "expected": "Adjacent selections total correctly and reserved seats cannot be booked.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "A local booking summary agrees with selection, with a usable phone seating plan and no payment-service requirement.",
+      "action": "Open the local booking summary and repeat seating selection on a phone.",
+      "expected": "Summary matches selected seats and prices; the phone plan is usable without a payment service.",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the auditorium and available/reserved seat map.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Preview contrasting near/far or obstructed seats and compare two eye-level views.",
+      "criteria": [
+        "G03",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Try a reserved seat, select an adjacent group, change quantity and inspect totals and the local summary.",
+      "criteria": [
+        "G04",
+        "T04",
+        "T05"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}
