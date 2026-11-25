@@ -1,0 +1,199 @@
+{
+  "summary": "Roomcraft loads as a polished, open-sided 6×4 m Three.js living room with genuine perspective and floor-plan views. The four required furniture types are present, additional pieces can be added, selected, rotated, recolored, deleted, and dragged with snapping and collision warnings. Save/restore/reset and the 390×844 layout were exercised successfully. The only diagnostic issue was a nonblocking missing favicon; all core scripts and styles loaded.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded successfully with the Roomcraft title, rendered WebGL room, and responsive controls. Reload completed without a blocking error. The sole console error was a favicon.ico 404; the network log shows the core CSS, application script, and Three.js modules loaded.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-23-54-788Z.jpeg",
+      "evidence/page-2026-11-24T17-30-28-152Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The room is a real, orbitable 3D scene rather than a static image: the isometric, orbited perspective, and top-down views show consistent geometry, depth, occlusion, furniture volume, cast shadows, and daylight materials.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-23-54-788Z.jpeg",
+      "evidence/page-2026-11-24T17-25-26-700Z.jpeg",
+      "evidence/page-2026-11-24T17-26-43-786Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Depth and geometry were inspected across three distinct views: the initial isometric view, a top-down plan, and an orbited perspective. Furniture occlusion and floor/rug relationships remain spatially coherent across the views.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-54-788Z.jpeg",
+        "evidence/page-2026-11-24T17-25-26-700Z.jpeg",
+        "evidence/page-2026-11-24T17-26-43-786Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The composition has a clear hierarchy, restrained daylight palette, legible typography, and distinguishable furniture materials. The 3D room, wall details, rug, shadows, and UI form a coherent visual system on desktop and mobile.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-54-788Z.jpeg",
+        "evidence/page-2026-11-24T17-24-37-031Z.jpeg",
+        "evidence/page-2026-11-24T17-30-28-152Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary UI was exercised through adding, selecting, rotating, recoloring, deleting, dragging, switching views, saving, restoring, and resetting. Each action produced an immediate scene change and clear status feedback.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-24-08-087Z.jpeg",
+        "evidence/page-2026-11-24T17-24-19-661Z.jpeg",
+        "evidence/page-2026-11-24T17-24-37-031Z.jpeg",
+        "evidence/page-2026-11-24T17-29-06-546Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated invalid drags visibly showed a placement-blocked warning and retained the previous valid position. A later valid plan-view drag succeeded, view changes were reversible, and save/reload/restore and reset recovered the expected arrangements.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-24-48-018Z.jpeg",
+        "evidence/page-2026-11-24T17-25-42-203Z.jpeg",
+        "evidence/page-2026-11-24T17-29-28-768Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "The 1440×900 and 390×844 layouts were both inspected. On mobile the view tabs, project controls, selected-piece panel, rotation/color/delete controls, snapping, and all four palette buttons remain within the viewport. Reload worked; console showed only a favicon 404 and the resource log showed the core app and Three.js modules.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-54-788Z.jpeg",
+        "evidence/page-2026-11-24T17-29-28-768Z.jpeg",
+        "evidence/page-2026-11-24T17-30-28-152Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The initial screen identifies a 6×4 m, 24 m² open-plan room and visibly contains a sofa, coffee table, armchair, and floor lamp. The ‘Add a piece’ palette exposes all four required furniture types.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-54-788Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Selecting the sofa produced an outline and exposed controls. An added armchair was selected automatically, rotated from 0° to 90°, recolored coral, and later deleted with a clear confirmation; the palette also added another sofa successfully on mobile.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-24-08-087Z.jpeg",
+        "evidence/page-2026-11-24T17-24-19-661Z.jpeg",
+        "evidence/page-2026-11-24T17-24-37-031Z.jpeg",
+        "evidence/page-2026-11-24T17-29-06-546Z.jpeg",
+        "evidence/page-2026-11-24T17-30-28-152Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Furniture was dragged in perspective and in floor plan. The snapping switch changed the HUD from ‘Grid 25 cm’ to ‘Free placement’ and permitted a smaller move. During furniture dragging the camera angle did not change; orbiting only occurred when the empty room was dragged.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-25-42-203Z.jpeg",
+        "evidence/page-2026-11-24T17-26-34-217Z.jpeg",
+        "evidence/page-2026-11-24T17-26-43-786Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Specified furniture remained inside the room through successful moves. Three attempted invalid perspective placements produced ‘Placement blocked — returning to the last valid position’ warnings while the selected armchair stayed at its last valid footprint; no visible overlaps remained.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-24-48-018Z.jpeg",
+        "evidence/page-2026-11-24T17-25-11-021Z.jpeg",
+        "evidence/page-2026-11-24T17-25-42-203Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "The selected coral armchair and the complete edited arrangement were unchanged when moving between perspective and floor plan. Orbiting afterward also preserved the arrangement and selection while changing the viewpoint.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-25-26-700Z.jpeg",
+        "evidence/page-2026-11-24T17-26-34-217Z.jpeg",
+        "evidence/page-2026-11-24T17-26-43-786Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PASS",
+      "reason": "Save reported ‘Layout saved to this browser’ and created the localStorage key roomcraft.layout.v1. Deleting the armchair reduced the room to four pieces; after reload and Restore, the five-piece saved arrangement returned with ‘Saved layout restored.’ Reset then reported ‘Initial living room restored’ and returned the 6×4 room to its four initial pieces with snapping enabled.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-29-06-546Z.jpeg",
+        "evidence/page-2026-11-24T17-29-28-768Z.jpeg",
+        "evidence/page-2026-11-24T17-23-54-788Z.jpeg",
+        "evidence/page-2026-11-24T17-30-28-152Z.jpeg"
+      ]
+    },
+    {
+      "id": "T07",
+      "status": "PASS",
+      "reason": "At 390×844, the selected-furniture panel, rotate buttons, color swatches, delete action, snapping toggle, view tabs, project controls, and all four palette buttons are visible and reachable. Adding a sofa on mobile immediately selected it and kept the editing controls usable without precision camera work.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-30-28-152Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All requested flows are present and coherent: furnished room and palette, selection/editing, drag plus snapping, collision feedback, two synchronized views, persistence and reset, and adapted mobile controls.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-54-788Z.jpeg",
+        "evidence/page-2026-11-24T17-24-48-018Z.jpeg",
+        "evidence/page-2026-11-24T17-29-28-768Z.jpeg",
+        "evidence/page-2026-11-24T17-30-28-152Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Furniture scale and footprints read correctly inside the 6×4 m room; the room shell, floor patterns, shadows, occlusion, and orbit/plan viewpoints consistently support the planning task.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-54-788Z.jpeg",
+        "evidence/page-2026-11-24T17-25-42-203Z.jpeg",
+        "evidence/page-2026-11-24T17-26-43-786Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Editing sequences, view changes, collision rollback, snapping changes, save/reload/restore, reset, and mobile editing all produced reliable and understandable feedback.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-24-37-031Z.jpeg",
+        "evidence/page-2026-11-24T17-24-48-018Z.jpeg",
+        "evidence/page-2026-11-24T17-29-28-768Z.jpeg",
+        "evidence/page-2026-11-24T17-30-28-152Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The warm daylight palette, restrained typography, clean side panel, furniture materials, shadows, and responsive composition form a purposeful and legible design.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-54-788Z.jpeg",
+        "evidence/page-2026-11-24T17-24-37-031Z.jpeg",
+        "evidence/page-2026-11-24T17-25-26-700Z.jpeg",
+        "evidence/page-2026-11-24T17-30-28-152Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "Desktop, reload, repeated editing, save/restore/reset, and the narrow layout remained usable. No crash or missing core asset occurred; only a nonblocking favicon 404 appeared in the console.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-54-788Z.jpeg",
+        "evidence/page-2026-11-24T17-29-28-768Z.jpeg",
+        "evidence/page-2026-11-24T17-30-28-152Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The 390×844 result verifies responsive layout and pointer UI, not physical touch hardware or multi-touch behavior.",
+    "Keyboard focus traversal was not separately exercised within the 40-call limit; mobile controls were verified through their UI accessibility roles and screenshots.",
+    "A conflicting 90-degree rotation into an occupied footprint was not separately recreated; invalid drag feedback and rollback were directly observed.",
+    "Console output contains only a missing favicon.ico 404, which did not block loading or interaction. Network resources for the app and Three.js modules loaded from the local server."
+  ]
+}

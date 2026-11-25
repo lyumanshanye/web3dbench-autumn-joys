@@ -1,0 +1,12 @@
+{
+  "name": "web3dbench-rollout",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/manrope": "^5.3.0",
+    "gsap": "^3.12.5",
+    "three": "0.160.1"
+  }
+}

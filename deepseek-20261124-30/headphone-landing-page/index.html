@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#090a08" />
+    <meta
+      name="description"
+      content="Aural Monolith 01 — a planar-magnetic reference headphone built for the space between notes."
+    />
+    <title>AURAL — Monolith 01</title>
+    <link rel="preload" href="./assets/LiberationSans-Bold.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="./assets/LiberationMono-Regular.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23090a08'/%3E%3Ccircle cx='32' cy='32' r='19' fill='none' stroke='%23d0ff43' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23d0ff43'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <div class="ambient ambient--lime" aria-hidden="true"></div>
+    <div class="ambient ambient--ember" aria-hidden="true"></div>
+    <div class="grid-overlay" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <canvas id="product-canvas" aria-label="Interactive 3D view of the Monolith 01 headphone"></canvas>
+
+    <header class="site-header">
+      <a class="brand interactive" href="#top" aria-label="Aural home">
+        <span class="brand-glyph" aria-hidden="true">
+          <span></span>
+        </span>
+        <span class="brand-name">AURAL</span>
+        <span class="brand-code">/01</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a class="interactive" href="#engineering">ENGINEERING</a>
+        <a class="interactive" href="#specifications">SPECIFICATIONS</a>
+        <a class="interactive" href="#reserve">RESERVE</a>
+      </nav>
+
+      <div class="header-tools">
+        <span class="stock"><i aria-hidden="true"></i> 120 UNITS</span>
+        <a class="mini-cta interactive" href="#reserve">SECURE YOURS <span aria-hidden="true">↗</span></a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-ghost" aria-hidden="true">01</div>
+        <div class="hero-side-label" aria-hidden="true">REFERENCE OBJECT — MMXXVI</div>
+
+        <div class="hero-copy">
+          <p class="eyebrow reveal">
+            <span class="eyebrow-dot" aria-hidden="true"></span>
+            MONOLITH / 01
+            <span class="eyebrow-rule" aria-hidden="true"></span>
+            FLAGSHIP
+          </p>
+
+          <h1 class="hero-title" id="hero-title">
+            <span class="title-line"><span>NOTHING</span></span>
+            <span class="title-line title-line--accent"><span>BUT</span></span>
+            <span class="title-line title-line--outline"><span>SOUND.</span></span>
+          </h1>
+
+          <p class="hero-lede reveal">
+            A planar-magnetic reference headphone tuned for the space between notes. No
+            colouration. No compromise. Just the recording, laid bare.
+          </p>
+
+          <div class="hero-actions reveal">
+            <a class="primary-cta interactive" href="#engineering">
+              <span>EXPLORE THE OBJECT</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+            </a>
+            <div class="hero-price">
+              <span>USD</span>
+              <strong>$1,240</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="drag-hint" aria-hidden="true">
+          <span class="drag-orbit"></span>
+          DRAG TO INSPECT
+        </div>
+
+        <aside class="spec-rail" aria-label="Key specifications">
+          <p class="spec-rail-title">TECHNICAL PROFILE</p>
+          <div class="rail-item">
+            <strong>40<small>kHz</small></strong>
+            <span>FREQUENCY CEILING</span>
+          </div>
+          <div class="rail-item">
+            <strong>0.001<small>%</small></strong>
+            <span>TOTAL HARMONIC DISTORTION</span>
+          </div>
+          <div class="rail-item">
+            <strong>380<small>g</small></strong>
+            <span>CALIBRATED MASS</span>
+          </div>
+        </aside>
+
+        <div class="scroll-cue" aria-hidden="true">
+          <span>SCROLL TO DECONSTRUCT</span>
+          <i></i>
+        </div>
+
+        <div class="ticker" aria-hidden="true">
+          <div class="ticker-track">
+            <span>PLANAR MAGNETIC DRIVER <b>✦</b> CNC-MACHINED ALUMINUM <b>✦</b> LAMBSKIN SEAL <b>✦</b> 20 Hz — 40 kHz <b>✦</b> HAND-ASSEMBLED IN BERLIN <b>✦</b> LIMITED RUN OF 120 <b>✦</b></span>
+            <span>PLANAR MAGNETIC DRIVER <b>✦</b> CNC-MACHINED ALUMINUM <b>✦</b> LAMBSKIN SEAL <b>✦</b> 20 Hz — 40 kHz <b>✦</b> HAND-ASSEMBLED IN BERLIN <b>✦</b> LIMITED RUN OF 120 <b>✦</b></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="engineering" id="engineering" aria-labelledby="engineering-title">
+        <div class="section-index">02 <span>/</span> ENGINEERING</div>
+        <div class="engineering-copy">
+          <p class="eyebrow eyebrow--dark">FORM FOLLOWS FREQUENCY</p>
+          <h2 id="engineering-title">BUILT AROUND<br />ONE OBSESSION<span>.</span></h2>
+          <p class="engineering-lede">
+            Every surface has an acoustic job. The Monolith 01 uses a tensioned planar
+            driver, a low-resonance alloy frame and a hand-sewn acoustic seal to remove
+            everything between you and the master tape.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-number">01</span>
+            <div class="feature-icon feature-icon--driver" aria-hidden="true"></div>
+            <h3>PLANAR<br />CORE</h3>
+            <p>A 40 mm ultra-thin diaphragm, driven evenly across its full surface. Fast. Linear. Unflappable.</p>
+            <span class="feature-meta">40 kHz EXTENSION</span>
+          </article>
+          <article class="feature-card">
+            <span class="feature-number">02</span>
+            <div class="feature-icon feature-icon--frame" aria-hidden="true"></div>
+            <h3>ZERO<br />RESONANCE</h3>
+            <p>Five-axis machined aluminum cradles the driver in a rigid, internally damped architecture.</p>
+            <span class="feature-meta">CNC / 6061-T6</span>
+          </article>
+          <article class="feature-card">
+            <span class="feature-number">03</span>
+            <div class="feature-icon feature-icon--pad" aria-hidden="true"></div>
+            <h3>SEALED<br />SILENCE</h3>
+            <p>Memory-foam cores wrapped in supple lambskin create a seal without pressure. Disappear.</p>
+            <span class="feature-meta">LAMBSKIN / MEMORY FOAM</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="specifications" id="specifications" aria-labelledby="specifications-title">
+        <div class="spec-topline">
+          <div class="section-index section-index--light">03 <span>/</span> SPECIFICATIONS</div>
+          <p>MEASURED. VERIFIED. WORN.</p>
+        </div>
+
+        <div class="spec-heading-row">
+          <h2 id="specifications-title">THE<br />NUMBERS<span>.</span></h2>
+          <div class="response-panel">
+            <div class="response-label"><span>FREQUENCY RESPONSE</span><span>± 0.8 dB</span></div>
+            <svg class="response-chart" viewBox="0 0 520 140" role="img" aria-label="Flat frequency response graph from 20 hertz to 40 kilohertz">
+              <path class="chart-grid" d="M0 25H520M0 70H520M0 115H520M65 0V140M195 0V140M325 0V140M455 0V140" />
+              <path class="chart-line" d="M0 74 C36 73 56 71 88 72 S132 76 168 72 S222 69 254 71 S306 74 338 71 S392 70 424 72 S478 71 520 73" />
+              <circle class="chart-dot" cx="168" cy="72" r="4" />
+              <circle class="chart-dot" cx="338" cy="71" r="4" />
+            </svg>
+            <div class="chart-axis"><span>20 Hz</span><span>1 kHz</span><span>10 kHz</span><span>40 kHz</span></div>
+          </div>
+        </div>
+
+        <div class="spec-table" role="table" aria-label="Monolith 01 technical specifications">
+          <div class="spec-row" role="row"><span role="cell">DRIVER</span><strong role="cell">40 mm planar magnetic</strong><em role="cell">01</em></div>
+          <div class="spec-row" role="row"><span role="cell">IMPEDANCE</span><strong role="cell">32 Ω</strong><em role="cell">02</em></div>
+          <div class="spec-row" role="row"><span role="cell">SENSITIVITY</span><strong role="cell">98 dB / 1 mW</strong><em role="cell">03</em></div>
+          <div class="spec-row" role="row"><span role="cell">FREQUENCY</span><strong role="cell">20 Hz — 40 kHz</strong><em role="cell">04</em></div>
+          <div class="spec-row" role="row"><span role="cell">DISTORTION</span><strong role="cell">&lt; 0.001% THD</strong><em role="cell">05</em></div>
+          <div class="spec-row" role="row"><span role="cell">MASS</span><strong role="cell">380 g</strong><em role="cell">06</em></div>
+        </div>
+      </section>
+
+      <section class="reserve" id="reserve" aria-labelledby="reserve-title">
+        <div class="reserve-noise" aria-hidden="true">AURAL AURAL AURAL AURAL</div>
+        <div class="reserve-meta">
+          <span>04 / ACQUISITION</span>
+          <span>DELIVERY Q1 2027</span>
+        </div>
+        <div class="reserve-main">
+          <p class="eyebrow eyebrow--dark">120 PAIRS. NO REPEATS.</p>
+          <h2 id="reserve-title">OWN THE<br />SILENCE<span>.</span></h2>
+          <a class="reserve-cta interactive" href="mailto:reserve@aural.audio">
+            <span>RESERVE MONOLITH 01</span>
+            <span class="reserve-cta-price">$1,240</span>
+          </a>
+        </div>
+        <footer class="site-footer">
+          <a class="brand brand--dark interactive" href="#top">
+            <span class="brand-glyph" aria-hidden="true"><span></span></span>
+            <span class="brand-name">AURAL</span>
+            <span class="brand-code">/01</span>
+          </a>
+          <span>BERLIN — 52.5200° N / 13.4050° E</span>
+          <span>© MMXXVI AURAL ACOUSTICS</span>
+        </footer>
+      </section>
+    </main>
+
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

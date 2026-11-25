@@ -1,0 +1,112 @@
+{
+  "version": "3.0",
+  "task": "print-orientation-workbench",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07",
+    "T08"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "A useful procedural L bracket includes a bolt hole and overhang in a visible 220x220x250mm build volume.",
+      "action": "Inspect the initial part and build-volume outline.",
+      "expected": "An L-shaped bracket with bolt hole and overhang sits in a visible 220x220x250mm volume.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Local ASCII and binary STL imports treat coordinates as millimeters and reject unreadable files without losing the current part.",
+      "action": "Import valid ASCII and binary STL fixtures, then an unreadable file.",
+      "expected": "Coordinates are treated as millimeters and unreadable input reports an error without replacing the current part.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Orbit/front/side/top inspection and transformed width/depth/height agree with scale and orientation.",
+      "action": "Switch orbit/front/side/top views after transforming the part.",
+      "expected": "Displayed width/depth/height match the transformed geometry and camera views.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "Numeric/quarter-turn axis rotations, uniform scale, bed translation and Place on bed preserve independent camera/object state and place the lowest point at bed height.",
+      "action": "Rotate on each axis, scale uniformly, translate on the bed and use Place on bed; move the camera separately.",
+      "expected": "Object transforms apply, the lowest point rests at bed height, and camera navigation does not change object coordinates.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "Outside-volume portions and downward-facing overhangs are identified with an adjustable documented angle convention excluding bed-resting faces.",
+      "action": "Place geometry outside the volume and vary the overhang threshold.",
+      "expected": "Outside portions and downward overhangs highlight according to the disclosed angle convention, excluding bed-resting faces.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T06",
+      "requirement": "A horizontal section plane exposes a cross-section while preserving part orientation.",
+      "action": "Move the horizontal section plane through the part.",
+      "expected": "Cross-section and height update while the chosen object orientation is preserved.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T07",
+      "requirement": "STL export bakes current scale/rotation/placement; reimport reproduces geometry/dimensions, and reset restores the initially loaded part.",
+      "action": "Export a transformed STL, reimport it and reset.",
+      "expected": "Exported geometry includes scale/rotation/placement, reimport reproduces dimensions, and reset restores the initially loaded part.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T08",
+      "requirement": "File processing stays in the browser; slicing, generated supports and printer communication are outside scope. Unobservable implementation details must remain unverified.",
+      "action": "Import and export with external services unavailable, inspecting relevant browser network activity where accessible.",
+      "expected": "File handling works locally; hidden implementation facts remain unverified and slicer/support/printer features are not required.",
+      "dimension": "instruction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the sample bracket, dimensions, build limits and overhang-angle explanation.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Rotate/scale/place the part, compare views, force a volume violation and inspect section heights.",
+      "criteria": [
+        "G03",
+        "T02",
+        "T03",
+        "T04"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Import small ASCII/binary STL fixtures, reject a malformed fixture, export/reimport a transformed part and compare dimensions before reset.",
+      "criteria": [
+        "G04",
+        "T05",
+        "T06",
+        "T07",
+        "T08"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

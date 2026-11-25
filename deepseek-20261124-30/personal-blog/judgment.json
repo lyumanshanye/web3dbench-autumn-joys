@@ -1,0 +1,175 @@
+{
+  "summary": "Strong reading-first personal blog with six local posts, working topic routes, fully readable article views, browser-back context, and a genuinely interactive 3D desk. The normal desktop and narrow article layouts are coherent, but reduced-motion mode hides key hero copy and control labels; long-running reload and repeat captures also stalled.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded successfully on desktop and at 390x844. Core HTML, CSS, JavaScript, Three.js, and geometry resources returned HTTP 200; console.txt contains no application errors. Visual rendering remained usable despite later automation timeouts.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-18-46-019Z.jpeg",
+      "evidence/page-2026-11-24T17-33-24-559Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The desk is genuine live 3D rather than a static image: three camera views show changing table perspective, object parallax, leg occlusion, and cast shadows. Materials and lighting form a coherent, small desk vignette.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-18-46-019Z.jpeg",
+      "evidence/page-2026-11-24T17-19-02-699Z.jpeg",
+      "evidence/page-2026-11-24T17-19-14-890Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct desk views were inspected. Turning the camera changes edge angles, object overlap, table-leg visibility, and projected shadows, confirming task-relevant depth and geometry.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-18-46-019Z.jpeg",
+        "evidence/page-2026-11-24T17-19-02-699Z.jpeg",
+        "evidence/page-2026-11-24T17-19-14-890Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The editorial serif/sans pairing, warm restrained palette, clear hierarchy, illustration system, and desk lighting form a coherent visual identity. Article and landing states remain legible in normal motion.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-18-46-019Z.jpeg",
+        "evidence/page-2026-11-24T17-26-48-475Z.jpeg",
+        "evidence/page-2026-11-24T17-33-24-559Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Desk right/left controls produced meaningful camera changes, topic filtering changed the dispatch count and visible cards, and article links opened readable full-note views with clear feedback.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-02-699Z.jpeg",
+        "evidence/page-2026-11-24T17-26-14-902Z.jpeg",
+        "evidence/page-2026-11-24T17-26-48-475Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PARTIAL",
+      "reason": "Repeat and reverse desk turning worked, and browser back restored the filtered list context after an article. Reset and pause recovery controls were present but not successfully verified because their click actions timed out waiting for stability.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-02-699Z.jpeg",
+        "evidence/page-2026-11-24T17-19-14-890Z.jpeg",
+        "evidence/page-2026-11-24T17-27-16-831Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "reason": "Desktop 1440x900 and a 390x844 full-page article were inspected. The mobile article reflows to one readable column and the network log shows successful core resources, but hard-reload and repeated interaction checks later stalled, so narrow lower controls and reload stability are not fully certified.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-18-46-019Z.jpeg",
+        "evidence/page-2026-11-24T17-33-24-559Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "Maya Chen's blog exposes six local posts split across Cities, Food, and Experiments, with distinct titles, dates, durations, excerpts, and full readable article typography. The filtered list confirms dispatch counts and two sampled article views contain complete prose, headings, and a recipe/lists where relevant.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-14-902Z.jpeg",
+        "evidence/page-2026-11-24T17-26-48-475Z.jpeg",
+        "evidence/page-2026-11-24T17-33-24-559Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "The compact Three.js desk adds personality in its own framed area and does not block article access. Its camera controls visibly change the scene, and the post grid remains immediately reachable below it.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-18-46-019Z.jpeg",
+        "evidence/page-2026-11-24T17-19-02-699Z.jpeg",
+        "evidence/page-2026-11-24T17-19-14-890Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Selecting Cities changed the list to two dispatches and updated the topic URL/title; the Food route likewise exposed its matching articles and allowed opening The Soup That Knows the Weather. Article pages provide full readable content rather than excerpts.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-14-902Z.jpeg",
+        "evidence/page-2026-11-24T17-26-48-475Z.jpeg",
+        "evidence/page-2026-11-24T17-27-16-831Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PARTIAL",
+      "reason": "Article URLs use stable note hashes and the direct walking-post URL restored that article at 390px. Browser back from the Soup article returned to the Food-filtered list with two dispatches. A hard reload was attempted, but the browser timed out waiting for the load event, so refresh survival is not fully verified.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-48-475Z.jpeg",
+        "evidence/page-2026-11-24T17-27-16-831Z.jpeg",
+        "evidence/page-2026-11-24T17-33-24-559Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "FAIL",
+      "reason": "The 390px article remains readable in one column, and focusable links and desk controls are present, but reduced-motion mode is visibly broken: after reload and wait, the main heading, introductory copy, CTA text, and desk-control labels are absent while the desk remains. This does not preserve usable content for reduced-motion users.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-54-551Z.jpeg",
+        "evidence/page-2026-11-24T17-33-24-559Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 3,
+      "reason": "The blog's subject and primary reading flows are delivered: six posts, topics, full articles, shareable routes, and back navigation. The explicit reduced-motion requirement fails in a tested state, and refresh evidence is incomplete.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-48-475Z.jpeg",
+        "evidence/page-2026-11-24T17-27-16-831Z.jpeg",
+        "evidence/page-2026-11-24T17-23-54-551Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Across three camera views the desk's proportions, contact points, object depth, occlusion, lighting, and shadows remain convincing and consistently support the scene's purpose.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-18-46-019Z.jpeg",
+        "evidence/page-2026-11-24T17-19-02-699Z.jpeg",
+        "evidence/page-2026-11-24T17-19-14-890Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "Desk turning, filtering, article opening, and browser back work with clear state feedback. Some advertised recovery controls and long-running repeat operations could not be reliably exercised.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-02-699Z.jpeg",
+        "evidence/page-2026-11-24T17-26-14-902Z.jpeg",
+        "evidence/page-2026-11-24T17-27-16-831Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 3,
+      "reason": "Normal desktop and mobile states have confident typography, cohesive color, clear hierarchy, and a personality-rich scene. The reduced-motion state loses essential text and composition, preventing consistent visual quality across states.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-18-46-019Z.jpeg",
+        "evidence/page-2026-11-24T17-26-48-475Z.jpeg",
+        "evidence/page-2026-11-24T17-23-54-551Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 2,
+      "reason": "The main desktop and mobile reading views load without console errors, but repeated screenshots/clicks and a direct reload timed out after continued animation, and reduced-motion mode removes visible content. These are substantial state/repeat robustness problems beyond minor degradation.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-18-46-019Z.jpeg",
+        "evidence/page-2026-11-24T17-23-54-551Z.jpeg",
+        "evidence/page-2026-11-24T17-33-24-559Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "Reduced-motion behavior was observed visually after reload and an additional wait; the hero copy and CTA labels remained invisible.",
+    "A direct note URL restored the article, but the attempted hard reload exceeded the browser load timeout, so refresh survival is marked partial rather than fully verified.",
+    "Keyboard focus order and activation, plus the desk reset/pause controls, were not fully exercised after the consolidated automation pass aborted; the accessibility tree showed all of them as focusable buttons/links.",
+    "Clipboard permissions and the Copy link success message were not tested, and no audio, backend editing, or export flow is part of this task.",
+    "Prolonged interactions produced intermittent 60-second screenshot/click timeouts; these did not present as a persistent application crash and the page remained renderable after reload."
+  ]
+}

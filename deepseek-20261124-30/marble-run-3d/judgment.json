@@ -1,0 +1,174 @@
+{
+  "summary": "The HUD loads at desktop and mobile sizes, but the application fails at runtime: node_modules/cannon-es/dist/cannon-es.js returns HTTP 404 on every load, no canvas is created, and all course, physics, camera, and result functionality is unavailable.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "FAIL",
+    "reason": "The page shell renders, but the critical cannon-es module request returns 404 on initial load and after reload. A read-only DOM probe found zero canvas elements; Release, Space, Retry, and Reset all leave the attempt count at 00 and the course area blank.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-22-13-106Z.jpeg",
+      "evidence/page-2026-11-24T17-22-43-487Z.jpeg",
+      "evidence/page-2026-11-24T17-23-27-901Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "NOT_EVALUATED",
+    "reason": "No 3D scene or canvas exists because initialization fails before a renderer is created, so geometry, depth, occlusion, materials, lighting, and camera behavior cannot be inspected.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-22-13-106Z.jpeg",
+      "evidence/page-2026-11-24T17-22-56-443Z.jpeg",
+      "evidence/page-2026-11-24T17-23-27-901Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "NOT_EVALUATED",
+      "reason": "The viewport contains no canvas or rendered course, so task-relevant depth and geometry cannot be inspected from any view.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-13-106Z.jpeg",
+        "evidence/page-2026-11-24T17-22-56-443Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PARTIAL",
+      "reason": "The surrounding HUD is clean and legible at both viewport sizes, and its typography/color hierarchy is coherent, but the course composition, materials, and lighting requested by the task are entirely absent.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-13-106Z.jpeg",
+        "evidence/page-2026-11-24T17-22-56-443Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "FAIL",
+      "reason": "The primary Release button and the advertised Space shortcut produce no scene change, no status change, and no attempt-count increment.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-43-487Z.jpeg",
+        "evidence/page-2026-11-24T17-24-33-410Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "FAIL",
+      "reason": "Retry and Reset all are clickable but cause no observable state change, and Pause is disabled; no repeat or recovery flow can execute because there is no active simulation.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-24-17-330Z.jpeg",
+        "evidence/page-2026-11-24T17-24-22-608Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "FAIL",
+      "reason": "Both 1440x900 and 390x844 layouts render the HUD without horizontal overflow, mobile lower controls remain visible, and keyboard focus is visible; however, reload repeats the missing cannon-es 404 and the primary 3D experience never loads. Console and network details are recorded in evidence/console.txt and evidence/network.txt.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-56-443Z.jpeg",
+        "evidence/page-2026-11-24T17-24-51-999Z.jpeg",
+        "evidence/page-2026-11-24T17-23-27-901Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "FAIL",
+      "reason": "No tabletop course is rendered, so elevated ramps, guardrails, the jump gap, and the marked finish basin are all absent.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-13-106Z.jpeg",
+        "evidence/page-2026-11-24T17-23-27-901Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "FAIL",
+      "reason": "With no canvas or running simulation, neither Release nor Space produces a marble, gravity response, fall, bounce, or visible collision.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-43-487Z.jpeg",
+        "evidence/page-2026-11-24T17-24-33-410Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "FAIL",
+      "reason": "The launch-impulse range thumb can be moved natively to its end, but the displayed value remains 62%, no ramp geometry exists to move, and no trajectory or collision outcome changes.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-18-718Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "FAIL",
+      "reason": "No attempt can be started and no success is detected; the attempt counter remains 00, so no settings combination can reach the absent finish basin.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-43-487Z.jpeg",
+        "evidence/page-2026-11-24T17-24-33-410Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "FAIL",
+      "reason": "Release does not start an attempt, setup controls remain visually available rather than locking, the counter stays at 00, and no off-course failure can occur or be reported.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-43-487Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "FAIL",
+      "reason": "Pause is disabled, Retry and Reset all produce no visible result, and there is no active marble motion or settings/count state to preserve or restore.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-24-17-330Z.jpeg",
+        "evidence/page-2026-11-24T17-24-22-608Z.jpeg"
+      ]
+    },
+    {
+      "id": "T07",
+      "status": "FAIL",
+      "reason": "Course and Follow buttons are present, but there is no rendered course or marble camera to inspect or follow; orbit and zoom therefore have no 3D effect. The mobile layout is visible, but real touch hardware was not available to verify.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-13-106Z.jpeg",
+        "evidence/page-2026-11-24T17-22-56-443Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": null,
+      "reason": "Not scored because the page fails to run, preventing evaluation of the requested playable flow; the rubric directs null quality scores for runtime failure.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-27-901Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": null,
+      "reason": "Not scored because no 3D scene or canvas is created, so spatial quality cannot be evaluated.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-13-106Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": null,
+      "reason": "Not scored because the application runtime fails before interactions can affect a scene or simulation state.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-43-487Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": null,
+      "reason": "Not scored because the 3D visual subject never renders, although the surrounding HUD is visible.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-56-443Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": null,
+      "reason": "Not scored because the page has a reproducible core resource failure on initial load and reload.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-27-901Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "No 3D scene, canvas, or camera existed, so depth, materials, lighting, occlusion, physics quality, success behavior, and camera-follow smoothness could not be evaluated.",
+    "Mobile testing used a 390x844 viewport, but real touch hardware was unavailable; touch-specific behavior remains unverified.",
+    "No download or export action was advertised or available to inspect.",
+    "Browser-only observation cannot establish the intended physics-library implementation; the network log does identify a missing cannon-es module."
+  ]
+}

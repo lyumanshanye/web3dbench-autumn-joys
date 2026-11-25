@@ -1,0 +1,199 @@
+{
+  "summary": "Northstar is a complete, polished building-energy explorer. It presents a genuine WebGL three-floor cutaway, 12 stable rooms, seven days of hourly sample data, discoverable after-hours patterns, synchronized selection and filters, fixed legends, partial-data handling, two-room comparison, and a filtered CSV export. All task checks pass. The main local issue is the narrow-screen table, which requires horizontal scrolling to reach right-side columns.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded and remained interactive at both tested viewports. Runtime inspection found two canvases, an available WebGL context, 12 table rows, no page errors, and no failed network requests. The only console output was a nonblocking WebGL ReadPixels performance warning. Reload restored the default 12-room, 48-hour view.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-19-19-689Z.jpeg",
+      "evidence/page-2026-11-24T17-20-01-446Z.jpeg",
+      "evidence/page-2026-11-24T17-23-41-944Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The scene is genuine task-relevant 3D, not a static image. Orbiting changes perspective, room faces occlude one another, floor slabs separate the three levels, and translucent volumes reveal rooms behind foreground geometry. Selected rooms receive a bright spatial outline and label.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-19-19-689Z.jpeg",
+      "evidence/page-2026-11-24T17-19-53-034Z.jpeg",
+      "evidence/page-2026-11-24T17-20-01-446Z.jpeg",
+      "evidence/page-2026-11-24T17-20-12-039Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "At least three materially different views show depth, overlapping floor volumes, occlusion, floor separation, and camera parallax. A direct 3D room click also changed the selected outline and synchronized details.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-19-689Z.jpeg",
+        "evidence/page-2026-11-24T17-19-53-034Z.jpeg",
+        "evidence/page-2026-11-24T17-20-01-446Z.jpeg",
+        "evidence/page-2026-11-24T17-20-12-039Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Composition, typography, color, lighting, and legibility are coherent. The dark dashboard supports the translucent cutaway, labels and legends remain readable, and the chart/summary hierarchy supports the facilities task.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-19-689Z.jpeg",
+        "evidence/page-2026-11-24T17-21-38-674Z.jpeg",
+        "evidence/page-2026-11-24T17-23-41-944Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Primary controls produce meaningful feedback. Table selection updates the 3D outline, summary, and chart; 3D selection updates the table and summary; metric and time changes update colors, scales, labels, and readings; Compare opens two synchronized series on a shared chart.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-12-039Z.jpeg",
+        "evidence/page-2026-11-24T17-20-27-441Z.jpeg",
+        "evidence/page-2026-11-24T17-20-55-189Z.jpeg",
+        "evidence/page-2026-11-24T17-21-14-802Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeat, reverse, and recovery flows worked: the table reversed sort order, metric and floor filters updated consistently, finishing comparison restored the single-room view, and hiding the selected room's floor cleared selection everywhere. Reload returned to the complete default view.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-37-528Z.jpeg",
+        "evidence/page-2026-11-24T17-21-25-034Z.jpeg",
+        "evidence/page-2026-11-24T17-22-00-816Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Desktop 1440x900 and mobile 390x844 were inspected, including all lower rows and export control. The mobile page has no document-level horizontal overflow; the table alone is horizontally scrollable (645 px content in a 366 px region), so right columns are not simultaneously visible. Keyboard focus reached the major controls and table headers. Reload was clean, with no page errors or failed requests.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-19-689Z.jpeg",
+        "evidence/page-2026-11-24T17-23-41-944Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The building has three floors with four rooms each, labeled by floor and room in the 3D view. The table exposes 12 stable IDs (r-101 through r-304), names, floors, areas in m2, energy in kWh, kWh/m2, and reading counts. The 7D state shows the sample week 8-14 Nov 2026, 168 hourly intervals, shared with the model and charts. All recorded data and asset requests were served locally by the app origin.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-19-689Z.jpeg",
+        "evidence/page-2026-11-24T17-21-48-909Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Meeting Room 2 shows a daytime-heavy profile, Server Room runs near-continuously with a high after-hours share, and Finance & Ops opens with a sharp 10.6 kWh spike at Sat 14 Nov 03:00 described as 71x its overnight baseline. Archive has a distinct four-reading missing run, rendered with hatching and a chart gap. The initial 48-hour interval exposes the spike.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-19-689Z.jpeg",
+        "evidence/page-2026-11-24T17-20-12-039Z.jpeg",
+        "evidence/page-2026-11-24T17-20-55-189Z.jpeg",
+        "evidence/page-2026-11-24T17-21-38-674Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Switching between Total kWh and kWh/m2 updates the legend title, units, endpoints, and room colors. The kWh/m2 scale remained 0.0-6.5 while floor isolation changed from floor 02 to floor 01. The legend explicitly marks hatch as missing readings, and Archive's hatched model/chart treatment is distinct from zero.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-21-14-802Z.jpeg",
+        "evidence/page-2026-11-24T17-21-25-034Z.jpeg",
+        "evidence/page-2026-11-24T17-21-38-674Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Archive is explicitly marked partial. The summary shows 44 of 48 readings available, the table shows 44/48 with a PARTIAL badge, and the chart identifies the four missing hours. At 7D it correctly reports 164 of 168 available.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-21-38-674Z.jpeg",
+        "evidence/page-2026-11-24T17-21-48-909Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "Direct 3D selection outlined Meeting Room 2 and updated its summary, chart, and selected table row. Selecting Studio One in the table highlighted its 3D volume and updated the same views. Isolating floor 02 while Studio One on floor 01 was selected cleared the selected room, showed No room selected, removed the chart data, and limited the table consistently. Energy-header sorting reversed row order.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-12-039Z.jpeg",
+        "evidence/page-2026-11-24T17-20-27-441Z.jpeg",
+        "evidence/page-2026-11-24T17-20-37-528Z.jpeg",
+        "evidence/page-2026-11-24T17-22-00-816Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PASS",
+      "reason": "Changing from 48H to 7D updated the interval label, totals, reading counts, chart density, color scale, and table values using the same room data. Floor isolation reduced the table to four rooms and updated the model. The comparison view placed Finance & Ops and Server Room on one shared chart with a shared scale and legend.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-55-189Z.jpeg",
+        "evidence/page-2026-11-24T17-21-48-909Z.jpeg",
+        "evidence/page-2026-11-24T17-20-37-528Z.jpeg"
+      ]
+    },
+    {
+      "id": "T07",
+      "status": "PASS",
+      "reason": "The CSV control downloaded northstar-sample-room-summaries-2026-11-08-168h.csv. Its four rows exactly matched the active floor-03 and 7D filters. Headers include sample designation, stable room ID, floor area in m2, range, expected/available readings, completeness percent, kWh, kWh/m2, after-hours values, and an is_partial flag. Archive exported 164/168 with is_partial=true.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-21-48-909Z.jpeg",
+        "evidence/page-2026-11-24T17-22-42-078Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All stated requirements were delivered and verified: the building/data consistency, usage archetypes, discoverable spike and missing run, fixed color scales, partial totals, synchronized views, floor/time filters, comparison, and filtered CSV with units and completeness.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-19-689Z.jpeg",
+        "evidence/page-2026-11-24T17-21-48-909Z.jpeg",
+        "evidence/page-2026-11-24T17-22-42-078Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The cutaway uses coherent three-floor geometry, room subdivisions, transparent materials, floor plates, occlusion, lighting, and labels. Multiple orbit views confirm real perspective and spatial relationships, and selection highlights preserve the room's volume.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-53-034Z.jpeg",
+        "evidence/page-2026-11-24T17-20-01-446Z.jpeg",
+        "evidence/page-2026-11-24T17-20-12-039Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Selection is synchronized across 3D, table, chart, and summary. Metric, time, and floor combinations update consistently; comparison and export are discoverable; hiding a selected floor and reloading recover cleanly; and sorting reverses reliably.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-27-441Z.jpeg",
+        "evidence/page-2026-11-24T17-20-37-528Z.jpeg",
+        "evidence/page-2026-11-24T17-20-55-189Z.jpeg",
+        "evidence/page-2026-11-24T17-22-42-078Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The layout has a strong task hierarchy: compact controls, prominent cutaway, selected-room summary, chart, and sortable table. Color and state transitions consistently distinguish energy levels, missing data, selection, and comparison without obscuring readings.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-19-689Z.jpeg",
+        "evidence/page-2026-11-24T17-21-38-674Z.jpeg",
+        "evidence/page-2026-11-24T17-23-41-944Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "Tested desktop flows, reload, focus traversal, comparison, filtering, sorting, and export were stable with no page errors or failed requests. The narrow layout is usable but has a local, nonblocking table issue: its right-side columns require horizontal scrolling inside the 366 px region.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-19-689Z.jpeg",
+        "evidence/page-2026-11-24T17-23-41-944Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The mobile table is horizontally scrollable: its content is about 645 px wide inside a 366 px region, so all columns are not visible simultaneously. Real touch hardware was not available; only a 390x844 viewport was tested.",
+    "Keyboard focus traversal was inspected programmatically rather than captured as a separate screenshot; it reached the main controls and sortable table headers.",
+    "The custom calendar's internal boundary choices were not fully exercised; 24H, 48H, and 7D preset changes were verified.",
+    "The downloaded CSV was rendered as an identical inline text copy for browser screenshots because Chromium treats raw CSV URLs as downloads. No application source or internal implementation was inspected.",
+    "Audio is not part of this task and was not evaluated; internal dataset construction was assessed only from visible content and local network activity."
+  ]
+}

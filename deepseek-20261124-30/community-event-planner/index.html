@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#153f35" />
+    <meta
+      name="description"
+      content="Meadowline is an editable 3D festival site-planning demonstration with equipment layout, walking routes, and a linked activity schedule."
+    />
+    <title>Meadowline · Community Festival Planner</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app" class="app-shell">
+      <header class="app-header">
+        <a class="brand" href="./" aria-label="Meadowline Festival Planner home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none">
+              <path d="M7 37.5 24 8l17 29.5H7Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" />
+              <path d="M17 37.5 24 24l7 13.5M24 8v16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M4 38h40" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <span class="eyebrow">Community outdoor festival</span>
+            <span class="brand-title">Meadowline <em>Festival Planner</em></span>
+          </span>
+        </a>
+
+        <div class="park-ribbon" aria-label="Park summary">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span><strong>68 × 44 m</strong> park site</span>
+          <span class="ribbon-divider" aria-hidden="true"></span>
+          <span>2 entrances · 1 accessible WC</span>
+          <span class="ribbon-divider" aria-hidden="true"></span>
+          <span id="savedStatus">Saved locally</span>
+        </div>
+
+        <div class="header-actions" aria-label="Plan actions">
+          <div class="button-cluster" role="group" aria-label="Edit history">
+            <button id="undoBtn" class="icon-button" type="button" aria-label="Undo last layout edit" title="Undo layout edit (Ctrl+Z)" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7 4 12l5 5M5 12h8a6 6 0 0 1 6 6" /></svg>
+              <span>Undo</span>
+            </button>
+            <button id="redoBtn" class="icon-button" type="button" aria-label="Redo layout edit" title="Redo layout edit (Ctrl+Shift+Z)" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 7 5 5-5 5M19 12h-8a6 6 0 0 0-6 6" /></svg>
+              <span>Redo</span>
+            </button>
+          </div>
+          <button id="saveBtn" class="icon-button save-button" type="button" aria-label="Save plan to this browser" title="Save plan locally">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5V4Z" /><path d="M8 4v5h7V4M8 20v-7h8v7" /></svg>
+            <span>Save</span>
+          </button>
+          <button id="exportBtn" class="icon-button" type="button" aria-label="Export plan as JSON" title="Export JSON">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" /></svg>
+            <span>Export</span>
+          </button>
+          <button id="importBtn" class="icon-button" type="button" aria-label="Import a plan from JSON" title="Import JSON">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0 4 4m-4-4L8 8M5 17v3h14v-3" /></svg>
+            <span>Import</span>
+          </button>
+          <button id="printBtn" class="icon-button" type="button" aria-label="Open printable plan summary" title="Print summary">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8V3h10v5M7 17H4V9h16v8h-3M7 14h10v7H7v-7Z" /></svg>
+            <span>Print</span>
+          </button>
+          <button id="resetBtn" class="icon-button danger-quiet" type="button" aria-label="Reset the plan to the sample park" title="Reset to sample">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 1 1 2.3 6M4 11V5m0 6h6" /></svg>
+            <span>Reset</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="workspace" class="workspace" data-mobile-panel="equipment">
+        <aside class="sidebar equipment-sidebar" aria-label="Equipment planning">
+          <section class="card library-card">
+            <div class="card-heading compact-heading">
+              <div>
+                <p class="eyebrow">Build the site</p>
+                <h2>Equipment library</h2>
+              </div>
+              <span class="info-pill" title="New items are placed at an open spot and selected">+ Add</span>
+            </div>
+            <p class="card-intro">Choose an item to place it in an open part of the park.</p>
+            <div class="equipment-library" role="group" aria-label="Add equipment">
+              <button class="library-item" type="button" data-add-type="stage" aria-label="Add a stage, default 12 by 8 metres">
+                <span class="library-icon stage-icon" aria-hidden="true">ST</span>
+                <span><strong>Stage</strong><small>12 × 8 m</small></span>
+              </button>
+              <button class="library-item" type="button" data-add-type="food-stall" aria-label="Add a food stall, default 4 by 3 metres">
+                <span class="library-icon food-icon" aria-hidden="true">FD</span>
+                <span><strong>Food stall</strong><small>4 × 3 m</small></span>
+              </button>
+              <button class="library-item" type="button" data-add-type="seating" aria-label="Add a seating area, default 8 by 6 metres">
+                <span class="library-icon seating-icon" aria-hidden="true">SE</span>
+                <span><strong>Seating</strong><small>8 × 6 m</small></span>
+              </button>
+              <button class="library-item" type="button" data-add-type="info-desk" aria-label="Add an information desk, default 4 by 2.5 metres">
+                <span class="library-icon info-icon" aria-hidden="true">i</span>
+                <span><strong>Info desk</strong><small>4 × 2.5 m</small></span>
+              </button>
+              <button class="library-item" type="button" data-add-type="barrier" aria-label="Add an access barrier, default 4 by 1.2 metres">
+                <span class="library-icon barrier-icon" aria-hidden="true">!</span>
+                <span><strong>Access barrier</strong><small>4 × 1.2 m</small></span>
+              </button>
+            </div>
+          </section>
+
+          <section class="card inventory-card" aria-labelledby="inventoryTitle">
+            <div class="card-heading compact-heading">
+              <div>
+                <p class="eyebrow">Linked to the site</p>
+                <h2 id="inventoryTitle">Placed equipment</h2>
+              </div>
+              <span id="equipmentCount" class="count-badge">0</span>
+            </div>
+            <div id="equipmentList" class="equipment-list" role="listbox" aria-label="Placed equipment. Selecting an item also selects it on the site."></div>
+          </section>
+
+          <section class="card inspector-card" aria-labelledby="inspectorTitle">
+            <div class="card-heading compact-heading">
+              <div>
+                <p class="eyebrow">Selected equipment</p>
+                <h2 id="inspectorTitle">Object details</h2>
+              </div>
+              <span id="selectionModeBadge" class="selection-badge" hidden>Selected</span>
+            </div>
+            <div id="inspectorContent" class="inspector-content"></div>
+          </section>
+        </aside>
+
+        <section class="scene-shell" aria-labelledby="sceneTitle">
+          <div class="scene-header">
+            <div>
+              <p class="eyebrow">Editable 3D site</p>
+              <h2 id="sceneTitle">Meadowline Community Park</h2>
+            </div>
+            <span class="scene-mode-label" id="sceneModeLabel">Orbit view</span>
+          </div>
+
+          <div class="scene-canvas-wrap">
+            <div id="sceneMount" class="scene-mount"></div>
+
+            <div class="scene-toolbar" role="toolbar" aria-label="3D view controls">
+              <div class="segmented-control" role="group" aria-label="Camera view">
+                <button id="orbitViewBtn" class="segment active" type="button" aria-label="Orbit camera view" aria-pressed="true">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15c2-8 14-10 16-3M4 15l2 4 4-1M20 12l-2-4-4 1" /></svg>
+                  <span>Orbit</span>
+                </button>
+                <button id="topViewBtn" class="segment" type="button" aria-label="Top-down camera view" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8v6H8zM4 9h4M16 9h4" /></svg>
+                  <span>Top-down</span>
+                </button>
+              </div>
+              <button id="zoomSelectionBtn" class="scene-tool" type="button" aria-label="Zoom to selected equipment" disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="5.5" /><path d="m15 15 5 5M10.5 8v5M8 10.5h5" /></svg>
+                <span>Zoom to selection</span>
+              </button>
+              <button id="resetCameraBtn" class="scene-tool" type="button" aria-label="Reset the camera view">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 1 1 2.3 6M4 11V5m0 6h6" /></svg>
+                <span>Reset camera</span>
+              </button>
+              <button id="snapBtn" class="scene-tool snap-toggle active" type="button" aria-label="Toggle one metre grid snapping" aria-pressed="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM9.3 4v16M14.7 4v16M4 9.3h16M4 14.7h16" /></svg>
+                <span>Snap 1 m</span>
+              </button>
+            </div>
+
+            <div class="scene-compass" aria-hidden="true"><span>N</span><i></i></div>
+            <div class="scene-grid-note">1 m edit grid · metres</div>
+            <div class="scene-legend" aria-label="Site legend">
+              <span><i class="legend-dot selected-dot"></i>Selected footprint</span>
+              <span><i class="legend-dot overlap-dot"></i>Overlap</span>
+              <span><i class="legend-dot route-dot"></i>Walking route</span>
+            </div>
+            <button id="sceneIssuesBtn" class="scene-issues" type="button" aria-label="Open plan warnings">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 3.5 19h17L12 4Z" /><path d="M12 9v5M12 17h.01" /></svg>
+              <span id="sceneIssuesText">No warnings</span>
+            </button>
+            <div class="scene-help">Drag equipment to move · scroll to zoom · select an item to route</div>
+          </div>
+        </section>
+
+        <aside class="sidebar right-sidebar" aria-label="Access and schedule planning">
+          <section id="accessPanel" class="card access-card">
+            <div class="card-heading compact-heading">
+              <div>
+                <p class="eyebrow">Test the arrangement</p>
+                <h2>Walking access</h2>
+              </div>
+              <button id="modelInfoBtn" class="quiet-icon-button" type="button" aria-label="Show walking model documentation" title="Walking model details">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7h.01" /></svg>
+              </button>
+            </div>
+
+            <div class="route-controls">
+              <label class="field compact-field" for="routeStartSelect">
+                <span>Route from</span>
+                <select id="routeStartSelect">
+                  <option value="west">West Gate</option>
+                  <option value="east">East Gate</option>
+                </select>
+              </label>
+              <fieldset class="mode-field">
+                <legend>Access mode</legend>
+                <div class="mode-switch">
+                  <label class="mode-option">
+                    <input type="radio" name="accessMode" value="pedestrian" checked />
+                    <span>
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="13" cy="4.2" r="2.2" /><path d="m12 8-2 6 3 2 1 5M10 14l-3 2M12 9l4 3M14 20h3" /></svg>
+                      Pedestrian
+                    </span>
+                  </label>
+                  <label class="mode-option">
+                    <input type="radio" name="accessMode" value="step-free" />
+                    <span>
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2" /><path d="M12 7v6h5l2 6M12 13l-3 4v4M9 10H6" /></svg>
+                      Step-free
+                    </span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+
+            <div id="routeResult" class="route-result" aria-live="polite"></div>
+            <div class="route-action-row">
+              <button id="demoBlockBtn" class="secondary-button" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M7 6v12M12 6v12M17 6v12M4 19h16" /></svg>
+                Add blocked-route demo
+              </button>
+            </div>
+            <details class="model-details">
+              <summary>How the walking model works</summary>
+              <p><strong>1 m navigation grid.</strong> Routes use 4-direction A* around equipment footprints with a 0.45 m pedestrian clearance. Trees, the restroom, hedge, and placed equipment are obstacles.</p>
+              <p>The central <strong>stepped shortcut</strong> is available in pedestrian mode and removed for step-free routes. Step-free routes can use the level-access gap on the east side of the hedge.</p>
+              <p>This simplified model is a planning aid, not evidence of accessibility compliance or a safety assessment.</p>
+            </details>
+            <p class="model-disclaimer">Planning aid only · not a certified safety or accessibility assessment.</p>
+          </section>
+
+          <section id="issuesPanel" class="card issues-card" aria-labelledby="issuesTitle">
+            <div class="card-heading compact-heading">
+              <div>
+                <p class="eyebrow">Find problems fast</p>
+                <h2 id="issuesTitle">Plan warnings</h2>
+              </div>
+              <span id="issuesCount" class="count-badge warning-badge">0</span>
+            </div>
+            <div id="issuesList" class="issues-list" aria-live="polite"></div>
+          </section>
+
+          <section id="schedulePanel" class="card schedule-card" aria-labelledby="scheduleTitle">
+            <div class="card-heading compact-heading">
+              <div>
+                <p class="eyebrow">Saturday programme</p>
+                <h2 id="scheduleTitle">Activity schedule</h2>
+              </div>
+              <button id="addActivityBtn" class="small-primary-button" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+                <span>Add</span>
+              </button>
+            </div>
+            <div class="schedule-meta">
+              <span id="scheduleCount">0 activities</span>
+              <span id="scheduleWarningCount">0 scheduling issues</span>
+            </div>
+            <div id="scheduleList" class="schedule-list"></div>
+            <p class="schedule-note">Activities can be assigned to stages and seating areas. Touching start/end times are allowed.</p>
+          </section>
+        </aside>
+
+        <nav class="mobile-tabs" role="tablist" aria-label="Planning panels">
+          <button class="mobile-tab active" type="button" role="tab" aria-selected="true" data-mobile-tab="equipment">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8v6H8z" /></svg>
+            <span>Equipment</span>
+          </button>
+          <button class="mobile-tab" type="button" role="tab" aria-selected="false" data-mobile-tab="access">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="13" cy="4.2" r="2.2" /><path d="m12 8-2 6 3 2 1 5M10 14l-3 2M12 9l4 3" /></svg>
+            <span>Access</span>
+          </button>
+          <button class="mobile-tab" type="button" role="tab" aria-selected="false" data-mobile-tab="schedule">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2" /><path d="M8 3v4M16 3v4M4 10h16M8 14h3M13 14h3M8 17h3" /></svg>
+            <span>Schedule</span>
+          </button>
+          <button class="mobile-tab" type="button" role="tab" aria-selected="false" data-mobile-tab="issues">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 3.5 19h17L12 4Z" /><path d="M12 9v5M12 17h.01" /></svg>
+            <span>Issues <b id="mobileIssueCount" class="tab-count">0</b></span>
+          </button>
+        </nav>
+      </main>
+
+      <div class="demo-banner" role="note">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 7h.01" /></svg>
+        Planning demonstration only. This is not a certified safety assessment.
+      </div>
+    </div>
+
+    <dialog id="activityDialog" class="modal">
+      <form id="activityForm" method="dialog" novalidate>
+        <div class="modal-heading">
+          <div>
+            <p class="eyebrow">Activity booking</p>
+            <h2 id="activityDialogTitle">Add activity</h2>
+          </div>
+          <button id="closeActivityBtn" class="quiet-icon-button" type="button" aria-label="Close activity form">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+          </button>
+        </div>
+        <div id="activityError" class="form-error" role="alert" hidden></div>
+        <input id="activityId" type="hidden" />
+        <label class="field" for="activityTitle">
+          <span>Activity title</span>
+          <input id="activityTitle" name="title" type="text" maxlength="80" autocomplete="off" required placeholder="e.g. Community choir" />
+        </label>
+        <label class="field" for="activityFacility">
+          <span>Facility</span>
+          <select id="activityFacility" name="facility" required></select>
+          <small id="activityCapacityHint" class="field-hint"></small>
+        </label>
+        <div class="field-row">
+          <label class="field" for="activityStart">
+            <span>Start time</span>
+            <input id="activityStart" name="start" type="time" required value="10:00" />
+          </label>
+          <label class="field" for="activityEnd">
+            <span>End time</span>
+            <input id="activityEnd" name="end" type="time" required value="11:00" />
+          </label>
+        </div>
+        <label class="field" for="activityAttendance">
+          <span>Expected attendance</span>
+          <input id="activityAttendance" name="attendance" type="number" min="0" step="1" inputmode="numeric" required value="40" />
+        </label>
+        <p id="formOverlapHint" class="form-hint" aria-live="polite"></p>
+        <div class="modal-actions">
+          <button id="cancelActivityBtn" class="secondary-button" type="button">Cancel</button>
+          <button class="primary-button" type="submit">Save activity</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="deleteFacilityDialog" class="modal modal-small">
+      <div class="modal-heading">
+        <div>
+          <p class="eyebrow warning-eyebrow">Facility has bookings</p>
+          <h2>Remove this facility?</h2>
+        </div>
+      </div>
+      <p id="deleteFacilityMessage" class="modal-message"></p>
+      <div class="danger-choice">
+        <span class="danger-choice-icon" aria-hidden="true">!</span>
+        <p>Removing the facility without cancelling its activities would leave dangling schedule references. Choose explicitly how to continue.</p>
+      </div>
+      <div class="modal-actions split-actions">
+        <button id="cancelDeleteFacilityBtn" class="primary-button" type="button">Keep facility</button>
+        <button id="confirmDeleteFacilityBtn" class="danger-button" type="button">Delete facility &amp; remove bookings</button>
+      </div>
+    </dialog>
+
+    <dialog id="resetDialog" class="modal modal-small">
+      <div class="modal-heading">
+        <div>
+          <p class="eyebrow warning-eyebrow">Start over</p>
+          <h2>Reset to the sample park?</h2>
+        </div>
+      </div>
+      <p class="modal-message">This replaces the current layout, equipment, and activities with the supplied demonstration plan. Your current work will be lost unless you export it first.</p>
+      <div class="modal-actions split-actions">
+        <button id="cancelResetBtn" class="secondary-button" type="button">Cancel</button>
+        <button id="confirmResetBtn" class="danger-button" type="button">Reset to sample</button>
+      </div>
+    </dialog>
+
+    <dialog id="importErrorDialog" class="modal modal-small">
+      <div class="modal-heading">
+        <div>
+          <p class="eyebrow warning-eyebrow">Import stopped</p>
+          <h2>The plan was not replaced</h2>
+        </div>
+      </div>
+      <p class="modal-message">The selected file could not be validated. Your existing work has been preserved.</p>
+      <ul id="importErrorList" class="error-list"></ul>
+      <div class="modal-actions">
+        <button id="closeImportErrorBtn" class="primary-button" type="button">Return to my plan</button>
+      </div>
+    </dialog>
+
+    <dialog id="walkingModelDialog" class="modal modal-small">
+      <div class="modal-heading">
+        <div>
+          <p class="eyebrow">Documentation</p>
+          <h2>Simplified walking model</h2>
+        </div>
+        <button id="closeWalkingModelBtn" class="quiet-icon-button" type="button" aria-label="Close walking model details">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+        </button>
+      </div>
+      <div class="model-doc-body">
+        <p><strong>Grid.</strong> A 1 m × 1 m occupancy grid covers the 68 m × 44 m park. A cell is blocked when it falls within an equipment footprint plus 0.45 m pedestrian clearance, a tree trunk clearance, the hedge, or a park boundary.</p>
+        <p><strong>Search.</strong> Routes use four-direction A* from the chosen gate to a walkable cell at the selected facility's edge. Distances are measured along the resulting grid route in metres and recomputed whenever the layout or route setting changes.</p>
+        <p><strong>Access modes.</strong> Pedestrian mode permits the fixed stepped shortcut through the central hedge. Step-free mode removes those step cells and relies on the level-access gap near the east boundary. The stepped shortcut is never available in step-free mode.</p>
+        <p><strong>Limits.</strong> This is a demonstrative, simplified route model. It does not model gradients, surfacing, door widths, crowding, emergency egress, or regulatory requirements, and it does not establish accessibility compliance.</p>
+      </div>
+      <div class="modal-actions">
+        <button id="dismissWalkingModelBtn" class="primary-button" type="button">Close</button>
+      </div>
+    </dialog>
+
+    <section id="printSummary" class="print-summary" aria-hidden="true">
+      <div id="printSummaryContent"></div>
+    </section>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <input id="importInput" type="file" accept=".json,application/json" hidden />
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

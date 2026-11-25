@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#071315" />
+  <meta name="description" content="Explore an intimate 3D auditorium and choose the seats with your perfect view for The Last Light at The Lantern Playhouse." />
+  <title>The Last Light — The Lantern Playhouse</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../../vendor/three/three.module.js",
+        "three/addons/": "../../vendor/three/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="The Lantern Playhouse home">
+        <svg class="brand-mark" viewBox="0 0 44 50" aria-hidden="true">
+          <path d="M22 2v5M16 7h12M13 10h18l-2 8H15l-2-8Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M17 18h10l3 17H14l3-17Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M20 18v17M24 18v17" fill="none" stroke="currentColor" stroke-width="1" opacity=".65"/>
+          <path d="M19 35h6l1 9H18l1-9Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M14 44h16" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="22" cy="26" r="4.2" fill="currentColor" opacity=".8"/>
+        </svg>
+        <span class="brand-type">
+          <span class="brand-name">The Lantern</span>
+          <span class="brand-sub">Playhouse · Est. 1974</span>
+        </span>
+      </a>
+
+      <div class="header-show" aria-label="Current performance">
+        <span class="show-live"><span></span>Now playing</span>
+        <strong class="show-title">The Last Light</strong>
+        <span class="header-rule"></span>
+        <span class="show-meta">
+          <span>Main Stage</span>
+          <strong>Fri, Oct 16 · 7:30 PM</strong>
+        </span>
+      </div>
+
+      <div class="header-actions">
+        <span class="house-status"><span class="status-dot"></span>House open</span>
+        <button class="guide-button" id="guideButton" type="button">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.2"/><path d="M10 9.2v4M10 6.3v.1"/></svg>
+          Seating guide
+        </button>
+      </div>
+
+      <div class="mobile-show">
+        <span>The Last Light</span>
+        <small>FRI · 7:30 PM</small>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="stage-shell" aria-label="Interactive 3D auditorium">
+        <div id="viewport" class="viewport">
+          <canvas id="scene" aria-label="3D auditorium with eight raked rows of seats facing a lit stage"></canvas>
+          <div class="scene-vignette" aria-hidden="true"></div>
+        </div>
+
+        <div class="scene-top" id="sceneTop">
+          <div class="scene-title" id="sceneTitle">
+            <span class="eyebrow light">Main Stage · House view</span>
+            <h1>The Last Light</h1>
+            <p>Step inside the room. Select a glowing seat to see what the stage looks like from there.</p>
+          </div>
+
+          <div class="scene-actions">
+            <button class="scene-icon-button" id="houseViewButton" type="button" aria-label="Return to the house view" title="House view">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.5 12 4l8.5 7.5M5.8 10v9h12.4v-9M9.5 19v-5h5v5"/></svg>
+            </button>
+            <button class="scene-icon-button" id="resetViewButton" type="button" aria-label="Reset camera view" title="Reset view">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.3 8.2A8 8 0 1 0 20 14"/><path d="M20 4v4.7h-4.7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="preview-top" id="previewTop" hidden>
+          <div class="preview-location">
+            <span class="preview-label"><i></i>Eye-level preview</span>
+            <strong id="previewSeatName">Row F · Seat 7</strong>
+          </div>
+          <button class="preview-back" id="previewBackButton" type="button">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12.5 4.5-5 5.5 5 5.5"/></svg>
+            House view
+          </button>
+        </div>
+
+        <div class="compare-banner" id="compareBanner" hidden>
+          <span class="compare-banner__dot"></span>
+          <span id="compareBannerText">Choose a second seat to compare</span>
+          <button id="cancelCompareTop" type="button">Cancel</button>
+        </div>
+
+        <div class="compare-labels" id="compareLabels" hidden>
+          <div class="compare-label">
+            <span>A</span>
+            <div><small>Your view from</small><strong id="compareLabelA">Row F · Seat 7</strong></div>
+          </div>
+          <div class="compare-label">
+            <span>B</span>
+            <div><small>Your view from</small><strong id="compareLabelB">Row G · Seat 8</strong></div>
+          </div>
+        </div>
+
+        <div class="seat-tooltip" id="seatTooltip" hidden>
+          <span class="tooltip-seat" id="tooltipSeat">Row F · Seat 7</span>
+          <span class="tooltip-detail" id="tooltipDetail">$38 · Available</span>
+        </div>
+
+        <div class="scene-bottom">
+          <div class="scene-legend" aria-label="Seat colors">
+            <span><i class="legend-available"></i>Available</span>
+            <span><i class="legend-reserved"></i>Reserved</span>
+            <span><i class="legend-limited"></i>Limited view</span>
+          </div>
+          <button class="scene-map-button" id="sceneMapButton" type="button">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="3" width="4" height="4" rx="1"/><rect x="8" y="3" width="4" height="4" rx="1"/><rect x="13" y="3" width="4" height="4" rx="1"/><rect x="3" y="8" width="4" height="4" rx="1"/><rect x="8" y="8" width="4" height="4" rx="1"/><rect x="13" y="8" width="4" height="4" rx="1"/><rect x="3" y="13" width="4" height="4" rx="1"/><rect x="8" y="13" width="4" height="4" rx="1"/><rect x="13" y="13" width="4" height="4" rx="1"/></svg>
+            Seat map
+          </button>
+          <span class="orbit-hint" id="orbitHint">
+            <svg viewBox="0 0 22 22" aria-hidden="true"><path d="M4 11a7 7 0 0 1 12-4.8M18 11a7 7 0 0 1-12 4.8"/><path d="m16 3 .4 3.4-3.3.3M6 19l-.4-3.4 3.3-.3"/></svg>
+            Drag to explore
+          </span>
+        </div>
+
+        <div class="scene-toast" id="sceneToast" role="status" aria-live="polite"></div>
+
+        <div class="scene-loader" id="sceneLoader">
+          <span class="loader-mark"></span>
+          <span>Lighting the house</span>
+        </div>
+      </section>
+
+      <aside class="booking-panel" aria-label="Seat selection and booking">
+        <div class="panel-scroll">
+          <div class="panel-heading">
+            <span class="eyebrow">Your evening</span>
+            <h2>Pick your place</h2>
+            <p class="panel-lede">An intimate room, eight raked rows, and not a bad seat in the house.</p>
+            <div class="show-pills">
+              <span><svg viewBox="0 0 18 18" aria-hidden="true"><rect x="2.8" y="4" width="12.4" height="11" rx="2"/><path d="M5.8 2.3v3.4M12.2 2.3v3.4M2.8 7.4h12.4"/></svg>Fri, Oct 16</span>
+              <span><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="6.5"/><path d="M9 5v4.3l2.8 1.6"/></svg>7:30 PM</span>
+              <span>95 min</span>
+            </div>
+          </div>
+
+          <div class="active-card" id="activeCard"></div>
+
+          <div class="panel-rule"></div>
+
+          <section class="selection-block" aria-labelledby="selectedHeading">
+            <div class="section-heading">
+              <h3 id="selectedHeading">Your seats <span class="count-pill" id="seatCountPill">0</span></h3>
+              <button class="text-button" id="openMapButton" type="button">
+                <svg viewBox="0 0 18 18" aria-hidden="true"><rect x="2.5" y="2.5" width="4" height="4" rx="1"/><rect x="7" y="2.5" width="4" height="4" rx="1"/><rect x="11.5" y="2.5" width="4" height="4" rx="1"/><rect x="2.5" y="7" width="4" height="4" rx="1"/><rect x="7" y="7" width="4" height="4" rx="1"/><rect x="11.5" y="7" width="4" height="4" rx="1"/><rect x="2.5" y="11.5" width="4" height="4" rx="1"/><rect x="7" y="11.5" width="4" height="4" rx="1"/><rect x="11.5" y="11.5" width="4" height="4" rx="1"/></svg>
+                View map
+              </button>
+            </div>
+
+            <div class="selected-seats" id="selectedSeats"></div>
+
+            <div class="total-row">
+              <span>Running total</span>
+              <strong id="runningTotal">$0</strong>
+            </div>
+            <button class="primary-button" id="reviewButton" type="button" disabled>
+              <span>Review booking</span>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12M11.5 5.5 16 10l-4.5 4.5"/></svg>
+            </button>
+            <p class="fine-print">No fees · Seats are held only in this browser</p>
+          </section>
+
+          <div class="price-card">
+            <span class="eyebrow">Simple pricing</span>
+            <div class="price-row"><span><i class="price-dot premium"></i>Premium · Rows A–D</span><strong>$45</strong></div>
+            <div class="price-row"><span><i class="price-dot standard"></i>Standard · Rows E–H</span><strong>$38</strong></div>
+            <div class="price-row"><span><i class="price-dot limited"></i>Limited view</span><strong>$30</strong></div>
+          </div>
+
+          <div class="venue-note">
+            <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M13 2.5 22 6v6.1c0 5.4-3.6 9.5-9 11.4-5.4-1.9-9-6-9-11.4V6l9-3.5Z"/><path d="M8.8 13.1 11.5 16l5.8-6"/></svg>
+            <p><strong>Built for the sightline.</strong> Every row is raked for a clear view. A handful of seats sit behind the balcony supports and are marked limited view.</p>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="seatMapModal" hidden>
+    <section class="modal seat-map-modal" role="dialog" aria-modal="true" aria-labelledby="seatMapTitle">
+      <button class="modal-close" data-close="seatMapModal" type="button" aria-label="Close seat map">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg>
+      </button>
+      <div class="modal-heading map-heading">
+        <span class="eyebrow">Choose from the plan</span>
+        <h2 id="seatMapTitle">Seat map</h2>
+        <p>Tap any available seat to see its eye-level view. Seats behind the two balcony supports are marked limited view.</p>
+      </div>
+
+      <div class="mini-stage"><span>Stage</span><i></i></div>
+      <div class="seat-map" id="seatMap" aria-label="Eight rows of twelve seats"></div>
+      <div class="map-footer">
+        <div class="map-legend">
+          <span><i class="legend-available"></i>Available</span>
+          <span><i class="legend-reserved"></i>Reserved</span>
+          <span><i class="legend-selected"></i>Selected</span>
+          <span><i class="legend-limited"></i>Limited</span>
+        </div>
+        <div class="map-total"><span id="mapSelectedCount">0 seats</span><strong id="mapTotal">$0</strong></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="summaryModal" hidden>
+    <section class="modal summary-modal" role="dialog" aria-modal="true" aria-labelledby="summaryTitle">
+      <button class="modal-close" data-close="summaryModal" type="button" aria-label="Close booking summary">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg>
+      </button>
+      <div class="summary-top">
+        <span class="eyebrow">Local booking summary</span>
+        <h2 id="summaryTitle">Your seats are waiting.</h2>
+        <p>Here is the final look at your selection. No payment is collected in this demo.</p>
+      </div>
+      <div class="summary-show">
+        <span class="summary-mark">
+          <svg viewBox="0 0 44 50" aria-hidden="true"><path d="M22 2v5M16 7h12M13 10h18l-2 8H15l-2-8Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M17 18h10l3 17H14l3-17Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M19 35h6l1 9H18l1-9Z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="22" cy="26" r="4.2" fill="currentColor" opacity=".8"/></svg>
+        </span>
+        <div><strong>The Last Light</strong><span>Main Stage · The Lantern Playhouse</span></div>
+        <div class="summary-date"><strong>Fri, Oct 16</strong><span>7:30 PM</span></div>
+      </div>
+      <div class="summary-seats" id="summarySeats"></div>
+      <div class="summary-totals">
+        <div><span>Subtotal</span><strong id="summarySubtotal">$0</strong></div>
+        <div><span>Booking fee</span><strong>$0</strong></div>
+        <div class="summary-grand"><span>Total</span><strong id="summaryTotal">$0</strong></div>
+      </div>
+      <div class="summary-note">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5 17 5v5.1c0 4.2-2.8 7.4-7 8.9-4.2-1.5-7-4.7-7-8.9V5l7-2.5Z"/><path d="m7 10.2 2.1 2.1L13.3 8"/></svg>
+        <span><strong>No payment service is connected.</strong> This is a local summary only; your selection stays in this browser.</span>
+      </div>
+      <button class="primary-button summary-done" id="summaryDoneButton" type="button">Back to the house</button>
+    </section>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

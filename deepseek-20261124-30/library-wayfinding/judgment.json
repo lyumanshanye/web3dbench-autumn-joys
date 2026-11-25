@@ -1,0 +1,176 @@
+{
+  "summary": "Harbour Lane Library is a functioning local 3D wayfinding kiosk. It provides two coherent floors, all requested rooms and floor connectors, search and model selection, several starts, cross-floor routes with matching directions, floor retention, step-free lift routing, a staff lift outage control with clear unavailable-route messaging, same-floor recovery, and a responsive mobile stack. Evidence supports all core task requirements; the only notable evaluation gap is that the mobile directions panel extended below the 390x844 viewport and its internal scrolling was not fully exercised before the browser-call limit.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded successfully at 1440x900 and 390x844, rebuilt the Three.js scene after reload, and remained interactive. All local application and Three.js assets returned 200/304 responses. The only console error was a nonblocking missing favicon.ico 404.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-27-56-340Z.jpeg",
+      "evidence/page-2026-11-24T17-32-03-312Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The scene is genuine real-time 3D rather than a static image: Level 1 and Level 2 expose different room arrangements, walls and furniture occlude one another, and dragging the map produces a visible perspective change. Route lines, start/destination markers, stairs, and lift are spatially represented.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-27-56-340Z.jpeg",
+      "evidence/page-2026-11-24T17-28-08-103Z.jpeg",
+      "evidence/page-2026-11-24T17-31-40-802Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct views were inspected: Level 1, Level 2, and a user-rotated Level 2 perspective. Floor changes and camera drag revealed real geometry, depth, occlusion, and parallax.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-27-56-340Z.jpeg",
+        "evidence/page-2026-11-24T17-28-08-103Z.jpeg",
+        "evidence/page-2026-11-24T17-31-40-802Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The cream control rail, dark teal map field, warm room materials, clear floor hierarchy, and legible room/direction labels form a coherent kiosk presentation on desktop and mobile.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-27-56-340Z.jpeg",
+        "evidence/page-2026-11-24T17-28-08-103Z.jpeg",
+        "evidence/page-2026-11-24T17-32-03-312Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary controls produced meaningful state changes: floor switching retained the route, the step-free switch changed stairs to the lift, a model tap selected Meeting Room B, and search selected the Children's Section. The visible label row worked for the step-free control after the hidden checkbox itself intercepted the direct click.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-28-08-103Z.jpeg",
+        "evidence/page-2026-11-24T17-29-38-620Z.jpeg",
+        "evidence/page-2026-11-24T17-30-20-572Z.jpeg",
+        "evidence/page-2026-11-24T17-30-41-939Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "The lift outage flow recomputed the route, explained the unavailable upstairs step-free trip, and offered stair/start recovery. A same-floor route remained usable with the lift down, a no-match search produced guidance, lift service was restored, and page reload recovered the initial kiosk state.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-30-01-287Z.jpeg",
+        "evidence/page-2026-11-24T17-30-20-572Z.jpeg",
+        "evidence/page-2026-11-24T17-30-58-223Z.jpeg",
+        "evidence/page-2026-11-24T17-31-28-991Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "reason": "Desktop 1440x900 and mobile 390x844 layouts loaded without horizontal breakage, reload succeeded, local resources were healthy, and Tab exposed a visible focus ring on mobile. However the mobile route directions extended below the fixed viewport; the attempted lower-panel screenshot failed after the browser-call cap, so complete below-the-fold scrolling and focus traversal were not verified. Touch-hardware behavior was not tested.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-32-03-312Z.jpeg",
+        "evidence/page-2026-11-24T17-32-19-937Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "Level 1 shows the entrance, help desk, children's section, toilets, Meeting Room A, stairs, and lift. Level 2 shows the reading room, Meeting Room B, upper toilets, stairs, and lift. The full requested two-floor program is present in the local plan.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-27-56-340Z.jpeg",
+        "evidence/page-2026-11-24T17-28-08-103Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Search selected the Children's Section and a direct model tap selected Meeting Room B. The start control offers six starting points beyond only the entrance, including Help Desk, Children's Section, Reading Room, Meeting Room A, and Toilets; Reading Room was used successfully as a start.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-30-20-572Z.jpeg",
+        "evidence/page-2026-11-24T17-30-41-939Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "The stair route is drawn from the entrance through the lobby corridor to the stair core, then along the upper gallery to the Reading Room doorway. Its directions agree with that sequence. Switching from Level 1 to Level 2 retained the same route and directions while showing the destination floor.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-27-56-340Z.jpeg",
+        "evidence/page-2026-11-24T17-28-08-103Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "With step-free enabled, the route and directions switched from stairs to the lift. Marking the lift out of service changed the header status and replaced the route with a no-step-free-route message; restoring service rebuilt a lift-based step-free route.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-29-38-620Z.jpeg",
+        "evidence/page-2026-11-24T17-30-01-287Z.jpeg",
+        "evidence/page-2026-11-24T17-31-28-991Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "An upstairs step-free request with the lift disabled is explicitly explained and offers stair/start recovery. A same-floor Reading Room to Meeting Room B trip still routes successfully. Floor buttons, search, the start selector, and room-label buttons provide kiosk-friendly touch targets without requiring precise camera gestures.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-30-01-287Z.jpeg",
+        "evidence/page-2026-11-24T17-30-20-572Z.jpeg",
+        "evidence/page-2026-11-24T17-32-03-312Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All stated requirements were delivered and observed: the two-floor directory, required rooms, stairs and lift, search/model destination choice, multiple starts, coherent directions, retained routes across floors, step-free routing, lift outage recomputation, impossible-route explanation, same-floor recovery, and kiosk-sized controls.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-27-56-340Z.jpeg",
+        "evidence/page-2026-11-24T17-29-38-620Z.jpeg",
+        "evidence/page-2026-11-24T17-30-20-572Z.jpeg",
+        "evidence/page-2026-11-24T17-30-41-939Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Both floors have recognizable room shapes, walls, doorways, furniture, stairs, and a lift. Depth and occlusion hold across three views, and route overlays and directions consistently follow corridors and entry points.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-27-56-340Z.jpeg",
+        "evidence/page-2026-11-24T17-28-08-103Z.jpeg",
+        "evidence/page-2026-11-24T17-31-40-802Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Required sequences and combinations remained reliable: search, model tap, start change, floor switch, step-free toggle, lift outage, same-floor fallback, no-results feedback, service restoration, and reload. Feedback was immediate and specific throughout.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-29-38-620Z.jpeg",
+        "evidence/page-2026-11-24T17-30-01-287Z.jpeg",
+        "evidence/page-2026-11-24T17-30-20-572Z.jpeg",
+        "evidence/page-2026-11-24T17-30-58-223Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The visual system is purposeful and consistent: strong map/control separation, clear typographic hierarchy, warm material colors, restrained route highlighting, readable status chips, and a composed mobile stack.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-27-56-340Z.jpeg",
+        "evidence/page-2026-11-24T17-31-40-802Z.jpeg",
+        "evidence/page-2026-11-24T17-32-03-312Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "Repeated routing, lift toggles, search, resize, and reload remained usable, and all substantive resources loaded locally. Remaining issues are local rather than blocking: one favicon 404 and an unverified mobile panel whose lower directions extend below the viewport.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-31-28-991Z.jpeg",
+        "evidence/page-2026-11-24T17-32-03-312Z.jpeg",
+        "evidence/page-2026-11-24T17-32-19-937Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "At 390x844 the directions content continued below the visible viewport. A wheel scroll did not move the captured view, and the intended element screenshot failed because the previous accessibility ref was no longer current after reload; below-the-fold scrolling and full mobile focus traversal therefore remain only partially verified.",
+    "Only viewport emulation was available; real touch hardware, gesture latency, and physical touch-target accuracy were not tested.",
+    "The only console error was a nonblocking GET for favicon.ico returning 404; recorded in evidence/console.txt. Network diagnostics are recorded in evidence/network.txt and showed local app and Three.js assets loading successfully.",
+    "No audio or downloadable export features were advertised, so those checks were not applicable."
+  ]
+}

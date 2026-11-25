@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1113" />
+    <meta
+      name="description"
+      content="A browser-only workbench for orienting, checking, sectioning, and exporting 3D-printable STL parts."
+    />
+    <title>Bedwise — 3D Print Prep Workbench</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Bedwise workbench home">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="brand-mark-bed"></span>
+          <span class="brand-mark-part"></span>
+        </span>
+        <span class="brand-copy">
+          <span class="brand-name">Bedwise</span>
+          <span class="brand-subtitle">3D print prep</span>
+        </span>
+      </a>
+
+      <div class="printer-plaque" aria-label="Printer build volume: 220 by 220 by 250 millimeters">
+        <span class="plaque-light" aria-hidden="true"></span>
+        <span class="plaque-copy"><strong>220 × 220 × 250</strong><small>mm build volume</small></span>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="button button-quiet" id="resetBtn" type="button" title="Reset to the initially loaded part" aria-label="Reset to the initially loaded part">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.2 8.1A6.2 6.2 0 1 1 4 12.2M4.2 8.1V3.8m0 4.3h4.3" /></svg>
+          <span>Reset</span>
+        </button>
+        <button class="button button-quiet" id="importBtn" type="button" aria-label="Import STL file">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 13V3m0 0L6.2 6.8M10 3l3.8 3.8M4 12v4.2h12V12" /></svg>
+          <span>Import STL</span>
+        </button>
+        <button class="button button-accent" id="exportBtn" type="button" aria-label="Export oriented STL">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0 3.8-3.8M10 13 6.2 9.2M4 12v4.2h12V12" /></svg>
+          <span>Export STL</span>
+        </button>
+        <input id="fileInput" class="visually-hidden" type="file" accept=".stl,model/stl,application/sla,application/vnd.ms-pki.stl" />
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="panel transform-panel" aria-labelledby="transformTitle">
+        <div class="panel-title-row">
+          <div class="panel-title">
+            <span class="panel-index">01</span>
+            <h2 id="transformTitle">Transform</h2>
+          </div>
+          <span class="source-chip" id="sourceChip">Procedural</span>
+        </div>
+
+        <div class="part-identity">
+          <span class="part-swatch" aria-hidden="true"></span>
+          <div>
+            <p class="part-name" id="partName">L-bracket.stl</p>
+            <p class="part-meta" id="partMeta">Procedural demo · ready to orient</p>
+          </div>
+        </div>
+
+        <section class="control-section" aria-labelledby="rotationLabel">
+          <div class="control-heading">
+            <h3 id="rotationLabel">Rotation</h3>
+            <span class="control-unit">degrees</span>
+          </div>
+          <div class="rotation-grid">
+            <div class="axis-row">
+              <span class="axis-name"><i class="axis-swatch axis-x"></i>X</span>
+              <label class="number-field compact">
+                <span class="visually-hidden">Rotation around X in degrees</span>
+                <input id="rotX" type="number" step="1" value="0" inputmode="decimal" />
+                <span class="field-suffix">°</span>
+              </label>
+              <button class="turn-button" type="button" data-axis="x" data-turn="-90" aria-label="Rotate minus 90 degrees around X">−90°</button>
+              <button class="turn-button" type="button" data-axis="x" data-turn="90" aria-label="Rotate plus 90 degrees around X">+90°</button>
+            </div>
+            <div class="axis-row">
+              <span class="axis-name"><i class="axis-swatch axis-y"></i>Y</span>
+              <label class="number-field compact">
+                <span class="visually-hidden">Rotation around Y in degrees</span>
+                <input id="rotY" type="number" step="1" value="0" inputmode="decimal" />
+                <span class="field-suffix">°</span>
+              </label>
+              <button class="turn-button" type="button" data-axis="y" data-turn="-90" aria-label="Rotate minus 90 degrees around Y">−90°</button>
+              <button class="turn-button" type="button" data-axis="y" data-turn="90" aria-label="Rotate plus 90 degrees around Y">+90°</button>
+            </div>
+            <div class="axis-row">
+              <span class="axis-name"><i class="axis-swatch axis-z"></i>Z</span>
+              <label class="number-field compact">
+                <span class="visually-hidden">Rotation around Z in degrees</span>
+                <input id="rotZ" type="number" step="1" value="0" inputmode="decimal" />
+                <span class="field-suffix">°</span>
+              </label>
+              <button class="turn-button" type="button" data-axis="z" data-turn="-90" aria-label="Rotate minus 90 degrees around Z">−90°</button>
+              <button class="turn-button" type="button" data-axis="z" data-turn="90" aria-label="Rotate plus 90 degrees around Z">+90°</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="control-section" aria-labelledby="scaleLabel">
+          <div class="control-heading">
+            <h3 id="scaleLabel">Uniform scale</h3>
+            <output class="control-readout" id="scalePercent" for="scaleSlider">100%</output>
+          </div>
+          <input id="scaleSlider" class="range-input" type="range" min="0.1" max="3" step="0.01" value="1" aria-label="Uniform scale slider" />
+          <div class="scale-foot">
+            <label class="number-field scale-number">
+              <span class="visually-hidden">Uniform scale factor</span>
+              <input id="scaleInput" type="number" min="0.1" max="3" step="0.01" value="1.00" inputmode="decimal" />
+              <span class="field-suffix">×</span>
+            </label>
+            <button class="text-button" id="scaleResetBtn" type="button">Reset to 1×</button>
+          </div>
+        </section>
+
+        <section class="control-section" aria-labelledby="placementLabel">
+          <div class="control-heading">
+            <h3 id="placementLabel">Bed placement</h3>
+            <span class="control-unit">mm</span>
+          </div>
+          <div class="field-pair">
+            <label class="field-stack">
+              <span>Bed X</span>
+              <span class="number-field">
+                <input id="posX" type="number" step="1" value="0" inputmode="decimal" />
+                <span class="field-suffix">mm</span>
+              </span>
+            </label>
+            <label class="field-stack">
+              <span>Bed Y</span>
+              <span class="number-field">
+                <input id="posY" type="number" step="1" value="0" inputmode="decimal" />
+                <span class="field-suffix">mm</span>
+              </span>
+            </label>
+          </div>
+          <button class="button button-place" id="placeBtn" type="button">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M3.5 16h13" /></svg>
+            Place on bed
+          </button>
+          <button class="text-button center-button" id="centerBtn" type="button">Center part over bed origin</button>
+        </section>
+
+        <div class="panel-footnote">
+          <span class="local-dot" aria-hidden="true"></span>
+          Orbit and zoom only move the camera. Part coordinates stay fixed.
+        </div>
+      </aside>
+
+      <section class="viewport-shell" id="viewportShell" aria-label="3D part and printer build volume">
+        <canvas id="viewCanvas"></canvas>
+        <div class="viewport-vignette" aria-hidden="true"></div>
+
+        <div class="view-toolbar" role="group" aria-label="Camera views">
+          <button class="view-button is-active" type="button" data-view="orbit" aria-pressed="true">Orbit</button>
+          <button class="view-button" type="button" data-view="front" aria-pressed="false">Front</button>
+          <button class="view-button" type="button" data-view="side" aria-pressed="false">Side</button>
+          <button class="view-button" type="button" data-view="top" aria-pressed="false">Top</button>
+        </div>
+
+        <div class="envelope-card" aria-live="polite">
+          <div class="envelope-state">
+            <span class="state-dot" id="fitDot"></span>
+            <span id="fitLabel">Inside build volume</span>
+          </div>
+          <div class="dimension-row" aria-label="Transformed width, depth, and height in millimeters">
+            <div class="dimension"><span>W</span><strong id="dimWidth">0.0</strong><small>mm</small></div>
+            <div class="dimension"><span>D</span><strong id="dimDepth">0.0</strong><small>mm</small></div>
+            <div class="dimension"><span>H</span><strong id="dimHeight">0.0</strong><small>mm</small></div>
+          </div>
+          <p class="envelope-note">Width · depth · height · transformed mm</p>
+        </div>
+
+        <div class="viewport-legend" aria-label="Color legend">
+          <span><i class="legend-swatch legend-part"></i>Part</span>
+          <span><i class="legend-swatch legend-overhang"></i>Overhang</span>
+          <span><i class="legend-swatch legend-outside"></i>Outside</span>
+        </div>
+
+        <div class="viewport-hint">
+          <span class="mouse-glyph" aria-hidden="true"></span>
+          Drag to orbit · scroll to zoom
+        </div>
+
+        <div class="section-badge" id="sectionBadge" hidden>
+          <span>Section</span>
+          <strong id="sectionBadgeValue">30.0 mm</strong>
+        </div>
+
+        <div class="loading-cover" id="loadingCover">
+          <span class="loading-ring" aria-hidden="true"></span>
+          <span>Building workbench</span>
+        </div>
+      </section>
+
+      <aside class="panel inspect-panel" aria-labelledby="inspectTitle">
+        <div class="panel-title-row">
+          <div class="panel-title">
+            <span class="panel-index">02</span>
+            <h2 id="inspectTitle">Inspect</h2>
+          </div>
+          <span class="source-chip" id="triangleChip">— tris</span>
+        </div>
+
+        <section class="inspection-card fit-card" aria-labelledby="fitTitle">
+          <div class="card-heading">
+            <div>
+              <p class="card-kicker">Build volume · 220 × 220 × 250 mm</p>
+              <h3 id="fitTitle">Fit check</h3>
+            </div>
+            <span class="status-pill is-good" id="fitPill">Fits</span>
+          </div>
+          <div class="utilization-list">
+            <div class="util-row">
+              <span>W</span>
+              <div class="util-track"><i id="utilW"></i></div>
+              <output id="utilWText">0%</output>
+            </div>
+            <div class="util-row">
+              <span>D</span>
+              <div class="util-track"><i id="utilD"></i></div>
+              <output id="utilDText">0%</output>
+            </div>
+            <div class="util-row">
+              <span>H</span>
+              <div class="util-track"><i id="utilH"></i></div>
+              <output id="utilHText">0%</output>
+            </div>
+          </div>
+          <p class="card-copy" id="fitMessage">All geometry is inside the printer envelope.</p>
+        </section>
+
+        <section class="inspection-card" aria-labelledby="overhangTitle">
+          <div class="card-heading">
+            <div>
+              <p class="card-kicker">Support awareness</p>
+              <h3 id="overhangTitle">Overhang scan</h3>
+            </div>
+            <label class="toggle">
+              <input id="overhangToggle" type="checkbox" checked />
+              <span class="toggle-track" aria-hidden="true"></span>
+              <span class="visually-hidden">Highlight overhangs</span>
+            </label>
+          </div>
+          <div class="range-heading">
+            <label for="overhangRange">Angle threshold</label>
+            <output id="overhangValue" for="overhangRange">45°</output>
+          </div>
+          <input id="overhangRange" class="range-input" type="range" min="0" max="90" step="1" value="45" />
+          <div class="scan-result">
+            <span class="scan-icon" aria-hidden="true"></span>
+            <span id="overhangMetric">Scanning surfaces…</span>
+          </div>
+          <p class="convention-note">
+            Angle is measured from horizontal: <strong>0° is a flat ceiling</strong>. Only downward-facing faces are scanned. Faces at or below the threshold are flagged; bed-contact faces are excluded.
+          </p>
+        </section>
+
+        <section class="inspection-card" aria-labelledby="sectionTitle">
+          <div class="card-heading">
+            <div>
+              <p class="card-kicker">Cross-section</p>
+              <h3 id="sectionTitle">Section plane</h3>
+            </div>
+            <label class="toggle">
+              <input id="sectionToggle" type="checkbox" />
+              <span class="toggle-track" aria-hidden="true"></span>
+              <span class="visually-hidden">Enable section plane</span>
+            </label>
+          </div>
+          <div class="range-heading">
+            <label for="sectionRange">Height above bed</label>
+            <output id="sectionValue" for="sectionRange">30.0 mm</output>
+          </div>
+          <input id="sectionRange" class="range-input" type="range" min="0" max="250" step="0.5" value="30" disabled />
+          <p class="card-copy section-copy" id="sectionCopy">Turn on the horizontal plane to cut away geometry above the chosen height.</p>
+        </section>
+
+        <div class="privacy-note">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5 4.2 4.8v4.4c0 3.7 2.3 6.7 5.8 8.3 3.5-1.6 5.8-4.6 5.8-8.3V4.8L10 2.5Z" /><path d="m7.6 10 1.6 1.6 3.2-3.2" /></svg>
+          <span><strong>Local only.</strong> STL files never leave this browser.</span>
+        </div>
+      </aside>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+      <span class="toast-mark" aria-hidden="true"></span>
+      <span id="toastMessage"></span>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

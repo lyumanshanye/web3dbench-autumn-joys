@@ -1,0 +1,166 @@
+{
+  "summary": "BootFit is a polished, functional 3D luggage-fit planner. It renders a genuine interactive boot scene with four differently sized bags, editable centimetre dimensions, drag and rotation controls, geometric overlap/outside warnings, and a fit count that updated coherently from 4 to 2 to 0 and back to 4 across tested states. Desktop and mobile layouts remained usable; the only observed issues were nonblocking diagnostics and a mobile sheet focus leak.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded and rendered at 1440x900 and again after a reload at 390x844. Styles and Three.js modules returned successfully; console output contained only a favicon 404.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-26-02-809Z.jpeg",
+      "evidence/page-2026-11-24T17-29-21-766Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The central scene is genuine 3D: perspective and occluded bag volumes are visible, and Top and orbited 3D views reveal different spatial arrangements rather than a static image.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-26-02-809Z.jpeg",
+      "evidence/page-2026-11-24T17-26-25-388Z.jpeg",
+      "evidence/page-2026-11-24T17-26-43-338Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct views were inspected: the initial 3D perspective, a Top orthographic-style view, and an orbited 3D perspective. Bag overlap, stacking, floor placement, boot bounds, and occlusion remained spatially coherent.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-02-809Z.jpeg",
+        "evidence/page-2026-11-24T17-26-25-388Z.jpeg",
+        "evidence/page-2026-11-24T17-26-43-338Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Composition, typography, warm neutral palette, shadows, materials, and measurement labels form a clear hierarchy without obscuring the loading task. The responsive layout preserves that expression.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-02-809Z.jpeg",
+        "evidence/page-2026-11-24T17-28-39-010Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Selecting a bag exposed Move, Lift, rotation, vertical adjustment, and removal controls. Dragging and the 90-degree turn immediately changed the geometry, warnings, status labels, and fit count.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-52-000Z.jpeg",
+        "evidence/page-2026-11-24T17-27-21-470Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated turns, drags, shrinking the boot to 70 cm, restoring it to 105 cm, and Reset load were exercised. Reset returned the warning state to a clear 4-of-4 layout. A direct manual drag-back remained conflicted, but the advertised recovery flow worked.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-28-06-419Z.jpeg",
+        "evidence/page-2026-11-24T17-28-19-180Z.jpeg",
+        "evidence/page-2026-11-24T17-28-28-351Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "reason": "Both 1440x900 and 390x844 layouts were readable, lower controls and the mobile Boot size sheet were reachable, and reload was stable. However, after one Tab press with the mobile sheet open, focus moved to background header content behind it instead of remaining within the sheet. The favicon 404 was nonblocking and all application resources loaded.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-28-39-010Z.jpeg",
+        "evidence/page-2026-11-24T17-28-51-293Z.jpeg",
+        "evidence/page-2026-11-24T17-29-01-933Z.jpeg",
+        "evidence/page-2026-11-24T17-29-21-766Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The initial scene contains four visibly different bags in a rectangular 3D boot, with W/L/H spinbuttons measured in centimetres and three presets. Changing W from 105 to 70 updated the boot geometry and dimensions.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-02-809Z.jpeg",
+        "evidence/page-2026-11-24T17-28-19-180Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "The selected Medium case followed a top-view drag and a 90-degree turn with visible changes to its outline, position, orientation, and reported angle. Other bags retain distinct sizes and geometry.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-27-08-609Z.jpeg",
+        "evidence/page-2026-11-24T17-27-21-470Z.jpeg",
+        "evidence/page-2026-11-24T17-26-52-000Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Rotating the selected bag produced a visible overlap plus protrusion, with 1 overlap, 1 outside, and a 2-of-4 fit count. Shrinking the boot then marked all four bags outside, proving fit is geometric rather than volume-only.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-52-000Z.jpeg",
+        "evidence/page-2026-11-24T17-28-19-180Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "The displayed count changed from 4 of 4 initially to 2 of 4 after the rotated conflict, 0 of 4 when the boot was narrowed, and 4 of 4 after reset/restoration. Bag statuses and Overlaps/Outside metrics changed with the same events.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-02-809Z.jpeg",
+        "evidence/page-2026-11-24T17-26-52-000Z.jpeg",
+        "evidence/page-2026-11-24T17-28-19-180Z.jpeg",
+        "evidence/page-2026-11-24T17-28-28-351Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All stated requirements are present and coherent: a rectangular editable boot, several differently sized bags, move and turn controls, centimetre measurements, fit counts, and geometry-based overlap/outside warnings.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-02-809Z.jpeg",
+        "evidence/page-2026-11-24T17-26-52-000Z.jpeg",
+        "evidence/page-2026-11-24T17-28-19-180Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Shapes, scale markers, depth, occlusion, and relative placement consistently serve the task. Perspective, Top, and orbited views agree, and collision feedback aligns with visible bag geometry.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-25-388Z.jpeg",
+        "evidence/page-2026-11-24T17-26-43-338Z.jpeg",
+        "evidence/page-2026-11-24T17-26-52-000Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Primary controls are discoverable, selections provide immediate feedback, repeated rotations and drags behave consistently, and Reset load recovers the tested conflict. The fit count and warning sequences remain synchronized with scene changes.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-52-000Z.jpeg",
+        "evidence/page-2026-11-24T17-28-06-419Z.jpeg",
+        "evidence/page-2026-11-24T17-28-28-351Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The typography, editorial heading, muted palette, status color coding, measurement treatments, and tactile 3D bags form a distinctive and coherent packing-tool expression on both tested widths.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-02-809Z.jpeg",
+        "evidence/page-2026-11-24T17-28-39-010Z.jpeg",
+        "evidence/page-2026-11-24T17-28-51-293Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "The scene, resize, recovery, mobile layout, and reload were reliable in tested flows. Local nonblocking issues were a favicon 404 and focus escaping behind the open mobile Boot size sheet; no crash or missing application module occurred.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-28-39-010Z.jpeg",
+        "evidence/page-2026-11-24T17-29-01-933Z.jpeg",
+        "evidence/page-2026-11-24T17-29-21-766Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "Mobile layout and keyboard focus were verified at a 390x844 browser viewport; no physical touch hardware was available.",
+    "No export or download control was advertised, so downloaded-export inspection was not applicable.",
+    "One Tab press with the mobile Boot size sheet open moved focus to background header content rather than keeping it inside the sheet.",
+    "A direct drag-back from the conflicted arrangement did not produce a clean layout in the available view; recovery was verified through Reset load and dimension restoration instead.",
+    "Audio quality and internal rendering implementation were not assessed from browser observations.",
+    "Console output at evidence/console.txt contains only a nonblocking favicon.ico 404; evidence/network.txt shows all application scripts and styles loading successfully."
+  ]
+}

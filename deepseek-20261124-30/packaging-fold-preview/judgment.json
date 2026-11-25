@@ -1,0 +1,189 @@
+{
+  "summary": "Foldform is a coherent, fully working tuck-top carton proofing tool: the linked dieline and interactive 3D preview share dimensions, synchronized panel selection, editable artwork/colors, fold states, sample/reset recovery, and an SVG proof export. Desktop and 390px layouts remained readable and stable in the tested flows.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded at 1440x900 and again after reload, exposing a usable dieline, live 3D preview, controls, and export. No blocking runtime error occurred.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-19-53-973Z.jpeg",
+      "evidence/page-2026-11-24T17-23-52-576Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The page contains a genuine interactive 3D carton rather than a static image: depth, occlusion, perspective, and panel positions change across flat, partly folded, closed, and orbit views.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-21-13-755Z.jpeg",
+      "evidence/page-2026-11-24T17-21-26-606Z.jpeg",
+      "evidence/page-2026-11-24T17-21-44-264Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Geometry was inspected at 0%, 35%, and 100% fold and from multiple camera angles. The net opens onto a ground plane, the sides rotate coherently around shared edges, and the closed carton has convincing depth and occlusion.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-21-13-755Z.jpeg",
+        "evidence/page-2026-11-24T17-21-26-606Z.jpeg",
+        "evidence/page-2026-11-24T17-21-36-826Z.jpeg",
+        "evidence/page-2026-11-24T17-21-44-264Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The composition is clear and purposeful: restrained typography, distinct cut/fold legend, legible dimension controls, and coordinated carton surfaces. Materials and lighting remain readable in flat and closed states.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-53-973Z.jpeg",
+        "evidence/page-2026-11-24T17-21-05-323Z.jpeg",
+        "evidence/page-2026-11-24T17-21-44-264Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Primary controls produced meaningful state changes: dimensions updated both views, colors and shop name changed artwork, clicking a 3D lid selected the corresponding lid panel in the dieline, and the fold slider moved the 3D geometry through inspectable states.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-06-086Z.jpeg",
+        "evidence/page-2026-11-24T17-21-05-323Z.jpeg",
+        "evidence/page-2026-11-24T17-21-36-826Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated and reverse operations worked: the fold slider was moved from 64% to flat, partly folded, closed, then restored by reset. Reset restored the PAPER & PINE sample at 110x65x80 mm, the separate Sample design action loaded a different NORTH & FOLD configuration, and reload remained usable.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-21-13-755Z.jpeg",
+        "evidence/page-2026-11-24T17-21-44-264Z.jpeg",
+        "evidence/page-2026-11-24T17-22-06-099Z.jpeg",
+        "evidence/page-2026-11-24T17-23-52-576Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "reason": "Desktop and 390x844 layouts, all lower controls, reload, and resource diagnostics were inspected. The full mobile capture shows no clipped or unreachable content, and app requests returned 200/304 with no app console errors. Keyboard focus traversal was not separately exercised, so focus navigation is only partly verified.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-53-973Z.jpeg",
+        "evidence/page-2026-11-24T17-23-52-576Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The initial dieline and 3D preview both represented a 110 x 65 x 80 mm tuck-top carton, with matching labels in the flat proof and 3D footer and the same rectangular proportions.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-53-973Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Changing dimensions to 160 x 90 x 120 mm updated the dieline, dimension annotations, and 3D carton together. Solid cut edges and dashed fold lines remained visibly distinct under the line legend.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-06-086Z.jpeg",
+        "evidence/page-2026-11-24T17-21-44-264Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "The fold slider produced a flat net at 0%, an inspectable intermediate arrangement at 35%, and a closed carton at 100%. Panels remained connected at their shared edges, and camera orbiting revealed the resulting 3D depth and back faces.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-21-13-755Z.jpeg",
+        "evidence/page-2026-11-24T17-21-26-606Z.jpeg",
+        "evidence/page-2026-11-24T17-21-36-826Z.jpeg",
+        "evidence/page-2026-11-24T17-21-44-264Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Front, back, sides, and lid received independent blue, red, green, and purple colors, while the NORTH & NOOK name propagated to the artwork. A 3D lid click selected the lid in both views, and the panel editor reflected that linked selection.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-21-05-323Z.jpeg",
+        "evidence/page-2026-11-24T17-21-44-264Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "After editing the artwork and all four colors, the artwork stayed on the panels through flat, intermediate, and fully closed states with panel-appropriate orientation. Reset restored the original sample, and Sample design loaded a distinct sample design.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-21-05-323Z.jpeg",
+        "evidence/page-2026-11-24T17-21-44-264Z.jpeg",
+        "evidence/page-2026-11-24T17-22-06-099Z.jpeg",
+        "evidence/page-2026-11-24T17-23-52-576Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PASS",
+      "reason": "Export downloaded a 110x65x80 mm SVG and the opened export showed artwork plus dimensioned geometry with black solid cut paths and red dashed fold paths. The UI continued to disclose zero board thickness and the intentional exclusion of print bleed and manufacturing tolerances.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-09-825Z.jpeg",
+        "evidence/page-2026-11-24T17-19-53-973Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All explicitly requested flows were delivered coherently: linked flat/3D views, millimetre dimensions, distinct cuts and folds, fold progression, independent panel colors with shop-name artwork, linked selection, sample/reset, and a dimensioned SVG proof with the required scope disclosure.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-06-086Z.jpeg",
+        "evidence/page-2026-11-24T17-21-05-323Z.jpeg",
+        "evidence/page-2026-11-24T17-21-44-264Z.jpeg",
+        "evidence/page-2026-11-24T17-23-09-825Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The carton net and folded form consistently preserve dimensions and shared-edge relationships. Multiple fold and orbit views show correct perspective, depth, occlusion, and coherent surface attachment.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-53-973Z.jpeg",
+        "evidence/page-2026-11-24T17-21-13-755Z.jpeg",
+        "evidence/page-2026-11-24T17-21-36-826Z.jpeg",
+        "evidence/page-2026-11-24T17-21-44-264Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Controls are discoverable and responsive, linked selection works in both views, fold changes are inspectable, and reset, sample, reload, and export sequences recovered cleanly without stale state.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-21-05-323Z.jpeg",
+        "evidence/page-2026-11-24T17-22-06-099Z.jpeg",
+        "evidence/page-2026-11-24T17-23-09-825Z.jpeg",
+        "evidence/page-2026-11-24T17-23-52-576Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "Typography, restrained color, spacing, line treatments, and the 3D presentation form a coherent stationery-proofing identity. Key states remain legible and the visual hierarchy supports the workflow.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-53-973Z.jpeg",
+        "evidence/page-2026-11-24T17-21-05-323Z.jpeg",
+        "evidence/page-2026-11-24T17-21-44-264Z.jpeg",
+        "evidence/page-2026-11-24T17-23-52-576Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "The page reloaded reliably, all application assets returned 200/304, repeated fold/reset/sample operations remained stable, and the complete control set stayed readable at 390x844. The only console error was a favicon 404 from the auxiliary server used to display the downloaded SVG.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-19-53-973Z.jpeg",
+        "evidence/page-2026-11-24T17-22-06-099Z.jpeg",
+        "evidence/page-2026-11-24T17-23-52-576Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "Keyboard-only focus traversal was not separately exercised; controls exposed accessible button, input, and slider roles and remained visible at 390x844, but full focus-order behavior is unverified.",
+    "The 390x844 viewport was browser emulation and does not certify physical touch hardware behavior.",
+    "The separate Animate carton closed play button was not triggered; the required fold slider endpoints and intermediate states were exercised directly.",
+    "The SVG was opened through a temporary localhost evidence server because the browser blocked file: navigation. The sole console error was the auxiliary server's favicon 404; application network requests were successful.",
+    "Physical print precision, manufacturing tolerances, and bleed were intentionally out of scope and were not evaluated."
+  ]
+}

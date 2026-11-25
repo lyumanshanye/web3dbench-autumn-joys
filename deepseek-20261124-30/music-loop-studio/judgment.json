@@ -1,0 +1,211 @@
+{
+  "summary": "Loop Garden is a polished, coherent browser music studio with a playable four-track, sixteen-step demo, a highly readable sequencer, clear transport feedback, meaningful per-track controls, destructive-action confirmations, malformed-import handling, and a genuine fixed-camera Three.js greenhouse scene. Desktop playback, pause/resume, stop/reset, mouse and keyboard step editing, tempo changes, solo/volume feedback, and responsive mobile layout were observed. Remaining uncertainty is concentrated in unverified audio quality/audio-clock behavior, real touch input, export/valid-import round trips, rename/delete/reload persistence, and background suspension.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page and all application modules loaded successfully and remained interactive. The sole recoverable startup issue was a missing favicon 404; no application crash or blocking resource failure occurred.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-35-16-832Z.jpeg",
+      "evidence/page-2026-11-24T17-35-36-611Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "A genuine Three.js WebGL canvas renders four distinct instrument sculptures in a shared greenhouse with perspective floor, shadows, depth, occlusion, and note-driven motion. Playhead changes at steps 01, 05, and 14 also produced corresponding instrument and track activity without replacing the 3D scene with a static image.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-35-16-832Z.jpeg",
+      "evidence/page-2026-11-24T17-35-36-611Z.jpeg",
+      "evidence/page-2026-11-24T17-37-08-299Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "The fixed-camera scene was inspected at stopped and multiple playing positions. Geometry, floor perspective, shadows, object separation, and animated instrument states remain spatially coherent; a read-only runtime probe confirmed a 964x220 WebGL Three.js canvas.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-16-832Z.jpeg",
+        "evidence/page-2026-11-24T17-35-36-611Z.jpeg",
+        "evidence/page-2026-11-24T17-37-08-299Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Desktop composition has a clear hierarchy from live arrangement to transport to sequencer and pattern shelf. The dark botanical palette, restrained typography, luminous track colors, and 3D instrument materials form a coherent expression with strong legibility.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-16-832Z.jpeg",
+        "evidence/page-2026-11-24T17-35-36-611Z.jpeg",
+        "evidence/page-2026-11-24T17-40-53-298Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Primary operations produced meaningful state feedback: Play opened a live-audio state and moved the playhead, Pause changed to Resume at the held step, Stop returned to step 01, and tempo, volume, solo, and step edits visibly updated their controls and status text.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-36-611Z.jpeg",
+        "evidence/page-2026-11-24T17-36-39-668Z.jpeg",
+        "evidence/page-2026-11-24T17-37-08-299Z.jpeg",
+        "evidence/page-2026-11-24T17-37-25-696Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PARTIAL",
+      "reason": "Pause/resume retained step 10, Stop reset to step 01, and both clear cancellation and demo replacement recovery worked. A full loop wrap at the sixteenth-step boundary and persistence-related recovery after reload were not directly observed before the browser-call limit.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-55-512Z.jpeg",
+        "evidence/page-2026-11-24T17-36-17-112Z.jpeg",
+        "evidence/page-2026-11-24T17-40-17-428Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "reason": "Desktop 1440x900 and mobile 390x844 full-page layouts were inspected; the mobile view keeps transport, sticky track names, horizontal sequencer access, reduced-motion control, and the pattern shelf reachable. Console/network diagnostics showed successful app-module loads with only favicon 404s. A page reload was not exercised, and the mobile full-page capture showed an empty instrument area.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-16-832Z.jpeg",
+        "evidence/page-2026-11-24T17-40-53-298Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The initial pattern is four tracks by sixteen steps with percussion, bass, and melody tracks. Play was user-gesture initiated, the UI entered a LIVE state, and no account, microphone prompt, or remote audio request occurred. Audible synthesis quality remains unverified.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-16-832Z.jpeg",
+        "evidence/page-2026-11-24T17-35-36-611Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PARTIAL",
+      "reason": "Track names, column headers, playhead, on/off states, pressed semantics, and a visible keyboard focus ring were clear. Mouse toggling and keyboard Space editing worked. Real touch hardware was unavailable, so the third advertised input method could not be certified despite the mobile-friendly layout.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-26-557Z.jpeg",
+        "evidence/page-2026-11-24T17-36-39-668Z.jpeg",
+        "evidence/page-2026-11-24T17-40-53-298Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PARTIAL",
+      "reason": "Tempo changed from 104 to 132 BPM during playback without resetting the visible playhead. Kick volume changed to 24 and Solo Snare activated with corresponding status and instrument activity changes. Mute was not independently exercised, and audio output could not be heard, so acoustic coherence remains unverified.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-37-08-299Z.jpeg",
+        "evidence/page-2026-11-24T17-37-25-696Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Pause held playback at step 10 and Resume continued from that position. Stop returned the display to step 01 with an explicit stopped status. Clear opened a confirmation modal and cancel preserved the work; Restore demo presented its own confirmation and completed without leaving the pattern in an inconsistent state.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-55-512Z.jpeg",
+        "evidence/page-2026-11-24T17-36-17-112Z.jpeg",
+        "evidence/page-2026-11-24T17-40-17-428Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PARTIAL",
+      "reason": "Changing tempo during active playback kept a single visible playhead and the 3D instrument activity continued in step with the displayed sounding track. The audio-clock implementation, actual audible steadiness, and absence of duplicate audio loops cannot be established from visuals alone; tempo was changed once rather than repeatedly.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-36-611Z.jpeg",
+        "evidence/page-2026-11-24T17-37-08-299Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PARTIAL",
+      "reason": "Stop cleared active instrument feedback and returned to step 01, and pause represented a truthful held position. Restore-demo also replaced the active pattern without a visible stuck-note state. Background tab suspension, audio-context suspension, explicit Resume audio recovery, and leaving/revisiting the page were not observable within the run.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-55-512Z.jpeg",
+        "evidence/page-2026-11-24T17-36-17-112Z.jpeg"
+      ]
+    },
+    {
+      "id": "T07",
+      "status": "PARTIAL",
+      "reason": "Three named starter patterns were present, edits showed 'Saved locally' and 'All changes saved', and the pattern shelf exposed rename and delete controls. Rename/delete operations and restoration after refresh were not exercised because the browser-call budget was exhausted, so the full management cycle remains unverified.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-16-832Z.jpeg",
+        "evidence/page-2026-11-24T17-36-26-557Z.jpeg",
+        "evidence/page-2026-11-24T17-40-53-298Z.jpeg"
+      ]
+    },
+    {
+      "id": "T08",
+      "status": "PARTIAL",
+      "reason": "A malformed versioned import was rejected with 'Expected schema loop-garden/pattern' and the active Fern Stomp pattern remained intact with its edited steps and tempo. A valid export/import round trip and individual tempo, track-value, and step-count validation messages were not exercised before the call limit.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-39-59-180Z.jpeg",
+        "evidence/page-2026-11-24T17-36-26-557Z.jpeg"
+      ]
+    },
+    {
+      "id": "T09",
+      "status": "PARTIAL",
+      "reason": "At 390x844 the transport and track names remain reachable, the step grid scrolls horizontally, reduced motion is visibly enabled, textual playback status is present, and the saved-pattern controls remain below the grid. Reduced-motion playback itself was not observed long enough to confirm that large instrument movement is suppressed while playhead and note feedback remain.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-40-53-298Z.jpeg",
+        "evidence/page-2026-11-24T17-35-36-611Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 2,
+      "reason": "The main studio flow is strong and several requested recovery flows work, but substantial requested areas remain unverified: complete local-pattern management, export/valid-import round trips, reload restoration, real touch input, and background/suspension recovery.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-36-611Z.jpeg",
+        "evidence/page-2026-11-24T17-39-59-180Z.jpeg",
+        "evidence/page-2026-11-24T17-40-53-298Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 3,
+      "reason": "The desktop scene is genuinely three-dimensional with clear instrument silhouettes, perspective, shadows, occlusion, and animated depth cues. The 390px full-page view lost the visible instruments in its arrangement panel, preventing a fully consistent spatial result across tested viewport states.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-16-832Z.jpeg",
+        "evidence/page-2026-11-24T17-37-08-299Z.jpeg",
+        "evidence/page-2026-11-24T17-40-53-298Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "Primary and repeated desktop operations were responsive and discoverable, with clear pressed, focus, dirty/saved, and playback feedback. Destructive-action cancellation and malformed-import recovery worked, but the remaining save-management, touch, background-audio, and export/import sequences were not completed.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-39-668Z.jpeg",
+        "evidence/page-2026-11-24T17-37-08-299Z.jpeg",
+        "evidence/page-2026-11-24T17-40-17-428Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 3,
+      "reason": "The desktop typography, color hierarchy, spacing, grid readability, and 3D materials form a polished and coherent greenhouse-studio expression. Mobile controls and text remain legible, but the mobile arrangement panel's missing instruments leave a visible composition gap.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-16-832Z.jpeg",
+        "evidence/page-2026-11-24T17-35-36-611Z.jpeg",
+        "evidence/page-2026-11-24T17-40-53-298Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "Tested desktop flows remained responsive, all app modules returned 200, and mobile lower controls remained reachable. The only console errors were favicon 404s. Reload persistence and background suspension were not tested, while the mobile 3D panel appeared empty.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-16-832Z.jpeg",
+        "evidence/page-2026-11-24T17-40-17-428Z.jpeg",
+        "evidence/page-2026-11-24T17-40-53-298Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "Audio was not audible to the evaluator, so synthesis quality, actual mute/solo acoustics, audio-clock steadiness, note-to-audio alignment, and absence of duplicate audio loops remain unverified.",
+    "Touch interaction was not exercised on real touch hardware; 390x844 testing was viewport emulation only.",
+    "The browser-call budget ended before a valid export/import round trip, opening a downloaded export, renaming/deleting patterns, reloading, or observing background audio suspension.",
+    "The mobile full-page screenshot showed the arrangement's four instrument labels but no visible 3D instruments; whether this is a responsive rendering defect or a full-page WebGL capture artifact was not isolated.",
+    "Console/network diagnostics were saved to evidence/console.txt and evidence/network.txt. Only duplicate favicon.ico 404 errors appeared; all application modules loaded with 200 responses."
+  ]
+}

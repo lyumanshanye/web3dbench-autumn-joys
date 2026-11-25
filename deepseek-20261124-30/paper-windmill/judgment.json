@@ -1,0 +1,185 @@
+{
+  "summary": "A polished, playful Three.js paper windmill demo. The folded-blade model is clearly 3D, wind speed and palette changes affect the scene, pause/resume works, the 390x844 layout keeps the windmill and labeled controls reachable, and a reduced-motion reload opens in a still initial state.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded and rendered successfully at both tested viewport sizes. Three.js module and geometry resources loaded, and all primary interactions worked. The only console error was a nonblocking 404 for favicon.ico.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-15-26-658Z.jpeg",
+      "evidence/page-2026-11-24T17-18-46-503Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The scene contains a genuine rendered 3D windmill with folded, rounded blades around a visible hub, a tapered tower, roof, ground, flowers, clouds, and confetti. Blade movement, overlap with the tower and roof, perspective, cast shadows, and material shading establish real depth rather than a flat image.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-15-26-658Z.jpeg",
+      "evidence/page-2026-11-24T17-16-20-024Z.jpeg",
+      "evidence/page-2026-11-24T17-17-32-605Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Across the initial, calm, and gusty captures, the camera remains fixed but the four blades rotate around the hub and alternately occlude the tower and roof. Their perspective, thickness, highlights, and cast shadows provide clear depth and spatial continuity.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-15-26-658Z.jpeg",
+        "evidence/page-2026-11-24T17-16-00-264Z.jpeg",
+        "evidence/page-2026-11-24T17-16-10-480Z.jpeg",
+        "evidence/page-2026-11-24T17-16-20-024Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The composition is coherent at desktop and phone widths: large readable typography, a softly lit pastel palette, layered clouds and hills, and consistent paper-like blade materials. Controls remain legible without obscuring the windmill.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-15-26-658Z.jpeg",
+        "evidence/page-2026-11-24T17-16-31-438Z.jpeg",
+        "evidence/page-2026-11-24T17-17-32-605Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The wind slider produced immediate labeled speed feedback and visible rotation, palette radios recolored the actual blades, and the pause button changed to Play while stopping the animation. Each primary control has meaningful scene or state feedback.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-16-20-024Z.jpeg",
+        "evidence/page-2026-11-24T17-16-31-438Z.jpeg",
+        "evidence/page-2026-11-24T17-16-40-746Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Both wind boundaries are usable: calm at 0 km/h remained stationary across timed captures, while 38 km/h showed clear motion. Pause stayed frozen across two timed captures, Play resumed motion, and a reduced-motion reload returned to a still initial Play state.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-15-50-083Z.jpeg",
+        "evidence/page-2026-11-24T17-16-00-264Z.jpeg",
+        "evidence/page-2026-11-24T17-16-48-313Z.jpeg",
+        "evidence/page-2026-11-24T17-17-07-889Z.jpeg",
+        "evidence/page-2026-11-24T17-18-46-503Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "The 1440x900 view is fully framed, and the 390x844 full-page view keeps the whole windmill plus every labeled control visible and reachable. Reload succeeded and all scene resources loaded; diagnostics showed only a nonblocking favicon.ico 404.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-15-26-658Z.jpeg",
+        "evidence/page-2026-11-24T17-17-32-605Z.jpeg",
+        "evidence/page-2026-11-24T17-18-46-503Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The windmill has four recognizable folded-paper blades with thickness and curvature, and it remains fully visible and centered at desktop and phone sizes.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-15-26-658Z.jpeg",
+        "evidence/page-2026-11-24T17-16-20-024Z.jpeg",
+        "evidence/page-2026-11-24T17-17-32-605Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "At 0 km/h the blades were unchanged across captures two seconds apart. At 38 km/h, captures at different times showed large angular changes, confirming that speed changes alter visible rotation.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-15-50-083Z.jpeg",
+        "evidence/page-2026-11-24T17-16-00-264Z.jpeg",
+        "evidence/page-2026-11-24T17-16-10-480Z.jpeg",
+        "evidence/page-2026-11-24T17-16-20-024Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Selecting Candy changed the Orchard coral, marigold, leaf, and sky blades to raspberry, pink, lavender, and lemon on the rendered model. Selecting Lagoon on mobile likewise changed the blades to teal, seafoam, mist, and gold.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-16-31-438Z.jpeg",
+        "evidence/page-2026-11-24T17-17-48-507Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Pause produced a Play control and identical blade positions after two seconds; Play restored motion. Reloading with reduced motion emulated showed the intact scene with a Play control, establishing a still initial view.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-16-40-746Z.jpeg",
+        "evidence/page-2026-11-24T17-16-48-313Z.jpeg",
+        "evidence/page-2026-11-24T17-17-07-889Z.jpeg",
+        "evidence/page-2026-11-24T17-18-46-503Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "At 390x844, the windmill remains fully framed above the controls. Wind speed, all four named palette choices, and the pause/play control are visible, labeled, reachable, and were exercised successfully; keyboard Tab also reached the speed slider.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-17-32-605Z.jpeg",
+        "evidence/page-2026-11-24T17-17-48-507Z.jpeg",
+        "evidence/page-2026-11-24T17-18-46-503Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All explicit requirements are present and coherent: a playful Three.js paper windmill, adjustable wind speed, four blade palettes, pause/resume, responsive phone framing with labeled controls, and still reduced-motion startup.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-15-26-658Z.jpeg",
+        "evidence/page-2026-11-24T17-16-20-024Z.jpeg",
+        "evidence/page-2026-11-24T17-16-31-438Z.jpeg",
+        "evidence/page-2026-11-24T17-17-32-605Z.jpeg",
+        "evidence/page-2026-11-24T17-18-46-503Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Folded blade geometry, hub attachment, tower volume, cast shadows, atmospheric layers, and blade-to-tower occlusion remain convincing across motion states and both viewport sizes.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-15-26-658Z.jpeg",
+        "evidence/page-2026-11-24T17-16-20-024Z.jpeg",
+        "evidence/page-2026-11-24T17-17-32-605Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Wind boundaries, repeated rotation observations, palette switching, pause/resume, reduced-motion reload, and phone interaction all behaved reliably with immediate text and scene feedback.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-15-50-083Z.jpeg",
+        "evidence/page-2026-11-24T17-16-20-024Z.jpeg",
+        "evidence/page-2026-11-24T17-16-40-746Z.jpeg",
+        "evidence/page-2026-11-24T17-17-07-889Z.jpeg",
+        "evidence/page-2026-11-24T17-18-46-503Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The art direction is cohesive and purposeful: pastel paper forms, soft lighting, balanced negative space, clear hierarchy, and palette transitions reinforce the playful windmill brief.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-15-26-658Z.jpeg",
+        "evidence/page-2026-11-24T17-16-31-438Z.jpeg",
+        "evidence/page-2026-11-24T17-17-32-605Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "All functional and repeat checks were stable on desktop, phone, and reload. The only diagnostic defect was a nonblocking favicon.ico 404, which prevents the top stability anchor.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-15-26-658Z.jpeg",
+        "evidence/page-2026-11-24T17-17-32-605Z.jpeg",
+        "evidence/page-2026-11-24T17-18-46-503Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "No physical touch device was available; phone behavior was evaluated using a 390x844 viewport emulation.",
+    "The page has no camera-orbit controls, so genuine 3D was assessed through depth, occlusion, perspective, shading, and blade motion across timed states rather than camera navigation.",
+    "Reduced-motion behavior was tested by emulating the browser preference and reloading; the delivered reload screenshot shows the initial Play state, but this does not certify a physical OS setting.",
+    "The MCP browser initially lacked its expected Chromium executable; testing resumed using the benchmark environment's compatible installed Chromium, so infrastructure remained usable.",
+    "Audio and internal rendering implementation details were not evaluated; diagnostics showed only the favicon.ico 404 while scene assets loaded successfully."
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "summary": "The submission runs as a polished Three.js seaside scene with a clearly recognizable pelican riding a detailed bicycle on a sunny beach. Camera dragging works at desktop and mobile widths, the 3D composition remains coherent across multiple views, and reloads return to a correctly rendered scene.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page opened and rendered at both 1440x900 and 390x844, with the full scene visible after reload. The console contained only one missing-favicon 404, while the Three.js module and OrbitControls requests returned 200; see evidence/console.txt and evidence/network.txt.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-09-41-903Z.jpeg",
+      "evidence/page-2026-11-24T17-12-20-603Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The viewport contains a genuine live 3D scene: the pelican, bicycle, palms, sandcastles, umbrella, and water show perspective, cast shadows, inter-object occlusion, and consistent parallax as the camera orbits.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-09-41-903Z.jpeg",
+      "evidence/page-2026-11-24T17-10-01-893Z.jpeg",
+      "evidence/page-2026-11-24T17-10-16-205Z.jpeg",
+      "evidence/page-2026-11-24T17-10-32-072Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct dragged-camera views show correct spatial change: bicycle wheels and frame maintain coherent geometry, the pelican remains seated in contact with the bike, and nearby palms, sandcastles, and shadows shift with plausible perspective and occlusion.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-09-41-903Z.jpeg",
+        "evidence/page-2026-11-24T17-10-01-893Z.jpeg",
+        "evidence/page-2026-11-24T17-10-16-205Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The composition is cohesive and legible: the rider and bicycle are dominant, warm sand and blue water establish the setting, materials are consistently stylized, and the serif title and compact HUD reinforce the leisurely seaside mood without obscuring the subject.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-09-41-903Z.jpeg",
+        "evidence/page-2026-11-24T17-10-32-072Z.jpeg",
+        "evidence/page-2026-11-24T17-11-36-682Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The advertised 'Drag to look around' primary interaction works immediately with meaningful camera feedback on desktop and at 390px width. A mobile drag changed the viewpoint while keeping the pelican and bicycle readable.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-09-41-903Z.jpeg",
+        "evidence/page-2026-11-24T17-10-01-893Z.jpeg",
+        "evidence/page-2026-11-24T17-11-15-625Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated drags in opposite directions remained responsive, and a full reload restored a correct initial view. No pause, undo, export, or other recovery controls are advertised or required by the task.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-10-01-893Z.jpeg",
+        "evidence/page-2026-11-24T17-10-16-205Z.jpeg",
+        "evidence/page-2026-11-24T17-11-36-682Z.jpeg",
+        "evidence/page-2026-11-24T17-12-20-603Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Both requested viewport sizes render without overflow or unreachable content. At 390x844 the canvas exactly fills the viewport, the lower greeting badge and drag hint remain visible, Tab leaves focus on the body because there are no focusable controls, and reload is stable. Console and network diagnostics are saved in evidence/console.txt and evidence/network.txt.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-10-46-793Z.jpeg",
+        "evidence/page-2026-11-24T17-11-15-625Z.jpeg",
+        "evidence/page-2026-11-24T17-11-36-682Z.jpeg",
+        "evidence/page-2026-11-24T17-12-20-603Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "A recognizable white pelican with a large orange bill, hat, and scarf rides a recognizable teal bicycle with two spoked wheels, a frame, saddle, handlebars, pedals, fenders, and a front basket in a genuine 3D scene.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-09-41-903Z.jpeg",
+        "evidence/page-2026-11-24T17-10-01-893Z.jpeg",
+        "evidence/page-2026-11-24T17-10-16-205Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "The bright blue sea, warm sand, palm trees, beach umbrella, ball, sandcastles, sunny lighting, and relaxed seated riding pose make both the sunny beach setting and leisurely presentation visually apparent.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-09-41-903Z.jpeg",
+        "evidence/page-2026-11-24T17-10-32-072Z.jpeg",
+        "evidence/page-2026-11-24T17-10-46-793Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Across multiple orbit angles and sampled time points, the pelican, bicycle, and beach remain readable; perspective changes are coherent, and no motion or resize state produced clipping or loss of the main subject.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-10-16-205Z.jpeg",
+        "evidence/page-2026-11-24T17-10-32-072Z.jpeg",
+        "evidence/page-2026-11-24T17-11-36-682Z.jpeg",
+        "evidence/page-2026-11-24T17-11-54-066Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All stated requirements are delivered coherently: a single-page Three.js scene features a pelican riding a bicycle leisurely on a sunny beach, with the subject and setting immediately apparent and stable across tested states.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-09-41-903Z.jpeg",
+        "evidence/page-2026-11-24T17-12-20-603Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Shapes, connections, scale, depth, occlusion, materials, and lighting consistently serve the task. The rider sits on the saddle with limbs aligned to the handlebars and pedals, the bicycle is fully constructed, and orbit views preserve coherent spatial relations.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-09-41-903Z.jpeg",
+        "evidence/page-2026-11-24T17-10-01-893Z.jpeg",
+        "evidence/page-2026-11-24T17-10-16-205Z.jpeg",
+        "evidence/page-2026-11-24T17-10-32-072Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "The sole advertised interaction is discoverable and reliable. Dragging produces natural camera orbit feedback, repeated and reverse drags work, narrow-view dragging works, and reload recovery is clean.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-09-41-903Z.jpeg",
+        "evidence/page-2026-11-24T17-10-01-893Z.jpeg",
+        "evidence/page-2026-11-24T17-11-15-625Z.jpeg",
+        "evidence/page-2026-11-24T17-11-36-682Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The warm coastal palette, expressive typography, restrained HUD, soft shading, and polished 3D forms create a coherent postcard-like expression. Purposeful details such as the scarf, hat, basket, fish, umbrella, ball, and sea highlights reinforce the brief.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-09-41-903Z.jpeg",
+        "evidence/page-2026-11-24T17-10-32-072Z.jpeg",
+        "evidence/page-2026-11-24T17-11-15-625Z.jpeg",
+        "evidence/page-2026-11-24T17-12-20-603Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "Desktop and narrow layouts render reliably, repeat interaction remains responsive, and reload restores the scene. The only console anomaly is a nonblocking missing favicon, with no missing core resources or freezes observed.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-10-46-793Z.jpeg",
+        "evidence/page-2026-11-24T17-11-36-682Z.jpeg",
+        "evidence/page-2026-11-24T17-12-20-603Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The canvas has no keyboard-focusable controls, so Tab remains on the document body; there is no keyboard alternative to the advertised drag gesture.",
+    "Mobile layout was verified with viewport resizing and a pointer drag, not physical touch hardware.",
+    "No audio or downloadable export is present in the tested UI, so those aspects were not evaluated.",
+    "The only console issue was a favicon.ico 404; it did not affect rendering or interaction."
+  ]
+}

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#092228" />
+  <title>Harbour Lane Library · Visitor Directory</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../../vendor/three/three.module.js",
+        "three/addons/": "../../vendor/three/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Harbour Lane Library directory home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" role="img">
+            <path d="M7 10.2c4.8-1.6 9.1-.5 13 2.5v18.1c-3.9-3-8.2-4.1-13-2.5V10.2Z"/>
+            <path d="M33 10.2c-4.8-1.6-9.1-.5-13 2.5v18.1c3.9-3 8.2-4.1 13-2.5V10.2Z"/>
+            <path d="M20 12.7v18.1"/>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <strong>Harbour Lane Library</strong>
+          <small>Visitor directory</small>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="service-status" id="liftStatus" aria-live="polite">
+          <span class="status-dot"></span>
+          <span id="liftStatusText">Lift in service</span>
+        </div>
+        <button class="staff-button" id="staffButton" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a3.2 3.2 0 1 1 0 6.4 3.2 3.2 0 0 1 0-6.4ZM5.3 20.8v-2.2c0-2.7 3.8-4.9 6.7-4.9s6.7 2.2 6.7 4.9v2.2"/></svg>
+          <span>Staff</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="sidebar" aria-label="Directory controls and directions">
+        <div class="sidebar-scroll">
+          <div class="intro-block">
+            <p class="eyebrow">Wayfinding</p>
+            <h1>Where would you like to go?</h1>
+            <p class="intro-copy">Search or tap a room on the model.</p>
+          </div>
+
+          <div class="search-area">
+            <label class="field-label" for="searchInput">Destination</label>
+            <div class="search-field" id="searchField">
+              <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.7" cy="10.7" r="6.4"/><path d="m15.5 15.5 4.3 4.3"/></svg>
+              <input id="searchInput" type="search" autocomplete="off" spellcheck="false" placeholder="Search rooms or services" aria-label="Search destinations" />
+              <button class="search-clear" id="searchClear" type="button" aria-label="Clear destination search" hidden>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg>
+              </button>
+            </div>
+            <div class="search-results" id="searchResults" role="listbox" aria-label="Search results" hidden></div>
+          </div>
+
+          <div class="start-area">
+            <label class="field-label" for="startSelect">Start from</label>
+            <div class="select-wrap">
+              <svg class="select-pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.4 6-11a6 6 0 1 0-12 0c0 5.6 6 11 6 11Z"/><circle cx="12" cy="10" r="2.2"/></svg>
+              <select id="startSelect" aria-label="Choose a starting point"></select>
+              <svg class="select-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 9.5 5 5 5-5"/></svg>
+            </div>
+          </div>
+
+          <label class="access-card" for="stepFreeToggle">
+            <span class="access-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><circle cx="14" cy="6.3" r="2.7"/><path d="M14 10.2v7.1h6.2l3.6 7.4M14 13.2h-4.8M14 17.3l-4.7 7.1M8.9 28.3a5.9 5.9 0 1 0 0-11.8"/></svg>
+            </span>
+            <span class="access-copy">
+              <strong>Step-free route</strong>
+              <small>Use the lift and avoid stairs</small>
+            </span>
+            <input id="stepFreeToggle" class="sr-only" type="checkbox" />
+            <span class="switch" aria-hidden="true"><span></span></span>
+          </label>
+
+          <section class="route-panel" id="routePanel" aria-live="polite" aria-label="Route directions"></section>
+
+          <div class="quick-note" id="quickNote">
+            <span class="quick-icon" aria-hidden="true">i</span>
+            <span>All levels have seating, lighting and staff assistance. Ask at the help desk if you need more support.</span>
+          </div>
+        </div>
+
+        <div class="sidebar-footer">
+          <span class="footer-dot" aria-hidden="true"></span>
+          <span>Touch-friendly directory · Data available offline</span>
+        </div>
+      </aside>
+
+      <section class="map-shell" id="mapShell" aria-label="Interactive three-dimensional library map">
+        <div class="scene-backdrop"></div>
+        <div id="sceneMount"></div>
+        <div id="labelMount" class="label-mount" aria-hidden="false"></div>
+
+        <div class="map-heading">
+          <span class="level-kicker" id="levelKicker">Level 1</span>
+          <strong id="levelName">Entrance &amp; collections</strong>
+        </div>
+
+        <div class="compass" aria-label="North is toward the top of the plan">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="19"/><g id="compassNeedle"><path d="m22 7 5 18-5-3-5 3 5-18Z"/></g><text x="22" y="39" text-anchor="middle">N</text></svg>
+        </div>
+
+        <div class="map-hint" id="mapHint">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 12.5V7.8a1.8 1.8 0 0 1 3.6 0v3.4-5.3a1.8 1.8 0 0 1 3.6 0v5.3-3.7a1.8 1.8 0 0 1 3.6 0v7.2c0 4.1-2.8 6.8-6.8 6.8h-1.2c-2.2 0-3.5-1.1-4.7-2.9L3 13.9a1.9 1.9 0 0 1 2.9-2.4l2.1 2.2"/></svg>
+          <span>Tap a room to choose it</span>
+        </div>
+
+        <div class="route-continues" id="routeContinues" hidden>
+          <span id="routeContinuesText">Route continues upstairs</span>
+          <button type="button" id="routeContinuesButton">View Level 2</button>
+        </div>
+
+        <div class="floor-selector-wrap">
+          <span class="floor-caption">Floor</span>
+          <div class="floor-selector" role="group" aria-label="Select floor">
+            <button class="floor-button is-active" type="button" data-floor="1" aria-pressed="true">
+              <span class="floor-number">1</span>
+              <span class="floor-copy"><strong>Ground</strong><small>Entrance</small></span>
+              <span class="floor-route-dot" hidden></span>
+            </button>
+            <button class="floor-button" type="button" data-floor="2" aria-pressed="false">
+              <span class="floor-number">2</span>
+              <span class="floor-copy"><strong>Upper</strong><small>Reading</small></span>
+              <span class="floor-route-dot" hidden></span>
+            </button>
+          </div>
+          <button class="reset-view" id="resetView" type="button" aria-label="Reset map view">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 9.5A8 8 0 1 1 4 14M4.5 9.5V4M4.5 9.5h5.4"/></svg>
+          </button>
+        </div>
+
+        <div class="map-legend" aria-label="Map legend">
+          <span><i class="legend-line"></i> Your route</span>
+          <span><i class="legend-start"></i> Start</span>
+          <span><i class="legend-destination"></i> Destination</span>
+        </div>
+
+        <div class="scene-loading" id="sceneLoading">
+          <span class="loading-mark" aria-hidden="true"></span>
+          <span>Preparing the building model…</span>
+        </div>
+
+        <div class="map-toast" id="mapToast" role="status" aria-live="polite" hidden></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="staffModal" hidden>
+    <div class="staff-modal" role="dialog" aria-modal="true" aria-labelledby="staffTitle">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">Staff access</p>
+          <h2 id="staffTitle">Building controls</h2>
+        </div>
+        <button class="modal-close" id="staffClose" type="button" aria-label="Close staff controls">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg>
+        </button>
+      </div>
+      <div class="staff-status-row">
+        <span class="staff-status-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><rect x="6" y="4.5" width="20" height="23" rx="2"/><path d="M16 4.5v23M9.5 14h4M18.5 14h4M9.5 22h4M18.5 22h4"/></svg>
+        </span>
+        <div>
+          <strong>Passenger lift</strong>
+          <span id="modalLiftState">Operational</span>
+        </div>
+        <span class="modal-status-dot" id="modalStatusDot" aria-hidden="true"></span>
+      </div>
+      <label class="outage-control" for="liftOutageToggle">
+        <span>
+          <strong>Mark lift out of service</strong>
+          <small>Step-free routes between floors will be unavailable.</small>
+        </span>
+        <input id="liftOutageToggle" class="sr-only" type="checkbox" />
+        <span class="switch dark-switch" aria-hidden="true"><span></span></span>
+      </label>
+      <div class="staff-note" id="staffNote">
+        Visitors will still be offered the shortest stair route when step-free access is not requested.
+      </div>
+      <button class="modal-done" id="staffDone" type="button">Done</button>
+    </div>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

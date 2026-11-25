@@ -1,0 +1,85 @@
+{
+  "version": "3.0",
+  "task": "library-wayfinding",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "The local 3D library has two floors, entrance/help/children/toilets, upstairs reading and two meeting rooms, connected by stairs and lift.",
+      "action": "Inspect both library floors and the available destinations.",
+      "expected": "The local plan includes entrance, help desk, children, toilets, upstairs reading, two meeting rooms, stairs and lift.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Search or model selection chooses destinations and supports several starting points.",
+      "action": "Search for destinations and select them on the model from several starting points.",
+      "expected": "Both selection paths identify the requested destination and more than the entrance can be a start.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Routes and directions agree through corridors and doorways; switching displayed floors preserves the route.",
+      "action": "Follow a cross-floor route, read its directions and switch visible floors.",
+      "expected": "Route geometry follows corridors/doorways and agrees with directions; floor changes retain the route.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "Step-free mode uses the lift, avoids stairs and recomputes when staff mark it out of service.",
+      "action": "Choose step-free access, then mark the lift out of service.",
+      "expected": "Routes use the lift rather than stairs and recompute when its availability changes.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "An unavailable cross-floor step-free route is explained, while same-floor routes still work; kiosk touch controls avoid reliance on precise camera manipulation.",
+      "action": "Request an upstairs step-free route with the lift disabled, then a same-floor route; use kiosk controls.",
+      "expected": "The impossible route is explained, valid same-floor routes still work, and controls do not require precise camera gestures.",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the floor plan and initial route/directions.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Plan an upstairs trip from the entrance, change floors/start and enable step-free access.",
+      "criteria": [
+        "G03",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Disable the lift and verify upstairs unavailability, then choose a same-floor trip and an empty search; restore lift availability.",
+      "criteria": [
+        "G04",
+        "T04",
+        "T05"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

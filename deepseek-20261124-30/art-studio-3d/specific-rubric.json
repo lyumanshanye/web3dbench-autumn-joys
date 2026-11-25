@@ -1,0 +1,85 @@
+{
+  "version": "3.0",
+  "task": "art-studio-3d",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "An actual 3D Norb Studio homepage presents interactive floating abstract shapes in a full-screen hero.",
+      "action": "Open the homepage and use its offered floating-shape interaction.",
+      "expected": "A full-screen Norb Studio hero contains floating abstract 3D shapes that visibly respond.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "A 3D loading screen shows a rotating cube, with exactly one letter on each face, conveying and repeating Norb Studio's name as it spins, and transitions into the page.",
+      "action": "Reload and observe the loading cube before, during and after its rotation.",
+      "expected": "Each visible cube face has one letter; the spinning presentation conveys Norb Studio and transitions to the homepage.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Scrolling reveals a readable studio narrative with smooth visual transitions.",
+      "action": "Scroll through the narrative in both directions.",
+      "expected": "The studio story and goals remain readable through continuous visual transitions.",
+      "dimension": "visual"
+    },
+    {
+      "id": "T04",
+      "requirement": "A vertical artwork carousel forms a recognizable 3D helix and responds to scrolling.",
+      "action": "Scroll through the artwork gallery and reverse direction.",
+      "expected": "Artwork follows a vertical 3D helix and the carousel rotates with scrolling.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T05",
+      "requirement": "The contact form has interactive 3D treatment, with field hover/focus feedback and usable inputs.",
+      "action": "Hover the contact fields, focus them and enter sample text.",
+      "expected": "The 3D-treated fields animate and change color on hover while remaining usable.",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Observe the loading-to-hero sequence and inspect floating shapes from pointer movement.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Scroll through the narrative and helix; inspect multiple artworks, then enter contact fields.",
+      "criteria": [
+        "G03",
+        "T03"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Reverse the scroll, revisit the gallery and move focus through the form; check that page states remain usable.",
+      "criteria": [
+        "G04",
+        "T04",
+        "T05"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

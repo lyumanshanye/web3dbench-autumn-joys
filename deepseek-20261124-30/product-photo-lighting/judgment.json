@@ -1,0 +1,163 @@
+{
+  "summary": "Lumen is a polished virtual product-photo studio with a genuine rendered ceramic mug, seamless backdrop, two draggable softbox lights, reflector, camera controls, live relighting, square/portrait crops, clean PNG export, reset recovery, and a usable narrow layout. The tested primary flows all worked; the main caveats are a visible surface seam on the mug and temporary drag-target interception when plan nodes overlap.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded at 1440x900 and 390x844, rendered the Three.js camera preview, accepted UI interactions, exported PNGs, and reloaded successfully. The network log shows the core app and Three.js modules returning 200/304; the console contains only a nonblocking missing favicon.ico 404.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-33-30-383Z.jpeg",
+      "evidence/page-2026-11-24T17-36-46-047Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The preview is a genuine real-time 3D scene: the mug has a modeled curved body, open rim, hollow interior, connected handle, contact shadow, and changing perspective across light and camera views. Moving a softbox reversed the cast-shadow direction and shifted highlights, while raising the camera revealed the rim opening and altered handle occlusion.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-33-30-383Z.jpeg",
+      "evidence/page-2026-11-24T17-33-43-321Z.jpeg",
+      "evidence/page-2026-11-24T17-35-19-710Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct views were observed: the initial eye-level view, a view after repositioning the Key softbox, and a 225 cm high-camera view. Depth, rim occlusion, handle geometry, contact shadow, and parallax remain coherent across them.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-30-383Z.jpeg",
+        "evidence/page-2026-11-24T17-33-43-321Z.jpeg",
+        "evidence/page-2026-11-24T17-35-19-710Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Composition and hierarchy are strong: the camera preview is central, controls are clearly grouped, typography is legible, the terracotta and oat palettes cohere, and the ceramic material reads well under studio lighting. A faint vertical surface seam is visible but does not prevent judging highlights or form.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-30-383Z.jpeg",
+        "evidence/page-2026-11-24T17-35-29-759Z.jpeg",
+        "evidence/page-2026-11-24T17-37-21-206Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary UI produced immediate, meaningful preview changes. Dragging the Key softbox changed the highlight and cast-shadow direction, choosing Oat changed the backdrop in both scene and preview, Portrait reshaped the preview to 4:5, and the camera-height slider changed the viewpoint and rim visibility.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-43-321Z.jpeg",
+        "evidence/page-2026-11-24T17-35-19-710Z.jpeg",
+        "evidence/page-2026-11-24T17-35-29-759Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeat and reverse operations worked: crops were switched in both directions, both portrait and square exports completed, the camera-height control reached its upper boundary, and Reset studio restored the initial terracotta backdrop, 50 mm camera, 135 cm height, square crop, and 78/42/58 lighting values. When two plan nodes overlapped, target-based dragging was blocked, but direct coordinate dragging moved the reflector and no state was lost.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-29-759Z.jpeg",
+        "evidence/page-2026-11-24T17-36-39-502Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "At 390x844 the page stacks the preview above the set and lighting panels; the full-page capture shows the crop buttons, light plan, all three power/bounce sliders, and autosave note are readable and reachable without horizontal clipping. Tab produced a visible focus ring on Export, reload completed successfully, and evidence/console.txt plus evidence/network.txt record only the nonblocking favicon 404 and successful core resource loads.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-46-047Z.jpeg",
+        "evidence/page-2026-11-24T17-37-21-206Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The initial view shows a curved white ceramic mug with a clear handle and open interior on a seamless matte backdrop. The starting two-light plus reflector setup is usable and produces visible highlights, a shadow beneath the body, and a cast shadow that helps reveal the handle and curved side.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-30-383Z.jpeg",
+        "evidence/page-2026-11-24T17-35-19-710Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "The studio visibly contains two distinct softbox nodes named Key and Fill, a reflector, and camera controls. Moving the Key softbox to the opposite side produced an obvious reversal of the mug's cast shadow and a changed highlight, confirming that light position drives the live preview; the reflector was also repositioned in plan and the camera view changed.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-30-383Z.jpeg",
+        "evidence/page-2026-11-24T17-33-43-321Z.jpeg",
+        "evidence/page-2026-11-24T17-35-19-710Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Selecting Oat changed the seamless backdrop color in the camera preview, and selecting Portrait changed the preview from 1:1 1600x1600 to 4:5 1600x2000. The corresponding crop buttons and header values updated immediately.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-30-383Z.jpeg",
+        "evidence/page-2026-11-24T17-35-29-759Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Both delivered PNGs were opened in a browser and inspected: portrait was confirmed at 1600x2000 and square at 1600x1600, with no editor chrome, handles, labels, or page UI in the exported image. Reset then restored the initial usable studio setup as shown in the post-reset screenshot.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-01-566Z.jpeg",
+        "evidence/page-2026-11-24T17-36-30-129Z.jpeg",
+        "evidence/page-2026-11-24T17-36-39-502Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All stated requirements were delivered coherently in tested states: a ceramic mug on a seamless backdrop, two softboxes, reflector, camera, live light response, backdrop changes, square and portrait crops, clean PNG export, and reset recovery. The interface also starts in a usable lighting setup.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-30-383Z.jpeg",
+        "evidence/page-2026-11-24T17-35-29-759Z.jpeg",
+        "evidence/page-2026-11-24T17-36-30-129Z.jpeg",
+        "evidence/page-2026-11-24T17-36-39-502Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 3,
+      "reason": "The mug, backdrop, lighting, depth, handle opening, and camera viewpoints are coherent, and the light move visibly changes spatial shadow direction. The score is held below 4 by local surface defects: a faint vertical seam on the mug wall and slightly faceted highlight transitions along the handle.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-30-383Z.jpeg",
+        "evidence/page-2026-11-24T17-33-43-321Z.jpeg",
+        "evidence/page-2026-11-24T17-35-19-710Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "The required controls are discoverable and provide strong live feedback, with reliable crop switching, export, slider limits, and reset recovery. The main local interaction issue is that overlapping plan nodes can cover each other and make element-targeted dragging fail until an open coordinate is targeted.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-43-321Z.jpeg",
+        "evidence/page-2026-11-24T17-35-29-759Z.jpeg",
+        "evidence/page-2026-11-24T17-36-39-502Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The studio has a purposeful, cohesive product-photography identity: restrained warm color, clear panel hierarchy, legible type, strong preview focus, and consistent transitions between square, portrait, and mobile layouts.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-30-383Z.jpeg",
+        "evidence/page-2026-11-24T17-35-29-759Z.jpeg",
+        "evidence/page-2026-11-24T17-37-21-206Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "Desktop and mobile layouts were readable and fully reachable, repeated crop/export/reset operations worked, and reload completed with all core resources available. The sole diagnostic issue was a missing favicon.ico, which did not affect the rendered experience.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-46-047Z.jpeg",
+        "evidence/page-2026-11-24T17-37-21-206Z.jpeg",
+        "evidence/page-2026-11-24T17-36-39-502Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The Fill softbox's independent spatial response was not separately dragged; T02 relies on the verified Key-softbox relighting plus the visible, draggable Fill control. Both softboxes and all three power/bounce sliders were present.",
+    "Pointer and keyboard behavior were emulated in Chromium; real touch-hardware gestures were not tested.",
+    "Audio quality and internal implementation details were not applicable or evaluated.",
+    "The console error is a missing favicon.ico; the core HTML, CSS, JavaScript, and Three.js modules loaded successfully according to evidence/network.txt."
+  ]
+}

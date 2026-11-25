@@ -1,0 +1,171 @@
+{
+  "summary": "Aurelia Museum's 'Relics of Memory' presents a coherent, atmospheric Three.js gallery with five antique artifacts on lit pedestals. Entering the collection reframes the camera and opens artifact details; the numbered exhibit navigation, orbit, scroll zoom, keyboard focus, detail close/reopen, mobile layout and reload all behaved reliably. Geometry, depth, occlusion and parallax confirm genuine real-time 3D rather than static imagery. The only diagnostic issue is a non-blocking favicon 404.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loads at 1440x900 and 390x844, initializes the 3D scene with five artifacts, and returns to the same healthy initial state after reload. All Three.js modules in the network log load with 200/304 responses; the sole console entry is a non-blocking favicon.ico 404.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-44-02-807Z.jpeg",
+      "evidence/page-2026-11-24T17-48-36-055Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "Valid real-time 3D is visible: five separately modeled artifacts (mask, amphora, marble bust, armillary sphere and tripod brazier) occupy pedestals in a dark gallery with spotlight cones, shadows, floor markings and strong depth cues. Camera changes produce parallax and occlusion shifts across artifacts and pedestals.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-44-02-807Z.jpeg",
+      "evidence/page-2026-11-24T17-45-53-321Z.jpeg",
+      "evidence/page-2026-11-24T17-46-13-536Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Depth and geometry were inspected in the wide establishing view, the orbit-shifted Sun Mask view, the zoomed Sun Mask view, and close framings of the Celestial Ring, Oracle's Tripod and Aegean Amphora. Perspective, pedestal occlusion and inter-object parallax change consistently with camera movement.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-44-02-807Z.jpeg",
+        "evidence/page-2026-11-24T17-44-40-090Z.jpeg",
+        "evidence/page-2026-11-24T17-45-00-043Z.jpeg",
+        "evidence/page-2026-11-24T17-46-42-571Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Composition, materials, lighting and typography form a coherent museum expression: warm spotlights against a near-black room, metallic and ceramic materials with distinct highlights, serif display type and restrained captions. Information remains legible over the scene on desktop and mobile.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-44-02-807Z.jpeg",
+        "evidence/page-2026-11-24T17-44-19-677Z.jpeg",
+        "evidence/page-2026-11-24T17-45-53-321Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary UI gives meaningful feedback: 'Enter the collection' zooms to the focused exhibit and opens its detail card; exhibit buttons change camera focus, hotspot label and 'Now in focus' text; drag orbits, scroll zooms, and 'View in the round' recenters the camera.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-44-19-677Z.jpeg",
+        "evidence/page-2026-11-24T17-44-40-090Z.jpeg",
+        "evidence/page-2026-11-24T17-45-53-321Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeat and recovery flows work: several exhibits were selected in sequence and an earlier exhibit was revisited; the details card was closed and reopened for the same exhibit; keyboard Tab plus Enter selected the next exhibit with a visible focus ring. No broken repeat or reverse state was found.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-46-42-571Z.jpeg",
+        "evidence/page-2026-11-24T17-47-33-210Z.jpeg",
+        "evidence/page-2026-11-24T17-48-01-389Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Both 1440x900 and 390x844 layouts render and remain usable. On mobile the bottom number controls are reachable, keyboard focus is visible, the detail card is readable and closable, and artifact selection updates the scene. Reload restores the gallery. Console/network logs show only a favicon 404; all application and Three.js resources load.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-46-57-649Z.jpeg",
+        "evidence/page-2026-11-24T17-47-33-210Z.jpeg",
+        "evidence/page-2026-11-24T17-48-36-055Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The coherent 3D gallery contains five clearly distinguishable exhibits: Mask of the Sun, Vessel of the Aegean/Aegean Amphora, The Marble Muse, The Celestial Ring and The Oracle's Tripod, each on its own pedestal with a distinct silhouette and material.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-44-02-807Z.jpeg",
+        "evidence/page-2026-11-24T17-45-53-321Z.jpeg",
+        "evidence/page-2026-11-24T17-46-42-571Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Artifacts are genuinely modeled and inspectable: orbit and zoom reveal changing faces, ring layering, tripod legs and pedestal occlusion, not static billboards. Network diagnostics confirm Three.js and OrbitControls are loaded.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-45-00-043Z.jpeg",
+        "evidence/page-2026-11-24T17-45-53-321Z.jpeg",
+        "evidence/page-2026-11-24T17-46-13-536Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Exhibit selection makes every artifact reachable and preserves context: the scene hotspot, 'Now in focus' label, active numbered control and detail card all update together. Returning to an earlier artifact works on desktop and mobile; on mobile the numbered controls remain present with accessible names.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-46-13-536Z.jpeg",
+        "evidence/page-2026-11-24T17-46-42-571Z.jpeg",
+        "evidence/page-2026-11-24T17-47-12-405Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Artifact information and controls remain readable and usable over the immersive scene. Desktop detail cards are unobtrusive and fully legible; the mobile card occupies the lower half of the screen but keeps clear hierarchy and a visible close button, after which the artifact and bottom controls are unobstructed.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-44-19-677Z.jpeg",
+        "evidence/page-2026-11-24T17-47-12-405Z.jpeg",
+        "evidence/page-2026-11-24T17-47-42-986Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "The brief is fully delivered: a museum gallery web page with multiple antique artifacts presented as interactive Three.js 3D models, plus a coherent exploration flow. No stated requirement is missing.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-44-02-807Z.jpeg",
+        "evidence/page-2026-11-24T17-44-19-677Z.jpeg",
+        "evidence/page-2026-11-24T17-45-53-321Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Shapes, pedestal placement, scale, lighting and materials consistently serve the gallery. Distinct artifact forms remain coherent from wide, orbit-shifted, zoomed and close views, with convincing depth and occlusion.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-44-02-807Z.jpeg",
+        "evidence/page-2026-11-24T17-45-00-043Z.jpeg",
+        "evidence/page-2026-11-24T17-45-53-321Z.jpeg",
+        "evidence/page-2026-11-24T17-46-13-536Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Sequences, repeat selection, keyboard activation, orbit/zoom and detail recovery remain reliable and natural. Advertised controls produce visible scene or information feedback.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-44-19-677Z.jpeg",
+        "evidence/page-2026-11-24T17-45-53-321Z.jpeg",
+        "evidence/page-2026-11-24T17-47-33-210Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The dark-gold museum composition, serif display typography, spotlighting and restrained captions form a purposeful, consistent expression. State changes preserve hierarchy and readability on desktop and mobile.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-44-02-807Z.jpeg",
+        "evidence/page-2026-11-24T17-45-53-321Z.jpeg",
+        "evidence/page-2026-11-24T17-47-12-405Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "Standard, repeat, keyboard and reload checks remained stable at both viewport sizes; all application and Three.js resources loaded. The only console issue is a non-blocking missing favicon.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-44-02-807Z.jpeg",
+        "evidence/page-2026-11-24T17-47-42-986Z.jpeg",
+        "evidence/page-2026-11-24T17-48-36-055Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "Audio quality was not evaluated because the page presents no audio.",
+    "Downloaded exports were not applicable because no export or download control is advertised.",
+    "Real touch hardware was not tested; the 390x844 checks used Playwright mouse and keyboard input in an emulated narrow viewport.",
+    "Internal implementation was not inspected; genuine 3D is inferred from rendered parallax, occlusion, camera-dependent views and the Three.js module requests in evidence/network.txt.",
+    "The mobile bottom navigation hides artifact names and shows only numbers, though accessible names and the 'Now in focus' label preserve context.",
+    "Performance was not judged against calibrated thresholds; no freezes occurred during testing.",
+    "The top-level Collection, The Archive and Visit links were not explored beyond their visible presence because the task concerns the gallery experience."
+  ]
+}

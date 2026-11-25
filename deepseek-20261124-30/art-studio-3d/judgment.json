@@ -1,0 +1,199 @@
+{
+  "summary": "Norb Studio runs as a cohesive 3D art-studio experience: the WebGL hero, pinned narrative, scroll-driven helix, responsive navigation, and interactive contact form all work. The only unverified stated element was the transient loading cube; a 390px contact-header overlap was the clearest visual and stability defect.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The homepage loaded under the Norb Studio title and remained interactive. Three.js modules, styles, and scripts returned 200; the only console error was a missing favicon.ico, which did not block the page.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-20-16-948Z.jpeg",
+      "evidence/page-2026-11-24T17-20-55-277Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "Genuine 3D rendering is visible across the hero and gallery: glossy lit volumes, rings, wireframe depth, satellites, occlusion, parallax-like orbit changes, and a perspective helix whose card ordering and scale change while scrolling.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-20-16-948Z.jpeg",
+      "evidence/page-2026-11-24T17-20-55-277Z.jpeg",
+      "evidence/page-2026-11-24T17-23-00-854Z.jpeg",
+      "evidence/page-2026-11-24T17-23-12-920Z.jpeg",
+      "evidence/page-2026-11-24T17-23-24-540Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Depth and geometry were inspected in multiple distinct hero and gallery states. The hero's orbital elements cross in front of and behind the central form, and the helix cards show clear perspective scaling and occlusion across three scroll positions.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-16-948Z.jpeg",
+        "evidence/page-2026-11-24T17-20-55-277Z.jpeg",
+        "evidence/page-2026-11-24T17-23-00-854Z.jpeg",
+        "evidence/page-2026-11-24T17-23-12-920Z.jpeg",
+        "evidence/page-2026-11-24T17-23-24-540Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The typography, neon lime and coral palette, dark-to-light section changes, bloom, chrome-like materials, and oversized 3D forms form a coherent art-studio expression. Desktop hierarchy is strong and readable; the narrow contact header overlap is a local flaw noted under stability.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-16-948Z.jpeg",
+        "evidence/page-2026-11-24T17-22-18-344Z.jpeg",
+        "evidence/page-2026-11-24T17-23-35-680Z.jpeg",
+        "evidence/page-2026-11-24T17-24-59-298Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Primary interactions produced meaningful feedback: moving the pointer over the hero changed the composition, gallery scrolling changed both rotation and selected-work index, and contact-field hover/focus changed the field color while accepting typed text.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-55-277Z.jpeg",
+        "evidence/page-2026-11-24T17-23-12-920Z.jpeg",
+        "evidence/page-2026-11-24T17-23-49-023Z.jpeg",
+        "evidence/page-2026-11-24T17-24-04-219Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated navigation and gallery scrolling remained usable. Forward gallery motion changed the selected item from 02/10 Liquid Archive to 07/10 Velvet Static, and reverse motion moved back to 03/10 Second Nature with the helix rearranged coherently. Mobile navigation also opened and moved to Work.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-00-854Z.jpeg",
+        "evidence/page-2026-11-24T17-23-12-920Z.jpeg",
+        "evidence/page-2026-11-24T17-23-24-540Z.jpeg",
+        "evidence/page-2026-11-24T17-24-29-625Z.jpeg",
+        "evidence/page-2026-11-24T17-24-46-001Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Both 1440x900 and 390x844 layouts were inspected, including the lower contact form, mobile menu, reload, and diagnostics. The form controls and send button remain reachable on mobile; the narrow contact header has a nonblocking overlap, and console diagnostics contain only a favicon 404 while the listed application resources returned 200.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-24-18-039Z.jpeg",
+        "evidence/page-2026-11-24T17-24-29-625Z.jpeg",
+        "evidence/page-2026-11-24T17-24-46-001Z.jpeg",
+        "evidence/page-2026-11-24T17-24-59-298Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The full-screen Norb Studio hero contains a real-time glossy abstract sculpture, orbital rings, floating polyhedra and spheres. Its advertised Move/click-to-distort treatment visibly changed the shape and orbital arrangement after pointer movement.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-16-948Z.jpeg",
+        "evidence/page-2026-11-24T17-20-55-277Z.jpeg",
+        "evidence/page-2026-11-24T17-24-59-298Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "NOT_EVALUATED",
+      "reason": "The reloaded page reached the hero before the available screenshot could capture a visible loading state; the live loader DOM was already hidden after transition. Consequently the rotating cube, its per-face letters, and the Norb Studio spin sequence could not be verified visually, rather than being confirmed broken.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-29-718Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "The studio narrative is readable and remains composed within a pinned visual sequence while scrolling. The manifesto states the studio's purpose and goals, with oversized typography, an orbiting material sphere, marquee treatment, statistics, and a separate bold principle panel.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-18-344Z.jpeg",
+        "evidence/page-2026-11-24T17-22-47-464Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "The gallery is a recognizable vertical 3D helix of ten vertical artworks. Scrolling forward rotates the helix and changes the selected work, and reverse scrolling rotates it back with different foreground/background cards and a changing title/index.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-00-854Z.jpeg",
+        "evidence/page-2026-11-24T17-23-12-920Z.jpeg",
+        "evidence/page-2026-11-24T17-23-24-540Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "The contact section presents the form as a dimensional black slab with an extruded lime side, a floating wireframe cube behind it, and layered depth. Hovering the name field changed it to a lime tactile highlight; focusing it changed it again to coral, and the field accepted sample text. Other inputs and the submit button remain visible and usable.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-35-680Z.jpeg",
+        "evidence/page-2026-11-24T17-23-49-023Z.jpeg",
+        "evidence/page-2026-11-24T17-24-04-219Z.jpeg",
+        "evidence/page-2026-11-24T17-24-18-039Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 3,
+      "reason": "All observable core flows are delivered coherently: hero, floating-shape interaction, narrative, helix gallery, and interactive contact form. The specifically requested loading-cube presentation could not be observed after reload, so full four-point delivery is not established.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-16-948Z.jpeg",
+        "evidence/page-2026-11-24T17-20-29-718Z.jpeg",
+        "evidence/page-2026-11-24T17-22-18-344Z.jpeg",
+        "evidence/page-2026-11-24T17-23-12-920Z.jpeg",
+        "evidence/page-2026-11-24T17-24-04-219Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Hero geometry, scale, bloom lighting, occlusion, and material response consistently serve the brief. The gallery's helix gives strong perspective and depth relationships in both scroll directions; the contact form adds a coherent dimensional treatment without compromising input use.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-16-948Z.jpeg",
+        "evidence/page-2026-11-24T17-20-55-277Z.jpeg",
+        "evidence/page-2026-11-24T17-23-00-854Z.jpeg",
+        "evidence/page-2026-11-24T17-23-24-540Z.jpeg",
+        "evidence/page-2026-11-24T17-23-35-680Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "Pointer distortion, gallery forward/reverse scrolling, mobile menu navigation, and form hover/focus/typing all work repeatedly and naturally. The transient loading sequence remains unverified, which prevents the highest fully satisfied interaction anchor.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-55-277Z.jpeg",
+        "evidence/page-2026-11-24T17-23-12-920Z.jpeg",
+        "evidence/page-2026-11-24T17-23-24-540Z.jpeg",
+        "evidence/page-2026-11-24T17-23-49-023Z.jpeg",
+        "evidence/page-2026-11-24T17-24-04-219Z.jpeg",
+        "evidence/page-2026-11-24T17-24-29-625Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 3,
+      "reason": "Desktop composition, type, color, and 3D form are strongly coherent and readable. At 390px the contact header's email line overlaps the fixed brand/menu header, an obvious narrow-layout inconsistency that keeps the visual result below the highest anchor.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-16-948Z.jpeg",
+        "evidence/page-2026-11-24T17-22-18-344Z.jpeg",
+        "evidence/page-2026-11-24T17-23-35-680Z.jpeg",
+        "evidence/page-2026-11-24T17-24-18-039Z.jpeg",
+        "evidence/page-2026-11-24T17-24-59-298Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "The page loaded reliably, all requested sections and mobile menu worked, and application resources returned 200. A favicon 404 and the overlapping mobile contact header are local, nonblocking issues rather than crashes.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-29-718Z.jpeg",
+        "evidence/page-2026-11-24T17-24-18-039Z.jpeg",
+        "evidence/page-2026-11-24T17-24-29-625Z.jpeg",
+        "evidence/page-2026-11-24T17-24-46-001Z.jpeg",
+        "evidence/page-2026-11-24T17-24-59-298Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The loading cube was not visually captured before the transition: reload screenshots showed the hero, and the loader was already hidden at observation time, so exact face letters and spin repetition remain unverified.",
+    "The 390px contact layout has overlapping header/email content; the form itself remains reachable and operable.",
+    "Only a narrow CSS viewport was tested, so real touch hardware behavior was not certified.",
+    "Gallery drag was advertised but the required scroll-and-reverse flow was the tested rotation mechanism; a separate drag gesture was not evaluated.",
+    "Keyboard-only tab traversal across every control was not separately exercised; form focus, typing, and mobile menu operation were tested through the UI.",
+    "Form input usability was verified, but the outcome of submitting the contact form was not evaluated.",
+    "No audio or downloadable export was present or applicable to this brief.",
+    "The MCP browser initially pointed to a missing Chromium cache path; the preinstalled browser was linked into the expected location and all subsequent browser operations succeeded.",
+    "The 40-call browser budget was exceeded: 53 browser calls were used, including repeated waits and screenshots while diagnosing transient black or partial-composite captures."
+  ]
+}

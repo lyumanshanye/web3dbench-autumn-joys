@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0c0b" />
+  <meta name="description" content="John Doe is a fine art and editorial photographer working between London and Lisbon." />
+  <title>John Doe — Photographer</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../../vendor/three/three.module.js",
+        "three/addons/": "../../vendor/three/addons/",
+        "gsap": "../../vendor/gsap/index.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="stage" id="stage" aria-hidden="true">
+    <div class="paper"></div>
+    <div class="project-backgrounds" id="projectBackgrounds">
+      <div class="project-bg" data-project-bg="0"></div>
+      <div class="project-bg" data-project-bg="1"></div>
+      <div class="project-bg" data-project-bg="2"></div>
+      <div class="project-bg-wash"></div>
+    </div>
+    <div class="stage-glow"></div>
+    <canvas id="webgl"></canvas>
+    <div class="stage-vignette"></div>
+    <div class="film-grain"></div>
+  </div>
+
+  <div class="loader" id="loader" role="status" aria-label="Loading John Doe portfolio">
+    <div class="spinner-shell" id="spinnerShell">
+      <div class="spinner" id="spinner" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <header class="site-header" id="siteHeader">
+    <button class="brand" id="brand" type="button" aria-label="Return to the beginning">JOHN DOE <span>/ STUDIO</span></button>
+    <p class="header-center">Selected photographs <span>2019—2025</span></p>
+    <button class="header-contact" id="contactLink" type="button">Contact <span>↗</span></button>
+  </header>
+
+  <div class="hero-copy" id="heroCopy">
+    <p class="hero-overline">Fine art <span>·</span> Editorial <span>·</span> Documentary</p>
+    <h1>John Doe, <em>Photographer</em></h1>
+    <p class="hero-location">London <span>/</span> Lisbon <span>— available worldwide</span></p>
+  </div>
+
+  <section class="project-ui" id="projectUi" aria-live="polite">
+    <div class="project-kicker">
+      <span>Selected series</span>
+      <span class="project-counter" id="projectCounter">01 <i>/</i> 03</span>
+    </div>
+    <h2 id="projectTitle">The Quiet Coast</h2>
+    <div class="project-bottom">
+      <p id="projectMeta">Atlantic Coast, Portugal <span>—</span> 2025</p>
+      <button class="story-link" id="openStory" type="button">View the story <span>↗</span></button>
+    </div>
+  </section>
+
+  <aside class="progress-rail" id="progressRail" aria-hidden="true">
+    <span class="rail-label">Series</span>
+    <div class="rail-line"><i id="railFill"></i></div>
+    <div class="rail-numbers">
+      <span class="is-active">01</span>
+      <span>02</span>
+      <span>03</span>
+    </div>
+  </aside>
+
+  <div class="scroll-cue" id="scrollCue" aria-hidden="true">
+    <span>Scroll to explore</span>
+    <i></i>
+  </div>
+
+  <section class="contact-ui" id="contactUi" aria-live="polite">
+    <div class="contact-heading">
+      <p class="section-label">Commissions &amp; collaborations</p>
+      <h2>Let's make something <em>enduring.</em></h2>
+    </div>
+    <div class="contact-details">
+      <p class="section-label">Write</p>
+      <a href="mailto:studio@johndoe.photo">studio@johndoe.photo</a>
+      <a href="tel:+442079460958">+44 (0)20 7946 0958</a>
+    </div>
+    <div class="contact-details contact-meta">
+      <p class="section-label">Elsewhere</p>
+      <a href="#" aria-label="John Doe on Instagram">Instagram</a>
+      <a href="#" aria-label="John Doe on Vimeo">Vimeo</a>
+      <p>London / Lisbon</p>
+    </div>
+    <p class="contact-foot">© 2025 John Doe Studio <span>All rights reserved</span></p>
+  </section>
+
+  <article class="blog" id="blog" aria-hidden="true">
+    <div class="blog-backdrop" id="blogBackdrop"></div>
+    <button class="back-button" id="backButton" type="button" aria-label="Back to the project">
+      <span class="back-arrow" aria-hidden="true">←</span>
+      <span>Back to series</span>
+    </button>
+    <div class="blog-scroll" id="blogScroll">
+      <div class="blog-photo-wrap" id="blogPhotoWrap">
+        <img class="blog-photo" id="blogPhoto" src="assets/coast.jpg" alt="" />
+        <p class="blog-photo-caption" id="blogPhotoCaption">Atlantic Coast, Portugal</p>
+        <span class="blog-photo-index" id="blogPhotoIndex">01 / 03</span>
+      </div>
+      <div class="blog-article">
+        <header class="blog-header">
+          <p class="blog-kicker"><span id="blogCategory">Personal series</span> <i></i> <span id="blogYear">2025</span></p>
+          <h2 id="blogTitle">The Quiet Coast</h2>
+          <p class="blog-deck" id="blogDeck"></p>
+          <div class="blog-byline">
+            <span>Words &amp; photographs</span>
+            <span>John Doe</span>
+          </div>
+        </header>
+        <div class="blog-body" id="blogBody"></div>
+        <footer class="blog-footer">
+          <p>Next series</p>
+          <button id="nextProject" type="button"><span id="nextTitle">Portrait of a Place</span> <i>↗</i></button>
+          <div class="blog-endmark">JD</div>
+        </footer>
+      </div>
+    </div>
+  </article>
+
+  <main class="scroll-track" aria-hidden="true"></main>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>

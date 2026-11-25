@@ -1,0 +1,186 @@
+{
+  "summary": "Rackline is a polished, functional two-rack 3D planner. It delivered genuine 42U rack geometry with readable labels, front/rear and orbit views, exact catalog specifications, synchronized scene/list selection, add/move/remove flows, guarded unit placement, live capacity and power calculations, an over-budget warning, browser persistence, and a complete CSV export. The only notable issues were a nonblocking favicon 404 and very small 3D unit labels on the 390px layout.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded successfully at 1440x900 and again at 390x844 after reload. No blocking runtime failure occurred; the only console error was a nonblocking favicon.ico 404, recorded in evidence/console.txt.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-36-43-684Z.jpeg",
+      "evidence/page-2026-11-24T17-40-48-069Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The central scene is a genuine interactive 3D canvas, not a static image: front and rear buttons change the visible rack faces and order, dragging orbits the scene, and perspective creates visible side depth, occlusion, floor contact and changing rack relationships.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-36-43-684Z.jpeg",
+      "evidence/page-2026-11-24T17-36-50-413Z.jpeg",
+      "evidence/page-2026-11-24T17-36-57-256Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct views were inspected. The initial front view shows two populated racks; the rear view reveals rear faces and swapped rack ordering; the orbit view shows perspective, side depth and occlusion. The read-only accessibility tree also identifies the canvas as an interactive 3D view of two 42U racks.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-43-684Z.jpeg",
+        "evidence/page-2026-11-24T17-36-50-413Z.jpeg",
+        "evidence/page-2026-11-24T17-36-57-256Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Desktop composition is coherent: the catalog, live 3D scene and rack status form clear columns, with strong dark industrial styling, restrained category colors, consistent typography and legible rack numbering. Mobile retains the same hierarchy by stacking the 3D stage, status list and catalog. Some 3D unit labels become tiny at 390px, but the unit list remains readable.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-43-684Z.jpeg",
+        "evidence/page-2026-11-24T17-36-57-256Z.jpeg",
+        "evidence/page-2026-11-24T17-40-48-069Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary UI produced meaningful feedback throughout: adding selected the new device and updated counts, moving it switched racks and list tabs, removal changed occupancy and showed a confirmation toast, and selecting a 3D storage array updated the correct list tab and row.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-37-14-596Z.jpeg",
+        "evidence/page-2026-11-24T17-37-36-181Z.jpeg",
+        "evidence/page-2026-11-24T17-37-50-308Z.jpeg",
+        "evidence/page-2026-11-24T17-38-36-656Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeat edits and recovery worked: add, move, and remove all updated the plan, a drag onto an occupied row left occupancy, power and selection unchanged, and reload restored the expanded plan. Placement selectors enumerate only free spans of the required height, including the U42 ceiling. A rejected occupied-row drag gave no visible error toast, but it did preserve the prior arrangement as required.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-37-36-181Z.jpeg",
+        "evidence/page-2026-11-24T17-38-36-656Z.jpeg",
+        "evidence/page-2026-11-24T17-38-57-612Z.jpeg",
+        "evidence/page-2026-11-24T17-40-48-069Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Desktop 1440x900 and mobile 390x844 were inspected. The mobile full-page capture shows the below-the-fold catalog and power note, with no horizontal clipping or unreachable controls. Reload succeeded and restored the over-budget plan. Console and network evidence are saved in evidence/console.txt and evidence/network.txt; the sole resource issue was the nonblocking favicon 404. Real touch hardware was not certified, as allowed by the rubric.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-43-684Z.jpeg",
+        "evidence/page-2026-11-24T17-40-48-069Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "Both racks are genuine 3D 42U racks with U1-U42 numbering, plausible partial installations, and explicit front and rear camera states. The rear view changes the visible faces and rack order rather than merely swapping a static image.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-43-684Z.jpeg",
+        "evidence/page-2026-11-24T17-36-50-413Z.jpeg",
+        "evidence/page-2026-11-24T17-36-57-256Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "The catalog visibly implements Patch panel 1U/0W, Network switch 1U/150W, Compute server 2U/500W, Storage array 4U/800W and Blank panel 1U/0W. Those values also propagate into placement dialogs, device rows, counts and power totals.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-43-684Z.jpeg",
+        "evidence/page-2026-11-24T17-37-14-596Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "A patch panel was added to Rack A U31, then moved to Rack B U32; Rack A returned to 13 occupied/29 free and Rack B became 16 occupied/26 free with the new row selected. A different patch panel was removed, producing 15 occupied/27 free. Clicking the Rack A storage array in the scene switched the unit tab and highlighted its U34-U37 list row, confirming both selection directions.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-37-14-596Z.jpeg",
+        "evidence/page-2026-11-24T17-37-36-181Z.jpeg",
+        "evidence/page-2026-11-24T17-37-50-308Z.jpeg",
+        "evidence/page-2026-11-24T17-38-36-656Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "For multi-unit devices the starting-unit choices were valid contiguous spans only (for example U25-U26 for a 2U server), while occupied units were omitted. A drag of the selected 4U storage array onto occupied U32-U33 completed with no state change: counts, device positions and selection all remained intact. No placement can extend beyond U42 because the available spans stop at the ceiling.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-38-36-656Z.jpeg",
+        "evidence/page-2026-11-24T17-38-57-612Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "Totals agree with the inventory. After adding a 500W compute server to Rack B U25-U26, the reloaded page shows Rack A at 1,950W with 13 occupied/29 free and Rack B at 3,250W with 17 occupied/25 free. Rack B is physically within 42U but displays a red OVER BUDGET warning and red capacity bar above the 3,000W limit.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-43-684Z.jpeg",
+        "evidence/page-2026-11-24T17-37-50-308Z.jpeg",
+        "evidence/page-2026-11-24T17-40-48-069Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PASS",
+      "reason": "The header advertises local saving, and reloading the page restored the 17-unit, 3,250W Rack B plan. Exporting CSV downloaded rack-inventory-2026-11-24.csv with the required columns Rack, Starting Unit, Device Type, Height and Power, plus 16 device rows consistent with the on-screen inventory.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-40-48-069Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All stated requirements were delivered coherently across tested states: two 42U racks, exact catalog values, front/rear views, partial installations, add/move/remove, legal-span enforcement, capacity and power summaries, over-budget warning, synchronized selection, persistence and the specified CSV schema.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-43-684Z.jpeg",
+        "evidence/page-2026-11-24T17-37-36-181Z.jpeg",
+        "evidence/page-2026-11-24T17-40-48-069Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The rack geometry, U-scale, perspective, side surfaces, floor contact, occlusion and front/rear distinctions consistently support the planning task. Orbiting materially changes the view and confirms real 3D depth.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-43-684Z.jpeg",
+        "evidence/page-2026-11-24T17-36-50-413Z.jpeg",
+        "evidence/page-2026-11-24T17-36-57-256Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Core sequences were discoverable and reliable: catalog add, automatic selection, rack move, list removal, scene-to-list selection, constrained placement, over-budget handling, reload recovery and CSV download all completed with clear counts, highlights or toasts.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-37-14-596Z.jpeg",
+        "evidence/page-2026-11-24T17-37-36-181Z.jpeg",
+        "evidence/page-2026-11-24T17-38-36-656Z.jpeg",
+        "evidence/page-2026-11-24T17-40-48-069Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "Typography, hierarchy, category colors, dark materials, lighting and selection states form a coherent industrial planning interface. State changes, including the selected-device overlay and over-budget styling, consistently improve comprehension.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-43-684Z.jpeg",
+        "evidence/page-2026-11-24T17-36-57-256Z.jpeg",
+        "evidence/page-2026-11-24T17-40-48-069Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "Desktop and mobile loads, repeated edits, export and reload were stable, and the mobile stack exposes all controls. The score is capped below 4 by the nonblocking favicon 404 and by 3D unit labels becoming very small at 390px, although the adjacent unit list remains readable.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-43-684Z.jpeg",
+        "evidence/page-2026-11-24T17-40-48-069Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The initial MCP launch lacked the configured Chromium binary; an existing local Chromium 1252 build was linked to the expected cache path. This was an environment issue, not a submission defect.",
+    "The 40-call browser budget was reached after the final export. Reset, a reverse move back to the original rack, and explicit keyboard focus traversal were not separately exercised; the required add/move/remove, persistence, export and responsive flows were covered.",
+    "Dropping a device onto an occupied row produced no visible rejection message, although the previous arrangement remained completely unchanged. This was treated as a preserved rejection rather than a functional break.",
+    "At 390x844 the 3D rack labels are too small to read comfortably, but the full page is reachable and the synchronized rack-unit list gives readable U numbers and device details.",
+    "CSV contents were verified from the downloaded file; the delivered screenshot shows the persisted export state rather than a browser-rendered CSV page.",
+    "evidence/console.txt is the verbatim MCP console log. evidence/network.txt is a reconstructed summary from MCP page/console/download events and read-only HTTP status checks because no dedicated network-tool call remained within the 40-call limit."
+  ]
+}

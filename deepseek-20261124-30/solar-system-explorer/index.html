@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#04060a" />
+    <meta
+      name="description"
+      content="Helios is an immersive, interactive atlas of our solar system. Drift between the planets and watch them orbit the Sun."
+    />
+    <title>Helios — An Interactive Solar System</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='4' fill='%23f1b96f'/%3E%3Cellipse cx='16' cy='16' rx='13' ry='5.4' fill='none' stroke='%23f4f1e7' stroke-opacity='.7' transform='rotate(-27 16 16)'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body class="is-loading">
+    <div id="app">
+      <canvas
+        id="solar-canvas"
+        role="img"
+        aria-label="An interactive three-dimensional model of the solar system"
+      ></canvas>
+
+      <div class="space-wash" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+      <div class="grain" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <button class="brand" id="brand-button" type="button" aria-label="Return to solar system overview">
+          <svg class="brand-mark" viewBox="0 0 46 46" aria-hidden="true">
+            <circle cx="23" cy="23" r="4.2"></circle>
+            <ellipse cx="23" cy="23" rx="18" ry="7.5" transform="rotate(-27 23 23)"></ellipse>
+            <ellipse cx="23" cy="23" rx="18" ry="7.5" transform="rotate(33 23 23)"></ellipse>
+            <circle class="brand-moon" cx="36.5" cy="13.8" r="1.6"></circle>
+          </svg>
+          <span class="brand-copy">
+            <span class="brand-name">HELIOS</span>
+            <span class="brand-sub">Solar System Atlas</span>
+          </span>
+        </button>
+
+        <div class="top-actions">
+          <div class="live-status"><i></i><span>Heliocentric / Live</span></div>
+          <button class="icon-button" id="fullscreen-button" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M3 7V3h4M13 3h4v4M17 13v4h-4M7 17H3v-4"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <section class="hero" id="hero" aria-labelledby="hero-title">
+        <div class="hero-rule" aria-hidden="true"></div>
+        <p class="eyebrow"><span>An interactive orrery</span><span class="eyebrow-num">No. 001</span></p>
+        <h1 id="hero-title">Our<br /><em>Solar System</em></h1>
+        <p class="hero-dek">Eight worlds. One star. A quiet tide of gravity, set in motion.</p>
+        <div class="hero-actions">
+          <button class="text-button" id="begin-drift" type="button">
+            <span class="button-orbit" aria-hidden="true"><i></i></span>
+            <span>Begin the drift</span>
+            <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9h11M10 4l5 5-5 5"></path></svg>
+          </button>
+          <span class="or-hint">or choose a world from the index</span>
+        </div>
+      </section>
+
+      <aside class="object-panel" id="object-panel" aria-live="polite" aria-hidden="true">
+        <div class="panel-topline">
+          <span id="panel-index">01</span>
+          <span id="panel-type">Terrestrial planet</span>
+          <button id="panel-close" type="button" aria-label="Close object details">×</button>
+        </div>
+        <h2 id="panel-name">Earth</h2>
+        <p class="panel-subtitle" id="panel-subtitle">The pale blue dot</p>
+        <p class="panel-description" id="panel-description"></p>
+        <dl class="panel-stats">
+          <div><dt>Distance</dt><dd id="stat-distance">—</dd></div>
+          <div><dt>Diameter</dt><dd id="stat-diameter">—</dd></div>
+          <div><dt>Day</dt><dd id="stat-day">—</dd></div>
+          <div><dt>Year</dt><dd id="stat-year">—</dd></div>
+        </dl>
+        <div class="field-note">
+          <span>Field note</span>
+          <p id="panel-fact"></p>
+        </div>
+      </aside>
+
+      <nav class="orbit-nav" aria-label="Solar system object index">
+        <div class="nav-heading"><span>Orbital index</span><span>AU</span></div>
+        <div class="nav-list">
+          <button type="button" class="nav-item" data-target="sun">
+            <span class="nav-number">00</span>
+            <span class="nav-dot" style="--dot: #ffb84d"></span>
+            <span class="nav-name">Sun</span>
+            <span class="nav-value">0.00</span>
+          </button>
+          <button type="button" class="nav-item" data-target="mercury">
+            <span class="nav-number">01</span>
+            <span class="nav-dot" style="--dot: #a8a29a"></span>
+            <span class="nav-name">Mercury</span>
+            <span class="nav-value">0.39</span>
+          </button>
+          <button type="button" class="nav-item" data-target="venus">
+            <span class="nav-number">02</span>
+            <span class="nav-dot" style="--dot: #e8cda5"></span>
+            <span class="nav-name">Venus</span>
+            <span class="nav-value">0.72</span>
+          </button>
+          <button type="button" class="nav-item" data-target="earth">
+            <span class="nav-number">03</span>
+            <span class="nav-dot" style="--dot: #72a9ce"></span>
+            <span class="nav-name">Earth</span>
+            <span class="nav-value">1.00</span>
+          </button>
+          <button type="button" class="nav-item" data-target="mars">
+            <span class="nav-number">04</span>
+            <span class="nav-dot" style="--dot: #c97752"></span>
+            <span class="nav-name">Mars</span>
+            <span class="nav-value">1.52</span>
+          </button>
+          <button type="button" class="nav-item" data-target="jupiter">
+            <span class="nav-number">05</span>
+            <span class="nav-dot" style="--dot: #d9b28b"></span>
+            <span class="nav-name">Jupiter</span>
+            <span class="nav-value">5.20</span>
+          </button>
+          <button type="button" class="nav-item" data-target="saturn">
+            <span class="nav-number">06</span>
+            <span class="nav-dot" style="--dot: #e5c987"></span>
+            <span class="nav-name">Saturn</span>
+            <span class="nav-value">9.58</span>
+          </button>
+          <button type="button" class="nav-item" data-target="uranus">
+            <span class="nav-number">07</span>
+            <span class="nav-dot" style="--dot: #9bd4d4"></span>
+            <span class="nav-name">Uranus</span>
+            <span class="nav-value">19.22</span>
+          </button>
+          <button type="button" class="nav-item" data-target="neptune">
+            <span class="nav-number">08</span>
+            <span class="nav-dot" style="--dot: #527be5"></span>
+            <span class="nav-name">Neptune</span>
+            <span class="nav-value">30.05</span>
+          </button>
+        </div>
+      </nav>
+
+      <div class="planet-labels" id="planet-labels" aria-hidden="true"></div>
+
+      <div class="reticle" id="reticle" aria-hidden="true">
+        <span class="reticle-corner tl"></span>
+        <span class="reticle-corner tr"></span>
+        <span class="reticle-corner bl"></span>
+        <span class="reticle-corner br"></span>
+        <span class="reticle-label">Tracked body</span>
+      </div>
+
+      <div class="drag-hint" id="drag-hint" aria-hidden="true">
+        <span class="mouse-icon"><i></i></span>
+        <span><b>Drag</b> to drift</span>
+        <span class="hint-sep"></span>
+        <span><b>Scroll</b> to scale</span>
+        <span class="hint-sep"></span>
+        <span><b>Select</b> a world</span>
+      </div>
+
+      <div class="bottom-bar">
+        <button class="pill-button" id="overview-button" type="button">
+          <svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="2"></circle><ellipse cx="9" cy="9" rx="7" ry="3" transform="rotate(-24 9 9)"></ellipse></svg>
+          <span>System overview</span>
+        </button>
+        <div class="frame-readout">
+          <span>Heliocentric ecliptic frame</span>
+          <span class="readout-line"></span>
+          <span id="frame-distance">Camera · 1.08 AU</span>
+        </div>
+        <button class="pill-button drift-button" id="drift-button" type="button" aria-pressed="false">
+          <span class="drift-pulse" aria-hidden="true"></span>
+          <span>Auto drift</span>
+          <span class="switch" aria-hidden="true"><i></i></span>
+        </button>
+      </div>
+
+      <div class="hover-tag" id="hover-tag" aria-hidden="true"><span></span></div>
+
+      <div class="loader" id="loader">
+        <div class="loader-system" aria-hidden="true">
+          <span class="loader-sun"></span>
+          <span class="loader-ring ring-one"><i></i></span>
+          <span class="loader-ring ring-two"><i></i></span>
+          <span class="loader-ring ring-three"><i></i></span>
+        </div>
+        <p class="loader-title">HELIOS</p>
+        <p class="loader-copy">Aligning celestial mechanics</p>
+        <div class="loader-track"><i></i></div>
+      </div>
+
+      <div class="fallback" id="fallback" hidden>
+        <p class="fallback-kicker">HELIOS / OFFLINE</p>
+        <h2>This sky needs WebGL.</h2>
+        <p>Open this page in a modern browser with hardware acceleration enabled to explore the solar system.</p>
+      </div>
+
+      <noscript>
+        <div class="fallback fallback-noscript">
+          <p class="fallback-kicker">HELIOS / OFFLINE</p>
+          <h2>JavaScript is required.</h2>
+          <p>Enable JavaScript to enter the interactive solar system.</p>
+        </div>
+      </noscript>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

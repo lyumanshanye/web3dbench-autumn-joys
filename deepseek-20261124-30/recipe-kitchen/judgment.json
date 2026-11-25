@@ -1,0 +1,176 @@
+{
+  "summary": "Weeknight Kitchen is a polished, coherent recipe browser with eight local recipes and a genuinely interactive 3D counter. Selection, search/filtering, serving scaling, URL-backed recipes, cooking steps, ingredient checks, refresh persistence, per-recipe reset, and a narrow-phone layout all functioned. Grading is slightly conservative because reverse/step-boundary behavior and cross-recipe persistence isolation were not fully exercised before the browser-call limit.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The application loaded and remained operable throughout the session. A WebGL2 canvas was present and rendered visible 3D content. One non-fatal Three.js console error reported an attempted WebGL context on a canvas that already had a different context type, but rendering and interaction continued normally.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-23-24-180Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The counter is real-time WebGL rather than a static image: three camera drags changed perspective, object positions, depth, and occlusion. Different recipe selections produced visibly different ingredient model arrangements and matching object labels.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-23-24-180Z.jpeg",
+      "evidence/page-2026-11-24T17-24-03-478Z.jpeg",
+      "evidence/page-2026-11-24T17-24-12-696Z.jpeg",
+      "evidence/page-2026-11-24T17-24-24-817Z.jpeg",
+      "evidence/page-2026-11-24T17-26-15-451Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct camera views showed substantial parallax and occlusion changes around the board, ingredients, and countertop geometry. Recipe changes also replaced the object set with the selected recipe's ingredients.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-24-180Z.jpeg",
+        "evidence/page-2026-11-24T17-24-03-478Z.jpeg",
+        "evidence/page-2026-11-24T17-24-12-696Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The warm editorial typography, coral accents, restrained beige palette, inset 3D scene, and dark cooking card form a consistent hierarchy. Recipe text, controls, and ingredient units remained readable on desktop and in the full mobile page.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-24-180Z.jpeg",
+        "evidence/page-2026-11-24T17-31-11-604Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary UI gave immediate state feedback: recipe cards changed the title, ingredient set, 3D arrangement, and cooking content; ingredient buttons selected and labeled a counter item; serving changes rescaled quantities; filters narrowed the library and exposed an explicit empty state.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-33-656Z.jpeg",
+        "evidence/page-2026-11-24T17-26-58-745Z.jpeg",
+        "evidence/page-2026-11-24T17-27-08-093Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PARTIAL",
+      "reason": "Reset search and filters restored all eight recipes, cooking progress reset returned the selected recipe to step 1 with 0/7 checked, and Next advanced one step. Previous/reverse, last-step boundary behavior, and switching back to persisted progress in another recipe were not directly exercised within the call budget.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-27-08-093Z.jpeg",
+        "evidence/page-2026-11-24T17-31-11-604Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "reason": "The 1440x900 and 390x844 layouts were inspected, including a full-page mobile capture of lower controls, ingredient checks, and reloaded state. The narrow library cards and ingredient chips clip horizontally with little affordance, keyboard focus traversal was not separately tested, and the final resource network table could not be captured before the 40-call limit.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-24-180Z.jpeg",
+        "evidence/page-2026-11-24T17-31-11-604Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "All eight recipes were opened: Burst Tomato Orzo, Smoky Chickpea Tacos, Miso Butter Salmon, Sweet Potato Coconut Curry, Lemon Garlic Chicken, Gochujang Beef Bowls, Green Goddess Grain Bowls, and Herby Mushroom Toast. Each had a complete local ingredient list, 4-6 readable steps, and a 3D counter whose labeled model set changed with the recipe.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-24-180Z.jpeg",
+        "evidence/page-2026-11-24T17-24-24-817Z.jpeg",
+        "evidence/page-2026-11-24T17-26-15-451Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PARTIAL",
+      "reason": "Ingredient search for garlic combined with the vegetarian and <=30-minute filters correctly reduced the library to Orzo and Mushroom Toast. A no-match query produced a large, explicit empty state with two reset affordances, and resetting restored all eight recipes and cleared active filters. Name-only search was not independently isolated before the call limit.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-58-745Z.jpeg",
+        "evidence/page-2026-11-24T17-27-08-093Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Changing Herby Mushroom Toast from 2 to 3 servings scaled every quantity, including 4 to 6 slices, 300 to 450 g, 2 to 3 cloves, 6 to 9 sprigs, 2 to 3 tbsp, and useful fractions such as 3/4 to 1 1/8 cups and 1/2 to 3/4 lemon.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-33-656Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Recipe selections updated the hash URL and page title consistently. Directly navigating to the Herby Mushroom Toast recipe URL reloaded that same recipe with its complete content and retained cooking state.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-31-11-604Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PARTIAL",
+      "reason": "Next advanced from step 1 to step 2, two ingredient checkboxes became checked, and after a full URL reload the page restored step 2 with 2/7 checked. Previous/reverse and switching to another recipe with saved progress before returning were not directly verified.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-31-11-604Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PARTIAL",
+      "reason": "The 390px full-page view kept complete ingredient names outside the canvas and made cooking controls usable without camera manipulation. Resetting Herby Mushroom Toast returned that view to step 1 with 0/7 checked; revisiting a different recipe after that reset was not exercised, so cross-recipe reset isolation was not fully proven.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-31-11-604Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 3,
+      "reason": "Core requested flows are present and coherent, including all eight recipes, model changes, scaling, search/filter reset, stable URLs, cooking steps, checks, persistence, reset, and mobile text access. The score stops at 3 because name-only search and cross-recipe persistence/reset isolation were not fully verified, leaving minor requested-state coverage gaps rather than observed failures.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-24-180Z.jpeg",
+        "evidence/page-2026-11-24T17-26-33-656Z.jpeg",
+        "evidence/page-2026-11-24T17-31-11-604Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The stylized ingredient shapes, wooden board, props, soft shadows, and wall/floor depth remain coherent across three camera views and multiple recipes. Occlusion and perspective changes clearly establish a real 3D counter without spatial or material breakdowns.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-24-180Z.jpeg",
+        "evidence/page-2026-11-24T17-24-03-478Z.jpeg",
+        "evidence/page-2026-11-24T17-24-12-696Z.jpeg",
+        "evidence/page-2026-11-24T17-26-15-451Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "Recipe selection, ingredient selection, serving scaling, filtering, empty-state recovery, forward step navigation, checkbox state, refresh persistence, and reset worked reliably with meaningful feedback. Local discoverability/transition issues remain on narrow screens, and reverse/step-boundary plus cross-recipe isolation sequences were not fully checked.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-33-656Z.jpeg",
+        "evidence/page-2026-11-24T17-26-58-745Z.jpeg",
+        "evidence/page-2026-11-24T17-31-11-604Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 3,
+      "reason": "Desktop composition, typography, palette, 3D presentation, and cook-mode hierarchy form a coherent expression. The mobile page is readable, but clipped horizontal library cards and ingredient chips prevent a fully polished narrow-layout score.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-24-180Z.jpeg",
+        "evidence/page-2026-11-24T17-31-11-604Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "The app remained usable across recipe changes, filtering, scaling, reload, reset, and desktop/mobile resizing. The single WebGL console error was non-blocking and rendering survived it, while narrow horizontal clipping and the unavailable final network table are local, explained issues.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-24-180Z.jpeg",
+        "evidence/page-2026-11-24T17-31-11-604Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "Playwright Chromium was initially missing; the installation download was unreachable, so the prebundled Chromium at /opt/web3dbench/browsers/chromium-1252 was linked to the expected Playwright cache path. Browser evaluation then proceeded normally.",
+    "The 40-browser-call limit was reached before a final browser_network_requests capture. evidence/network.txt records the observed local navigation URLs and explicitly notes that full resource-status capture is unavailable; evidence/console.txt contains the single observed Three.js WebGL console error.",
+    "Previous/reverse cooking steps and final-step boundary behavior were not clicked; only Next, reload persistence, and cooking reset were exercised.",
+    "Progress was not saved on two different recipes and then compared after switching; per-recipe isolation is inferred from the UI copy and the current recipe's isolated reset, not fully proven end-to-end.",
+    "Keyboard focus traversal and real touch hardware were not tested; the 390x844 viewport only verifies responsive layout.",
+    "No export/download control was advertised, so no download/export flow was applicable."
+  ]
+}

@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Maya Chen is a designer and writer collecting notes on cities, food, and everyday experiments.">
+  <meta name="theme-color" content="#f1ece1">
+  <meta property="og:title" content="Maya Chen — Cities, supper &amp; small experiments">
+  <meta property="og:description" content="Notes on cities, food, and everyday experiments from designer and writer Maya Chen.">
+  <meta property="og:type" content="website">
+  <title>Maya Chen — Cities, supper &amp; small experiments</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%2320231d'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Georgia,serif' font-size='40' font-style='italic' fill='%23f8f4eb'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../../vendor/three/three.module.js",
+        "three/addons/": "../../vendor/three/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="#/" data-link aria-label="Maya Chen, home">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span class="brand-name">Maya Chen</span>
+    </a>
+
+    <nav class="primary-nav" aria-label="Primary navigation">
+      <a href="#/" data-section="notes">Writing</a>
+      <a href="#/" data-section="about">About</a>
+    </nav>
+
+    <p class="header-location">
+      <span class="status-dot" aria-hidden="true"></span>
+      Brooklyn, NY
+    </p>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+
+    <div id="home-view">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow hero-eyebrow">
+            <span class="eyebrow-line" aria-hidden="true"></span>
+            Designer, writer, professional noticer
+          </p>
+
+          <h1 id="hero-title">Cities, supper,<br>&amp; <em>small experiments.</em></h1>
+
+          <p class="hero-intro">
+            I’m Maya. I write about the things that make a place feel like
+            somewhere: a good corner to stand on, a recipe learned by watching,
+            and the tiny tests that loosen a stuck idea.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button--ink" href="#/" data-section="notes">
+              Read the notes
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg>
+            </a>
+            <a class="quiet-link" href="#/" data-section="about">A little about me</a>
+          </div>
+
+          <p class="hero-footnote">
+            <span>New dispatches every other Sunday</span>
+            <span aria-hidden="true">↳</span>
+            <span>No noise, just notes</span>
+          </p>
+        </div>
+
+        <div class="desk-column">
+          <div class="desk-card">
+            <div
+              class="desk-stage"
+              id="desk-stage"
+              tabindex="0"
+              role="group"
+              aria-label="Interactive three-dimensional desk. Use the left and right arrow keys to turn it, or use the buttons below."
+            >
+              <div class="desk-fallback" aria-hidden="true">
+                <span class="fallback-sun"></span>
+                <span class="fallback-table"></span>
+              </div>
+              <canvas id="desk-canvas" aria-hidden="true"></canvas>
+              <p class="desk-stamp" aria-hidden="true">Studio<br>04:12 pm</p>
+              <p class="desk-grain" aria-hidden="true"></p>
+            </div>
+
+            <div class="desk-caption">
+              <div>
+                <p class="desk-caption-title">A view from my desk</p>
+                <p class="desk-caption-copy">Drag to turn. Nothing here is urgent.</p>
+              </div>
+
+              <div class="desk-controls" role="group" aria-label="Desk view controls">
+                <button class="icon-button" type="button" data-desk="left" aria-label="Turn desk left" title="Turn desk left">
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 6.5 10l6 5.5"/></svg>
+                </button>
+                <button class="icon-button" type="button" data-desk="right" aria-label="Turn desk right" title="Turn desk right">
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 4.5 6 5.5-6 5.5"/></svg>
+                </button>
+                <button class="icon-button" type="button" data-desk="reset" aria-label="Reset desk view" title="Reset desk view">
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 7A6 6 0 1 0 16 11M15.5 3.5V7H12"/></svg>
+                </button>
+                <button class="icon-button icon-button--pause" type="button" data-desk="pause" aria-label="Pause ambient desk motion" aria-pressed="false" title="Pause ambient motion">
+                  <svg class="pause-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5v10M13 5v10"/></svg>
+                  <svg class="play-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 8 6-8 6Z"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <p class="desk-note"><span aria-hidden="true">✦</span> Coffee, a notebook, and one idea in progress.</p>
+        </div>
+      </section>
+
+      <section class="notes-section" id="notes" aria-labelledby="notes-title">
+        <div class="section-topline">
+          <p class="section-index">01 / Field notes</p>
+          <p class="section-count"><span id="visible-count">06</span> dispatches</p>
+        </div>
+
+        <div class="notes-heading">
+          <div>
+            <h2 id="notes-title">Things I noticed <em>lately.</em></h2>
+          </div>
+          <p class="notes-dek">
+            Short essays on the ordinary systems around us—how we move,
+            how we eat, and how we keep making.
+          </p>
+        </div>
+
+        <div class="filters" role="group" aria-labelledby="filter-label">
+          <span class="filter-label" id="filter-label">Filter by</span>
+          <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">
+            All <span aria-hidden="true">06</span>
+          </button>
+          <button class="filter" type="button" data-filter="cities" aria-pressed="false">
+            Cities <span aria-hidden="true">02</span>
+          </button>
+          <button class="filter" type="button" data-filter="food" aria-pressed="false">
+            Food <span aria-hidden="true">02</span>
+          </button>
+          <button class="filter" type="button" data-filter="experiments" aria-pressed="false">
+            Experiments <span aria-hidden="true">02</span>
+          </button>
+        </div>
+
+        <p class="sr-only" id="filter-status" aria-live="polite"></p>
+        <div class="post-grid" id="post-grid"></div>
+      </section>
+
+      <section class="about-section" id="about" aria-labelledby="about-title">
+        <div class="about-seal" aria-hidden="true">
+          <span>MC</span>
+          <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="51"/><path id="seal-path" d="M60 13a47 47 0 1 1-.01 0"/></svg>
+          <p>made of<br>small observations</p>
+        </div>
+
+        <div class="about-copy">
+          <p class="section-index">02 / A little context</p>
+          <h2 id="about-title">Designing for the way<br>a place <em>feels.</em></h2>
+          <p class="about-lede">
+            I’m an independent designer working between brand, editorial, and
+            the built environment. My favorite projects start with a walk and
+            a sketchbook.
+          </p>
+          <p>
+            After a decade in studios in Shanghai and New York, I’ve learned
+            that the smallest details do the heaviest lifting: a well-placed
+            bench, the wording on a menu, the pause before a page turns. This
+            site is where I keep track of those details.
+          </p>
+          <a class="button button--outline" href="mailto:hello@mayachen.studio">
+            Say hello
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg>
+          </a>
+        </div>
+
+        <aside class="about-facts" aria-label="A few facts about Maya">
+          <div class="fact">
+            <span class="fact-number">12</span>
+            <span class="fact-label">years making things for people</span>
+          </div>
+          <div class="fact">
+            <span class="fact-number">2</span>
+            <span class="fact-label">cities I still call home</span>
+          </div>
+          <div class="fact">
+            <span class="fact-number">∞</span>
+            <span class="fact-label">walks taken the long way</span>
+          </div>
+        </aside>
+      </section>
+    </div>
+
+    <div id="article-view" class="article-view" hidden></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <p>Maya Chen<br><span>Designer &amp; writer</span></p>
+      </div>
+      <p class="footer-note">Made slowly in Brooklyn.<br>© <span id="year">2026</span> Maya Chen</p>
+      <div class="footer-links">
+        <a href="mailto:hello@mayachen.studio">Email</a>
+        <a href="#/" data-section="notes">Writing</a>
+        <a href="#top" data-top>Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sr-only" id="announcer" aria-live="polite"></div>
+  <script type="module" src="./app.js"></script>
+  <script type="module" src="./scene.js"></script>
+</body>
+</html>

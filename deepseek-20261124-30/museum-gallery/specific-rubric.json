@@ -1,0 +1,71 @@
+{
+  "version": "3.0",
+  "task": "museum-gallery",
+  "task_type": "open",
+  "must_assertions": [],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "A coherent 3D museum gallery presents multiple distinguishable antique artifacts.",
+      "action": "Inspect the gallery and identify several exhibits.",
+      "expected": "A coherent 3D museum contains multiple distinguishable antique artifacts.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "The artifacts are genuinely modeled in 3D and can be explored interactively.",
+      "action": "Explore different artifacts through their offered interactions.",
+      "expected": "Artifacts have inspectable 3D form rather than only static image substitutions.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "Gallery navigation or selection makes different artifacts reachable and keeps the exhibit context understandable.",
+      "action": "Navigate or select several exhibits and return to an earlier one.",
+      "expected": "Different artifacts are reachable and the gallery context remains understandable.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "The immersive presentation preserves readable information and usable interactions.",
+      "action": "Inspect artifact information and controls while exploring.",
+      "expected": "The immersive presentation keeps content readable and interactions usable.",
+      "dimension": "visual"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the gallery and identify multiple artifacts.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Select or navigate to different exhibits and inspect their shapes from the offered interaction.",
+      "criteria": [
+        "G03",
+        "T02"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Return to an earlier exhibit and use another view; do not require a particular historical collection or navigation mechanism.",
+      "criteria": [
+        "G04",
+        "T03",
+        "T04"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

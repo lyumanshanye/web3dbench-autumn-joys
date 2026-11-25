@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Norb Studio is an independent 3D art studio shaping identities, objects and moving images for the culturally curious."
+    />
+    <meta name="theme-color" content="#090909" />
+    <title>Norb Studio — Feeling Into Form</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="noise" aria-hidden="true"></div>
+
+    <div class="loader" id="loader" aria-hidden="true">
+      <div class="loader__header">
+        <span>Norb Studio®</span>
+        <span>Independent 3D art practice</span>
+      </div>
+      <div class="loader__coords" aria-hidden="true">
+        <span>52.5200° N</span>
+        <span>13.4050° E</span>
+      </div>
+      <div class="loader__wordmark" aria-hidden="true">NORB</div>
+      <canvas id="loader-canvas"></canvas>
+      <div class="loader__caption" aria-hidden="true">FORM / LIGHT / MOTION</div>
+      <div class="loader__footer">
+        <span>Unpacking the impossible...</span>
+        <span class="loader__percent"><span id="load-percent">00</span>%</span>
+      </div>
+      <div class="loader__progress"><span id="load-progress"></span></div>
+    </div>
+
+    <header class="site-header" id="site-header">
+      <a class="brand" href="#hero" aria-label="Norb Studio home">
+        <span class="brand__name">NORB</span><span class="brand__reg">®</span>
+        <span class="brand__sub">Studio</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#work"><span>01</span>Work</a>
+        <a href="#studio"><span>02</span>Studio</a>
+        <a href="#contact"><span>03</span>Contact</a>
+      </nav>
+      <a class="header-status" href="#contact">
+        <span class="status-dot"></span>
+        Commissioning for 2026
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+        <span>Menu</span>
+        <i aria-hidden="true"></i>
+      </button>
+    </header>
+
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" aria-hidden="true">
+      <div class="mobile-menu__meta">
+        <span>Norb Studio®</span>
+        <span>Berlin / worldwide</span>
+      </div>
+      <div class="mobile-menu__links">
+        <a href="#work"><span>01</span>Work</a>
+        <a href="#studio"><span>02</span>Studio</a>
+        <a href="#contact"><span>03</span>Contact</a>
+      </div>
+      <div class="mobile-menu__footer">
+        <a href="mailto:hello@norb.studio">hello@norb.studio</a>
+        <span>52.5200° N / 13.4050° E</span>
+      </div>
+    </nav>
+
+    <main id="main">
+      <section class="hero" id="hero" aria-labelledby="hero-title">
+        <div class="hero__fallback" aria-hidden="true">
+          <span></span><span></span>
+        </div>
+        <canvas id="hero-canvas" aria-hidden="true"></canvas>
+        <div class="hero__vignette" aria-hidden="true"></div>
+
+        <p class="hero__eyebrow">
+          <span>Independent 3D art studio</span>
+          <span class="hero__eyebrow-line"></span>
+          <span>Berlin · Everywhere</span>
+        </p>
+
+        <div class="hero__tag hero__tag--a">
+          <span class="hero__tag-line"></span>
+          <span>Soft machine<br />Chrome + light / 001</span>
+        </div>
+        <div class="hero__tag hero__tag--b" aria-hidden="true">
+          <span>Move / click</span>
+          <span class="hero__tag-dot"></span>
+          <span>To distort</span>
+        </div>
+
+        <h1 class="hero__title" id="hero-title">
+          <span class="hero__line"><span class="hero__line-inner">FEELING</span></span>
+          <span class="hero__line hero__line--italic"
+            ><span class="hero__line-inner"><em>into</em></span></span
+          >
+          <span class="hero__line hero__line--outline"
+            ><span class="hero__line-inner">FORM<span class="hero__dot">.</span></span></span
+          >
+        </h1>
+
+        <div class="hero__footer">
+          <p class="hero__statement">
+            We shape identities, objects and moving worlds for the culturally curious.
+          </p>
+          <p class="hero__services">Art direction<br />3D motion<br />Digital sculpture</p>
+          <a class="scroll-cue" href="#studio">
+            <span>Scroll to explore</span>
+            <span class="scroll-cue__ring" aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </section>
+
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker__track">
+          <span>Art direction</span><i>✦</i><span>3D motion</span><i>✦</i
+          ><span>World building</span><i>✦</i><span>Digital sculpture</span><i>✦</i
+          ><span>Art direction</span><i>✦</i><span>3D motion</span><i>✦</i
+          ><span>World building</span><i>✦</i><span>Digital sculpture</span><i>✦</i>
+        </div>
+      </div>
+
+      <section class="manifesto" id="studio" aria-labelledby="manifesto-title">
+        <div class="manifesto__sticky">
+          <div class="manifesto__top">
+            <span class="micro-label">(01) Point of view</span>
+            <span class="micro-label">Norb Studio / Manifesto</span>
+          </div>
+
+          <div class="manifesto__orb" aria-hidden="true">
+            <svg class="orbit-copy" viewBox="0 0 200 200">
+              <defs>
+                <path id="orbitPath" d="M100,100 m-71,0 a71,71 0 1,1 142,0 a71,71 0 1,1 -142,0" />
+              </defs>
+              <text>
+                <textPath href="#orbitPath">FORM · LIGHT · MOTION · FEELING · FORM · LIGHT · MOTION · FEELING ·</textPath>
+              </text>
+            </svg>
+            <span class="manifesto__orb-core"></span>
+          </div>
+
+          <h2 class="manifesto__title" id="manifesto-title">
+            <span class="manifesto__line"><span>WE TURN</span></span>
+            <span class="manifesto__line"><span>CURIOSITY</span></span>
+            <span class="manifesto__line"><span>INTO <em>matter</em><b>.</b></span></span>
+          </h2>
+
+          <div class="manifesto__copy">
+            <p class="manifesto__lede reveal">
+              Norb is an independent 3D art studio creating strange, beautiful things for screens,
+              spaces and the space between.
+            </p>
+            <p class="reveal" data-delay="100">
+              We work where craft meets code: tactile forms, impossible architectures and images
+              that refuse to sit still. Our goal is simple — make the digital feel alive enough to
+              remember.
+            </p>
+            <a class="text-link reveal" data-delay="180" href="#contact">
+              Bring us an impossible idea <span>↗</span>
+            </a>
+          </div>
+
+          <div class="manifesto__stats reveal" data-delay="240">
+            <span><b>08</b>Years shaping pixels</span>
+            <span><b>42</b>Awards & mentions</span>
+            <span><b>120+</b>Worlds brought to life</span>
+          </div>
+
+          <span class="manifesto__watermark" aria-hidden="true">NORB</span>
+        </div>
+      </section>
+
+      <section class="interlude" aria-labelledby="interlude-title">
+        <div class="interlude__rule" aria-hidden="true"></div>
+        <div class="interlude__inner">
+          <p class="micro-label">Studio principle / No. 02</p>
+          <h2 id="interlude-title">
+            PLAY IS A<br /><em>serious</em> TOOL<span>.</span>
+          </h2>
+          <p class="interlude__aside">
+            Serious about craft.<br />Never about the rules.
+          </p>
+        </div>
+        <div class="interlude__rule" aria-hidden="true"></div>
+      </section>
+
+      <section class="gallery" id="work" aria-labelledby="gallery-title">
+        <div class="gallery__sticky">
+          <div class="gallery__grid" aria-hidden="true"></div>
+          <h2 class="gallery__title" id="gallery-title">SELECTED <em>objects</em></h2>
+          <canvas id="helix-canvas" aria-label="Interactive 3D helix gallery of Norb Studio works"></canvas>
+
+          <div class="gallery__top">
+            <span class="micro-label">(02) Selected objects</span>
+            <span class="micro-label micro-label--right">Scroll to rotate / drag sideways</span>
+          </div>
+
+          <div class="gallery__current" aria-live="polite">
+            <span class="gallery__index" id="gallery-index">01 / 10</span>
+            <h3 id="gallery-name">Soft Machine</h3>
+            <p id="gallery-type">Digital sculpture · 2026</p>
+          </div>
+
+          <div class="gallery__progress-wrap" aria-hidden="true">
+            <span class="gallery__progress-label">Scroll</span>
+            <span class="gallery__progress-track"><i id="gallery-progress"></i></span>
+          </div>
+
+          <div class="gallery__axis-label" aria-hidden="true">HELIX / 360°</div>
+        </div>
+      </section>
+
+      <section class="contact" id="contact" aria-labelledby="contact-title">
+        <div class="contact__top">
+          <span class="micro-label">(03) Start something</span>
+          <span class="micro-label micro-label--right">Open for select commissions / 2026</span>
+        </div>
+
+        <div class="contact__grid">
+          <div class="contact__intro">
+            <h2 id="contact-title">
+              LET'S MAKE<br /><em>something</em><br />UNREAL<span>.</span>
+            </h2>
+            <p>
+              Tell us what keeps you up at night. We will turn it into a form people cannot stop
+              looking at.
+            </p>
+            <a class="contact__email" href="mailto:hello@norb.studio">
+              <span>hello@norb.studio</span><i aria-hidden="true">↗</i>
+            </a>
+            <div class="contact__details">
+              <span><b>Berlin</b>52.5200° N / 13.4050° E</span>
+              <span><b>Working</b>Worldwide / remote</span>
+            </div>
+          </div>
+
+          <div class="form-scene" id="form-scene">
+            <div class="form-cube" aria-hidden="true">
+              <span class="form-cube__face form-cube__face--front"></span>
+              <span class="form-cube__face form-cube__face--back"></span>
+              <span class="form-cube__face form-cube__face--right"></span>
+              <span class="form-cube__face form-cube__face--left"></span>
+              <span class="form-cube__face form-cube__face--top"></span>
+              <span class="form-cube__face form-cube__face--bottom"></span>
+            </div>
+
+            <div class="form-shell" id="form-shell">
+              <div class="form-shell__head">
+                <span>Project signal / 001</span>
+                <span class="form-shell__dot"></span>
+              </div>
+              <form class="contact-form" id="contact-form" novalidate>
+                <div class="field-row">
+                  <label class="field">
+                    <span class="field__label">01 / Your name</span>
+                    <input type="text" name="name" autocomplete="name" placeholder="Jane Doe" required />
+                  </label>
+                  <label class="field">
+                    <span class="field__label">02 / Email</span>
+                    <input
+                      type="email"
+                      name="email"
+                      autocomplete="email"
+                      placeholder="jane@somewhere.com"
+                      required
+                    />
+                  </label>
+                </div>
+                <label class="field">
+                  <span class="field__label">03 / What are we making?</span>
+                  <select name="project">
+                    <option value="" selected>Choose a dimension</option>
+                    <option>Brand world / identity</option>
+                    <option>3D campaign / motion</option>
+                    <option>Digital sculpture / installation</option>
+                    <option>Something impossible</option>
+                  </select>
+                </label>
+                <label class="field field--message">
+                  <span class="field__label">04 / The big idea</span>
+                  <textarea
+                    name="message"
+                    rows="3"
+                    placeholder="Give us the feeling, the reference, the weird bit..."
+                    required
+                  ></textarea>
+                </label>
+                <button class="form-submit" type="submit">
+                  <span>Send the signal</span>
+                  <i aria-hidden="true">↗</i>
+                </button>
+                <p class="form-note">No decks required. A good sentence is enough.</p>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <a class="footer__brand" href="#hero">NORB<span>®</span></a>
+          <div class="footer__col">
+            <span>Social</span>
+            <a href="#work">Instagram ↗</a>
+            <a href="#work">Behance ↗</a>
+          </div>
+          <div class="footer__col">
+            <span>Studio</span>
+            <a href="mailto:hello@norb.studio">hello@norb.studio</a>
+            <a href="#contact">New business</a>
+          </div>
+          <div class="footer__col footer__col--end">
+            <span>© 2026 Norb Studio</span>
+            <span>Made of light & matter</span>
+          </div>
+        </footer>
+      </section>
+    </main>
+
+    <noscript>
+      <div class="noscript-note">
+        Norb Studio uses JavaScript to render its 3D world. Enable it for the full experience.
+      </div>
+    </noscript>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

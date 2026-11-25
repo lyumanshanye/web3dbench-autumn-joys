@@ -1,0 +1,190 @@
+{
+  "summary": "The submission is a complete, coherent 3D moon-phase lesson. The four key phases agree across the orbital model, lighting, phase name, percentage, and Earth-view preview; intermediate waxing/waning states, play/pause, reset, the three-question quiz with retry, keyboard-only phase selection, mobile stacking, and reduced-motion startup all worked. Diagnostics showed only a nonblocking favicon 404.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The lesson loaded successfully at both tested viewports, with the full interactive UI available and no blocking runtime failure. The only console error was a missing favicon; the HTML, CSS, app script, and Three.js modules loaded successfully.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-13-52-366Z.jpeg",
+      "evidence/page-2026-11-24T17-17-33-871Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "Valid real-time 3D is present: the fixed top-down camera shows shaded spherical Sun, Earth, and Moon bodies, a depth-separated orbit, changing Moon positions, and lighting/terminator changes across key and intermediate phases rather than a static image.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-14-01-872Z.jpeg",
+      "evidence/page-2026-11-24T17-14-10-847Z.jpeg",
+      "evidence/page-2026-11-24T17-14-19-243Z.jpeg",
+      "evidence/page-2026-11-24T17-14-28-818Z.jpeg",
+      "evidence/page-2026-11-24T17-17-04-129Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Five distinct fixed-camera states were inspected. Moon position, occlusion relative to Earth, sphere shading, and the separate illuminated-disk preview change coherently across the cycle, confirming task-relevant depth and geometry.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-13-52-366Z.jpeg",
+        "evidence/page-2026-11-24T17-14-01-872Z.jpeg",
+        "evidence/page-2026-11-24T17-14-10-847Z.jpeg",
+        "evidence/page-2026-11-24T17-14-19-243Z.jpeg",
+        "evidence/page-2026-11-24T17-14-28-818Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Composition, typography, contrast, label placement, and the warm sunlight against the dark orbital field form a clear hierarchy. Phase labels remain readable and separate from the bodies, and the preview uses the same visual language.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-13-52-366Z.jpeg",
+        "evidence/page-2026-11-24T17-14-19-243Z.jpeg",
+        "evidence/page-2026-11-24T17-17-33-871Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The four advertised phase buttons, play/pause, slider, reset, and quiz answers all produced meaningful model, readout, and Earth-view feedback. No extra controls were required to complete the lesson flow.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-14-01-872Z.jpeg",
+        "evidence/page-2026-11-24T17-14-10-847Z.jpeg",
+        "evidence/page-2026-11-24T17-14-19-243Z.jpeg",
+        "evidence/page-2026-11-24T17-14-28-818Z.jpeg",
+        "evidence/page-2026-11-24T17-17-04-129Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated phase jumps in both directions worked, playback advanced into a waning-gibbous state, reset returned to day 0 and paused, a wrong quiz answer offered retry, and completing all questions exposed a further quiz retry.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-14-46-215Z.jpeg",
+        "evidence/page-2026-11-24T17-15-53-985Z.jpeg",
+        "evidence/page-2026-11-24T17-17-04-129Z.jpeg",
+        "evidence/page-2026-11-24T17-17-13-474Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Desktop 1440x900 and mobile 390x844 layouts were inspected. The mobile full-page view shows the model controls, key-phase buttons, preview, and whole quiz stacked without clipping. Reload succeeded; all application resources returned 200/304, with only /favicon.ico returning 404.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-13-52-366Z.jpeg",
+        "evidence/page-2026-11-24T17-17-13-474Z.jpeg",
+        "evidence/page-2026-11-24T17-17-33-871Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The Sun, Earth, and Moon form a 3D orbit lesson with a 0 to 29.5 day slider and a visible 29.5-day cycle. Desktop shows both '29.5 days' and 'Illustration not to scale'; the phone view retains the not-to-scale label and the 0 New / 29.5 New slider endpoints.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-13-52-366Z.jpeg",
+        "evidence/page-2026-11-24T17-14-01-872Z.jpeg",
+        "evidence/page-2026-11-24T17-17-33-871Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "New moon shows 0% lit, first quarter 50% with the right half bright, full moon 100%, and last quarter 50% with the left half bright. Orbital positions agree with those names, and the model shows solar illumination rather than an Earth-shadow phase mask.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-14-01-872Z.jpeg",
+        "evidence/page-2026-11-24T17-14-10-847Z.jpeg",
+        "evidence/page-2026-11-24T17-14-19-243Z.jpeg",
+        "evidence/page-2026-11-24T17-14-28-818Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Phase buttons updated orbit position, phase name, lighting, description, and preview together. Play/pause advanced the cycle, a waning-gibbous intermediate state remained coherent, the initial waxing-crescent state was coherent, and reset restored day 0/new moon and the paused state.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-13-52-366Z.jpeg",
+        "evidence/page-2026-11-24T17-17-04-129Z.jpeg",
+        "evidence/page-2026-11-24T17-17-13-474Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "All three quiz questions were answered. A deliberate wrong answer produced explanatory feedback, a retry action, and a model jump to the relevant phase; subsequent questions gave correct feedback and set first-quarter and full-moon states. The final result screen offered a quiz retry.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-14-46-215Z.jpeg",
+        "evidence/page-2026-11-24T17-15-53-985Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "A keyboard-only Tab+Enter pass reached and activated all four phase buttons without dragging: new moon/day 0.0/0%, first quarter/day 7.4/50%, full moon/day 14.8/100%, and last quarter/day 22.1/50%. The 390x844 page stacks model, preview, and quiz sensibly. After reduced-motion emulation and reload, the page showed a play icon and day 0.0, confirming it started paused.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-14-01-872Z.jpeg",
+        "evidence/page-2026-11-24T17-14-10-847Z.jpeg",
+        "evidence/page-2026-11-24T17-14-19-243Z.jpeg",
+        "evidence/page-2026-11-24T17-14-28-818Z.jpeg",
+        "evidence/page-2026-11-24T17-17-33-871Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "Every stated requirement was delivered coherently across tested states: the explored 3D cycle, separate preview, phase agreement, playback and navigation, reset, three-question quiz with retry, keyboard phase access, mobile stacking, and reduced-motion paused startup.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-13-52-366Z.jpeg",
+        "evidence/page-2026-11-24T17-15-53-985Z.jpeg",
+        "evidence/page-2026-11-24T17-17-13-474Z.jpeg",
+        "evidence/page-2026-11-24T17-17-33-871Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The spatial relations consistently serve the lesson: the Moon moves around Earth, key positions match the quarter/full/new names, solar shading changes correctly, and the preview derives a coherent illuminated disk. Depth, terminator placement, label separation, and the non-shadow phase treatment remain consistent.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-14-01-872Z.jpeg",
+        "evidence/page-2026-11-24T17-14-10-847Z.jpeg",
+        "evidence/page-2026-11-24T17-14-19-243Z.jpeg",
+        "evidence/page-2026-11-24T17-14-28-818Z.jpeg",
+        "evidence/page-2026-11-24T17-17-04-129Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Sequences, combinations, and recovery are reliable: phase jumps work in both directions, playback and pause update the scene, reset restores the start, quiz errors explain and retry, completion offers another attempt, and keyboard-only phase selection works.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-14-46-215Z.jpeg",
+        "evidence/page-2026-11-24T17-15-53-985Z.jpeg",
+        "evidence/page-2026-11-24T17-17-04-129Z.jpeg",
+        "evidence/page-2026-11-24T17-17-13-474Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The dark orbital composition, warm solar light, restrained gold accents, clear type hierarchy, distinct labels, and matched model/preview styling form a coherent educational expression. State-specific descriptions and percentage cues improve understanding without clutter.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-13-52-366Z.jpeg",
+        "evidence/page-2026-11-24T17-14-19-243Z.jpeg",
+        "evidence/page-2026-11-24T17-15-53-985Z.jpeg",
+        "evidence/page-2026-11-24T17-17-33-871Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "Desktop and phone layouts, repeated phase changes, playback, quiz retry, reset, keyboard operation, and reload remained stable and readable. Core HTML/CSS/JS and Three.js resources loaded successfully; the sole favicon 404 was nonblocking.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-13-52-366Z.jpeg",
+        "evidence/page-2026-11-24T17-17-13-474Z.jpeg",
+        "evidence/page-2026-11-24T17-17-33-871Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The first MCP navigation failed because the expected Chromium binary was absent from the cache. A matching preinstalled Chromium 1252 binary was linked into the expected path, after which the browser checks completed normally.",
+    "Reduced motion was verified with Playwright media emulation and a page reload rather than a changed operating-system preference.",
+    "The lesson advertises no download or export feature, so download inspection was not applicable.",
+    "Physical touch hardware and audio quality were not evaluated; mobile behavior was checked at a 390x844 emulated viewport."
+  ]
+}

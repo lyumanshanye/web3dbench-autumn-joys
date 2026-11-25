@@ -1,0 +1,1844 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#91d7e9" />
+  <title>Pelican Bay — Seaside Cruise</title>
+  <style>
+    :root {
+      --ink: #123e47;
+      --ink-soft: rgba(18, 62, 71, 0.72);
+      --paper: #fff8e8;
+      --sun: #f6aa3c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #8fd5e8;
+    }
+
+    body {
+      color: var(--ink);
+      font-family: "Trebuchet MS", "Avenir Next", "Gill Sans", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+    }
+
+    #scene {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      outline: none;
+      touch-action: none;
+    }
+
+    .hud {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(22px, 3.4vw, 54px);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      max-width: 590px;
+      filter: drop-shadow(0 2px 12px rgba(255, 252, 239, 0.35));
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: clamp(9px, 0.78vw, 12px);
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.65;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+      font-weight: 400;
+      font-size: clamp(42px, 6.4vw, 94px);
+      line-height: 0.89;
+      letter-spacing: -0.055em;
+      color: #174a52;
+    }
+
+    h1 em {
+      font-weight: 400;
+      color: #f7f0d9;
+      text-shadow: 0 2px 22px rgba(30, 93, 102, 0.18);
+    }
+
+    .tagline {
+      margin: 18px 0 0;
+      font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+      font-style: italic;
+      font-size: clamp(13px, 1.22vw, 18px);
+      letter-spacing: 0.015em;
+      color: rgba(23, 74, 82, 0.76);
+    }
+
+    .weather {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 10px 14px 10px 10px;
+      border: 1px solid rgba(255, 250, 232, 0.7);
+      border-radius: 999px;
+      background: rgba(255, 249, 232, 0.33);
+      box-shadow: 0 12px 32px rgba(33, 97, 111, 0.09);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #164b54;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .sun-mark {
+      width: 29px;
+      height: 29px;
+      border-radius: 50%;
+      background: var(--sun);
+      position: relative;
+      box-shadow: inset -6px -5px 0 rgba(214, 116, 35, 0.15);
+    }
+
+    .sun-mark::after {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border: 1px dashed rgba(246, 170, 60, 0.75);
+      border-radius: inherit;
+    }
+
+    .bottomrow {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .postcard {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 9px 15px 9px 9px;
+      border-radius: 999px;
+      background: rgba(255, 249, 232, 0.3);
+      border: 1px solid rgba(255, 250, 232, 0.6);
+      color: rgba(18, 62, 71, 0.82);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .postcard-stamp {
+      width: 37px;
+      height: 37px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #f8f1dc;
+      color: #1e6971;
+      font-family: Georgia, "Times New Roman", serif;
+      font-style: italic;
+      font-size: 12px;
+      letter-spacing: -0.03em;
+      box-shadow: 0 4px 18px rgba(29, 94, 105, 0.12);
+    }
+
+    .hint {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding-bottom: 3px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.19em;
+      text-transform: uppercase;
+      color: rgba(255, 250, 236, 0.9);
+      text-shadow: 0 1px 8px rgba(34, 91, 99, 0.3);
+    }
+
+    .hint-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fff8e7;
+      box-shadow: 0 0 0 4px rgba(255, 248, 231, 0.18);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    .loading {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: grid;
+      place-items: center;
+      background: #a5dded;
+      color: #174b54;
+      transition: opacity 700ms ease, visibility 700ms ease;
+    }
+
+    .loading.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loading-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-style: italic;
+      font-size: 16px;
+      letter-spacing: 0.02em;
+    }
+
+    .loading-line {
+      width: 78px;
+      height: 2px;
+      overflow: hidden;
+      border-radius: 4px;
+      background: rgba(23, 75, 84, 0.15);
+    }
+
+    .loading-line::after {
+      content: "";
+      display: block;
+      width: 38%;
+      height: 100%;
+      border-radius: inherit;
+      background: #f5aa3b;
+      animation: loading 1.1s ease-in-out infinite;
+    }
+
+    @keyframes loading {
+      from { transform: translateX(-110%); }
+      to { transform: translateX(270%); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(0.82); opacity: 0.65; }
+      50% { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 700px) {
+      .hud {
+        padding: max(20px, env(safe-area-inset-top)) 20px max(22px, env(safe-area-inset-bottom));
+      }
+
+      .topbar {
+        align-items: flex-start;
+      }
+
+      h1 {
+        font-size: clamp(42px, 13.2vw, 66px);
+        line-height: 0.9;
+      }
+
+      .eyebrow {
+        font-size: 8px;
+        letter-spacing: 0.18em;
+      }
+
+      .tagline {
+        margin-top: 13px;
+        max-width: 240px;
+        font-size: 13px;
+      }
+
+      .weather {
+        padding: 8px;
+      }
+
+      .weather span:last-child {
+        display: none;
+      }
+
+      .sun-mark {
+        width: 25px;
+        height: 25px;
+      }
+
+      .postcard {
+        padding: 7px 12px 7px 7px;
+        font-size: 8px;
+        letter-spacing: 0.16em;
+      }
+
+      .postcard-stamp {
+        width: 31px;
+        height: 31px;
+        font-size: 10px;
+      }
+
+      .hint {
+        font-size: 8px;
+        letter-spacing: 0.14em;
+      }
+    }
+
+    @media (max-height: 560px) {
+      .tagline,
+      .postcard {
+        display: none;
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+    }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../../vendor/three/three.module.js",
+        "three/addons/": "../../vendor/three/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="scene" aria-label="A pelican riding a bicycle along a sunny beach"></canvas>
+
+  <div class="hud">
+    <div class="topbar">
+      <div class="brand">
+        <div class="eyebrow">Pelican Bay · 11:42 AM</div>
+        <h1>Seaside <em>Cruise</em></h1>
+        <p class="tagline">One pelican. One bicycle. Nowhere at all to be.</p>
+      </div>
+      <div class="weather">
+        <span class="sun-mark"></span>
+        <span>Sunny · 27°C</span>
+      </div>
+    </div>
+
+    <div class="bottomrow">
+      <div class="postcard">
+        <span class="postcard-stamp">PB</span>
+        <span>Greetings from the shore</span>
+      </div>
+      <div class="hint">
+        <span class="hint-dot"></span>
+        Drag to look around
+      </div>
+    </div>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="loading-inner">
+      <span>Packing the picnic basket…</span>
+      <span class="loading-line"></span>
+    </div>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    const canvas = document.querySelector('#scene');
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: false,
+      powerPreference: 'high-performance'
+    });
+
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.08;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.Fog(0xc9e7eb, 34, 96);
+
+    const camera = new THREE.PerspectiveCamera(34, window.innerWidth / window.innerHeight, 0.1, 220);
+    const controls = new OrbitControls(camera, canvas);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.055;
+    controls.enablePan = false;
+    controls.minDistance = 7;
+    controls.maxDistance = 24;
+    controls.minPolarAngle = Math.PI * 0.29;
+    controls.maxPolarAngle = Math.PI * 0.49;
+    controls.minAzimuthAngle = -0.82;
+    controls.maxAzimuthAngle = 0.95;
+
+    const clock = new THREE.Clock();
+    const Y_AXIS = new THREE.Vector3(0, 1, 0);
+    const tmpVector = new THREE.Vector3();
+
+    const palette = {
+      sand: 0xebcc94,
+      sandDark: 0xb68a55,
+      ocean: 0x2e9fbd,
+      oceanDeep: 0x126e92,
+      foam: 0xf7fbf4,
+      teal: 0x197a7c,
+      tealDark: 0x0d555b,
+      coral: 0xec6b55,
+      cream: 0xfff5dd,
+      feather: 0xf6f1e2,
+      featherShade: 0xded8c6,
+      charcoal: 0x26373a,
+      beak: 0xf3a32a,
+      pouch: 0xe77c1f,
+      leg: 0xf08d2a,
+      straw: 0xe7c274,
+      leaf: 0x3f9b52
+    };
+
+    const materials = {
+      frame: new THREE.MeshStandardMaterial({ color: palette.teal, roughness: 0.3, metalness: 0.22 }),
+      frameDark: new THREE.MeshStandardMaterial({ color: palette.tealDark, roughness: 0.34, metalness: 0.2 }),
+      cream: new THREE.MeshStandardMaterial({ color: palette.cream, roughness: 0.72 }),
+      leather: new THREE.MeshStandardMaterial({ color: 0x7c4b2c, roughness: 0.66 }),
+      tire: new THREE.MeshStandardMaterial({ color: 0x283638, roughness: 0.92 }),
+      whitewall: new THREE.MeshStandardMaterial({ color: 0xf4e8cb, roughness: 0.76 }),
+      rim: new THREE.MeshStandardMaterial({ color: 0xd9c49a, roughness: 0.28, metalness: 0.6 }),
+      metal: new THREE.MeshStandardMaterial({ color: 0x758589, roughness: 0.32, metalness: 0.72 }),
+      feather: new THREE.MeshStandardMaterial({ color: palette.feather, roughness: 0.78 }),
+      featherShade: new THREE.MeshStandardMaterial({ color: palette.featherShade, roughness: 0.84 }),
+      charcoal: new THREE.MeshStandardMaterial({ color: palette.charcoal, roughness: 0.65 }),
+      beak: new THREE.MeshStandardMaterial({ color: palette.beak, roughness: 0.42 }),
+      beakDark: new THREE.MeshStandardMaterial({ color: 0xcc721e, roughness: 0.5 }),
+      pouch: new THREE.MeshStandardMaterial({ color: palette.pouch, roughness: 0.5 }),
+      leg: new THREE.MeshStandardMaterial({ color: palette.leg, roughness: 0.58 }),
+      straw: new THREE.MeshStandardMaterial({ color: palette.straw, roughness: 0.8 }),
+      coral: new THREE.MeshStandardMaterial({ color: palette.coral, roughness: 0.65 }),
+      leaf: new THREE.MeshStandardMaterial({ color: palette.leaf, roughness: 0.8, side: THREE.DoubleSide }),
+      leafLight: new THREE.MeshStandardMaterial({ color: 0x62ae5d, roughness: 0.8, side: THREE.DoubleSide }),
+      trunk: new THREE.MeshStandardMaterial({ color: 0x8a5b37, roughness: 0.9 }),
+      trunkDark: new THREE.MeshStandardMaterial({ color: 0x6f472c, roughness: 0.92 })
+    };
+
+    function mulberry32(seed) {
+      return function random() {
+        let value = seed += 0x6D2B79F5;
+        value = Math.imul(value ^ value >>> 15, value | 1);
+        value ^= value + Math.imul(value ^ value >>> 7, value | 61);
+        return ((value ^ value >>> 14) >>> 0) / 4294967296;
+      };
+    }
+
+    const random = mulberry32(33043);
+
+    function makeSandTexture() {
+      const size = 512;
+      const textureCanvas = document.createElement('canvas');
+      textureCanvas.width = size;
+      textureCanvas.height = size;
+      const context = textureCanvas.getContext('2d');
+      context.fillStyle = '#e9cb93';
+      context.fillRect(0, 0, size, size);
+
+      for (let index = 0; index < 9000; index += 1) {
+        const light = random() > 0.46;
+        const alpha = 0.04 + random() * 0.16;
+        context.fillStyle = light
+          ? `rgba(255, 246, 214, ${alpha})`
+          : `rgba(138, 101, 58, ${alpha * 0.8})`;
+        const radius = 0.35 + random() * 1.3;
+        context.fillRect(random() * size, random() * size, radius, radius);
+      }
+
+      context.lineWidth = 1.1;
+      for (let line = 0; line < 28; line += 1) {
+        const baseY = random() * size;
+        const amplitude = 2 + random() * 7;
+        context.beginPath();
+        context.strokeStyle = `rgba(151, 111, 64, ${0.035 + random() * 0.045})`;
+        for (let x = -8; x <= size + 8; x += 8) {
+          const y = baseY + Math.sin(x * 0.027 + line) * amplitude + Math.sin(x * 0.091) * 1.3;
+          if (x === -8) context.moveTo(x, y);
+          else context.lineTo(x, y);
+        }
+        context.stroke();
+      }
+
+      const texture = new THREE.CanvasTexture(textureCanvas);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.repeat.set(13, 10);
+      texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      return texture;
+    }
+
+    function makeFoamTexture() {
+      const textureCanvas = document.createElement('canvas');
+      textureCanvas.width = 1024;
+      textureCanvas.height = 128;
+      const context = textureCanvas.getContext('2d');
+
+      for (let layer = 0; layer < 5; layer += 1) {
+        context.beginPath();
+        context.strokeStyle = `rgba(255, 253, 243, ${0.16 + layer * 0.08})`;
+        context.lineWidth = 2 + layer * 1.2;
+        for (let x = -20; x <= 1044; x += 8) {
+          const y = 58 + layer * 7 + Math.sin(x * 0.018 + layer * 1.8) * 12 + Math.sin(x * 0.041) * 5;
+          if (x === -20) context.moveTo(x, y);
+          else context.lineTo(x, y);
+        }
+        context.stroke();
+      }
+
+      for (let index = 0; index < 400; index += 1) {
+        const radius = 0.7 + random() * 3.6;
+        context.beginPath();
+        context.fillStyle = `rgba(255, 255, 249, ${0.08 + random() * 0.38})`;
+        context.arc(random() * 1024, 34 + random() * 94, radius, 0, Math.PI * 2);
+        context.fill();
+      }
+
+      const texture = new THREE.CanvasTexture(textureCanvas);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.ClampToEdgeWrapping;
+      texture.repeat.set(6, 1);
+      texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      return texture;
+    }
+
+    function makeBeachBallTexture() {
+      const textureCanvas = document.createElement('canvas');
+      textureCanvas.width = 512;
+      textureCanvas.height = 256;
+      const context = textureCanvas.getContext('2d');
+      const colors = ['#f56f57', '#fbd05c', '#43b9c0', '#f7f1dc', '#437faf', '#ee9e46'];
+      const stripeWidth = 512 / colors.length;
+      colors.forEach((color, index) => {
+        context.fillStyle = color;
+        context.fillRect(index * stripeWidth, 0, stripeWidth + 1, 256);
+      });
+      context.fillStyle = '#fbf6e9';
+      context.beginPath();
+      context.arc(256, 0, 34, 0, Math.PI * 2);
+      context.fill();
+      context.beginPath();
+      context.arc(256, 256, 34, 0, Math.PI * 2);
+      context.fill();
+      context.strokeStyle = 'rgba(255,255,255,0.24)';
+      context.lineWidth = 2;
+      for (let x = 0; x < 512; x += stripeWidth) {
+        context.beginPath();
+        context.moveTo(x, 0);
+        context.lineTo(x, 256);
+        context.stroke();
+      }
+      const texture = new THREE.CanvasTexture(textureCanvas);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      return texture;
+    }
+
+    function makeWickerTexture() {
+      const textureCanvas = document.createElement('canvas');
+      textureCanvas.width = 256;
+      textureCanvas.height = 256;
+      const context = textureCanvas.getContext('2d');
+      context.fillStyle = '#c28c4f';
+      context.fillRect(0, 0, 256, 256);
+      context.lineWidth = 8;
+      for (let x = -32; x < 288; x += 24) {
+        context.strokeStyle = x % 48 === 0 ? 'rgba(100, 58, 23, 0.32)' : 'rgba(255, 220, 152, 0.25)';
+        context.beginPath();
+        context.moveTo(x, 0);
+        context.lineTo(x + 34, 256);
+        context.stroke();
+      }
+      for (let y = 12; y < 256; y += 30) {
+        context.strokeStyle = 'rgba(89, 52, 20, 0.24)';
+        context.lineWidth = 4;
+        context.beginPath();
+        context.moveTo(0, y);
+        context.lineTo(256, y + 2);
+        context.stroke();
+      }
+      const texture = new THREE.CanvasTexture(textureCanvas);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.repeat.set(2.5, 1.6);
+      texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      return texture;
+    }
+
+    function makeTowelTexture() {
+      const textureCanvas = document.createElement('canvas');
+      textureCanvas.width = 512;
+      textureCanvas.height = 256;
+      const context = textureCanvas.getContext('2d');
+      const colors = ['#f8f1da', '#e46b55', '#f8f1da', '#338a91', '#f8f1da', '#efb24d'];
+      const stripeHeight = 256 / colors.length;
+      colors.forEach((color, index) => {
+        context.fillStyle = color;
+        context.fillRect(0, index * stripeHeight, 512, stripeHeight + 1);
+      });
+      context.fillStyle = 'rgba(255, 251, 235, 0.4)';
+      for (let x = 28; x < 512; x += 42) {
+        context.fillRect(x, 0, 5, 256);
+      }
+      const texture = new THREE.CanvasTexture(textureCanvas);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      return texture;
+    }
+
+    function makeGlowTexture() {
+      const textureCanvas = document.createElement('canvas');
+      textureCanvas.width = 256;
+      textureCanvas.height = 256;
+      const context = textureCanvas.getContext('2d');
+      const gradient = context.createRadialGradient(128, 128, 2, 128, 128, 128);
+      gradient.addColorStop(0, 'rgba(255, 255, 238, 1)');
+      gradient.addColorStop(0.13, 'rgba(255, 245, 189, 0.98)');
+      gradient.addColorStop(0.34, 'rgba(255, 205, 108, 0.34)');
+      gradient.addColorStop(1, 'rgba(255, 196, 78, 0)');
+      context.fillStyle = gradient;
+      context.fillRect(0, 0, 256, 256);
+      const texture = new THREE.CanvasTexture(textureCanvas);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      return texture;
+    }
+
+    function markShadow(mesh, cast = true, receive = true) {
+      mesh.castShadow = cast;
+      mesh.receiveShadow = receive;
+      return mesh;
+    }
+
+    function setCylinderBetween(mesh, start, end) {
+      const direction = tmpVector.subVectors(end, start);
+      const length = direction.length();
+      mesh.position.copy(start).addScaledVector(direction, 0.5);
+      mesh.quaternion.setFromUnitVectors(Y_AXIS, direction.normalize());
+      mesh.scale.set(1, length, 1);
+      return mesh;
+    }
+
+    function tubeBetween(start, end, radius, material, radialSegments = 10) {
+      const geometry = new THREE.CylinderGeometry(radius, radius, 1, radialSegments, 1);
+      const mesh = markShadow(new THREE.Mesh(geometry, material));
+      setCylinderBetween(mesh, start, end);
+      return mesh;
+    }
+
+    function sphere(radius, material, widthSegments = 24, heightSegments = 18) {
+      return markShadow(new THREE.Mesh(new THREE.SphereGeometry(radius, widthSegments, heightSegments), material));
+    }
+
+    function createTaperedTube(points, radiusStart, radiusEnd, material, segments = 22, radial = 10) {
+      const curve = new THREE.CatmullRomCurve3(points);
+      const frames = curve.computeFrenetFrames(segments, false);
+      const positions = [];
+      const normals = [];
+      const uvs = [];
+      const indices = [];
+
+      for (let index = 0; index <= segments; index += 1) {
+        const t = index / segments;
+        const point = curve.getPointAt(t);
+        const radius = THREE.MathUtils.lerp(radiusStart, radiusEnd, t);
+        const normal = frames.normals[index];
+        const binormal = frames.binormals[index];
+
+        for (let side = 0; side < radial; side += 1) {
+          const angle = (side / radial) * Math.PI * 2;
+          const offset = new THREE.Vector3()
+            .addScaledVector(normal, Math.cos(angle) * radius)
+            .addScaledVector(binormal, Math.sin(angle) * radius);
+          const vertex = point.clone().add(offset);
+          positions.push(vertex.x, vertex.y, vertex.z);
+          normals.push(offset.x / radius, offset.y / radius, offset.z / radius);
+          uvs.push(side / radial, t);
+        }
+      }
+
+      for (let index = 0; index < segments; index += 1) {
+        for (let side = 0; side < radial; side += 1) {
+          const nextSide = (side + 1) % radial;
+          const current = index * radial + side;
+          const next = index * radial + nextSide;
+          const upper = (index + 1) * radial + side;
+          const upperNext = (index + 1) * radial + nextSide;
+          indices.push(current, upper, next, next, upper, upperNext);
+        }
+      }
+
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+      geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geometry.setIndex(indices);
+      return markShadow(new THREE.Mesh(geometry, material));
+    }
+
+    function extrudeProfile(points, depth, bevelSize, material) {
+      const shape = new THREE.Shape();
+      shape.moveTo(points[0][0], points[0][1]);
+      for (let index = 1; index < points.length; index += 1) {
+        const point = points[index];
+        if (point.length === 4) {
+          const previous = points[index - 1];
+          shape.quadraticCurveTo(point[0], point[1], point[2], point[3]);
+          if (previous.length === 4) continue;
+        } else {
+          shape.lineTo(point[0], point[1]);
+        }
+      }
+      shape.closePath();
+      const geometry = new THREE.ExtrudeGeometry(shape, {
+        depth,
+        bevelEnabled: true,
+        bevelSegments: 3,
+        steps: 1,
+        bevelSize,
+        bevelThickness: bevelSize,
+        curveSegments: 18
+      });
+      geometry.translate(0, 0, -depth / 2);
+      geometry.computeVertexNormals();
+      return markShadow(new THREE.Mesh(geometry, material));
+    }
+
+    const sky = new THREE.Mesh(
+      new THREE.SphereGeometry(150, 32, 20),
+      new THREE.ShaderMaterial({
+        side: THREE.BackSide,
+        depthWrite: false,
+        uniforms: {
+          topColor: { value: new THREE.Color(0x69c4ea) },
+          horizonColor: { value: new THREE.Color(0xf9eac6) },
+          sunDirection: { value: new THREE.Vector3(11, 17, -44).normalize() }
+        },
+        vertexShader: `
+          varying vec3 vDirection;
+          void main() {
+            vDirection = normalize(position);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          varying vec3 vDirection;
+          uniform vec3 topColor;
+          uniform vec3 horizonColor;
+          uniform vec3 sunDirection;
+          void main() {
+            vec3 direction = normalize(vDirection);
+            float height = clamp(direction.y * 0.82 + 0.16, 0.0, 1.0);
+            vec3 color = mix(horizonColor, topColor, pow(height, 0.72));
+            float facing = max(dot(direction, sunDirection), 0.0);
+            float glow = pow(facing, 10.0) * 0.18;
+            float disc = pow(facing, 620.0) * 1.8;
+            color += vec3(1.0, 0.78, 0.38) * (glow + disc);
+            float haze = 1.0 - smoothstep(-0.02, 0.2, direction.y);
+            color = mix(color, vec3(0.96, 0.93, 0.83), haze * 0.22);
+            gl_FragColor = vec4(color, 1.0);
+          }
+        `
+      })
+    );
+    sky.renderOrder = -10;
+    sky.frustumCulled = false;
+    scene.add(sky);
+
+    const sunGlow = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: makeGlowTexture(),
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
+    }));
+    sunGlow.position.set(11, 17, -44);
+    sunGlow.scale.set(13, 13, 1);
+    scene.add(sunGlow);
+
+    const sunCore = new THREE.Mesh(
+      new THREE.SphereGeometry(1.05, 18, 12),
+      new THREE.MeshBasicMaterial({ color: 0xfff4c4 })
+    );
+    sunCore.position.copy(sunGlow.position);
+    scene.add(sunCore);
+
+    scene.add(new THREE.HemisphereLight(0xc9efff, 0xd8ad73, 1.65));
+
+    const keyLight = new THREE.DirectionalLight(0xfff0c4, 2.35);
+    keyLight.position.set(6.5, 12, 8);
+    keyLight.target.position.set(0, 1.4, 0);
+    keyLight.castShadow = true;
+    keyLight.shadow.mapSize.set(2048, 2048);
+    keyLight.shadow.camera.left = -11;
+    keyLight.shadow.camera.right = 11;
+    keyLight.shadow.camera.top = 11;
+    keyLight.shadow.camera.bottom = -9;
+    keyLight.shadow.camera.near = 1;
+    keyLight.shadow.camera.far = 36;
+    keyLight.shadow.bias = -0.0005;
+    keyLight.shadow.normalBias = 0.025;
+    scene.add(keyLight, keyLight.target);
+
+    const skyFill = new THREE.DirectionalLight(0x7ed9ff, 0.65);
+    skyFill.position.set(-7, 5, -8);
+    scene.add(skyFill);
+
+    const sandTexture = makeSandTexture();
+    const sandMaterial = new THREE.MeshStandardMaterial({
+      map: sandTexture,
+      bumpMap: sandTexture,
+      bumpScale: 0.045,
+      color: 0xffe1a8,
+      roughness: 0.96,
+      metalness: 0
+    });
+    const beach = new THREE.Mesh(new THREE.PlaneGeometry(110, 62), sandMaterial);
+    beach.rotation.x = -Math.PI / 2;
+    beach.position.set(0, -0.025, 23);
+    beach.receiveShadow = true;
+    scene.add(beach);
+
+    const wetSand = new THREE.Mesh(
+      new THREE.PlaneGeometry(110, 4.8),
+      new THREE.MeshStandardMaterial({
+        color: 0xb98958,
+        roughness: 0.38,
+        metalness: 0.04,
+        transparent: true,
+        opacity: 0.39
+      })
+    );
+    wetSand.rotation.x = -Math.PI / 2;
+    wetSand.position.set(0, 0.004, -5.6);
+    wetSand.receiveShadow = true;
+    scene.add(wetSand);
+
+    const oceanUniforms = {
+      uTime: { value: 0 },
+      uDeep: { value: new THREE.Color(0x0e7197) },
+      uShallow: { value: new THREE.Color(0x48b9cb) },
+      uFoam: { value: new THREE.Color(0xeefaf7) },
+      uFog: { value: new THREE.Color(0xc9e7eb) }
+    };
+    const oceanGeometry = new THREE.PlaneGeometry(126, 68, 100, 50);
+    oceanGeometry.rotateX(-Math.PI / 2);
+    const oceanMaterial = new THREE.ShaderMaterial({
+      uniforms: oceanUniforms,
+      vertexShader: `
+        uniform float uTime;
+        varying vec3 vWorld;
+        void main() {
+          vec3 position = position;
+          position.y += sin(position.x * 0.27 + uTime * 0.75) * 0.052;
+          position.y += sin(position.x * 0.61 - position.z * 0.36 + uTime * 1.08) * 0.033;
+          vec4 world = modelMatrix * vec4(position, 1.0);
+          vWorld = world.xyz;
+          gl_Position = projectionMatrix * viewMatrix * world;
+        }
+      `,
+      fragmentShader: `
+        uniform float uTime;
+        uniform vec3 uDeep;
+        uniform vec3 uShallow;
+        uniform vec3 uFoam;
+        uniform vec3 uFog;
+        varying vec3 vWorld;
+        void main() {
+          float shore = smoothstep(-70.0, -8.0, vWorld.z);
+          vec3 color = mix(uDeep, uShallow, clamp(shore * 0.88, 0.0, 1.0));
+          float waveA = sin(vWorld.x * 1.18 + sin(vWorld.z * 0.52 + uTime * 0.72) * 1.6 + uTime * 1.22);
+          float waveB = sin(vWorld.x * 2.6 - vWorld.z * 0.82 - uTime * 1.7);
+          float glint = smoothstep(0.76, 1.0, waveA * 0.5 + 0.5) * smoothstep(0.55, 1.0, waveB * 0.5 + 0.5);
+          color += vec3(1.0, 0.93, 0.72) * glint * 0.42;
+          float nearShore = 1.0 - smoothstep(0.0, 1.6, abs(vWorld.z + 8.6 + sin(vWorld.x * 0.2 + uTime * 0.7) * 0.5));
+          color = mix(color, uFoam, nearShore * 0.55);
+          float distanceFade = smoothstep(34.0, 94.0, distance(cameraPosition, vWorld));
+          color = mix(color, uFog, distanceFade * 0.92);
+          gl_FragColor = vec4(color, 1.0);
+        }
+      `
+    });
+    const ocean = new THREE.Mesh(oceanGeometry, oceanMaterial);
+    ocean.position.set(0, -0.09, -40);
+    scene.add(ocean);
+
+    const foamTexture = makeFoamTexture();
+    const shorelineFoam = new THREE.Mesh(
+      new THREE.PlaneGeometry(108, 2.4),
+      new THREE.MeshBasicMaterial({
+        map: foamTexture,
+        transparent: true,
+        opacity: 0.72,
+        depthWrite: false,
+        side: THREE.DoubleSide
+      })
+    );
+    shorelineFoam.rotation.x = -Math.PI / 2;
+    shorelineFoam.position.set(0, 0.012, -6.8);
+    scene.add(shorelineFoam);
+
+    const wetFoam = shorelineFoam.clone();
+    wetFoam.material = shorelineFoam.material.clone();
+    wetFoam.material.opacity = 0.2;
+    wetFoam.material.map = foamTexture.clone();
+    wetFoam.material.map.needsUpdate = true;
+    wetFoam.position.set(0, 0.01, -9.3);
+    wetFoam.scale.set(1, 0.6, 1);
+    scene.add(wetFoam);
+
+    function buildBicycle() {
+      const bike = new THREE.Group();
+      const rearAxle = new THREE.Vector3(-1.35, 0.82, 0);
+      const frontAxle = new THREE.Vector3(1.35, 0.82, 0);
+      const bottomBracket = new THREE.Vector3(0, 0.92, 0);
+      const seatTop = new THREE.Vector3(-0.35, 2.02, 0);
+      const headTop = new THREE.Vector3(0.78, 2.02, 0);
+
+      function buildWheel(x, detail = 1) {
+        const wheel = new THREE.Group();
+        wheel.position.set(x, 0.82, 0);
+        const spin = new THREE.Group();
+
+        const tire = markShadow(new THREE.Mesh(new THREE.TorusGeometry(0.75, 0.07, 10, 48), materials.tire));
+        const whitewall = markShadow(new THREE.Mesh(new THREE.TorusGeometry(0.702, 0.026, 8, 48), materials.whitewall));
+        const rim = markShadow(new THREE.Mesh(new THREE.TorusGeometry(0.665, 0.026, 8, 48), materials.rim));
+        spin.add(tire, whitewall, rim);
+
+        for (let index = 0; index < 20; index += 1) {
+          const angle = (index / 20) * Math.PI * 2;
+          const start = new THREE.Vector3(0, 0, 0);
+          const end = new THREE.Vector3(Math.cos(angle) * 0.65, Math.sin(angle) * 0.65, 0);
+          const spoke = tubeBetween(start, end, 0.0055 * detail, materials.rim, 5);
+          spoke.castShadow = false;
+          spin.add(spoke);
+        }
+
+        const hub = markShadow(new THREE.Mesh(new THREE.CylinderGeometry(0.057, 0.057, 0.16, 12), materials.metal));
+        hub.rotation.x = Math.PI / 2;
+        spin.add(hub);
+
+        const valve = new THREE.Mesh(new THREE.BoxGeometry(0.028, 0.048, 0.035), materials.coral);
+        valve.position.set(0.62, 0.17, 0);
+        spin.add(valve);
+
+        wheel.add(spin);
+
+        const fender = markShadow(new THREE.Mesh(
+          new THREE.TorusGeometry(0.86, 0.038, 7, 38, Math.PI * 0.97),
+          materials.frame
+        ));
+        fender.rotation.z = 0.03;
+        fender.position.z = -0.01;
+        wheel.add(fender);
+
+        return { wheel, spin };
+      }
+
+      const rear = buildWheel(-1.35);
+      const front = buildWheel(1.35);
+      bike.add(rear.wheel, front.wheel);
+
+      bike.add(tubeBetween(rearAxle, bottomBracket, 0.043, materials.frame));
+      bike.add(tubeBetween(bottomBracket, seatTop, 0.046, materials.frame));
+      bike.add(tubeBetween(seatTop, headTop, 0.046, materials.frame));
+      bike.add(tubeBetween(bottomBracket, headTop, 0.048, materials.frame));
+      bike.add(tubeBetween(rearAxle, seatTop, 0.035, materials.frameDark));
+
+      const stayLeft = tubeBetween(
+        rearAxle.clone().setZ(-0.07),
+        bottomBracket.clone().setZ(-0.07),
+        0.025,
+        materials.frameDark
+      );
+      const stayRight = tubeBetween(
+        rearAxle.clone().setZ(0.07),
+        bottomBracket.clone().setZ(0.07),
+        0.025,
+        materials.frameDark
+      );
+      bike.add(stayLeft, stayRight);
+
+      const headTube = tubeBetween(headTop, frontAxle, 0.05, materials.frame);
+      bike.add(headTube);
+
+      const forkLeft = tubeBetween(
+        headTop.clone().setZ(-0.075),
+        frontAxle.clone().setZ(-0.075),
+        0.025,
+        materials.metal
+      );
+      const forkRight = tubeBetween(
+        headTop.clone().setZ(0.075),
+        frontAxle.clone().setZ(0.075),
+        0.025,
+        materials.metal
+      );
+      bike.add(forkLeft, forkRight);
+
+      [rearAxle, frontAxle, bottomBracket, seatTop, headTop].forEach((joint) => {
+        const lug = markShadow(new THREE.Mesh(new THREE.SphereGeometry(0.055, 10, 8), materials.frameDark));
+        lug.position.copy(joint);
+        bike.add(lug);
+      });
+
+      const seatPost = tubeBetween(seatTop, new THREE.Vector3(-0.41, 2.17, 0), 0.026, materials.metal);
+      bike.add(seatPost);
+      const saddle = markShadow(new THREE.Mesh(new THREE.SphereGeometry(0.34, 24, 12), materials.leather));
+      saddle.scale.set(1.12, 0.22, 0.58);
+      saddle.position.set(-0.42, 2.2, 0);
+      saddle.rotation.z = 0.04;
+      bike.add(saddle);
+
+      const stem = tubeBetween(headTop, new THREE.Vector3(0.9, 2.28, 0), 0.027, materials.metal);
+      bike.add(stem);
+      const handlebarCurve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(0.9, 2.28, -0.42),
+        new THREE.Vector3(0.91, 2.34, -0.23),
+        new THREE.Vector3(0.92, 2.35, 0),
+        new THREE.Vector3(0.91, 2.34, 0.23),
+        new THREE.Vector3(0.9, 2.28, 0.42)
+      ]);
+      const handlebar = markShadow(new THREE.Mesh(
+        new THREE.TubeGeometry(handlebarCurve, 26, 0.031, 8, false),
+        materials.metal
+      ));
+      bike.add(handlebar);
+
+      [-0.43, 0.43].forEach((z) => {
+        const grip = markShadow(new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.22, 12), materials.leather));
+        grip.rotation.x = Math.PI / 2;
+        grip.position.set(0.9, 2.285, z);
+        bike.add(grip);
+      });
+
+      const crank = new THREE.Group();
+      crank.position.copy(bottomBracket);
+
+      const chainring = markShadow(new THREE.Mesh(new THREE.TorusGeometry(0.235, 0.025, 8, 28), materials.metal));
+      chainring.position.z = 0.08;
+      crank.add(chainring);
+
+      const nearArm = tubeBetween(
+        new THREE.Vector3(0, 0, 0.13),
+        new THREE.Vector3(0.28, 0, 0.13),
+        0.022,
+        materials.metal
+      );
+      const farArm = tubeBetween(
+        new THREE.Vector3(0, 0, -0.13),
+        new THREE.Vector3(-0.28, 0, -0.13),
+        0.022,
+        materials.metal
+      );
+      crank.add(nearArm, farArm);
+
+      const nearPedal = markShadow(new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.045, 0.13), materials.charcoal));
+      nearPedal.position.set(0.28, 0, 0.19);
+      const farPedal = markShadow(new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.045, 0.13), materials.charcoal));
+      farPedal.position.set(-0.28, 0, -0.19);
+      crank.add(nearPedal, farPedal);
+      bike.add(crank);
+
+      const rearCog = markShadow(new THREE.Mesh(new THREE.TorusGeometry(0.085, 0.018, 6, 18), materials.metal));
+      rearCog.position.set(-1.35, 0.82, 0.08);
+      bike.add(rearCog);
+
+      const chainTop = tubeBetween(
+        new THREE.Vector3(0, 1.14, 0.08),
+        new THREE.Vector3(-1.35, 0.9, 0.08),
+        0.014,
+        materials.charcoal
+      );
+      const chainBottom = tubeBetween(
+        new THREE.Vector3(0, 0.7, 0.08),
+        new THREE.Vector3(-1.35, 0.74, 0.08),
+        0.014,
+        materials.charcoal
+      );
+      bike.add(chainTop, chainBottom);
+
+      const frontRack = new THREE.Group();
+      const rackBarA = tubeBetween(new THREE.Vector3(1.08, 1.76, -0.3), new THREE.Vector3(1.65, 1.76, -0.3), 0.018, materials.metal);
+      const rackBarB = tubeBetween(new THREE.Vector3(1.08, 1.76, 0.3), new THREE.Vector3(1.65, 1.76, 0.3), 0.018, materials.metal);
+      const rackBarC = tubeBetween(new THREE.Vector3(1.08, 1.76, -0.3), new THREE.Vector3(1.08, 1.76, 0.3), 0.018, materials.metal);
+      const rackBarD = tubeBetween(new THREE.Vector3(1.65, 1.76, -0.3), new THREE.Vector3(1.65, 1.76, 0.3), 0.018, materials.metal);
+      const rackSupport = tubeBetween(new THREE.Vector3(1.36, 1.76, 0.28), new THREE.Vector3(1.35, 1.05, 0.08), 0.016, materials.metal);
+      frontRack.add(rackBarA, rackBarB, rackBarC, rackBarD, rackSupport);
+      bike.add(frontRack);
+
+      const basket = markShadow(new THREE.Mesh(
+        new THREE.BoxGeometry(0.58, 0.38, 0.64),
+        new THREE.MeshStandardMaterial({ map: makeWickerTexture(), color: 0xdca15b, roughness: 0.86 })
+      ));
+      basket.position.set(1.36, 2.01, 0);
+      basket.rotation.z = -0.04;
+      bike.add(basket);
+
+      const basketRim = markShadow(new THREE.Mesh(new THREE.BoxGeometry(0.64, 0.045, 0.7), materials.leather));
+      basketRim.position.set(1.36, 2.205, 0);
+      bike.add(basketRim);
+
+      const fishMaterial = new THREE.MeshStandardMaterial({ color: 0x8dcbd1, roughness: 0.35, metalness: 0.28 });
+      [-0.17, 0.15].forEach((z, index) => {
+        const fish = new THREE.Group();
+        const body = markShadow(new THREE.Mesh(new THREE.SphereGeometry(0.12, 14, 10), fishMaterial));
+        body.scale.set(1.75, 0.65, 0.68);
+        fish.add(body);
+        const tail = markShadow(new THREE.Mesh(new THREE.ConeGeometry(0.12, 0.2, 3), fishMaterial));
+        tail.rotation.z = index ? -0.5 : 0.55;
+        tail.position.x = -0.27;
+        tail.scale.z = 0.25;
+        fish.add(tail);
+        fish.position.set(1.32, 2.26, z);
+        fish.rotation.z = index ? 0.32 : -0.25;
+        fish.rotation.y = index ? -0.35 : 0.25;
+        bike.add(fish);
+      });
+
+      bike.userData = { rearSpin: rear.spin, frontSpin: front.spin, crank };
+      return bike;
+    }
+
+    const bike = buildBicycle();
+    scene.add(bike);
+
+    function createPelican() {
+      const pelican = new THREE.Group();
+      const bodyRoot = new THREE.Group();
+      pelican.add(bodyRoot);
+
+      const body = markShadow(new THREE.Mesh(new THREE.SphereGeometry(1, 32, 24), materials.feather));
+      body.scale.set(0.8, 0.56, 0.46);
+      body.position.set(-0.02, 2.75, 0);
+      bodyRoot.add(body);
+
+      const chest = markShadow(new THREE.Mesh(new THREE.SphereGeometry(0.48, 24, 18), materials.feather));
+      chest.scale.set(0.82, 1.02, 0.9);
+      chest.position.set(0.31, 2.86, 0);
+      chest.rotation.z = -0.16;
+      bodyRoot.add(chest);
+
+      const backFeathers = new THREE.Group();
+      for (let index = 0; index < 4; index += 1) {
+        const feather = markShadow(new THREE.Mesh(new THREE.SphereGeometry(0.26, 14, 10), materials.featherShade));
+        feather.scale.set(0.9 + index * 0.06, 0.18, 0.55);
+        feather.position.set(-0.24 - index * 0.1, 3.18 - index * 0.055, -0.1 + index * 0.06);
+        feather.rotation.z = -0.22;
+        backFeathers.add(feather);
+      }
+      bodyRoot.add(backFeathers);
+
+      for (let index = 0; index < 3; index += 1) {
+        const tailFeather = markShadow(new THREE.Mesh(new THREE.ConeGeometry(0.15, 0.52, 5), materials.featherShade));
+        tailFeather.rotation.z = Math.PI / 2;
+        tailFeather.rotation.x = (index - 1) * 0.18;
+        tailFeather.position.set(-0.83, 2.72 + index * 0.035, (index - 1) * 0.12);
+        tailFeather.scale.set(1, 1, 0.42);
+        bodyRoot.add(tailFeather);
+      }
+
+      const neck = createTaperedTube([
+        new THREE.Vector3(0.24, 3.0, 0),
+        new THREE.Vector3(0.34, 3.29, 0.015),
+        new THREE.Vector3(0.48, 3.55, 0.015),
+        new THREE.Vector3(0.52, 3.79, 0.005),
+        new THREE.Vector3(0.56, 3.86, 0)
+      ], 0.27, 0.19, materials.feather, 24, 12);
+      bodyRoot.add(neck);
+
+      const headGroup = new THREE.Group();
+      headGroup.position.set(0.57, 3.91, 0);
+      bodyRoot.add(headGroup);
+
+      const head = markShadow(new THREE.Mesh(new THREE.SphereGeometry(0.33, 28, 20), materials.feather));
+      head.scale.set(1.05, 0.98, 0.92);
+      headGroup.add(head);
+
+      const crown = markShadow(new THREE.Mesh(new THREE.SphereGeometry(0.24, 18, 12), materials.feather));
+      crown.scale.set(0.75, 0.55, 0.8);
+      crown.position.set(-0.08, 0.23, 0);
+      headGroup.add(crown);
+
+      const upperBill = extrudeProfile([
+        [0.08, 0.09],
+        [0.48, 0.08, 0.84, 0.065],
+        [1.03, 0.05],
+        [1.16, 0.015, 1.14, -0.045],
+        [0.72, -0.09, 0.03, -0.12],
+        [-0.045, -0.035, 0.02, 0.035]
+      ], 0.25, 0.028, materials.beak);
+      upperBill.position.set(0.17, -0.01, 0);
+      upperBill.rotation.z = -0.035;
+      headGroup.add(upperBill);
+
+      const pouch = extrudeProfile([
+        [0.06, -0.105],
+        [0.52, -0.09, 0.92, -0.105],
+        [1.04, -0.12],
+        [0.92, -0.38, 0.62, -0.46],
+        [0.33, -0.53, 0.08, -0.28],
+        [0.0, -0.17, 0.03, -0.12]
+      ], 0.32, 0.026, materials.pouch);
+      pouch.position.set(0.17, -0.005, 0);
+      headGroup.add(pouch);
+
+      const billRimCurve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(0.23, -0.028, -0.13),
+        new THREE.Vector3(0.55, -0.032, -0.15),
+        new THREE.Vector3(0.9, -0.043, -0.13),
+        new THREE.Vector3(1.27, -0.06, 0),
+        new THREE.Vector3(0.9, -0.043, 0.13),
+        new THREE.Vector3(0.55, -0.032, 0.15),
+        new THREE.Vector3(0.23, -0.028, 0.13)
+      ]);
+      const billRim = markShadow(new THREE.Mesh(
+        new THREE.TubeGeometry(billRimCurve, 36, 0.017, 6, false),
+        materials.beakDark
+      ));
+      billRim.position.set(0.17, -0.005, 0);
+      headGroup.add(billRim);
+
+      [-1, 1].forEach((side) => {
+        const eyeRing = markShadow(new THREE.Mesh(new THREE.SphereGeometry(0.078, 14, 10), materials.beakDark));
+        eyeRing.scale.set(0.82, 1, 0.44);
+        eyeRing.position.set(0.18, 0.105, side * 0.275);
+        headGroup.add(eyeRing);
+
+        const eye = markShadow(new THREE.Mesh(new THREE.SphereGeometry(0.048, 14, 10), materials.charcoal));
+        eye.scale.set(0.85, 1, 0.5);
+        eye.position.set(0.195, 0.108, side * 0.302);
+        headGroup.add(eye);
+
+        const glint = new THREE.Mesh(new THREE.SphereGeometry(0.013, 8, 6), materials.cream);
+        glint.position.set(0.217, 0.125, side * 0.325);
+        headGroup.add(glint);
+
+        const nostril = new THREE.Mesh(new THREE.SphereGeometry(0.012, 8, 6), materials.beakDark);
+        nostril.position.set(0.4, 0.045, side * 0.137);
+        headGroup.add(nostril);
+      });
+
+      const hatGroup = new THREE.Group();
+      hatGroup.position.set(-0.015, 0.31, 0);
+      hatGroup.rotation.z = -0.13;
+      hatGroup.rotation.x = 0.08;
+      headGroup.add(hatGroup);
+
+      const brim = markShadow(new THREE.Mesh(new THREE.CylinderGeometry(0.58, 0.61, 0.04, 36), materials.straw));
+      brim.scale.z = 0.9;
+      hatGroup.add(brim);
+
+      const crownHat = markShadow(new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.37, 0.29, 28), materials.straw));
+      crownHat.position.y = 0.15;
+      crownHat.scale.z = 0.92;
+      hatGroup.add(crownHat);
+
+      const hatBand = markShadow(new THREE.Mesh(new THREE.CylinderGeometry(0.315, 0.375, 0.075, 28), materials.coral));
+      hatBand.position.y = 0.045;
+      hatBand.scale.z = 0.92;
+      hatGroup.add(hatBand);
+
+      const flower = new THREE.Group();
+      flower.position.set(0.17, 0.08, 0.35);
+      flower.rotation.z = 0.45;
+      for (let index = 0; index < 5; index += 1) {
+        const petal = new THREE.Mesh(new THREE.SphereGeometry(0.045, 10, 7), materials.cream);
+        petal.scale.set(1.5, 0.7, 0.8);
+        petal.position.set(Math.cos(index * Math.PI * 0.4) * 0.055, Math.sin(index * Math.PI * 0.4) * 0.055, 0);
+        flower.add(petal);
+      }
+      const flowerCenter = new THREE.Mesh(new THREE.SphereGeometry(0.03, 10, 8), materials.beak);
+      flowerCenter.position.z = 0.03;
+      flower.add(flowerCenter);
+      hatGroup.add(flower);
+
+      const scarfBand = markShadow(new THREE.Mesh(new THREE.TorusGeometry(0.225, 0.052, 8, 22), materials.coral));
+      scarfBand.rotation.x = Math.PI / 2;
+      scarfBand.rotation.z = -0.08;
+      scarfBand.position.set(0.41, 3.37, 0);
+      bodyRoot.add(scarfBand);
+
+      const scarfShape = new THREE.Shape();
+      scarfShape.moveTo(-0.18, 0.08);
+      scarfShape.quadraticCurveTo(0.05, 0.02, 0.2, 0.08);
+      scarfShape.lineTo(0.12, -0.42);
+      scarfShape.quadraticCurveTo(0.01, -0.48, -0.11, -0.38);
+      scarfShape.closePath();
+      const scarfTail = markShadow(new THREE.Mesh(
+        new THREE.ShapeGeometry(scarfShape, 10),
+        new THREE.MeshStandardMaterial({ color: palette.coral, roughness: 0.62, side: THREE.DoubleSide })
+      ));
+      scarfTail.position.set(0.38, 3.31, 0.23);
+      scarfTail.rotation.z = -0.14;
+      bodyRoot.add(scarfTail);
+
+      const wingData = [];
+      [-1, 1].forEach((side, wingIndex) => {
+        const z = side * 0.35;
+        const gripZ = side * 0.4;
+        const wing = createTaperedTube([
+          new THREE.Vector3(0.17, 3.07, z * 0.8),
+          new THREE.Vector3(0.46, 3.02, side * 0.44),
+          new THREE.Vector3(0.72, 2.76, side * 0.42),
+          new THREE.Vector3(0.9, 2.31, gripZ)
+        ], 0.16, 0.072, materials.feather, 20, 10);
+        bodyRoot.add(wing);
+
+        for (let index = 0; index < 3; index += 1) {
+          const tip = markShadow(new THREE.Mesh(new THREE.CapsuleGeometry(0.028, 0.16, 4, 7), materials.charcoal));
+          tip.position.set(0.94 + index * 0.018, 2.29 - index * 0.008, gripZ + (index - 1) * 0.045);
+          tip.rotation.z = Math.PI / 2 + 0.3;
+          tip.rotation.y = (index - 1) * 0.2;
+          bodyRoot.add(tip);
+        }
+
+        const upperFeather = markShadow(new THREE.Mesh(new THREE.SphereGeometry(0.24, 16, 10), materials.featherShade));
+        upperFeather.scale.set(1.3, 0.18, 0.45);
+        upperFeather.position.set(0.12, 2.99, side * 0.42);
+        upperFeather.rotation.z = wingIndex === 0 ? 0.22 : -0.22;
+        bodyRoot.add(upperFeather);
+        wingData.push(wing);
+      });
+
+      const legRig = [];
+      [-1, 1].forEach((side) => {
+        const upperLeg = markShadow(new THREE.Mesh(new THREE.CylinderGeometry(0.062, 0.075, 1, 9), materials.leg));
+        const lowerLeg = markShadow(new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.055, 1, 9), materials.leg));
+        const knee = markShadow(new THREE.Mesh(new THREE.SphereGeometry(0.065, 12, 8), materials.leg));
+        const footGroup = new THREE.Group();
+        const foot = markShadow(new THREE.Mesh(new THREE.SphereGeometry(0.13, 16, 10), materials.leg));
+        foot.scale.set(1.35, 0.4, 1.0);
+        footGroup.add(foot);
+        for (let toe = -1; toe <= 1; toe += 1) {
+          const toeMesh = markShadow(new THREE.Mesh(new THREE.CapsuleGeometry(0.025, 0.12, 4, 6), materials.leg));
+          toeMesh.rotation.z = Math.PI / 2;
+          toeMesh.position.set(0.15, -0.006, toe * 0.062);
+          footGroup.add(toeMesh);
+        }
+        pelican.add(upperLeg, lowerLeg, knee, footGroup);
+        legRig.push({ side, upperLeg, lowerLeg, knee, footGroup });
+      });
+
+      pelican.userData = {
+        bodyRoot,
+        headGroup,
+        pouch,
+        scarfTail,
+        legRig,
+        hipY: 2.34
+      };
+      return pelican;
+    }
+
+    const pelican = createPelican();
+    scene.add(pelican);
+
+    function createPalm(x, z, height, scale, rotation = 0) {
+      const palm = new THREE.Group();
+      palm.position.set(x, 0, z);
+      palm.rotation.y = rotation;
+
+      const curve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(0.12 * scale, height * 0.33, 0.03 * scale),
+        new THREE.Vector3(0.38 * scale, height * 0.68, 0.08 * scale),
+        new THREE.Vector3(0.72 * scale, height, 0.15 * scale)
+      ]);
+      const trunk = createTaperedTube(curve.getPoints(24), 0.24 * scale, 0.105 * scale, materials.trunk, 28, 11);
+      palm.add(trunk);
+
+      for (let index = 1; index < 12; index += 1) {
+        const t = index / 12;
+        const point = curve.getPointAt(t);
+        const tangent = curve.getTangentAt(t).normalize();
+        const radius = THREE.MathUtils.lerp(0.24, 0.105, t) * scale;
+        const ring = markShadow(new THREE.Mesh(
+          new THREE.CylinderGeometry(radius * 1.035, radius * 1.035, 0.035, 12, 1, true),
+          materials.trunkDark
+        ));
+        ring.position.copy(point);
+        ring.quaternion.setFromUnitVectors(Y_AXIS, tangent);
+        palm.add(ring);
+      }
+
+      const top = curve.getPointAt(1);
+      const crown = new THREE.Group();
+      crown.position.copy(top);
+      palm.add(crown);
+
+      const frondPivots = [];
+      const frondCount = 9;
+      for (let index = 0; index < frondCount; index += 1) {
+        const pivot = new THREE.Group();
+        pivot.rotation.y = (index / frondCount) * Math.PI * 2 + random() * 0.18;
+        pivot.rotation.z = 0.08 + random() * 0.1;
+        crown.add(pivot);
+        frondPivots.push(pivot);
+
+        const length = (1.45 + random() * 0.55) * scale;
+        const width = (0.25 + random() * 0.08) * scale;
+        const droop = 0.42 + random() * 0.3;
+        const positions = [];
+        const indices = [];
+        const segments = 14;
+
+        for (let segment = 0; segment <= segments; segment += 1) {
+          const t = segment / segments;
+          const centerX = t * length;
+          const centerY = Math.sin(t * Math.PI * 0.72) * 0.28 - t * t * droop;
+          const centerZ = 0;
+          const leafWidth = Math.sin(Math.min(1, t * 1.12) * Math.PI) * width * (1 - t * 0.18);
+          positions.push(centerX, centerY, centerZ - leafWidth, centerX, centerY + 0.018, centerZ, centerX, centerY, centerZ + leafWidth);
+        }
+
+        for (let segment = 0; segment < segments; segment += 1) {
+          const base = segment * 3;
+          const next = (segment + 1) * 3;
+          indices.push(base, next, base + 1, base + 1, next, next + 1);
+          indices.push(base + 1, next + 1, base + 2, base + 2, next + 1, next + 2);
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+        geometry.setIndex(indices);
+        geometry.computeVertexNormals();
+        const leafMaterial = index % 3 === 0 ? materials.leafLight : materials.leaf;
+        const frond = markShadow(new THREE.Mesh(geometry, leafMaterial));
+        frond.castShadow = true;
+        pivot.add(frond);
+
+        const ribPoints = [];
+        for (let segment = 0; segment <= segments; segment += 1) {
+          const t = segment / segments;
+          ribPoints.push(new THREE.Vector3(
+            t * length,
+            Math.sin(t * Math.PI * 0.72) * 0.28 - t * t * droop + 0.02,
+            0
+          ));
+        }
+        const rib = markShadow(new THREE.Mesh(
+          new THREE.TubeGeometry(new THREE.CatmullRomCurve3(ribPoints), 20, 0.016 * scale, 5, false),
+          materials.leaf
+        ));
+        pivot.add(rib);
+      }
+
+      for (let index = 0; index < 4; index += 1) {
+        const coconut = markShadow(new THREE.Mesh(new THREE.SphereGeometry(0.13 * scale, 12, 9), materials.trunkDark));
+        coconut.position.set(
+          Math.cos(index * 1.7) * 0.2 * scale,
+          -0.12 * scale,
+          Math.sin(index * 1.7) * 0.2 * scale
+        );
+        crown.add(coconut);
+      }
+
+      palm.userData.frondPivots = frondPivots;
+      return palm;
+    }
+
+    const palms = [
+      createPalm(-5.75, -1.4, 5.7, 1.08, 0.35),
+      createPalm(6.85, -4.3, 4.65, 0.87, -0.45),
+      createPalm(-8.4, -7.2, 3.8, 0.7, 0.75)
+    ];
+    palms.forEach((palm) => scene.add(palm));
+
+    function createUmbrella(x, z, scale = 1) {
+      const group = new THREE.Group();
+      group.position.set(x, 0, z);
+      group.rotation.z = 0.12;
+      group.rotation.x = -0.04;
+
+      const pole = markShadow(new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.045, 3.2, 10), materials.cream));
+      pole.position.y = 1.6;
+      group.add(pole);
+
+      const canopyGroup = new THREE.Group();
+      canopyGroup.position.y = 2.85;
+      group.add(canopyGroup);
+      const panelCount = 14;
+
+      for (let index = 0; index < panelCount; index += 1) {
+        const startAngle = (index / panelCount) * Math.PI * 2;
+        const endAngle = ((index + 1) / panelCount) * Math.PI * 2;
+        const radius = 1.42 * scale;
+        const ringRadius = 0.31 * scale;
+        const y = 0.45 * scale;
+        const positions = [
+          0, 0.54 * scale, 0,
+          Math.cos(startAngle) * ringRadius, y, Math.sin(startAngle) * ringRadius,
+          Math.cos(startAngle) * radius, 0, Math.sin(startAngle) * radius,
+          Math.cos(endAngle) * radius, 0, Math.sin(endAngle) * radius,
+          Math.cos(endAngle) * ringRadius, y, Math.sin(endAngle) * ringRadius
+        ];
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+        geometry.setIndex([0, 1, 2, 0, 2, 3, 0, 3, 4]);
+        geometry.computeVertexNormals();
+        const panelMaterial = new THREE.MeshStandardMaterial({
+          color: index % 2 === 0 ? palette.coral : palette.cream,
+          roughness: 0.74,
+          side: THREE.DoubleSide
+        });
+        const panel = markShadow(new THREE.Mesh(geometry, panelMaterial));
+        canopyGroup.add(panel);
+      }
+
+      const cap = markShadow(new THREE.Mesh(new THREE.SphereGeometry(0.065, 10, 8), materials.leather));
+      cap.position.y = 0.58 * scale;
+      canopyGroup.add(cap);
+
+      const chair = new THREE.Group();
+      chair.position.set(-0.2, 0, 0.35);
+      chair.rotation.y = -0.25;
+      const seat = markShadow(new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.08, 0.55), materials.cream));
+      seat.position.y = 0.44;
+      seat.rotation.x = 0.1;
+      chair.add(seat);
+      const back = markShadow(new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.08, 0.62), materials.coral));
+      back.position.set(0, 0.77, -0.29);
+      back.rotation.x = -0.4;
+      chair.add(back);
+      [-0.4, 0.4].forEach((side) => {
+        const leg = markShadow(new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.5, 8), materials.metal));
+        leg.position.set(side, 0.22, 0);
+        chair.add(leg);
+      });
+      group.add(chair);
+
+      return group;
+    }
+
+    scene.add(createUmbrella(4.65, -0.7, 0.92));
+
+    const towel = markShadow(new THREE.Mesh(
+      new THREE.PlaneGeometry(2.3, 1.25),
+      new THREE.MeshStandardMaterial({ map: makeTowelTexture(), roughness: 0.9, side: THREE.DoubleSide })
+    ));
+    towel.rotation.x = -Math.PI / 2;
+    towel.rotation.z = -0.22;
+    towel.position.set(2.95, 0.018, 2.0);
+    towel.receiveShadow = true;
+    scene.add(towel);
+
+    const beachBall = markShadow(new THREE.Mesh(
+      new THREE.SphereGeometry(0.37, 30, 20),
+      new THREE.MeshStandardMaterial({ map: makeBeachBallTexture(), roughness: 0.45 })
+    ));
+    beachBall.position.set(3.18, 0.37, 1.44);
+    beachBall.rotation.set(0.18, 0.4, -0.1);
+    scene.add(beachBall);
+
+    const bucket = markShadow(new THREE.Mesh(
+      new THREE.CylinderGeometry(0.24, 0.19, 0.32, 16),
+      new THREE.MeshStandardMaterial({ color: 0xef7c5f, roughness: 0.55 })
+    ));
+    bucket.position.set(1.95, 0.16, 2.42);
+    bucket.rotation.z = 0.08;
+    scene.add(bucket);
+
+    const bucketHandle = markShadow(new THREE.Mesh(
+      new THREE.TorusGeometry(0.22, 0.012, 5, 22, Math.PI),
+      materials.metal
+    ));
+    bucketHandle.position.set(1.95, 0.34, 2.42);
+    bucketHandle.rotation.x = Math.PI / 2;
+    scene.add(bucketHandle);
+
+    function createStarfish(x, z, rotation, scale = 1) {
+      const group = new THREE.Group();
+      group.position.set(x, 0.025, z);
+      group.rotation.y = rotation;
+      group.scale.setScalar(scale);
+      const material = new THREE.MeshStandardMaterial({ color: 0xef7d53, roughness: 0.78 });
+      for (let index = 0; index < 5; index += 1) {
+        const arm = markShadow(new THREE.Mesh(new THREE.CapsuleGeometry(0.055, 0.28, 4, 7), material));
+        arm.rotation.z = index * Math.PI * 0.4;
+        arm.position.set(Math.cos(index * Math.PI * 0.4) * 0.12, 0, Math.sin(index * Math.PI * 0.4) * 0.12);
+        arm.rotation.x = Math.PI / 2;
+        group.add(arm);
+      }
+      const center = markShadow(new THREE.Mesh(new THREE.SphereGeometry(0.09, 10, 8), material));
+      center.scale.y = 0.36;
+      group.add(center);
+      return group;
+    }
+
+    scene.add(createStarfish(-2.55, 2.48, 0.65, 1.2));
+    scene.add(createStarfish(4.1, 2.45, -0.3, 0.85));
+
+    for (let index = 0; index < 15; index += 1) {
+      const shell = markShadow(new THREE.Mesh(
+        new THREE.SphereGeometry(0.06 + random() * 0.11, 10, 7),
+        new THREE.MeshStandardMaterial({ color: index % 2 ? 0xf2ddc0 : 0xe3b991, roughness: 0.85 })
+      ));
+      shell.scale.set(1, 0.3, 0.8);
+      shell.position.set(-7 + random() * 14, 0.015, 3 + random() * 6);
+      shell.rotation.set(0.15, random() * Math.PI, random() * 0.3);
+      scene.add(shell);
+    }
+
+    const sandcastle = new THREE.Group();
+    sandcastle.position.set(-3.65, 0, 1.75);
+    const castleMaterial = new THREE.MeshStandardMaterial({ color: 0xd9b06e, roughness: 0.95 });
+    const base = markShadow(new THREE.Mesh(new THREE.CylinderGeometry(0.52, 0.62, 0.42, 9), castleMaterial));
+    base.position.y = 0.21;
+    sandcastle.add(base);
+    [-0.35, 0.35].forEach((offset) => {
+      const tower = markShadow(new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.26, 0.68, 8), castleMaterial));
+      tower.position.set(offset, 0.45, -0.1);
+      sandcastle.add(tower);
+      const flag = markShadow(new THREE.Mesh(new THREE.ConeGeometry(0.12, 0.26, 3), materials.coral));
+      flag.position.set(offset + 0.1, 0.88, -0.1);
+      flag.rotation.z = -Math.PI / 2;
+      sandcastle.add(flag);
+    });
+    scene.add(sandcastle);
+
+    const sailboat = new THREE.Group();
+    sailboat.position.set(9.2, 0.06, -25);
+    const hull = markShadow(new THREE.Mesh(new THREE.CapsuleGeometry(0.18, 0.9, 4, 8), materials.leather));
+    hull.rotation.z = Math.PI / 2;
+    hull.scale.set(1, 1, 0.38);
+    sailboat.add(hull);
+    const mast = markShadow(new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.016, 1.5, 5), materials.cream));
+    mast.position.y = 0.75;
+    sailboat.add(mast);
+    const sailShape = new THREE.Shape();
+    sailShape.moveTo(0, 0);
+    sailShape.lineTo(0.69, 1.18);
+    sailShape.lineTo(0, 1.05);
+    sailShape.closePath();
+    const sail = markShadow(new THREE.Mesh(
+      new THREE.ShapeGeometry(sailShape),
+      new THREE.MeshStandardMaterial({ color: 0xf8f2df, roughness: 0.7, side: THREE.DoubleSide })
+    ));
+    sail.position.set(0.03, 0.18, 0);
+    sailboat.add(sail);
+    scene.add(sailboat);
+
+    function createCloud(x, y, z, scale) {
+      const cloud = new THREE.Group();
+      cloud.position.set(x, y, z);
+      cloud.scale.setScalar(scale);
+      const cloudMaterial = new THREE.MeshBasicMaterial({ color: 0xfff9e9, transparent: true, opacity: 0.82, fog: false });
+      const blobs = [
+        [-1.1, 0.05, 0, 0.78],
+        [-0.35, 0.22, 0.04, 0.98],
+        [0.45, 0.1, -0.02, 0.83],
+        [1.15, 0.02, 0.05, 0.6],
+        [0.08, -0.14, 0, 0.92]
+      ];
+      blobs.forEach(([bx, by, bz, radius]) => {
+        const blob = new THREE.Mesh(new THREE.SphereGeometry(radius, 16, 10), cloudMaterial);
+        blob.position.set(bx, by, bz);
+        blob.scale.z = 0.52;
+        cloud.add(blob);
+      });
+      return cloud;
+    }
+
+    const clouds = [
+      createCloud(-15, 12.5, -34, 2.2),
+      createCloud(1.5, 14.5, -40, 1.55),
+      createCloud(14, 11, -32, 1.8)
+    ];
+    clouds.forEach((cloud) => scene.add(cloud));
+
+    function createBird(x, y, z, scale) {
+      const bird = new THREE.Group();
+      bird.position.set(x, y, z);
+      bird.scale.setScalar(scale);
+      const material = new THREE.MeshBasicMaterial({ color: 0x3d5960, side: THREE.DoubleSide, fog: false });
+      const wingShape = new THREE.Shape();
+      wingShape.moveTo(0, 0);
+      wingShape.quadraticCurveTo(0.28, 0.14, 0.62, 0.04);
+      wingShape.quadraticCurveTo(0.35, -0.02, 0, -0.04);
+      wingShape.closePath();
+      const left = new THREE.Mesh(new THREE.ShapeGeometry(wingShape), material);
+      left.rotation.y = Math.PI;
+      const right = new THREE.Mesh(new THREE.ShapeGeometry(wingShape), material);
+      bird.add(left, right);
+      bird.userData = { left, right };
+      return bird;
+    }
+
+    const birds = [
+      createBird(-7.5, 8.8, -25, 1),
+      createBird(-4.8, 10.2, -31, 0.8),
+      createBird(7.2, 9.6, -34, 0.9)
+    ];
+    birds.forEach((bird) => scene.add(bird));
+
+    function createHipToKnee(hip, foot, side) {
+      const direction = new THREE.Vector3().subVectors(foot, hip);
+      const distance = THREE.MathUtils.clamp(direction.length(), 0.45, 1.66);
+      direction.normalize();
+      const half = distance * 0.5;
+      const upperLength = 0.92;
+      const lowerLength = 0.9;
+      const bend = Math.sqrt(Math.max(0.001, upperLength * upperLength - half * half));
+      const perpendicular = new THREE.Vector3(-direction.y, direction.x, 0).normalize();
+      const midpoint = hip.clone().addScaledVector(direction, half);
+      const knee = midpoint.addScaledVector(perpendicular, bend * 0.78);
+      knee.z = THREE.MathUtils.lerp(hip.z, foot.z, 0.5) + side * 0.025;
+      return knee;
+    }
+
+    function updatePelicanRig(time) {
+      const data = pelican.userData;
+      const bob = Math.sin(time * 1.9) * 0.017 + Math.sin(time * 1.05) * 0.009;
+      data.bodyRoot.position.y = bob;
+      data.headGroup.rotation.y = Math.sin(time * 0.72) * 0.07;
+      data.headGroup.rotation.z = Math.sin(time * 0.9 + 0.8) * 0.018;
+      data.pouch.scale.y = 1 + Math.sin(time * 2.15) * 0.025;
+      data.scarfTail.rotation.z = -0.14 + Math.sin(time * 2.8) * 0.06;
+      data.scarfTail.rotation.y = Math.sin(time * 1.9) * 0.11;
+
+      const crankAngle = time * 0.78 + 0.6;
+      bike.userData.crank.rotation.z = crankAngle;
+      const pedalRadius = 0.28;
+      data.legRig.forEach((leg) => {
+        const phase = leg.side > 0 ? crankAngle : crankAngle + Math.PI;
+        const foot = new THREE.Vector3(
+          Math.cos(phase) * pedalRadius,
+          0.92 + Math.sin(phase) * pedalRadius + 0.04,
+          leg.side * 0.19
+        );
+        const hip = new THREE.Vector3(
+          -0.12,
+          data.hipY + bob,
+          leg.side * 0.15
+        );
+        const knee = createHipToKnee(hip, foot, leg.side);
+        setCylinderBetween(leg.upperLeg, hip, knee);
+        setCylinderBetween(leg.lowerLeg, knee, foot);
+        leg.knee.position.copy(knee);
+        leg.footGroup.position.copy(foot);
+        leg.footGroup.position.x += 0.07;
+        leg.footGroup.rotation.z = Math.sin(phase) * 0.11;
+      });
+    }
+
+    function frameScene() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const aspect = width / height;
+      const portrait = aspect < 0.78;
+      const target = new THREE.Vector3(portrait ? 0.16 : 0, portrait ? 1.95 : 2.08, 0);
+      const direction = new THREE.Vector3(0.46, 0.22, 0.86).normalize();
+      const fov = portrait ? 35 : 34;
+      camera.aspect = aspect;
+      camera.fov = fov;
+      const verticalSpan = portrait ? 7.2 : 5.6;
+      const horizontalSpan = portrait ? 4.18 : 8.85;
+      const verticalDistance = verticalSpan / (2 * Math.tan(THREE.MathUtils.degToRad(fov) / 2));
+      const horizontalDistance = horizontalSpan / (2 * Math.tan(THREE.MathUtils.degToRad(fov) / 2) * aspect);
+      const distance = Math.max(verticalDistance, horizontalDistance, 8.7);
+      camera.position.copy(target).addScaledVector(direction, distance);
+      camera.near = 0.1;
+      camera.far = 220;
+      camera.updateProjectionMatrix();
+      controls.target.copy(target);
+      controls.update();
+    }
+
+    frameScene();
+
+    window.addEventListener('resize', () => {
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      frameScene();
+    });
+
+    let elapsed = 0;
+    function animate() {
+      requestAnimationFrame(animate);
+      const delta = Math.min(clock.getDelta(), 0.05);
+      elapsed += delta;
+
+      updatePelicanRig(elapsed);
+      bike.userData.rearSpin.rotation.z = -elapsed * 0.78;
+      bike.userData.frontSpin.rotation.z = -elapsed * 0.78;
+      oceanUniforms.uTime.value = elapsed;
+      foamTexture.offset.x = elapsed * 0.009;
+      wetFoam.material.map.offset.x = -elapsed * 0.006;
+
+      palms.forEach((palm, palmIndex) => {
+        palm.userData.frondPivots.forEach((pivot, index) => {
+          const base = pivot.userData.baseZ ?? pivot.rotation.z;
+          pivot.userData.baseZ = base;
+          pivot.rotation.z = base + Math.sin(elapsed * 0.72 + index * 0.65 + palmIndex) * 0.018;
+          pivot.rotation.x = Math.sin(elapsed * 0.5 + index * 0.42) * 0.012;
+        });
+      });
+
+      clouds.forEach((cloud, index) => {
+        cloud.position.x += Math.sin(elapsed * 0.018 + index) * 0.0007;
+      });
+
+      birds.forEach((bird, index) => {
+        const flap = Math.sin(elapsed * 3.1 + index * 1.4) * 0.18;
+        bird.userData.left.rotation.z = flap;
+        bird.userData.right.rotation.z = -flap;
+        bird.position.y += Math.sin(elapsed * 0.45 + index) * 0.0007;
+      });
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelector('#loading').classList.add('is-hidden');
+      });
+    });
+  </script>
+</body>
+</html>

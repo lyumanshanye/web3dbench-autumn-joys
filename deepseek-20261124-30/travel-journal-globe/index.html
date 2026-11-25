@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f1ede3" />
+    <meta
+      name="description"
+      content="Meridian is an interactive travel journal following six field notes across five continents."
+    />
+    <title>Meridian — A world, kept close</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#journal">Skip to trip journal</a>
+
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="#/" aria-label="Meridian, return to all journeys">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 44 44" role="presentation">
+              <circle cx="22" cy="22" r="17.5"></circle>
+              <ellipse cx="22" cy="22" rx="8" ry="17.5"></ellipse>
+              <path d="M4.5 22h35M8.3 13.4h27.4M8.3 30.6h27.4"></path>
+              <path class="brand-route" d="M11 31c5-9 16-13 23-18"></path>
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <strong>Meridian</strong>
+            <span>Field journal</span>
+          </span>
+        </a>
+
+        <div class="header-meta" aria-label="Journal overview">
+          <span><strong>06</strong> journeys</span>
+          <span class="meta-rule" aria-hidden="true"></span>
+          <span><strong>05</strong> continents</span>
+          <span class="meta-rule" aria-hidden="true"></span>
+          <span><strong>2019—24</strong> field notes</span>
+        </div>
+
+        <a class="header-link" href="#journal">
+          Open journal
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M4 10h11M11 5l5 5-5 5"></path>
+          </svg>
+        </a>
+      </header>
+
+      <main class="explorer">
+        <section class="journal-panel" id="journal" aria-labelledby="journal-title">
+          <div class="journal-intro">
+            <p class="eyebrow"><span aria-hidden="true"></span>Field notes, 2019—2024</p>
+            <h1 id="journal-title">A world,<br /><em>kept close.</em></h1>
+            <p class="lede">
+              Six journeys, stitched together by trains, long walks, and the
+              occasional wrong turn. Pick a note or find a place on the globe.
+            </p>
+            <div class="journey-stats">
+              <div>
+                <strong>42,180</strong>
+                <span>miles wandered</span>
+              </div>
+              <div>
+                <strong>5</strong>
+                <span>continents crossed</span>
+              </div>
+              <div>
+                <strong>6</strong>
+                <span>stories kept</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="journal-tools" aria-label="Search and filter journeys">
+            <label class="search-field" for="searchInput">
+              <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="10.8" cy="10.8" r="6.3"></circle>
+                <path d="m15.5 15.5 4.4 4.4"></path>
+              </svg>
+              <span class="sr-only">Search journeys</span>
+              <input
+                id="searchInput"
+                type="search"
+                placeholder="Search places, notes, years…"
+                autocomplete="off"
+                spellcheck="false"
+              />
+              <button id="clearSearch" class="clear-search" type="button" aria-label="Clear search" hidden>
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="m5 5 10 10M15 5 5 15"></path>
+                </svg>
+              </button>
+            </label>
+
+            <div class="filter-row">
+              <label class="year-select" for="yearFilter">
+                <span>Year</span>
+                <span class="select-control">
+                  <select id="yearFilter" aria-label="Filter journeys by year">
+                    <option value="all">All years</option>
+                  </select>
+                  <svg viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="m4 6 4 4 4-4"></path>
+                  </svg>
+                </span>
+              </label>
+              <p class="result-count" id="resultCount" aria-live="polite">6 journeys</p>
+            </div>
+          </div>
+
+          <div class="list-heading">
+            <h2>Chronological journal</h2>
+            <span id="filterSummary">All years</span>
+          </div>
+
+          <div class="timeline-shell">
+            <ol class="trip-list" id="tripList" aria-label="Trips in chronological order"></ol>
+
+            <div class="empty-state" id="emptyState" hidden>
+              <span class="empty-mark" aria-hidden="true">
+                <svg viewBox="0 0 40 40">
+                  <circle cx="20" cy="20" r="14"></circle>
+                  <path d="M8 20h24M20 6c4 4 6 9 6 14s-2 10-6 14M20 6c-4 4-6 9-6 14s2 10 6 14"></path>
+                  <path class="empty-slash" d="m9 31 22-22"></path>
+                </svg>
+              </span>
+              <h3>No notes from this path</h3>
+              <p>Try another year or a broader search. The map will follow.</p>
+              <button type="button" id="clearFilters">Clear all filters</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="globe-stage" id="globeStage" aria-labelledby="globe-title">
+          <div class="stage-aurora" aria-hidden="true"></div>
+          <div class="star-layer" aria-hidden="true"></div>
+          <div class="globe-canvas-wrap" id="globeCanvasWrap" aria-hidden="true"></div>
+          <div class="marker-layer" id="markerLayer" aria-label="Trip locations on the globe"></div>
+
+          <div class="stage-topbar">
+            <div class="stage-heading">
+              <p class="stage-eyebrow">The map</p>
+              <h2 id="globe-title">Where the notes live</h2>
+            </div>
+            <p class="stage-badge"><span aria-hidden="true"></span>Interactive globe</p>
+          </div>
+
+          <div class="globe-controls" aria-label="Globe view controls">
+            <button id="zoomIn" class="round-control" type="button" aria-label="Zoom in">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v12M4 10h12"></path></svg>
+            </button>
+            <button id="zoomOut" class="round-control" type="button" aria-label="Zoom out">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12"></path></svg>
+            </button>
+            <button id="resetView" class="reset-control" type="button" aria-label="Reset view to the full globe">
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <circle cx="10" cy="10" r="6.5"></circle>
+                <path d="M10 3.5v3M10 13.5v3M3.5 10h3M13.5 10h3"></path>
+              </svg>
+              <span>Full globe</span>
+            </button>
+          </div>
+
+          <div class="mobile-gesture-control">
+            <button id="mobileGestureToggle" type="button" aria-pressed="false">
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M7 9.2V5.8a1.3 1.3 0 1 1 2.6 0v2.6-3.1a1.3 1.3 0 1 1 2.6 0v3.1-2.2a1.3 1.3 0 1 1 2.6 0v4.7c0 3.1-2 5.2-5.1 5.2-2.2 0-3.6-1.1-4.6-2.9l-1.8-3a1.35 1.35 0 0 1 2.2-1.5L7 10.8Z"></path>
+              </svg>
+              <span>Touch to explore</span>
+            </button>
+          </div>
+
+          <div class="trip-detail" id="tripDetail" aria-live="polite" hidden></div>
+
+          <div class="stage-footer">
+            <p class="gesture-hint" id="gestureHint">
+              <span class="drag-glyph" aria-hidden="true">↔</span>
+              Drag to turn <span aria-hidden="true">·</span> scroll to zoom
+            </p>
+            <p class="map-legend"><span aria-hidden="true"></span>6 pins · 5 continents</p>
+          </div>
+
+          <div class="globe-loading" id="globeLoading" role="status">
+            <span class="loading-ring" aria-hidden="true"></span>
+            <span>Unfolding the map</span>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>Meridian Field Journal <span aria-hidden="true">/</span> Notes from the long way round.</p>
+        <p>Kyoto · Reykjavík · New York · Marrakech · Tokyo · Patagonia</p>
+      </footer>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <noscript>
+      <div class="noscript">This journal needs JavaScript to turn the globe. The trip notes remain readable below.</div>
+    </noscript>
+  </body>
+</html>

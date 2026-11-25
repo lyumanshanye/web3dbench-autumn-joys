@@ -1,0 +1,76 @@
+{
+  "version": "3.0",
+  "task": "ring-configurator",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "A recognizable genuine 3D wedding band supports comparing yellow gold, platinum and rose gold.",
+      "action": "Select yellow gold, platinum and rose gold and inspect the band.",
+      "expected": "A recognizable 3D wedding band renders distinguishable selected materials.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Band-width adjustment visibly changes the ring geometry.",
+      "action": "Change the band width across its available range.",
+      "expected": "The ring geometry visibly becomes narrower or wider.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Editable engraving is previewed on the inside surface of the ring and can be inspected.",
+      "action": "Enter engraving text and use the available inspection views.",
+      "expected": "The entered engraving appears on the ring's inside surface and is inspectable.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "A design image can be downloaded reflecting chosen material, width and engraving where visible.",
+      "action": "Download an image after changing material, width and engraving.",
+      "expected": "The image reflects the current design, including engraving where the chosen view makes it visible.",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the default band, interior and available metals.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Compare all three metals, change width and edit engraving, then inspect the inside.",
+      "criteria": [
+        "G03",
+        "T02"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Change the design again and download the current image; inspect its content and check that controls remain usable after view changes.",
+      "criteria": [
+        "G04",
+        "T03",
+        "T04"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

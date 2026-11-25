@@ -1,0 +1,188 @@
+{
+  "summary": "The submission is a working 3D theater seat picker. It presents eight raked rows of twelve seats, a stage, visible balcony-support obstructions, seat-specific eye-level previews, a side-by-side comparison, adjacent-seat booking with a correct running total, disabled reserved seats, and a local non-payment summary. Desktop and 390px-wide flows are usable, with minor visual and transition issues.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page opened successfully at http://127.0.0.1:8765/ with the expected title and interactive auditorium UI. The application shell, 3D scene, controls, seat map, and booking flow all ran without a blocking failure. Console output contained only a nonblocking favicon 404, and network records showed the application assets loading successfully.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-45-59-973Z.jpeg",
+      "evidence/page-2026-11-24T17-46-21-502Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The rendered scene is genuine, task-relevant 3D: perspective changes between the house view, limited-view seat, front-row seat, and rear-row mobile seat reveal consistent depth, raked seating, occlusion, and parallax. The central balcony support and side structures obstruct particular sightlines as claimed.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-45-59-973Z.jpeg",
+      "evidence/page-2026-11-24T17-46-45-354Z.jpeg",
+      "evidence/page-2026-11-24T17-47-21-840Z.jpeg",
+      "evidence/page-2026-11-24T17-50-57-106Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Inspected at least four distinct scene views. The house view establishes the full auditorium and stage; Row F Seat 3 shows a close eye-level view with the central support occluding the stage; the comparison shows contrasting sightlines; and the mobile Row H Seat 6 view shows a rear, elevated perspective over the raked seats.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-45-59-973Z.jpeg",
+        "evidence/page-2026-11-24T17-46-45-354Z.jpeg",
+        "evidence/page-2026-11-24T17-47-21-840Z.jpeg",
+        "evidence/page-2026-11-24T17-50-57-106Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The visual design has a clear hierarchy and a coherent lantern-lit theater identity. Typography, cream panels, warm stage light, red seating, and dark auditorium surfaces are legible and reinforce the subject. One local defect is visible in the comparison state, where the right-side comparison card is blank in the captured viewport.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-45-59-973Z.jpeg",
+        "evidence/page-2026-11-24T17-47-21-840Z.jpeg",
+        "evidence/page-2026-11-24T17-49-53-927Z.jpeg",
+        "evidence/page-2026-11-24T17-50-31-970Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary UI reacts meaningfully: selecting seats changes the 3D camera and displays the matching row, seat, view quality, and price; adding seats updates the count and total; Review booking opens the local summary. Compare produces a meaningful split-screen sightline comparison, although its right-hand detail card is visually blank in the captured comparison state.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-46-45-354Z.jpeg",
+        "evidence/page-2026-11-24T17-47-21-840Z.jpeg",
+        "evidence/page-2026-11-24T17-48-14-179Z.jpeg",
+        "evidence/page-2026-11-24T17-49-53-927Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated selection worked for A1 then adjacent A2, with the total moving from $45 to $90. Removing A2 restored the total to $45, and the summary then showed only A1. A reserved D8 seat was disabled and an explicit click attempt was rejected without changing state. The advertised House view and summary close controls were also recoverable.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-46-21-502Z.jpeg",
+        "evidence/page-2026-11-24T17-48-14-179Z.jpeg",
+        "evidence/page-2026-11-24T17-49-53-927Z.jpeg",
+        "evidence/page-2026-11-24T17-57-29-392Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Checked the required 1440x900 and 390x844 layouts. The phone seat map fits all eight rows and twelve columns, seat selection produced a usable eye-level preview with price, and the lower running-total and Review booking controls were reachable by scrolling. Reload returned to a clean initial state. The app assets returned 200/304 responses; the only console error was a nonblocking favicon 404.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-50-31-970Z.jpeg",
+        "evidence/page-2026-11-24T17-50-43-608Z.jpeg",
+        "evidence/page-2026-11-24T17-50-57-106Z.jpeg",
+        "evidence/page-2026-11-24T17-51-14-524Z.jpeg",
+        "evidence/page-2026-11-24T17-57-29-392Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The seat map explicitly presents rows A through H with twelve numbered seats each, for 96 seats total. The 3D house view shows raked seating facing a raised lit stage, and the limited-view preview demonstrates a balcony support obstructing a real sightline.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-45-59-973Z.jpeg",
+        "evidence/page-2026-11-24T17-46-21-502Z.jpeg",
+        "evidence/page-2026-11-24T17-46-45-354Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Several available seats were selected. F3 showed $30 with a limited-view explanation and a support-obstructed eye-level view; A1 showed $45 with a clear front-row view; A2 also showed $45; and mobile H6 showed $38 with an elevated rear view. Each camera position visibly matched the selected location.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-46-45-354Z.jpeg",
+        "evidence/page-2026-11-24T17-48-14-179Z.jpeg",
+        "evidence/page-2026-11-24T17-50-57-106Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Row F Seat 3 and Row A Seat 1 were pinned into a side-by-side comparison. The left view is strongly obstructed by a balcony support while the right view has a clear, closer stage framing, so the differences in position and obstruction remain visually meaningful.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-47-21-840Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "A1 and adjacent A2 were both booked, producing two $45 entries and a $90 running total. Removing A2 returned the total to $45. Reserved seats appeared disabled in the plan, and attempting to click reserved D8 was rejected by the browser because the control was not enabled.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-46-21-502Z.jpeg",
+        "evidence/page-2026-11-24T17-48-14-179Z.jpeg",
+        "evidence/page-2026-11-24T17-49-53-927Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "The desktop summary listed Row A Seat 1 at $45, zero booking fee, and a $45 total, matching the remaining selection, and explicitly stated that no payment service is connected. On the 390px phone viewport, the complete seat map, seat price/preview card, running total, and Review booking control were usable; the mobile summary state showed H6 and $38.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-49-53-927Z.jpeg",
+        "evidence/page-2026-11-24T17-50-43-608Z.jpeg",
+        "evidence/page-2026-11-24T17-50-57-106Z.jpeg",
+        "evidence/page-2026-11-24T17-51-14-524Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All explicit requirements were delivered: eight raked rows of twelve, a stage, obstructing balcony supports, price and eye-level previews, two-view comparison, adjacent selection with a correct total, unavailable reserved seats, a local no-payment summary, and a usable phone seating plan.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-45-59-973Z.jpeg",
+        "evidence/page-2026-11-24T17-46-21-502Z.jpeg",
+        "evidence/page-2026-11-24T17-47-21-840Z.jpeg",
+        "evidence/page-2026-11-24T17-49-53-927Z.jpeg",
+        "evidence/page-2026-11-24T17-50-43-608Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The geometry, scale, raked-row relationships, stage framing, support placement, lighting, and seat-dependent viewpoints consistently support the sightline task. The obstruction is strongly visible in the limited-view preview and meaningfully absent in the premium comparison view.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-45-59-973Z.jpeg",
+        "evidence/page-2026-11-24T17-46-45-354Z.jpeg",
+        "evidence/page-2026-11-24T17-47-21-840Z.jpeg",
+        "evidence/page-2026-11-24T17-50-57-106Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "Required and repeated flows work, including adjacent selection, removal, reserved rejection, comparison, and summary. Local issues keep this below the top anchor: the comparison state's right-hand action card was blank in the delivered screenshot, and the phone plan packs twelve seats into very small touch targets. Core scene/state feedback remains reliable.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-47-21-840Z.jpeg",
+        "evidence/page-2026-11-24T17-48-14-179Z.jpeg",
+        "evidence/page-2026-11-24T17-50-43-608Z.jpeg",
+        "evidence/page-2026-11-24T17-57-29-392Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 3,
+      "reason": "Composition, typography, color, and 3D scene styling form a coherent, legible theater experience. The blank comparison-sidebar render and compact mobile legend omission are visible local inconsistencies that prevent the most consistently polished visual state.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-45-59-973Z.jpeg",
+        "evidence/page-2026-11-24T17-47-21-840Z.jpeg",
+        "evidence/page-2026-11-24T17-49-53-927Z.jpeg",
+        "evidence/page-2026-11-24T17-50-31-970Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "The page loads reliably, retains a responsive state through the tested flows, and all required assets load. Reload succeeds. Stability is not perfect: browser capture repeatedly timed out while the phone summary was open, and an element click waited indefinitely on transition stability before keyboard activation succeeded, so this is best treated as a local nonblocking issue.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-49-53-927Z.jpeg",
+        "evidence/page-2026-11-24T17-50-31-970Z.jpeg",
+        "evidence/page-2026-11-24T17-51-14-524Z.jpeg",
+        "evidence/page-2026-11-24T17-57-29-392Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The open mobile booking summary could not be captured as a delivered screenshot: screenshot attempts timed out while waiting for page stability, although the accessibility snapshot showed the correct Row H Seat 6, $38 subtotal, $0 fee, $38 total, and no-payment message.",
+    "The compact mobile legend showed Available and Reserved but omitted the Limited view key; limited-view seats were still visibly marked and labeled in the full seat map.",
+    "Mobile behavior was tested with a 390x844 viewport, not physical touch hardware.",
+    "Console and network diagnostics were saved to evidence/console.txt and evidence/network.txt; they were not used as screenshot evidence."
+  ]
+}

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#e7e5d9" />
+    <meta
+      name="description"
+      content="An interactive topographic relief map of the imaginary island of Aurelia."
+    />
+    <title>Isle of Aurelia — Terrain Study No. 7</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main id="app">
+      <canvas id="scene" aria-label="Interactive three-dimensional relief map of the Isle of Aurelia"></canvas>
+
+      <div class="paper-grain" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+      <div class="sheet-border" aria-hidden="true"></div>
+
+      <header class="title-block">
+        <div class="eyebrow"><span>Field Atlas</span><i></i><span>Plate VII</span></div>
+        <p class="title-kicker">Isle of</p>
+        <h1>Aurelia</h1>
+        <div class="title-rule"><span></span><b></b><span></span></div>
+        <p class="subtitle">An imagined mountain island</p>
+        <p class="coordinates">43°12′ N &nbsp;·&nbsp; 18°04′ E</p>
+      </header>
+
+      <aside class="top-right" aria-label="Map orientation and view controls">
+        <div class="compass" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <circle class="compass-ring" cx="50" cy="50" r="45" />
+            <circle class="compass-inner" cx="50" cy="50" r="32" />
+            <g class="compass-rose" id="compassRose">
+              <path class="compass-tick major" d="M50 3v8M50 89v8M3 50h8M89 50h8" />
+              <path class="compass-tick" d="M17 17l6 6M83 17l-6 6M17 83l6-6M83 83l-6-6" />
+              <path class="needle-north" d="M50 13l6 35-6-7-6 7z" />
+              <path class="needle-south" d="M50 87l-6-35 6 7 6-7z" />
+            </g>
+            <text class="compass-n" x="50" y="12" text-anchor="middle">N</text>
+            <circle class="compass-pin" cx="50" cy="50" r="2.2" />
+          </svg>
+        </div>
+
+        <div class="view-tools">
+          <button class="tool" id="resetView" type="button" data-label="Reset view" aria-label="Reset view">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5.3 8.4A8 8 0 1 1 4 12" />
+              <path d="M4.5 4.5v4.8h4.8" />
+            </svg>
+          </button>
+          <button class="tool" id="toggleRotate" type="button" data-label="Slow orbit" aria-label="Toggle slow orbit" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <ellipse cx="12" cy="12" rx="8.3" ry="3.5" transform="rotate(-25 12 12)" />
+              <circle cx="12" cy="12" r="2.2" />
+              <path d="M17.5 5.7l2.2-.5-.6 2.2" />
+            </svg>
+          </button>
+          <button class="tool is-active" id="toggleContours" type="button" data-label="Contours" aria-label="Toggle contour lines" aria-pressed="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 7.2c3.8-2 5.8 2 9.2 0s5.2-1.8 8.8.3M3 12c3.8-2 5.8 2 9.2 0s5.2-1.8 8.8.3M3 16.8c3.8-2 5.8 2 9.2 0s5.2-1.8 8.8.3" />
+            </svg>
+          </button>
+        </div>
+      </aside>
+
+      <div class="map-labels" id="mapLabels"></div>
+
+      <section class="legend card" aria-label="Elevation legend">
+        <div class="card-heading">
+          <span>Elevation</span>
+          <small>metres</small>
+        </div>
+        <div class="elevation-bar">
+          <div class="elevation-fill"></div>
+          <span class="sea-mark"></span>
+        </div>
+        <div class="elevation-ticks">
+          <span>0</span><span>700</span><span>1,400</span><span>2,100</span><span>2,800</span>
+        </div>
+        <div class="legend-key">
+          <span><i class="key-summit"></i>Summit</span>
+          <span><i class="key-route"></i>Survey traverse</span>
+          <span><i class="key-contour"></i>100 m contour</span>
+        </div>
+      </section>
+
+      <section class="profile-card card" aria-label="West to east island section">
+        <div class="profile-heading">
+          <div>
+            <span>Island section</span>
+            <small>West — East</small>
+          </div>
+          <b>A—A′</b>
+        </div>
+        <div class="profile-chart-wrap">
+          <svg id="profileChart" viewBox="0 0 280 72" preserveAspectRatio="none" aria-hidden="true"></svg>
+          <span class="profile-waterline"></span>
+        </div>
+        <div class="profile-scale"><span>0 km</span><span>6</span><span>12</span></div>
+      </section>
+
+      <div class="readout" id="readout" role="status">
+        <i></i>
+        <span id="readoutCoords">DRAG TO EXPLORE</span>
+        <b id="readoutElev">AURELIA · RELIEF MODEL</b>
+      </div>
+
+      <div class="interaction-hint" aria-hidden="true">
+        <span>Drag to orbit</span><i></i><span>Scroll to zoom</span><i></i><span>Click a peak</span>
+      </div>
+
+      <div class="loading" id="loading">
+        <span class="loading-mark">A</span>
+        <div class="loading-copy">
+          <small>Terrain Study No. 7</small>
+          <span>Surveying the island</span>
+          <i><b></b></i>
+        </div>
+      </div>
+
+      <div class="edge-index edge-index-left" aria-hidden="true">AURELIA · 43°12′N</div>
+      <div class="edge-index edge-index-right" aria-hidden="true">SOUNDINGS IN METRES · 2026</div>
+    </main>
+
+    <noscript>This interactive relief map requires JavaScript.</noscript>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

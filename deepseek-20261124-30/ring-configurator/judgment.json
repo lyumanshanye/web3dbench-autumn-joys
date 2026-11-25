@@ -1,0 +1,166 @@
+{
+  "summary": "The submitted wedding-band configurator is a polished, fully functional 3D experience. All three metals, band-width extremes, interior engraving, inspection rotation, reset, responsive layouts, keyboard activation, and image download were exercised successfully.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded at 1440x900 and 390x844 without a blocking failure. A live WebGL2 canvas was present, all controls responded, and both pointer- and keyboard-triggered downloads completed.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-25-19-905Z.jpeg",
+      "evidence/page-2026-11-24T17-28-43-184Z.jpeg",
+      "evidence/page-2026-11-24T17-29-42-858Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The scene contains a genuine real-time 3D wedding band with visible thickness, interior/exterior surfaces, occlusion, reflections, and perspective changes when dragged. Material and width changes update the rendered geometry and material rather than substituting flat images.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-25-19-905Z.jpeg",
+      "evidence/page-2026-11-24T17-26-08-446Z.jpeg",
+      "evidence/page-2026-11-24T17-26-40-151Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Depth and geometry were inspected across multiple material states, width extremes, the inside view, and a dragged camera angle. The ring's interior becomes occluded or exposed consistently as the viewpoint changes, confirming effective 3D.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-25-19-905Z.jpeg",
+        "evidence/page-2026-11-24T17-26-15-393Z.jpeg",
+        "evidence/page-2026-11-24T17-26-40-151Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The composition has a clear editorial hierarchy, restrained cream/brown palette, legible labels, believable metallic highlights, and distinct gold, platinum, and rose-gold finishes. Desktop and mobile layouts preserve the intended presentation.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-25-19-905Z.jpeg",
+        "evidence/page-2026-11-24T17-25-52-856Z.jpeg",
+        "evidence/page-2026-11-24T17-26-01-714Z.jpeg",
+        "evidence/page-2026-11-24T17-28-43-184Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary controls produce immediate meaningful feedback: metal selection changes the finish, the width slider updates both the millimetre label and ring thickness, engraving text appears on the inner surface, and the two preview tabs change the inspection view.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-25-52-856Z.jpeg",
+        "evidence/page-2026-11-24T17-26-08-446Z.jpeg",
+        "evidence/page-2026-11-24T17-26-28-636Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated material switches, both slider boundaries (2 mm and 8 mm), a subsequent edit, and Reset recovery all worked. A reload returned the design to defaults; persistence was not an explicit task requirement, so this is recorded as an observed limitation rather than a failed flow.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-15-393Z.jpeg",
+        "evidence/page-2026-11-24T17-28-21-097Z.jpeg",
+        "evidence/page-2026-11-24T17-28-30-678Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "The 390x844 layout fits the ring, all configuration controls, and both lower actions without horizontal clipping. Shift+Tab placed a visible focus ring on Download and Enter activated it. Reload succeeded and the resource log showed successful 200/304 responses; the single console error was induced by the read-only WebGL context probe.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-27-47-162Z.jpeg",
+        "evidence/page-2026-11-24T17-28-43-184Z.jpeg",
+        "evidence/page-2026-11-24T17-29-32-255Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "Yellow gold, platinum, and rose gold each render as a recognizable 3D band with clearly distinguishable color and metallic response.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-25-19-905Z.jpeg",
+        "evidence/page-2026-11-24T17-25-52-856Z.jpeg",
+        "evidence/page-2026-11-24T17-26-01-714Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Moving from 8 mm to 2 mm visibly changes the band's axial thickness while preserving the ring's overall diameter and recognizable form.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-08-446Z.jpeg",
+        "evidence/page-2026-11-24T17-26-15-393Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "The entered text 'Forever, A & J' appears on the ring's inside surface in the dedicated inside view and remains inspectable after rotating the band; the corresponding inside-band preview card also updates.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-28-636Z.jpeg",
+        "evidence/page-2026-11-24T17-26-40-151Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "The exported design was opened in the browser and inspected in a fresh screenshot. It shows rose gold, the 6.5 mm width label, and the current 'Forever, A & J' engraving on the inner band.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-40-151Z.jpeg",
+        "evidence/page-2026-11-24T17-27-11-932Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All stated requirements are delivered coherently: three-metal comparison, adjustable width, editable interior engraving with inspection, and a design-specific image download.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-25-52-856Z.jpeg",
+        "evidence/page-2026-11-24T17-26-15-393Z.jpeg",
+        "evidence/page-2026-11-24T17-27-11-932Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The band has convincing thickness, curvature, metallic reflection, interior visibility, and consistent occlusion across dragged viewpoints. Geometry and engraving placement support the configuration task directly.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-01-714Z.jpeg",
+        "evidence/page-2026-11-24T17-26-28-636Z.jpeg",
+        "evidence/page-2026-11-24T17-26-40-151Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Controls are discoverable, state labels update immediately, material/width/engraving combinations remain responsive, reset works, keyboard activation works, and the download flow completes reliably.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-26-08-446Z.jpeg",
+        "evidence/page-2026-11-24T17-28-30-678Z.jpeg",
+        "evidence/page-2026-11-24T17-29-32-255Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "Purposeful editorial typography, restrained color, clean hierarchy, and coherent ring lighting work together on desktop and mobile. State changes remain visually legible and reinforce the configured result.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-25-19-905Z.jpeg",
+        "evidence/page-2026-11-24T17-29-32-255Z.jpeg",
+        "evidence/page-2026-11-24T17-28-43-184Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "Both tested viewports were readable and usable, repeat operations and reset remained stable, reload completed, keyboard export succeeded, and all application resources returned 200/304. No blocking rendering failure was observed.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-27-47-162Z.jpeg",
+        "evidence/page-2026-11-24T17-28-43-184Z.jpeg",
+        "evidence/page-2026-11-24T17-29-42-858Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The initial MCP attempt could not launch Chromium because the expected browser cache was absent; evaluation proceeded after linking the preinstalled Chromium binary, and subsequent browser calls were stable.",
+    "The saved console log contains one Three.js WebGL context error caused by the read-only probe requesting both WebGL2 and WebGL on the same canvas. Rendering and all interactions continued normally, so this probe artifact is not treated as an application defect.",
+    "Reloading the page restores the default design even though the interface shows 'Design saved'; cross-reload persistence was not an explicit task requirement.",
+    "Mobile behavior was tested through 390x844 viewport emulation only, not real touch hardware.",
+    "Audio quality and internal implementation details were not applicable or evaluated."
+  ]
+}

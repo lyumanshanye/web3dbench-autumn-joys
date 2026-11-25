@@ -1,0 +1,225 @@
+{
+  "summary": "Meadowline is a polished, genuinely 3D community-festival planner with live equipment, routing, warning, schedule, history, persistence, and responsive mobile surfaces. The primary flows work, but direct object dragging, JSON import validation, and reset/print confirmation could not be fully demonstrated within the browser-call budget, so those areas are graded conservatively.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded successfully, remained interactive through repeated edits, camera changes, route changes, schedule validation, a save/reload cycle, and a 390x844 resize. The only console/resource failure was a non-blocking missing favicon; see evidence/console.txt and evidence/network.txt.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-33-33-607Z.jpeg",
+      "evidence/page-2026-11-24T17-36-15-628Z.jpeg",
+      "evidence/page-2026-11-24T17-40-29-552Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The central canvas renders a real-time 3D park with meter scale, depth, cast shadows, occlusion, tilted isometric and top-down views, selectable equipment, and route/barrier overlays. Zooming reveals modeled object volume and placement detail rather than a flat image.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-33-33-607Z.jpeg",
+      "evidence/page-2026-11-24T17-33-51-985Z.jpeg",
+      "evidence/page-2026-11-24T17-34-02-657Z.jpeg",
+      "evidence/page-2026-11-24T17-36-15-628Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct delivered views show the scene from orbit, top-down, and a close zoom. Geometry, depth, occlusion, object volume, paths, trees, and the blocked-route barriers remain spatially coherent across them.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-33-607Z.jpeg",
+        "evidence/page-2026-11-24T17-33-51-985Z.jpeg",
+        "evidence/page-2026-11-24T17-34-02-657Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Composition is coherent: the scene is centered between linked equipment and scheduling panels, the palette distinguishes selected footprints, overlaps, routes, and warnings, and labels remain legible at desktop and mobile widths.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-33-607Z.jpeg",
+        "evidence/page-2026-11-24T17-38-17-818Z.jpeg",
+        "evidence/page-2026-11-24T17-40-29-552Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Primary controls produced meaningful state changes: numeric moves updated scene coordinates and overlap badges, rotate and duplicate changed the selected object, route mode changed the measured path, and schedule saves updated warnings.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-34-40-510Z.jpeg",
+        "evidence/page-2026-11-24T17-34-55-306Z.jpeg",
+        "evidence/page-2026-11-24T17-35-58-292Z.jpeg",
+        "evidence/page-2026-11-24T17-38-17-818Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated and recovery-state behavior was exercised: duplicate then delete, undo restored the deletion, redo re-applied it, the booked-route demo produced a recoverable no-route warning, and invalid/reversed schedule times were rejected while corrections remained possible.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-34-55-306Z.jpeg",
+        "evidence/page-2026-11-24T17-35-12-017Z.jpeg",
+        "evidence/page-2026-11-24T17-36-15-628Z.jpeg",
+        "evidence/page-2026-11-24T17-38-17-818Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "The 1440x900 desktop layout and 390x844 full-page mobile layout were inspected. Mobile content stacks into tabs and a readable single column with lower editing controls reachable; save/reload retained state. Console contained only a favicon 404 and no blocking resource failure.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-33-607Z.jpeg",
+        "evidence/page-2026-11-24T17-40-29-552Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The sample park reports 68 x 44 m, two entrances, fixed paths, trees, an accessible WC, and an initial stage, three food stalls, two seating areas, and an information desk. These fixed and editable features are visible in both overview views.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-33-607Z.jpeg",
+        "evidence/page-2026-11-24T17-33-51-985Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PARTIAL",
+      "reason": "Selection stayed synchronized between the list and scene; numeric position, rotation, duplicate, delete, dimensions, snapping, and overlap state all updated coherently. Adding from the library and direct object dragging were not conclusively demonstrated: background drags changed the orbit camera rather than an object, though the UI advertises drag-to-move.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-34-40-510Z.jpeg",
+        "evidence/page-2026-11-24T17-34-55-306Z.jpeg",
+        "evidence/page-2026-11-24T17-35-12-017Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PARTIAL",
+      "reason": "Overlapping footprints were visibly flagged in the scene, list, and warning panel with accessible text, and orbit, top-down, zoom-to-selection, and reset-camera controls worked. An explicit outside-the-park numeric/drag attempt was not completed, so boundary prevention is not fully verified.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-34-40-510Z.jpeg",
+        "evidence/page-2026-11-24T17-33-51-985Z.jpeg",
+        "evidence/page-2026-11-24T17-34-02-657Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "After camera navigation and object edits, undo restored a deleted duplicate and redo re-applied the deletion. The camera framing was unchanged by undo/redo, confirming object history is separate from navigation.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-34-55-306Z.jpeg",
+        "evidence/page-2026-11-24T17-35-12-017Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "West Gate and East Gate routing were both observed. Pedestrian and step-free modes displayed meter distances and different paths; step-free explicitly removed the stepped shortcut, the 1 m A* obstacle model was documented, and the route changed to no-route after barriers were added.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-33-607Z.jpeg",
+        "evidence/page-2026-11-24T17-35-58-292Z.jpeg",
+        "evidence/page-2026-11-24T17-36-15-628Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PASS",
+      "reason": "The blocked-route demo enclosed the selected stage, changed the access card to No route, added a named route warning, and kept the related Main stage selected. Warning rows are text-labeled, not color-only, and selecting one resolves to the relevant object.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-15-628Z.jpeg"
+      ]
+    },
+    {
+      "id": "T07",
+      "status": "PASS",
+      "reason": "The activity editor rejected 09:30 after a 10:00 start with an explicit error, accepted a touching 11:00 boundary, warned that a 10:00-11:30 Opening ceremony overlapped the 11:00-12:00 band at Main stage, and flagged 260 attendance against capacity 240.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-38-17-818Z.jpeg",
+        "evidence/page-2026-11-24T17-33-33-607Z.jpeg"
+      ]
+    },
+    {
+      "id": "T08",
+      "status": "PASS",
+      "reason": "Deleting the booked Main stage exposed a confirmation with a booking-removal action. Cancellation preserved the stage and schedule; confirming removed the stage and its stage-assigned activities. The final saved/reloaded plan contains 11 equipment items, three remaining seating activities, and no dangling stage bookings.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-40-29-552Z.jpeg",
+        "evidence/page-2026-11-24T17-33-33-607Z.jpeg"
+      ]
+    },
+    {
+      "id": "T09",
+      "status": "PARTIAL",
+      "reason": "Save and reload preserved the edited plan, including removed equipment and its booking changes. Export delivered a valid JSON file containing equipment IDs/positions/dimensions, activities, route configuration, and a no-route snapshot. Valid import and invalid-import preservation were not completed because the remote Playwright download path could not be reused for the import step.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-40-29-552Z.jpeg"
+      ]
+    },
+    {
+      "id": "T10",
+      "status": "PARTIAL",
+      "reason": "The mobile plan stacks into a 390px single-column layout with tabs and reaches the lower object-detail fields and icon actions; controls expose accessible labels. Reset confirmation and printable-summary contents were not verified before the browser-call budget was exhausted, so this requirement remains partially evaluated.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-40-29-552Z.jpeg",
+        "evidence/page-2026-11-24T17-33-33-607Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 3,
+      "reason": "Core planning flows are coherent and substantial: editable 3D layout, linked equipment, overlaps, cameras, routes in both modes, blocked-route warnings, scheduling validation, facility deletion handling, save/reload, export, and responsive layout. Direct drag, full import/re-import validation, reset confirmation, printable summary, and keyboard traversal were not fully demonstrated.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-33-607Z.jpeg",
+        "evidence/page-2026-11-24T17-35-58-292Z.jpeg",
+        "evidence/page-2026-11-24T17-36-15-628Z.jpeg",
+        "evidence/page-2026-11-24T17-38-17-818Z.jpeg",
+        "evidence/page-2026-11-24T17-40-29-552Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Shapes, footprint dimensions, paths, entrances, trees, restroom, barriers, and route geometry are consistently modeled at meter scale. Orbit, top-down, and close zoom views retain correct depth, occlusion, shadows, and spatial relationships.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-33-607Z.jpeg",
+        "evidence/page-2026-11-24T17-33-51-985Z.jpeg",
+        "evidence/page-2026-11-24T17-34-02-657Z.jpeg",
+        "evidence/page-2026-11-24T17-36-15-628Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "Most required and repeated sequences work with clear feedback, including selection synchronization, numeric edits, overlap warnings, undo/redo, camera changes, route-mode switching, blocked routes, and schedule validation. Direct object drag and the import/reset/print recovery flows remain local verification gaps rather than observed crashes.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-34-40-510Z.jpeg",
+        "evidence/page-2026-11-24T17-35-12-017Z.jpeg",
+        "evidence/page-2026-11-24T17-35-58-292Z.jpeg",
+        "evidence/page-2026-11-24T17-38-17-818Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The muted festival palette, isometric staging, clear panel hierarchy, selected-footprint outline, route color, and compact warning/status badges consistently improve comprehension on desktop and mobile.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-33-607Z.jpeg",
+        "evidence/page-2026-11-24T17-34-40-510Z.jpeg",
+        "evidence/page-2026-11-24T17-36-15-628Z.jpeg",
+        "evidence/page-2026-11-24T17-40-29-552Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "The app remained usable through repeated edits, reload, route recomputation, and narrow-layout inspection. The only console issue was a non-blocking favicon 404; the remaining instability was tooling-related, where remote download-path handling interrupted the later import/reset/print checks.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-33-33-607Z.jpeg",
+        "evidence/page-2026-11-24T17-35-12-017Z.jpeg",
+        "evidence/page-2026-11-24T17-40-29-552Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "Direct mesh dragging was attempted twice but selected/rotated the camera rather than conclusively moving an equipment object; numeric position editing was verified instead.",
+    "JSON export downloaded successfully and was valid on disk, but the remote Playwright session could not reuse its temporary download path; valid import, invalid-import preservation, reset confirmation, printable summary, and a Tab-order sample were therefore left unverified.",
+    "Mobile behavior was tested by viewport emulation at 390x844, not on physical touch hardware.",
+    "Console contained only a non-blocking 404 for favicon.ico; detailed logs are in evidence/console.txt and evidence/network.txt."
+  ]
+}

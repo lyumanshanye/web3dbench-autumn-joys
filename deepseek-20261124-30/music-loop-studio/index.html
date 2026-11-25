@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Loop Garden is a local four-track browser music studio with a living 3D arrangement."
+    />
+    <meta name="theme-color" content="#07110c" />
+    <title>Loop Garden — Local Synth Studio</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script>
+      try {
+        const storedMotion = localStorage.getItem("loop-garden:reduced-motion:v1");
+        const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        document.documentElement.dataset.reducedMotion = String(storedMotion === "true" || (storedMotion === null && prefersReduced));
+      } catch {
+        document.documentElement.dataset.reducedMotion = "false";
+      }
+    </script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="ambient ambient-a" aria-hidden="true"></div>
+    <div class="ambient ambient-b" aria-hidden="true"></div>
+
+    <div class="app-shell">
+      <header class="site-header">
+        <a class="brand" href="#studio" aria-label="Loop Garden home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none">
+              <path d="M8.2 21.5c4.6 0 8.3-7 8.3-7s3.7 14 8.3 14 6.6-7 6.6-7" />
+              <path d="M12 31.5c0-5.3 4.3-9.5 9.5-9.5" />
+              <circle cx="27.3" cy="13.2" r="3.3" />
+            </svg>
+          </span>
+          <span class="brand-type">
+            <span class="brand-name">LOOP<span>/</span>GARDEN</span>
+            <span class="brand-note">LOCAL SYNTH STUDIO</span>
+          </span>
+        </a>
+
+        <div class="header-session" role="group" aria-label="Current pattern">
+          <span class="micro-label">NOW GROWING</span>
+          <span class="header-pattern" id="headerPatternName">Fern Stomp</span>
+        </div>
+
+        <div class="header-actions">
+          <button
+            class="motion-switch"
+            id="reducedMotionToggle"
+            type="button"
+            role="switch"
+            aria-checked="false"
+            aria-label="Reduced motion"
+          >
+            <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+            <span>Reduced motion</span>
+          </button>
+          <div class="save-state" id="headerSaveState" title="Pattern save state">
+            <span class="save-dot" aria-hidden="true"></span>
+            <span id="headerSaveText">Saved locally</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="studio" id="studio">
+        <section class="stage-card" aria-labelledby="stageTitle">
+          <div class="stage-topline">
+            <div class="live-label">
+              <span class="live-dot" id="liveDot" aria-hidden="true"></span>
+              <span>LIVE ARRANGEMENT</span>
+            </div>
+            <span class="stage-location">GREENHOUSE 01</span>
+          </div>
+
+          <div class="stage-title-row">
+            <div>
+              <span class="micro-label">FOUR PLAYERS / ONE LOOP</span>
+              <h1 id="stageTitle">Grow a groove.</h1>
+            </div>
+            <div class="stage-step" aria-label="Current playback step">
+              <span id="stageStepValue">01</span><small>/16</small>
+            </div>
+          </div>
+
+          <div class="stage-canvas-wrap" id="stageCanvasWrap">
+            <div class="stage-canvas" id="stageCanvas" aria-hidden="true"></div>
+            <div class="stage-vignette" aria-hidden="true"></div>
+            <div class="instrument-readout" id="instrumentReadout">
+              <span class="readout-kicker">SIGNAL</span>
+              <span id="instrumentReadoutText">All players resting</span>
+            </div>
+            <div class="canvas-hint" id="canvasHint">
+              <span class="hint-wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+              <span>Press play to wake the garden</span>
+            </div>
+          </div>
+
+          <div class="instrument-legend" id="instrumentLegend" role="group" aria-label="Instrument activity">
+            <div class="legend-item" data-instrument="0" style="--track-color: #ffd26f">
+              <span class="legend-index">01</span>
+              <span class="legend-name">Kick</span>
+              <span class="legend-pulse" aria-hidden="true"></span>
+            </div>
+            <div class="legend-item" data-instrument="1" style="--track-color: #ff8c68">
+              <span class="legend-index">02</span>
+              <span class="legend-name">Snare</span>
+              <span class="legend-pulse" aria-hidden="true"></span>
+            </div>
+            <div class="legend-item" data-instrument="2" style="--track-color: #75eea7">
+              <span class="legend-index">03</span>
+              <span class="legend-name">Bass</span>
+              <span class="legend-pulse" aria-hidden="true"></span>
+            </div>
+            <div class="legend-item" data-instrument="3" style="--track-color: #9ab9ff">
+              <span class="legend-index">04</span>
+              <span class="legend-name">Melody</span>
+              <span class="legend-pulse" aria-hidden="true"></span>
+            </div>
+          </div>
+
+          <div class="stage-status">
+            <div class="playback-copy">
+              <span class="micro-label">PLAYBACK</span>
+              <strong id="playbackStatus">Ready at step 01</strong>
+              <span id="playbackDetail">Audio begins only when you press Play.</span>
+            </div>
+            <div class="status-meter" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </section>
+
+        <aside class="transport-card" aria-labelledby="transportTitle">
+          <div class="card-heading">
+            <div>
+              <span class="micro-label">CONTROL ROOM</span>
+              <h2 id="transportTitle">Transport</h2>
+            </div>
+            <span class="audio-state" id="audioState">AUDIO OFF</span>
+          </div>
+
+          <div class="transport-hero">
+            <button class="play-button" id="playButton" type="button" aria-label="Play pattern">
+              <span class="play-icon" aria-hidden="true"></span>
+              <span class="play-label">PLAY</span>
+              <span class="play-sub">start audio</span>
+            </button>
+            <div class="transport-stack">
+              <button class="transport-button" id="pauseButton" type="button" aria-label="Pause playback">
+                <span class="transport-icon pause-icon" aria-hidden="true"></span>
+                <span>Pause</span>
+              </button>
+              <button class="transport-button" id="stopButton" type="button" aria-label="Stop playback and return to step one">
+                <span class="transport-icon stop-icon" aria-hidden="true"></span>
+                <span>Stop</span>
+              </button>
+            </div>
+          </div>
+
+          <button class="resume-audio" id="resumeAudioButton" type="button" hidden>
+            <span class="resume-icon" aria-hidden="true"></span>
+            Resume audio
+          </button>
+
+          <div class="tempo-block">
+            <div class="tempo-heading">
+              <label for="tempoRange" class="micro-label">TEMPO</label>
+              <div class="tempo-value"><strong id="tempoValue">104</strong><span>BPM</span></div>
+            </div>
+            <input
+              class="tempo-range"
+              id="tempoRange"
+              type="range"
+              min="60"
+              max="180"
+              step="1"
+              value="104"
+              aria-label="Tempo in beats per minute"
+            />
+            <div class="tempo-ticks" aria-hidden="true"><span>60</span><span>120</span><span>180</span></div>
+            <div class="tempo-buttons">
+              <button id="tempoDown" type="button" aria-label="Decrease tempo">−</button>
+              <button id="tempoUp" type="button" aria-label="Increase tempo">+</button>
+            </div>
+          </div>
+
+          <div class="command-row">
+            <button class="command-button" id="clearButton" type="button">
+              <span class="command-icon" aria-hidden="true">◇</span>
+              Clear
+            </button>
+            <button class="command-button" id="demoButton" type="button">
+              <span class="command-icon" aria-hidden="true">↺</span>
+              Restore demo
+            </button>
+          </div>
+
+          <div class="transport-foot">
+            <span class="keyboard-hint"><kbd>Space</kbd> play / pause</span>
+            <span class="transport-time" id="transportTimeLabel">1 / 16</span>
+          </div>
+        </aside>
+
+        <section class="sequencer-card" aria-labelledby="sequencerTitle">
+          <div class="sequencer-heading">
+            <div class="sequencer-title-group">
+              <span class="micro-label">PATTERN BED</span>
+              <h2 id="sequencerTitle">Step sequencer</h2>
+            </div>
+            <div class="sequencer-note" id="sequencerHint">
+              <span class="step-swatch" aria-hidden="true"></span>
+              <span>Click, tap, or use arrows to plant a note</span>
+            </div>
+            <div class="sequencer-meta">
+              <span>16 STEPS</span>
+              <span>1/16 NOTE</span>
+              <span class="current-tempo-label" id="currentTempoLabel">104 BPM</span>
+            </div>
+          </div>
+
+          <div
+            class="grid-scroll"
+            id="gridScroll"
+            role="region"
+            tabindex="0"
+            aria-label="Scrollable step grid"
+            aria-describedby="sequencerHint"
+          >
+            <div class="sequencer-grid" id="sequencerGrid" role="grid" aria-label="Four track, sixteen step pattern">
+              <div class="step-header-row" role="row">
+                <div class="grid-corner" role="columnheader">
+                  <span>TRACK</span><span>STEP</span>
+                </div>
+                <div class="step-numbers" id="stepNumbers" aria-hidden="true"></div>
+              </div>
+              <div id="trackRows"></div>
+            </div>
+          </div>
+
+          <div class="sequencer-foot">
+            <span><span class="tiny-led"></span> Each pad is a note. Muted and soloed tracks still keep their pattern.</span>
+            <span id="stepFacet">BAR 1 · 4/4</span>
+          </div>
+        </section>
+
+        <aside class="library-card" aria-labelledby="libraryTitle">
+          <div class="card-heading library-heading">
+            <div>
+              <span class="micro-label">LOCAL PATTERN SHELF</span>
+              <h2 id="libraryTitle">Saved patterns</h2>
+            </div>
+            <span class="pattern-count" id="patternCount">3 SAVED</span>
+          </div>
+
+          <div class="save-now-row">
+            <div class="library-save-status" id="librarySaveStatus" role="status">
+              <span class="save-dot" aria-hidden="true"></span>
+              <span id="librarySaveText">All changes saved</span>
+            </div>
+            <button class="save-now-button" id="saveNowButton" type="button">Save now</button>
+          </div>
+
+          <div class="pattern-list" id="patternList" aria-label="Saved patterns"></div>
+
+          <div class="library-empty" id="libraryEmpty" hidden>
+            <span class="empty-glyph" aria-hidden="true">✦</span>
+            <strong>No saved patterns yet</strong>
+            <span>Save this loop to keep it close.</span>
+          </div>
+
+          <div class="library-actions">
+            <button class="library-button wide" id="saveAsButton" type="button">
+              <span aria-hidden="true">＋</span> Save as new
+            </button>
+            <button class="library-button" id="exportButton" type="button">
+              <span aria-hidden="true">↓</span> Export JSON
+            </button>
+            <button class="library-button" id="importButton" type="button">
+              <span aria-hidden="true">↑</span> Import
+            </button>
+            <input id="importFile" type="file" accept="application/json,.json" hidden />
+          </div>
+
+          <p class="library-foot">Stored in this browser. No account, samples, or network audio.</p>
+        </aside>
+      </main>
+
+      <footer class="site-footer">
+        <span>LOOP GARDEN v1.0</span>
+        <span>WEB AUDIO · LOCAL ONLY</span>
+        <span class="footer-status" id="footerStatus">Audio standing by</span>
+      </footer>
+    </div>
+
+    <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+    <div class="sr-only" id="announcer" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <dialog class="app-dialog" id="confirmDialog" aria-labelledby="confirmTitle">
+      <form method="dialog">
+        <span class="dialog-kicker">HOLD THE LOOP</span>
+        <h2 id="confirmTitle">Replace this pattern?</h2>
+        <p id="confirmMessage">This will replace the current pattern.</p>
+        <div class="dialog-actions">
+          <button class="dialog-button ghost" value="cancel" type="submit">Cancel</button>
+          <button class="dialog-button accent" value="confirm" type="submit" id="confirmAccept">Continue</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="app-dialog" id="nameDialog" aria-labelledby="nameTitle">
+      <form method="dialog" id="nameForm">
+        <span class="dialog-kicker">PATTERN SHELF</span>
+        <h2 id="nameTitle">Name this pattern</h2>
+        <label class="dialog-field" for="patternNameInput">
+          <span>Pattern name</span>
+          <input id="patternNameInput" name="patternName" type="text" maxlength="32" autocomplete="off" required />
+        </label>
+        <p class="dialog-error" id="nameError" role="alert"></p>
+        <div class="dialog-actions">
+          <button class="dialog-button accent" value="save" type="submit" id="nameAccept">Save pattern</button>
+          <button class="dialog-button ghost" value="cancel" type="submit">Cancel</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

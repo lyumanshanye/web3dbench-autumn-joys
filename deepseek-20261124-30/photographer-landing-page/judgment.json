@@ -1,0 +1,140 @@
+{
+  "summary": "The submission stalls on its initial black loading screen. A centered white circular spinner is visible and rotates, but the loader never scales away, the Three.js scene is never revealed, and none of the camera, project, story, or contact flows can be reached. Console and network logs show missing GSAP and font CSS resources.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "FAIL",
+    "reason": "The page title and DOM load, but a full-screen loading status remains visible after more than five seconds and after reload at both desktop and mobile viewports. The scene stays inaccessible, the main content remains aria-hidden, and console/network diagnostics show the GSAP module and all local font CSS requests returning 404.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-37-52-870Z.jpeg",
+      "evidence/page-2026-11-24T17-38-27-221Z.jpeg",
+      "evidence/page-2026-11-24T17-39-21-398Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "NOT_EVALUATED",
+    "reason": "No rendered scene could be observed because the persistent loading overlay never dismissed. Although a WebGL canvas element exists, only the black loader and spinner are presented, so camera geometry, materials, depth, and scene transitions cannot be assessed.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-38-27-221Z.jpeg",
+      "evidence/page-2026-11-24T17-38-56-042Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "NOT_EVALUATED",
+      "reason": "The loading overlay prevented access to any of the required scene views, so genuine 3D geometry, depth, occlusion, and camera movement could not be inspected.",
+      "evidence": []
+    },
+    {
+      "id": "G02",
+      "status": "NOT_EVALUATED",
+      "reason": "Only the loading screen was visible. The intended composition, typography, materials, lighting, and project imagery could not be inspected.",
+      "evidence": []
+    },
+    {
+      "id": "G03",
+      "status": "FAIL",
+      "reason": "The primary UI cannot be reached or exercised because the full-screen loader never dismisses. The spinner rotates, but there is no meaningful scene or state feedback after loading.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-37-52-870Z.jpeg",
+        "evidence/page-2026-11-24T17-38-27-221Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "FAIL",
+      "reason": "Reloading reproduces the same permanent loader, and no project repeat, reverse-scroll, boundary, story-back, or recovery flow is reachable through the UI.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-39-21-398Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "FAIL",
+      "reason": "Both 1440x900 and 390x844 layouts are blocked by the same indefinite loader, including after an explicit reload. Console and network logs record 404 responses for GSAP and the font CSS assets.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-37-52-870Z.jpeg",
+        "evidence/page-2026-11-24T17-38-56-042Z.jpeg",
+        "evidence/page-2026-11-24T17-39-21-398Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PARTIAL",
+      "reason": "The black full-screen loading state and centered white circular spinner are present and the spinner rotates, but it never scales to zero and loading never completes, so the required reveal sequence is absent.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-37-52-870Z.jpeg",
+        "evidence/page-2026-11-24T17-38-27-221Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "NOT_EVALUATED",
+      "reason": "The loading overlay never cleared, so the lens push-out introduction, professional camera, and John Doe, Photographer presentation were never visible.",
+      "evidence": []
+    },
+    {
+      "id": "T03",
+      "status": "NOT_EVALUATED",
+      "reason": "The first project view could not be reached because loading never completed; camera rotation, screen content, title, and blurred backdrop could not be observed.",
+      "evidence": []
+    },
+    {
+      "id": "T04",
+      "status": "NOT_EVALUATED",
+      "reason": "With the scene inaccessible, successive project transitions and reverse scrolling could not be exercised or judged.",
+      "evidence": []
+    },
+    {
+      "id": "T05",
+      "status": "NOT_EVALUATED",
+      "reason": "The loading overlay prevented reaching the end of the project sequence, so the top-down camera view and contact section could not be inspected in their intended state.",
+      "evidence": []
+    },
+    {
+      "id": "T06",
+      "status": "NOT_EVALUATED",
+      "reason": "No project was openable through the UI after loading stalled, so the zoom and full-screen blog transition could not be tested.",
+      "evidence": []
+    },
+    {
+      "id": "T07",
+      "status": "NOT_EVALUATED",
+      "reason": "The story view and floating back control could not be reached because the page remained on the loader.",
+      "evidence": []
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": null,
+      "reason": "Not scored because the runtime failed before the requested experience could begin; per the evaluation rule, quality scores are null when runtime.status is FAIL.",
+      "evidence": []
+    },
+    "spatial": {
+      "score": null,
+      "reason": "Not scored because no 3D scene became visible; per the evaluation rule, quality scores are null when runtime.status is FAIL.",
+      "evidence": []
+    },
+    "interaction": {
+      "score": null,
+      "reason": "Not scored because the persistent loader blocked all intended interactive flows; per the evaluation rule, quality scores are null when runtime.status is FAIL.",
+      "evidence": []
+    },
+    "visual": {
+      "score": null,
+      "reason": "Not scored because only the loading state could be observed; per the evaluation rule, quality scores are null when runtime.status is FAIL.",
+      "evidence": []
+    },
+    "stability": {
+      "score": null,
+      "reason": "Not scored because the page never became usable and failed consistently across both viewports and reload; per the evaluation rule, quality scores are null when runtime.status is FAIL.",
+      "evidence": []
+    }
+  },
+  "limitations": [
+    "The Playwright Chromium binary was initially absent and its download endpoint was unreachable; the evaluation proceeded after pointing Playwright at the preinstalled Chromium binary, so infrastructure remained available.",
+    "Because the loader never dismissed, the lens-to-camera introduction, camera rotation, multi-project sequence, contact view, article zoom, article scrolling, floating back action, keyboard behavior, and any downloads could not be tested.",
+    "Console and network diagnostics were saved to evidence/console.txt and evidence/network.txt; those logs document 404 responses for GSAP and local font CSS resources.",
+    "No audio behavior or implementation internals were evaluated."
+  ]
+}

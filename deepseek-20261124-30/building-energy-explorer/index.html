@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#071117">
+  <meta name="description" content="A local sample-data dashboard for exploring after-hours room energy use in a three-floor office.">
+  <title>Northstar · After-hours energy map</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../../vendor/three/three.module.js",
+        "three/addons/": "../../vendor/three/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Northstar energy dashboard home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" role="img">
+            <path d="M8 9.5 20 3l12 6.5v8L20 24 8 17.5z"></path>
+            <path d="M8 22.5 20 29l12-6.5v8L20 37 8 30.5z" class="brand-mark__light"></path>
+            <path d="m20 12 4 2.2v4.4L20 20.8l-4-2.2v-4.4z" class="brand-mark__spark"></path>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <strong>Northstar</strong>
+          <span>Facilities intelligence</span>
+        </span>
+      </a>
+
+      <div class="dataset-context" aria-label="Dataset information">
+        <button class="sample-chip" id="datasetInfoButton" type="button" title="About this sample dataset">
+          <span class="sample-chip__dot"></span>
+          Sample data
+        </button>
+        <span class="dataset-name">Northstar Office · 8–14 Nov 2026</span>
+        <span class="dataset-detail">168 hourly readings / room</span>
+      </div>
+
+      <div class="topbar-actions">
+        <span class="local-status"><span></span> Local dataset</span>
+        <button class="icon-button" id="helpButton" type="button" aria-label="How to use this dashboard">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9.8 9.3a2.35 2.35 0 1 1 3.7 1.9c-.9.66-1.5 1.08-1.5 2.25"></path><path d="M12 16.8h.01"></path></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="dashboard">
+      <section class="page-head" aria-labelledby="pageTitle">
+        <div class="page-heading">
+          <p class="eyebrow"><span></span> After-hours energy</p>
+          <h1 id="pageTitle">Find the rooms that keep running.</h1>
+          <p class="page-subtitle" id="rangeDescription">Last 48 hours · Fri 13 Nov 00:00 → Sat 14 Nov 23:00 UTC</p>
+        </div>
+
+        <div class="toolbar" aria-label="Dashboard controls">
+          <div class="control-block">
+            <span class="control-label" id="rangeControlLabel">Time range</span>
+            <div class="segmented" id="rangePresets" role="group" aria-labelledby="rangeControlLabel">
+              <button type="button" data-range="24h">24H</button>
+              <button type="button" data-range="48h" class="is-active">48H</button>
+              <button type="button" data-range="7d">7D</button>
+            </div>
+            <button class="outline-button compact-button" id="customRangeButton" type="button" aria-label="Set a custom time range">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"></rect><path d="M7.5 3v4M16.5 3v4M3.5 9.5h17"></path></svg>
+              <span>Custom</span>
+            </button>
+          </div>
+
+          <div class="control-divider" aria-hidden="true"></div>
+
+          <div class="control-block">
+            <span class="control-label" id="metricControlLabel">Color rooms by</span>
+            <div class="segmented metric-toggle" id="metricToggle" role="group" aria-labelledby="metricControlLabel">
+              <button type="button" data-metric="total" class="is-active">Total kWh</button>
+              <button type="button" data-metric="intensity">kWh / m²</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="workspace">
+        <div class="left-column">
+          <section class="panel building-panel" aria-labelledby="modelTitle">
+            <header class="panel-heading building-heading">
+              <div class="heading-copy">
+                <span class="panel-kicker">Live spatial view</span>
+                <h2 id="modelTitle">Building cutaway</h2>
+              </div>
+              <div class="floor-filter" aria-label="Isolate floor">
+                <span class="floor-filter__label">Floor</span>
+                <div class="segmented segmented--small" id="floorFilter" role="group" aria-label="Isolate a floor">
+                  <button type="button" data-floor="all" class="is-active">All</button>
+                  <button type="button" data-floor="1">01</button>
+                  <button type="button" data-floor="2">02</button>
+                  <button type="button" data-floor="3">03</button>
+                </div>
+              </div>
+            </header>
+
+            <div class="stage" id="buildingStage">
+              <div class="stage-glow" aria-hidden="true"></div>
+              <div id="threeMount" class="three-mount" aria-label="Interactive 3D cutaway of a three-floor office building. Drag to orbit and click a room to inspect it."></div>
+              <div id="labelMount" class="label-mount" aria-hidden="true"></div>
+
+              <div class="stage-topline stage-overlay">
+                <div class="view-badge">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5z"></path><path d="M4 7.5 12 12l8-4.5M12 12v9"></path></svg>
+                  <span><strong>12 rooms</strong> · 3 floors</span>
+                </div>
+                <div class="stage-actions">
+                  <span class="scale-lock"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8.5 10V7.5a3.5 3.5 0 0 1 7 0V10"></path></svg> Scale locked</span>
+                  <button class="stage-button" id="resetViewButton" type="button" title="Reset camera view" aria-label="Reset camera view">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.7 9A8 8 0 1 1 4 13.7"></path><path d="M4.7 4.5V9h4.5"></path></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="stage-tooltip" id="stageTooltip" role="status" aria-live="polite"></div>
+
+              <div class="legend-card stage-overlay" aria-label="Color legend">
+                <div class="legend-heading">
+                  <div>
+                    <span class="legend-eyebrow">Color scale</span>
+                    <strong id="legendMetricLabel">Total energy</strong>
+                  </div>
+                  <span class="unit-chip" id="legendUnit">kWh</span>
+                </div>
+                <div class="legend-gradient" id="legendGradient" aria-hidden="true"></div>
+                <div class="legend-ticks" id="legendTicks"></div>
+                <div class="legend-footer">
+                  <span class="legend-missing"><i></i> Hatched = missing readings</span>
+                  <span id="legendLockNote">Fixed across all 12 rooms</span>
+                </div>
+              </div>
+
+              <div class="stage-footer stage-overlay">
+                <span class="orbit-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 13.5V7.8a1.7 1.7 0 0 1 3.4 0v4.4-6.6a1.7 1.7 0 0 1 3.4 0v6.2-4.4a1.7 1.7 0 0 1 3.4 0v7.1c0 3.7-2.5 6-6.1 6h-.6c-2.1 0-3.4-.8-4.6-2.4l-2.6-3.6c-.8-1.1-.2-2.4.9-2.7.7-.2 1.4 0 1.9.7l1 1.5"></path></svg> Drag to orbit</span>
+                <span class="data-link-note">3D color, chart &amp; table share one dataset</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel table-panel" aria-labelledby="roomTableTitle">
+            <header class="table-heading">
+              <div>
+                <span class="panel-kicker">Same interval · same readings</span>
+                <h2 id="roomTableTitle">Room summary</h2>
+              </div>
+              <div class="table-actions">
+                <span class="visible-count" id="visibleRoomCount">12 rooms shown</span>
+                <button class="outline-button download-button" id="downloadCsvButton" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7.5 10.5 12 15l4.5-4.5"></path><path d="M4.5 18.5v1.2h15v-1.2"></path></svg>
+                  <span>CSV</span>
+                </button>
+              </div>
+            </header>
+            <div class="table-scroll" tabindex="0" aria-label="Sortable room summary table">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort="name">Room<span class="sort-icon"></span></button></th>
+                    <th scope="col" aria-sort="none" class="number-cell"><button type="button" class="sort-button" data-sort="floor">Floor<span class="sort-icon"></span></button></th>
+                    <th scope="col" aria-sort="none" class="number-cell"><button type="button" class="sort-button" data-sort="area">Area m²<span class="sort-icon"></span></button></th>
+                    <th scope="col" aria-sort="descending" class="number-cell"><button type="button" class="sort-button" data-sort="total">Energy kWh<span class="sort-icon"></span></button></th>
+                    <th scope="col" aria-sort="none" class="number-cell"><button type="button" class="sort-button" data-sort="intensity">kWh/m²<span class="sort-icon"></span></button></th>
+                    <th scope="col" aria-sort="none" class="number-cell"><button type="button" class="sort-button" data-sort="afterHours">After hrs %<span class="sort-icon"></span></button></th>
+                    <th scope="col" aria-sort="none" class="completeness-cell"><button type="button" class="sort-button" data-sort="completeness">Readings<span class="sort-icon"></span></button></th>
+                  </tr>
+                </thead>
+                <tbody id="roomTableBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <aside class="right-column">
+          <section class="panel focus-panel" id="focusPanel" aria-labelledby="focusRoomName">
+            <div class="focus-header">
+              <div class="focus-heading-row">
+                <span class="focus-kicker"><span class="selection-dot" id="selectionDot"></span> Selected room</span>
+                <button class="text-button" id="clearSelectionButton" type="button">Clear</button>
+              </div>
+              <h2 id="focusRoomName">Finance &amp; Ops</h2>
+              <p id="focusRoomMeta">Floor 02 · 28 m² · Office · r-201</p>
+            </div>
+
+            <div class="metric-grid" id="metricGrid">
+              <div class="metric">
+                <span>Window total</span>
+                <div><strong id="metricTotal">—</strong><em>kWh</em></div>
+              </div>
+              <div class="metric">
+                <span>Energy / m²</span>
+                <div><strong id="metricIntensity">—</strong><em>kWh/m²</em></div>
+              </div>
+              <div class="metric">
+                <span>Peak hour</span>
+                <div><strong id="metricPeak">—</strong><em>kWh</em></div>
+                <small id="metricPeakTime">—</small>
+              </div>
+              <div class="metric">
+                <span>After-hours share</span>
+                <div><strong id="metricAfterHours">—</strong><em>%</em></div>
+                <small id="metricAfterHoursNote">of available load</small>
+              </div>
+            </div>
+
+            <div class="completeness-row" id="completenessRow">
+              <div class="completeness-copy">
+                <span class="completeness-dot"></span>
+                <span id="completenessText">48 of 48 readings available</span>
+              </div>
+              <strong id="completenessPercent">100%</strong>
+            </div>
+
+            <div class="insight-banner" id="insightBanner">
+              <span class="insight-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="m13 2.8-7 10h5l-1 8.4 7-10h-5z"></path></svg>
+              </span>
+              <div>
+                <strong id="insightTitle">Overnight spike detected</strong>
+                <p id="insightCopy">10.6 kWh at 03:00 · 42× the room's overnight baseline.</p>
+              </div>
+            </div>
+
+            <div class="chart-block">
+              <div class="chart-heading">
+                <div>
+                  <h3 id="chartTitle">Hourly energy</h3>
+                  <p id="chartSubtitle">kWh per interval · click any room to update</p>
+                </div>
+                <button class="compare-button" id="compareButton" type="button" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17V9M12 17V4M19 17v-6"></path><path d="M3 19.5h18"></path></svg>
+                  Compare
+                </button>
+              </div>
+
+              <div class="compare-controls" id="compareControls" hidden>
+                <label>
+                  <span class="compare-swatch compare-swatch--a"></span>
+                  <select id="compareRoomA" aria-label="First room to compare"></select>
+                </label>
+                <span class="compare-vs">vs</span>
+                <label>
+                  <span class="compare-swatch compare-swatch--b"></span>
+                  <select id="compareRoomB" aria-label="Second room to compare"></select>
+                </label>
+              </div>
+
+              <div class="chart-wrap" id="chartWrap">
+                <canvas id="energyChart" aria-label="Hourly energy chart"></canvas>
+                <div class="chart-tooltip" id="chartTooltip" role="status" aria-live="polite"></div>
+                <div class="chart-empty" id="chartEmpty">
+                  <span class="empty-graphic" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+                  <strong>No room selected</strong>
+                  <p>Choose a room in the 3D model or room table to see its hourly profile.</p>
+                </div>
+              </div>
+
+              <div class="chart-legend" id="chartLegend"></div>
+            </div>
+
+            <footer class="focus-footer">
+              <span id="focusFooterNote">Peak and totals use only available readings.</span>
+              <span class="sample-footnote">Sample data</span>
+            </footer>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <dialog class="modal" id="customRangeDialog" aria-labelledby="customRangeTitle">
+    <form method="dialog" id="customRangeForm">
+      <div class="modal-topline">
+        <span class="modal-kicker">Sample interval</span>
+        <button class="icon-button" value="cancel" type="submit" aria-label="Close custom range dialog">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+        </button>
+      </div>
+      <h2 id="customRangeTitle">Set a custom range</h2>
+      <p class="modal-copy">Choose a start and end inside the bundled sample week. End is exclusive; all times are UTC.</p>
+      <div class="date-fields">
+        <label>
+          <span>Start</span>
+          <input type="datetime-local" id="customStart" step="3600" required>
+        </label>
+        <label>
+          <span>End</span>
+          <input type="datetime-local" id="customEnd" step="3600" required>
+        </label>
+      </div>
+      <p class="form-error" id="customRangeError" role="alert"></p>
+      <div class="modal-actions">
+        <button class="ghost-button" value="cancel" type="submit">Cancel</button>
+        <button class="primary-button" value="default" id="applyCustomRange" type="submit">Apply range</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="modal info-modal" id="infoDialog" aria-labelledby="infoTitle">
+    <form method="dialog">
+      <div class="modal-topline">
+        <span class="modal-kicker">Dataset notes</span>
+        <button class="icon-button" value="cancel" type="submit" aria-label="Close dataset information">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+        </button>
+      </div>
+      <h2 id="infoTitle">A local sample week.</h2>
+      <p class="modal-copy">This dashboard is built entirely from bundled sample data. Nothing is fetched from a building-management service.</p>
+      <dl class="info-list">
+        <div><dt>Period</dt><dd>8–14 Nov 2026 · 168 hourly intervals per room</dd></div>
+        <div><dt>Resolution</dt><dd>1 hour · kWh per room · UTC</dd></div>
+        <div><dt>Unusual use</dt><dd>Finance &amp; Ops spikes at 02:00–05:00 on Sat 14 Nov.</dd></div>
+        <div><dt>Missing data</dt><dd>Archive has a four-hour gap on Fri 13 Nov, 06:00–10:00.</dd></div>
+      </dl>
+      <div class="modal-actions">
+        <button class="primary-button" value="default" type="submit">Got it</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

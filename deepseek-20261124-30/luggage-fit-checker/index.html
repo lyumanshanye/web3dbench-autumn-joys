@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#18231d" />
+    <meta
+      name="description"
+      content="BootFit is a 3D car boot packing planner that checks bag dimensions, overlaps and height clearance."
+    />
+    <title>BootFit — Car boot packing planner</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="BootFit home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <rect x="6.5" y="8" width="19" height="17" rx="4.5" stroke="currentColor" stroke-width="2" />
+              <path d="M11.5 8V6.5A2.5 2.5 0 0 1 14 4h4a2.5 2.5 0 0 1 2.5 2.5V8" stroke="currentColor" stroke-width="2" />
+              <path d="M12 14.5h8M12 19h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <strong>BootFit</strong>
+            <small>Car boot planner</small>
+          </span>
+        </a>
+
+        <div class="topbar-status" aria-live="polite">
+          <span class="status-light" id="headerDot"></span>
+          <span id="headerStatus">Clear to close</span>
+          <span class="status-divider" aria-hidden="true"></span>
+          <span class="topbar-dims" id="headerDims">105 × 82 × 58 cm</span>
+        </div>
+
+        <div class="topbar-actions">
+          <button class="pill-button mobile-only" id="bootSizeBtn" type="button" aria-haspopup="dialog" aria-expanded="false">
+            Boot size
+          </button>
+          <button class="reset-button" id="resetBtn" type="button" title="Reset bag positions">
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M4.5 7.25A6.25 6.25 0 1 1 4 11.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+              <path d="M4.5 3.6v3.95h3.95" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Reset load</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="panel panel-left" id="bootPanel" aria-label="Boot dimensions">
+          <div class="sheet-handle" aria-hidden="true"></div>
+          <div class="panel-scroll">
+            <div class="panel-kicker-row">
+              <span class="eyebrow">01 / Boot spec</span>
+              <button class="sheet-close" id="bootCloseBtn" type="button" aria-label="Close boot size editor">×</button>
+            </div>
+            <h1>Will it<br /><em>close?</em></h1>
+            <p class="lede">Set the real boot space, then shape the load. Every check is made in centimetres.</p>
+
+            <div class="dimensions" aria-label="Boot measurements">
+              <label class="dimension-row" for="bootWidth">
+                <span class="dimension-key">W</span>
+                <span class="dimension-name">Width<small>across the boot</small></span>
+                <span class="dimension-input-wrap">
+                  <input id="bootWidth" type="number" min="50" max="220" step="1" value="105" inputmode="numeric" />
+                  <span>cm</span>
+                </span>
+              </label>
+              <label class="dimension-row" for="bootLength">
+                <span class="dimension-key">L</span>
+                <span class="dimension-name">Length<small>front to tailgate</small></span>
+                <span class="dimension-input-wrap">
+                  <input id="bootLength" type="number" min="40" max="200" step="1" value="82" inputmode="numeric" />
+                  <span>cm</span>
+                </span>
+              </label>
+              <label class="dimension-row" for="bootHeight">
+                <span class="dimension-key">H</span>
+                <span class="dimension-name">Height<small>floor to parcel shelf</small></span>
+                <span class="dimension-input-wrap">
+                  <input id="bootHeight" type="number" min="25" max="120" step="1" value="58" inputmode="numeric" />
+                  <span>cm</span>
+                </span>
+              </label>
+            </div>
+
+            <div class="preset-block">
+              <span class="mini-label">Quick presets</span>
+              <div class="presets" role="group" aria-label="Boot presets">
+                <button type="button" data-preset="hatch">Hatch</button>
+                <button type="button" data-preset="suv" class="is-active">Mid SUV</button>
+                <button type="button" data-preset="estate">Estate</button>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="guide-card">
+              <span class="guide-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none">
+                  <path d="M10 17V9.5a2 2 0 1 1 4 0V16m0-4.5a2 2 0 1 1 4 0V16m0-3a2 2 0 1 1 4 0v4m0-1.5a2 2 0 1 1 4 0v4.75c0 4.55-3.1 7.75-7.5 7.75h-1.5c-2.25 0-3.7-.6-5-2l-4.1-5.15a2.1 2.1 0 0 1 3.25-2.65L13 21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+              <div>
+                <strong>Drag to pack</strong>
+                <p>Grab a bag on the floor. Hold <kbd>Shift</kbd> while dragging to stack it.</p>
+              </div>
+            </div>
+
+            <div class="legend" aria-label="Status legend">
+              <span><i class="legend-swatch is-clear"></i>Inside &amp; clear</span>
+              <span><i class="legend-swatch is-bad"></i>Overlap / outside</span>
+            </div>
+          </div>
+        </aside>
+
+        <section class="stage" id="stage" aria-label="Interactive 3D boot loading area">
+          <div class="canvas-mount" id="canvasMount"></div>
+
+          <div class="stage-top">
+            <div class="stage-top-left">
+              <span class="live-badge"><i></i>Live load</span>
+              <span class="scale-note">Grid square = 10 cm</span>
+            </div>
+            <div class="view-switch" role="group" aria-label="Camera view">
+              <button type="button" class="is-active" data-view="iso">3D</button>
+              <button type="button" data-view="top">Top</button>
+              <button type="button" class="view-reset" id="viewResetBtn" aria-label="Reset camera" title="Reset camera">
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M4.5 7.25A6.25 6.25 0 1 1 4 11.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                  <path d="M4.5 3.6v3.95h3.95" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="orbit-hint">Drag empty space to orbit</div>
+
+          <div class="selection-dock" id="selectionDock">
+            <div class="selection-main">
+              <span class="selection-swatch" id="selectedSwatch"></span>
+              <div class="selection-copy">
+                <span class="mini-label">Selected bag</span>
+                <strong id="selectedName">Medium case</strong>
+                <span class="selection-dims" id="selectedDims">52 × 34 × 24 cm · 0°</span>
+              </div>
+              <span class="status-chip is-clear" id="selectedStatus">Fits</span>
+            </div>
+            <div class="selection-actions" aria-label="Selected bag controls">
+              <div class="mode-switch" role="group" aria-label="Drag mode">
+                <button type="button" class="is-active" data-mode="move">Move</button>
+                <button type="button" data-mode="lift">Lift</button>
+              </div>
+              <span class="action-divider" aria-hidden="true"></span>
+              <button class="action-button" type="button" data-action="rotate-left" title="Rotate left 15°" aria-label="Rotate left 15 degrees">↺</button>
+              <button class="action-button" type="button" data-action="rotate-right" title="Rotate right 15°" aria-label="Rotate right 15 degrees">↻</button>
+              <button class="action-button turn-button" type="button" data-action="turn" title="Turn 90°" aria-label="Turn 90 degrees">90°</button>
+              <button class="action-button" type="button" data-action="raise" title="Lift 5 cm" aria-label="Lift bag 5 centimetres">↑</button>
+              <button class="action-button" type="button" data-action="lower" title="Lower 5 cm" aria-label="Lower bag 5 centimetres">↓</button>
+              <button class="action-button remove-button" type="button" data-action="remove" title="Remove bag" aria-label="Remove selected bag">×</button>
+            </div>
+          </div>
+        </section>
+
+        <aside class="panel panel-right" aria-label="Load fit check">
+          <div class="panel-scroll">
+            <span class="eyebrow">02 / Fit check</span>
+
+            <div class="fit-hero">
+              <div class="fit-ring" id="fitRing" role="img" style="--pct: 100; --ring: #668a5b">
+                <div class="fit-ring-inner">
+                  <span class="fit-number"><strong id="fitCount">4</strong><span>/ <span id="fitTotal">4</span></span></span>
+                  <small id="fitRingCaption">bags fit</small>
+                </div>
+              </div>
+              <div class="fit-copy">
+                <h2 id="fitTitle">Clear to close</h2>
+                <p id="fitDetail">Every bag sits inside the load space.</p>
+              </div>
+            </div>
+
+            <div class="metrics" aria-label="Fit metrics">
+              <div class="metric">
+                <span>Overlaps</span>
+                <strong id="overlapCount">0</strong>
+              </div>
+              <div class="metric">
+                <span>Outside</span>
+                <strong id="outsideCount">0</strong>
+              </div>
+              <div class="metric">
+                <span>Headroom</span>
+                <strong id="headroomValue">3 cm</strong>
+              </div>
+            </div>
+
+            <div class="issue-alert" id="issueAlert" hidden>
+              <span aria-hidden="true">!</span>
+              <p id="issueText"></p>
+            </div>
+
+            <div class="manifest-head">
+              <h3>Bag manifest</h3>
+              <span id="bagCount">4 bags</span>
+            </div>
+            <div class="bag-list" id="bagList"></div>
+
+            <button class="add-bag-button" id="addBagBtn" type="button"><span>+</span> Add a bag</button>
+            <p class="volume-note">
+              <span aria-hidden="true">i</span>
+              Volume alone can’t predict a closed boot. Fit uses footprint, height and collisions.
+            </p>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <div class="sheet-scrim" id="sheetScrim" aria-hidden="true"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

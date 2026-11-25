@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f4efe6" />
+    <meta name="description" content="Weeknight Kitchen: eight dependable recipes, a calm 3D counter, and a cook mode that remembers where you left off." />
+    <title>Weeknight Kitchen — Dinner, without the drama</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23dc5a3d'/%3E%3Cpath d='M15 32h34c-1.7 10-8 16-17 16S16.7 42 15 32Z' fill='%23fff9ee'/%3E%3Cpath d='M24 24c0-4 5-4 5-8M34 24c0-4 5-4 5-8' fill='none' stroke='%23fff9ee' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#recipeTitle">Skip to the recipe</a>
+
+    <header class="site-header">
+      <a class="brand" href="#/recipe/burst-tomato-orzo" aria-label="Weeknight Kitchen home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 44 44" role="img">
+            <path d="M9 22h26c-1.2 7.8-6.2 12-13 12S10.2 29.8 9 22Z" fill="currentColor" opacity=".95"/>
+            <path d="M17 16c0-3.2 4-3.2 4-6.5M25 16c0-3.2 4-3.2 4-6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="32.5" cy="15.5" r="2.2" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="brand-type">
+          <span class="brand-name">Weeknight <i>Kitchen</i></span>
+          <span class="brand-caption">Good food · quiet confidence</span>
+        </span>
+      </a>
+
+      <p class="header-promise"><span></span>Eight honest recipes. One calm counter.</p>
+
+      <div class="header-actions">
+        <span class="edition">No. 01 <b>·</b> Autumn</span>
+        <button class="button button-quiet" id="surpriseBtn" type="button">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 6h1.8c4.4 0 4 8 8.4 8H16M16 6h-1.8c-1.6 0-2.6 1.1-3.4 2.4M4 14h1.8c1.5 0 2.4-1 3.2-2.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="m14 11.5 2.3 2.5-2.3 2.5M14 3.5 16.3 6 14 8.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Surprise me
+        </button>
+      </div>
+    </header>
+
+    <main class="app-shell" id="appShell">
+      <aside class="library-panel" id="library" aria-labelledby="libraryTitle">
+        <div class="library-heading">
+          <div>
+            <p class="eyebrow">Recipe library</p>
+            <h2 id="libraryTitle">Find dinner</h2>
+          </div>
+          <span class="result-count" id="resultCount" aria-live="polite">08</span>
+        </div>
+
+        <label class="search-field" for="searchInput">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.8" cy="8.8" r="5.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m12.8 12.8 3.8 3.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <input id="searchInput" type="search" placeholder="Search recipe or ingredient" autocomplete="off" spellcheck="false" />
+          <span class="search-key" aria-hidden="true">/</span>
+        </label>
+
+        <div class="filter-block">
+          <div class="filter-topline">
+            <button class="veg-switch" id="vegFilter" type="button" role="switch" aria-checked="false" aria-label="Show vegetarian recipes only">
+              <span class="switch-track" aria-hidden="true"><span></span></span>
+              <span>Vegetarian</span>
+            </button>
+            <button class="reset-filter-button" id="resetFilters" type="button" hidden>Reset</button>
+          </div>
+          <div class="time-row">
+            <span class="filter-label">Prep time</span>
+            <div class="time-chips" id="timeFilters" role="group" aria-label="Filter by preparation time">
+              <button type="button" class="time-chip is-active" data-time="0" aria-pressed="true">Any</button>
+              <button type="button" class="time-chip" data-time="20" aria-pressed="false">≤ 20m</button>
+              <button type="button" class="time-chip" data-time="30" aria-pressed="false">≤ 30m</button>
+              <button type="button" class="time-chip" data-time="45" aria-pressed="false">≤ 45m</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="recipe-list" id="recipeList" aria-label="Recipes"></div>
+
+        <div class="library-empty" id="libraryEmpty" hidden>
+          <span aria-hidden="true">◌</span>
+          <p>No recipes match those filters.</p>
+          <button type="button" data-reset-filters>Clear filters</button>
+        </div>
+
+        <div class="library-foot">
+          <span class="library-foot-mark" aria-hidden="true">✳</span>
+          <p>Recipes made for real weeknights. Tested, simplified, written out in full.</p>
+        </div>
+      </aside>
+
+      <section class="recipe-stage" id="recipeStage" aria-live="polite">
+        <div class="recipe-intro">
+          <div class="recipe-kicker">
+            <span id="recipeNumber">Recipe No. 01</span>
+            <span class="kicker-rule"></span>
+            <span id="recipeCuisine">Italian-ish</span>
+            <span class="vegetarian-badge" id="vegetarianBadge">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5c3.4 1.4 5.1 4.1 4.1 7.1-2.9.8-5.6-.5-6.7-3.2-.6-1.5.2-3.2 2.6-3.9Z" fill="currentColor"/><path d="M3 13.5c1-3.7 3.1-6.3 6.4-8.1" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              Vegetarian
+            </span>
+          </div>
+          <h1 id="recipeTitle">Burst Tomato Orzo</h1>
+          <p class="recipe-description" id="recipeDescription"></p>
+          <div class="recipe-meta">
+            <div class="meta-pair">
+              <svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="7.4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M11 6.8V11l3 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <span><b id="recipeTime">25 min</b><small>start to finish</small></span>
+            </div>
+            <span class="meta-divider" aria-hidden="true"></span>
+            <div class="serving-stepper" role="group" aria-label="Change serving count">
+              <button type="button" id="servingMinus" aria-label="Decrease servings">−</button>
+              <span><b id="servingCount">2</b><small>servings</small></span>
+              <button type="button" id="servingPlus" aria-label="Increase servings">+</button>
+            </div>
+            <span class="meta-note" id="servingNote">Quantities scale automatically</span>
+          </div>
+        </div>
+
+        <section class="counter-card" aria-labelledby="counterTitle">
+          <div class="counter-toolbar">
+            <div>
+              <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Interactive counter</p>
+              <h2 id="counterTitle">Tonight’s <i>mise en place</i></h2>
+            </div>
+            <div class="counter-hint" id="counterHint">
+              <svg viewBox="0 0 22 22" aria-hidden="true"><path d="M8.2 10.8V6.4a1.4 1.4 0 0 1 2.8 0v3.3-5a1.4 1.4 0 0 1 2.8 0v5-4a1.4 1.4 0 0 1 2.8 0v7.9c0 3.1-2 5.4-5.1 5.4-2.6 0-4.3-1.5-5.4-3.3l-2-3.2a1.3 1.3 0 0 1 2.1-1.5l2 2" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Tap an ingredient</span>
+            </div>
+          </div>
+
+          <div class="scene-shell" id="sceneShell">
+            <div class="scene-canvas" id="sceneCanvas" role="img" aria-label="A three-dimensional kitchen counter with the recipe ingredients arranged on a wooden board."></div>
+            <div class="scene-selection" id="sceneSelection">
+              <span class="selection-swatch" id="selectionSwatch" aria-hidden="true"></span>
+              <span class="selection-copy">
+                <small id="selectionEyebrow">On the counter</small>
+                <b id="selectionName">Choose an ingredient</b>
+              </span>
+              <span class="selection-amount" id="selectionAmount"></span>
+            </div>
+            <div class="scene-corner" aria-hidden="true">
+              <span class="scene-live"><i></i>3D</span>
+            </div>
+            <div class="scene-drag-note" id="sceneDragNote" aria-hidden="true">
+              <svg viewBox="0 0 20 20"><path d="M10 3v14M3 10h14M10 3 7.5 5.5M10 3l2.5 2.5M17 10l-2.5-2.5M17 10l-2.5 2.5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              drag to look
+            </div>
+          </div>
+
+          <div class="counter-chips" id="counterChips" aria-label="Ingredients outside the three-dimensional counter"></div>
+        </section>
+
+        <div class="stage-note">
+          <span class="note-mark" aria-hidden="true">✳</span>
+          <div>
+            <p class="eyebrow">The little thing that matters</p>
+            <p id="recipeTip"></p>
+          </div>
+          <span class="note-index" id="noteIndex">01 / 08</span>
+        </div>
+      </section>
+
+      <aside class="cook-panel" aria-labelledby="cookTitle">
+        <div class="cook-heading">
+          <div>
+            <p class="eyebrow">Cook mode</p>
+            <h2 id="cookTitle">At the stove</h2>
+          </div>
+          <button class="reset-progress" id="resetProgressBtn" type="button" title="Clear ingredients and step for this recipe">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.3 7.1A6.3 6.3 0 1 1 4 12.4M4.3 7.1V3.5M4.3 7.1h3.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Reset
+          </button>
+        </div>
+
+        <div class="cook-summary">
+          <span id="cookRecipeName">Burst Tomato Orzo</span>
+          <span id="stepFraction">Step 1 of 5</span>
+        </div>
+        <div class="step-progress" aria-hidden="true"><span id="stepProgressBar"></span></div>
+
+        <section class="step-card" aria-live="polite" aria-atomic="true">
+          <div class="step-topline">
+            <span id="stepNumber">01</span>
+            <span class="step-timer" id="stepTimer"></span>
+          </div>
+          <h3 id="stepTitle">Get the water going</h3>
+          <p id="stepBody"></p>
+        </section>
+
+        <div class="step-controls">
+          <button class="step-button" id="prevStepBtn" type="button">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12.5 4.5-5 5.5 5 5.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Previous
+          </button>
+          <div class="step-dots" id="stepDots" aria-label="Recipe steps"></div>
+          <button class="step-button step-button-next" id="nextStepBtn" type="button">
+            Next
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 4.5 5 5.5-5 5.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <div class="checklist-heading">
+          <div>
+            <p class="eyebrow">Your bench</p>
+            <h3>Ingredient check</h3>
+          </div>
+          <span class="checked-count" id="checkedCount">0 / 6 checked</span>
+        </div>
+        <div class="ingredient-checklist" id="ingredientChecklist"></div>
+
+        <div class="cook-memory">
+          <span aria-hidden="true">
+            <svg viewBox="0 0 20 20"><path d="M4 3.8h12v12.4H4z" fill="none" stroke="currentColor" stroke-width="1.3" rx="1"/><path d="M7 7h6M7 10h6M7 13h3.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </span>
+          <p>Checked ingredients and your current step save automatically on this device, separately for every recipe.</p>
+        </div>
+      </aside>
+
+      <section class="empty-results" id="emptyResults" hidden>
+        <div class="empty-illustration" aria-hidden="true">
+          <svg viewBox="0 0 140 120">
+            <path d="M22 54h96c-4 34-23 51-48 51S26 88 22 54Z" fill="#f9f3e8" stroke="#332c25" stroke-width="2"/>
+            <path d="M13 54h114" stroke="#332c25" stroke-width="2" stroke-linecap="round"/>
+            <path d="M54 34c0-8 10-8 10-16M72 34c0-8 10-8 10-16" fill="none" stroke="#dc5a3d" stroke-width="2.2" stroke-linecap="round" opacity=".75"/>
+            <circle cx="52" cy="67" r="5" fill="#dc5a3d" opacity=".8"/>
+            <path d="M76 72c7-7 16-6 21 0-6 8-15 9-21 0Z" fill="#71835f"/>
+            <circle cx="94" cy="66" r="3.5" fill="#dfa83e"/>
+          </svg>
+        </div>
+        <p class="eyebrow">Nothing on the counter</p>
+        <h2>No recipes match<br />that combination.</h2>
+        <p>Try a different ingredient, loosen the time filter, or clear everything and start again.</p>
+        <button class="button button-primary" id="emptyResetBtn" type="button">Reset search &amp; filters</button>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

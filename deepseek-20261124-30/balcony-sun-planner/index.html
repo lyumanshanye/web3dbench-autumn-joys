@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A furnished balcony sun study for placing planters with confidence."
+    />
+    <title>Solstice — Balcony Sun Study</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand" aria-label="Solstice balcony sun study">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none">
+              <path d="M9 26.5h22" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+              <path d="M20 9v17M13.3 15.2 20 22l6.7-6.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="20" cy="8.5" r="2.1" fill="currentColor" />
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <strong>Solstice</strong>
+            <span>balcony sun study</span>
+          </span>
+        </div>
+
+        <div class="header-note">
+          <span class="header-note-dot"></span>
+          <span>Balcony 06</span>
+          <span class="header-note-rule"></span>
+          <span>Planting positions, in daylight</span>
+        </div>
+
+        <div class="header-controls">
+          <label class="field field-location">
+            <span class="field-label">Sample location</span>
+            <span class="select-wrap">
+              <select id="locationSelect" aria-label="Sample location"></select>
+              <svg viewBox="0 0 12 8" aria-hidden="true"><path d="m1 1.5 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" /></svg>
+            </span>
+          </label>
+          <label class="field field-date">
+            <span class="field-label">Study date</span>
+            <input id="dateInput" type="date" aria-label="Study date" />
+          </label>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="stage" id="stage" aria-label="Three dimensional balcony view">
+          <div class="stage-sunwash" aria-hidden="true"></div>
+          <canvas id="sceneCanvas" aria-label="Furnished balcony seen from outside, showing sun and shadow"></canvas>
+          <div class="stage-grain" aria-hidden="true"></div>
+
+          <div class="sun-hud hud-card">
+            <div class="hud-eyebrow"><span class="live-dot"></span>Direct sun check</div>
+            <div class="sun-clock-row">
+              <strong id="clockDisplay">16:24</strong>
+              <span>local</span>
+            </div>
+            <div class="sun-metrics">
+              <div><span>Altitude</span><strong id="altitudeValue">—</strong></div>
+              <div><span>Azimuth</span><strong id="azimuthValue">—</strong></div>
+              <div><span>Light</span><strong id="lightValue">Direct</strong></div>
+            </div>
+            <div class="hud-model-note">NOAA clear-sky · local clock time</div>
+          </div>
+
+          <div class="scheme-hud hud-card">
+            <span class="hud-eyebrow">Arrangement</span>
+            <div class="scheme-controls">
+              <div class="segmented" id="schemeSwitch" aria-label="Choose arrangement">
+                <button type="button" data-scheme="A" class="is-active" aria-pressed="true">A</button>
+                <button type="button" data-scheme="B" aria-pressed="false">B</button>
+              </div>
+              <span id="schemeCaption">Plan A</span>
+            </div>
+          </div>
+
+          <div class="orientation-hud hud-card" aria-label="Balcony orientation">
+            <div class="mini-compass" aria-hidden="true">
+              <span class="compass-n">N</span>
+              <div class="compass-rose" id="compassRose"></div>
+              <span class="compass-arrow"></span>
+            </div>
+            <div>
+              <span class="hud-eyebrow">Facade faces</span>
+              <strong id="headingDisplay">SW · 218°</strong>
+            </div>
+            <div class="orientation-actions" aria-label="Rotate balcony heading">
+              <button type="button" id="headingStepLeft" aria-label="Rotate heading west 15 degrees">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><path d="m7.3 2.4-3.6 3.6 3.6 3.6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button type="button" id="headingStepRight" aria-label="Rotate heading east 15 degrees">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><path d="m4.7 2.4 3.6 3.6-3.6 3.6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="stage-caption">Drag to orbit <span>·</span> Scroll to zoom</div>
+
+          <div class="timeline-card">
+            <div class="timeline-top">
+              <button type="button" class="play-button" id="playButton" aria-label="Play through daylight" aria-pressed="false">
+                <svg class="play-icon" viewBox="0 0 18 18" aria-hidden="true"><path d="M6.2 4.1v9.8L14 9 6.2 4.1Z" fill="currentColor" /></svg>
+                <svg class="pause-icon" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.4 4.2h2.3v9.6H5.4zM10.3 4.2h2.3v9.6h-2.3z" fill="currentColor" /></svg>
+              </button>
+              <div class="timeline-time">
+                <strong id="timelineTime">16:24</strong>
+                <span id="timelinePhase">afternoon sun</span>
+              </div>
+              <div class="daylight-meta">
+                <span>Daylight</span>
+                <strong id="daylightLength">—</strong>
+              </div>
+            </div>
+            <div class="timeline-track-row">
+              <span class="timeline-edge" id="sunriseLabel">06:12</span>
+              <div class="timeline-track">
+                <input id="timeSlider" type="range" min="0" max="1000" value="720" step="1" aria-label="Scrub through daylight hours" />
+                <div class="timeline-ticks" aria-hidden="true"></div>
+              </div>
+              <span class="timeline-edge" id="sunsetLabel">21:14</span>
+            </div>
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <section class="panel plan-panel">
+            <div class="panel-heading">
+              <div>
+                <span class="panel-eyebrow">Top view · drag to move</span>
+                <h1>Planting plan</h1>
+              </div>
+              <div class="plan-actions">
+                <div class="segmented segmented-small" id="planSchemeSwitch" aria-label="Plan arrangement">
+                  <button type="button" data-scheme="A" class="is-active" aria-pressed="true">A</button>
+                  <button type="button" data-scheme="B" aria-pressed="false">B</button>
+                </div>
+                <button type="button" class="compare-button" id="compareButton" aria-pressed="false" aria-label="Compare both arrangements">
+                  <svg viewBox="0 0 18 18" aria-hidden="true"><rect x="1.6" y="2.2" width="6" height="13.6" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.25" /><rect x="10.4" y="2.2" width="6" height="13.6" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.25" /></svg>
+                  <span>Compare</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="plan-canvas-wrap" id="planWrap">
+              <canvas id="planCanvas" tabindex="0" aria-label="Top-down balcony plan. Drag numbered planters to reposition them."></canvas>
+            </div>
+
+            <div class="plan-footer">
+              <div class="plan-legend" aria-label="Plan legend">
+                <span><i class="legend-dot legend-sun"></i>Sun</span>
+                <span><i class="legend-dot legend-dapple"></i>Dappled</span>
+                <span><i class="legend-dot legend-shade"></i>Shade</span>
+              </div>
+              <button type="button" class="text-button" id="resetButton">Reset layout</button>
+            </div>
+
+            <div class="compare-summary" id="compareSummary" hidden>
+              <div class="compare-card" data-scheme-card="A">
+                <span><b>A</b> Plan A</span>
+                <strong id="compareSunA">—</strong>
+                <em id="compareShadeA">—</em>
+              </div>
+              <div class="compare-card" data-scheme-card="B">
+                <span><b>B</b> Plan B</span>
+                <strong id="compareSunB">—</strong>
+                <em id="compareShadeB">—</em>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel arrangement-panel">
+            <div class="panel-heading arrangement-heading">
+              <div>
+                <span class="panel-eyebrow" id="arrangementEyebrow">Arrangement A · 16:24</span>
+                <h2>Planters today</h2>
+              </div>
+              <div class="sunlit-badge">
+                <strong id="sunlitCount">—</strong>
+                <span>in sun</span>
+              </div>
+            </div>
+            <div class="plant-list" id="plantList"></div>
+          </section>
+
+          <section class="panel controls-panel">
+            <div class="panel-heading controls-heading">
+              <div>
+                <span class="panel-eyebrow">Balcony compass</span>
+                <h2>Change heading</h2>
+              </div>
+              <strong class="heading-number" id="headingDegrees">218°</strong>
+            </div>
+            <div class="heading-control-row">
+              <div class="compass-dial" aria-hidden="true">
+                <span>N</span>
+                <div class="compass-dial-needle" id="compassDialNeedle"></div>
+                <i></i>
+              </div>
+              <div class="heading-copy">
+                <strong id="headingCardinal">Southwest</strong>
+                <span>Front of balcony faces <span id="headingDirectionInline">SW</span></span>
+              </div>
+            </div>
+            <input id="headingSlider" type="range" min="0" max="359" step="1" value="218" aria-label="Balcony facade heading in degrees" />
+            <div class="compass-scale" aria-hidden="true"><span>N</span><span>E</span><span>S</span><span>W</span></div>
+          </section>
+
+          <details class="assumptions" open>
+            <summary>How the sun model works</summary>
+            <p>
+              A clear-sky NOAA approximation uses the selected city’s latitude, longitude, and local clock
+              time. Terrain, buildings, clouds, and reflected light are not modelled. Times include the
+              location’s daylight-saving offset.
+            </p>
+            <ul>
+              <li>Shadow edges are softened; sun/shade labels use ray tests against the wall, roof, railing, and furniture.</li>
+              <li>Planters are assessed at three heights to distinguish full sun, dappled light, and shade.</li>
+            </ul>
+          </details>
+        </aside>
+      </main>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

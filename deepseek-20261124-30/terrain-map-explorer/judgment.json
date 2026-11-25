@@ -1,0 +1,170 @@
+{
+  "summary": "The submission is a polished, real-time 3D topographic explorer for the imaginary Isle of Aurelia. It offers a coherent overview, labeled peaks and valleys, a detailed coastline, peak-focus camera moves, orbit, zoom, slow orbit, contour toggling, and reset. Desktop and narrow layouts are broadly usable, with minor label clipping and viewport-resize framing issues but no blocking runtime failures.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded successfully in Chromium and remained interactive through repeated camera, visibility, reset, viewport, and reload operations. The final console was clean, and core page, CSS, JavaScript, Three.js, and OrbitControls requests succeeded; an initial favicon request returned a nonblocking 404.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-20-09-471Z.jpeg",
+      "evidence/page-2026-11-24T17-23-23-250Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "Genuine 3D content is present: the island changes perspective and occlusion across overview, peak-focus, and orbit views, with contours wrapping the modeled relief. The scene is not a static image or unrelated canvas.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-20-09-471Z.jpeg",
+      "evidence/page-2026-11-24T17-20-27-230Z.jpeg",
+      "evidence/page-2026-11-24T17-20-41-744Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct views show real depth and geometry: the overview establishes the island and coast, Veyra Peak focus reveals a raised massif in perspective, and the dragged orbit presents the ridge and slope from a different bearing with consistent surface occlusion.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-09-471Z.jpeg",
+        "evidence/page-2026-11-24T17-20-27-230Z.jpeg",
+        "evidence/page-2026-11-24T17-20-41-744Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The atlas-style composition, restrained hypsometric colors, fine contours, shaded relief, serif display typography, legend, and section diagram form a coherent topographic expression with clear hierarchy.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-09-471Z.jpeg",
+        "evidence/page-2026-11-24T17-21-07-536Z.jpeg",
+        "evidence/page-2026-11-24T17-22-20-600Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary controls produce meaningful scene feedback: peak focus transitions to a close camera view, drag changes the orbit, wheel input changes zoom, and slow orbit advances the camera while the coordinate/elevation status updates.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-27-230Z.jpeg",
+        "evidence/page-2026-11-24T17-20-41-744Z.jpeg",
+        "evidence/page-2026-11-24T17-24-10-272Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeat and recovery behavior is reliable: contours were hidden and restored, slow orbit was started and stopped, zoom and peak focus returned to the overview through Reset view, and reload restored the default view.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-21-07-536Z.jpeg",
+        "evidence/page-2026-11-24T17-21-56-778Z.jpeg",
+        "evidence/page-2026-11-24T17-22-48-949Z.jpeg",
+        "evidence/page-2026-11-24T17-24-31-234Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Both 1440x900 and 390x844 layouts were inspected. The lower legend remains reachable, keyboard tabbing shows a visible focus ring on the view controls, reload succeeds, core resources load, and the final console is clean. The narrow layout has local label clipping noted under T04.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-20-600Z.jpeg",
+        "evidence/page-2026-11-24T17-23-10-125Z.jpeg",
+        "evidence/page-2026-11-24T17-23-23-250Z.jpeg",
+        "evidence/page-2026-11-24T17-24-31-234Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The island has a recognizable irregular coastline, several labeled summits, a central elevated massif, lower valleys, and Mirror Tarn. Focus and orbit views confirm that these are modeled three-dimensional forms rather than flat decoration.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-09-471Z.jpeg",
+        "evidence/page-2026-11-24T17-20-27-230Z.jpeg",
+        "evidence/page-2026-11-24T17-20-41-744Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Height and structure are communicated by contour lines, a 0-2,800 metre elevation ramp, 100-metre contour legend, summit markers, survey traverse, shaded relief, and the west-to-east island section.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-09-471Z.jpeg",
+        "evidence/page-2026-11-24T17-20-27-230Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Exploration is usable through peak-focus buttons, drag orbit, scroll zoom, slow orbit, and Reset view. Each action visibly changes viewpoint or visibility, and the reset returns to a useful overview.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-27-230Z.jpeg",
+        "evidence/page-2026-11-24T17-20-41-744Z.jpeg",
+        "evidence/page-2026-11-24T17-24-10-272Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PARTIAL",
+      "reason": "The island and elevation legend remain legible at both sizes, and labels do not obscure the main terrain. However, in the 390x844 focused view the Morrow Horn label and elevation are clipped at the right edge, and most secondary named locations are absent at narrow width; direct resizing from phone to desktop also leaves the island underfilled until Reset view is used.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-20-600Z.jpeg",
+        "evidence/page-2026-11-24T17-22-38-422Z.jpeg",
+        "evidence/page-2026-11-24T17-22-48-949Z.jpeg",
+        "evidence/page-2026-11-24T17-23-49-595Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All explicit requirements are delivered coherently: an imaginary island with peaks, valleys and coastline; a crafted topographic-map treatment; and interactive exploration across desktop and narrow screens.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-09-471Z.jpeg",
+        "evidence/page-2026-11-24T17-20-27-230Z.jpeg",
+        "evidence/page-2026-11-24T17-22-20-600Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The terrain geometry, relief, coast, depth, occlusion, materials, and lighting remain consistent across overview, close-focus, orbit, and zoom views.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-09-471Z.jpeg",
+        "evidence/page-2026-11-24T17-20-27-230Z.jpeg",
+        "evidence/page-2026-11-24T17-20-41-744Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Camera focus, orbit, zoom, slow orbit, contour visibility, keyboard focus, reset, repeat, and reload flows all work reliably and provide clear visual feedback.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-27-230Z.jpeg",
+        "evidence/page-2026-11-24T17-21-07-536Z.jpeg",
+        "evidence/page-2026-11-24T17-21-56-778Z.jpeg",
+        "evidence/page-2026-11-24T17-24-31-234Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "Composition, serif typography, muted color, contour detailing, relief shading, legend, and section panel consistently reinforce a refined atlas identity and improve terrain understanding.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-09-471Z.jpeg",
+        "evidence/page-2026-11-24T17-21-07-536Z.jpeg",
+        "evidence/page-2026-11-24T17-22-20-600Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "The page is stable across repeated desktop and phone interactions, reload, and keyboard focus, with no blocking console or resource errors. It falls short of the top anchor because a narrow focused label clips off-screen and resizing from phone to desktop preserves an underfilled framing until Reset view.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-38-422Z.jpeg",
+        "evidence/page-2026-11-24T17-23-23-250Z.jpeg",
+        "evidence/page-2026-11-24T17-23-49-595Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The 390x844 check used emulated viewport dimensions, so real touch hardware and gesture behavior were not certified.",
+    "No export or download control was present in the tested UI, so there was no exported image to open and inspect.",
+    "Audio quality and other nonvisual media were not evaluated because the page exposes no relevant audio or media controls.",
+    "The application source and internal rendering implementation were not inspected; judgments rely on browser observations and delivered MCP screenshots.",
+    "An initial favicon.ico request returned 404, but it did not affect page operation; the final console after reload reported no messages."
+  ]
+}

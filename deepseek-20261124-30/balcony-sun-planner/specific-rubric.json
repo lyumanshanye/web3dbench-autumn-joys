@@ -1,0 +1,85 @@
+{
+  "version": "3.0",
+  "task": "balcony-sun-planner",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "The furnished 3D balcony includes solid side wall, railing and overhang with visible, geometrically plausible shadows.",
+      "action": "Inspect the furnished balcony and scrub the daylight controls.",
+      "expected": "The solid wall, railing and overhang cast visible shadows consistent with their positions.",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Compass orientation, sample location and date can be changed, and daylight scrubbing changes the sun/shade result.",
+      "action": "Change compass orientation, sample location and date, then scrub daylight hours.",
+      "expected": "The selected values update and the sun/shade result changes coherently.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Planters can be moved in top view and their shaded versus sunlit state can be inspected.",
+      "action": "Switch to top view, move a planter and inspect its shade at a fixed time.",
+      "expected": "The planter moves to the chosen position and its sunlit or shaded condition is inspectable.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "Two different planter arrangements can be compared at the same time of day.",
+      "action": "Create two arrangements and compare them at the same selected time.",
+      "expected": "Both layouts are distinguishable and the comparison uses the same time of day.",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "The simplified solar assumptions are visible and the demo works without location permission or an API key.",
+      "action": "Open the app without granting location access; inspect model assumptions.",
+      "expected": "Bundled sample locations permit immediate use without an API key, with simplified solar assumptions disclosed.",
+      "dimension": "instruction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect furnished balcony geometry, actual shadows, initial planters and documented solar assumptions.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Change location/date/orientation and daylight time, then move a planter from top view.",
+      "criteria": [
+        "G03",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Save one arrangement, change the other and compare under identical sunlight; reverse time and revisit a saved arrangement.",
+      "criteria": [
+        "G04",
+        "T04",
+        "T05"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect a 390px-wide viewport, including lower controls and focus navigation. Perform the task through the primary UI without relying on precise 3D camera manipulation. Record any clipped, obstructed or unreachable content.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

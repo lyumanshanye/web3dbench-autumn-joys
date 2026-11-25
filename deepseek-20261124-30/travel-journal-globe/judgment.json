@@ -1,0 +1,184 @@
+{
+  "summary": "Meridian is a polished travel-journal globe experience. Six complete trips span five continents; marker/list selection stays synchronized; the Japan cluster disambiguates Kyoto and Tokyo; far-side markers are hidden; search, year filtering, chronological ordering, empty-state recovery, reset-with-filters, direct trip URLs, refresh, history, mobile scrolling, and focus styling all behaved coherently.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded successfully at 1440x900 and 390x844. Console diagnostics recorded 0 errors and 0 warnings, and the network log shows the HTML, CSS, JavaScript, Three.js modules, Earth textures, and all six trip photos returning HTTP 200. The initial MCP browser launch needed a locally installed Chromium, but the evaluation itself ran normally.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-35-17-750Z.jpeg",
+      "evidence/page-2026-11-24T17-40-01-833Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The scene is a real textured 3D globe rather than a static image. Distinct full-globe, Iceland close-up, and Japan close-up views show perspective, regional geography, depth, and camera movement; near-side labels change with the view while far-side markers are absent from the interactive accessibility tree.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-35-17-750Z.jpeg",
+      "evidence/page-2026-11-24T17-35-37-872Z.jpeg",
+      "evidence/page-2026-11-24T17-36-29-582Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct camera views expose genuine task-relevant 3D: the full Earth, a North Atlantic/Iceland close-up after marker selection, and a Japan close-up after cluster selection. The continent outlines and marker positions remain spatially coherent as the camera moves.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-17-750Z.jpeg",
+        "evidence/page-2026-11-24T17-35-37-872Z.jpeg",
+        "evidence/page-2026-11-24T17-36-29-582Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Composition, typography, color, photography, and the Earth material form a coherent editorial travel-journal style. The cream journal panel, deep green globe surround, serif display type, and warm imagery maintain a clear hierarchy on desktop and mobile.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-17-750Z.jpeg",
+        "evidence/page-2026-11-24T17-39-30-579Z.jpeg",
+        "evidence/page-2026-11-24T17-40-01-833Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary interactions provide meaningful feedback: a globe marker opens Reykjavík and draws a highlighted ring and detail card; the same list link reopens the same entry; the Japan cluster expands into two independently selectable trips; selecting Kyoto moves the camera to Japan and changes the URL to #/trip/kyoto.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-37-872Z.jpeg",
+        "evidence/page-2026-11-24T17-35-56-498Z.jpeg",
+        "evidence/page-2026-11-24T17-36-16-257Z.jpeg",
+        "evidence/page-2026-11-24T17-36-29-582Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeat and recovery flows work: closing and reopening a trip, expanding the nearby-trip cluster, combining a text query with a year, receiving a useful no-results state with a clear-filters action, and resetting the camera all behaved correctly. Reset showed the full globe while preserving the Japan/2023 filter and its one-result count.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-16-257Z.jpeg",
+        "evidence/page-2026-11-24T17-39-30-579Z.jpeg",
+        "evidence/page-2026-11-24T17-40-01-833Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Desktop and narrow layouts were inspected. At 390x844 the page had ordinary document scrolling, moved from scrollY 0 to 455 on wheel input, kept the empty-state controls readable, and exposed a visible keyboard focus ring. Reload and resource diagnostics were clean.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-17-750Z.jpeg",
+        "evidence/page-2026-11-24T17-40-01-833Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "Six complete locally bundled entries cover Asia, Europe, North America, Africa, and South America (five continents). Verified examples include Kyoto 35.0116 N/135.7681 E (Apr 2019), Reykjavík 64.1466 N/21.9426 W (Sep 2019), New York 40.7128 N/74.0060 W (Oct 2021), Marrakech 31.6295 N/7.9811 W (Mar 2022), Tokyo 35.6762 N/139.6503 E (May 2023), and Patagonia 50.9423 S/73.4068 W (Nov 2024). Each opened card had full diary prose and a meaningful photo alt description; all photos loaded locally with HTTP 200.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-17-750Z.jpeg",
+        "evidence/page-2026-11-24T17-35-37-872Z.jpeg",
+        "evidence/page-2026-11-24T17-36-29-582Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Selecting the Reykjavík marker navigated to #/trip/reykjavik, centered and highlighted the Reykjavík location, and opened its detail card. Selecting the Reykjavík list link returned the same URL, camera view, highlight, coordinates, and journal content. Kyoto selection likewise navigated to #/trip/kyoto and centered the correct Japan location.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-37-872Z.jpeg",
+        "evidence/page-2026-11-24T17-35-56-498Z.jpeg",
+        "evidence/page-2026-11-24T17-36-29-582Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Markers on the far side were excluded from the interactive tree and absent from the rendered globe views, preventing click-through. The nearby Japan trips were disambiguated by a Japan cluster; expanding it showed separate Kyoto and Tokyo buttons, and each selected independently while both remained visibly distinct when zoomed into Japan.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-17-750Z.jpeg",
+        "evidence/page-2026-11-24T17-36-16-257Z.jpeg",
+        "evidence/page-2026-11-24T17-36-29-582Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "The baseline journal is chronological from Apr 2019 through Nov 2024. Combining search 'Japan' with year 2023 yielded exactly one Tokyo journey. Reset returned the full globe with the URL #/?year=2023&q=Japan and the filters/count intact. Search 'zzzz' with year 2023 produced 'No notes from this path', explanatory guidance, and a Clear all filters action.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-17-750Z.jpeg",
+        "evidence/page-2026-11-24T17-39-30-579Z.jpeg",
+        "evidence/page-2026-11-24T17-40-01-833Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "Trip routes are shareable hash URLs. Navigating directly to #/trip/reykjavik opened that trip, F5 refresh preserved the route and page, and browser Back returned to the prior journal context at #/?year=2023&q=zzzz with its empty-state view intact.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-56-498Z.jpeg",
+        "evidence/page-2026-11-24T17-36-29-582Z.jpeg",
+        "evidence/page-2026-11-24T17-40-01-833Z.jpeg"
+      ]
+    },
+    {
+      "id": "T06",
+      "status": "PASS",
+      "reason": "The trip list consists of native, named links suitable for keyboard traversal, and Tab produced a clearly visible focus ring on the interactive clear-search control. At 390x844 the document scrolled normally to the journal and lower empty-state controls instead of trapping the wheel input in the globe. Reduced-motion emulation reported prefers-reduced-motion: reduce and the page remained usable through trip navigation and reload.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-17-750Z.jpeg",
+        "evidence/page-2026-11-24T17-40-01-833Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All explicitly requested subject matter and flows were delivered coherently: six richly complete trips across five continents, synchronized globe/list selection, correct marker placement and occlusion, clustering, search and year filters, chronological view, reset without filter loss, shareable routes, history, empty state, mobile readability/scrolling, keyboard-friendly list links, and reduced-motion support.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-17-750Z.jpeg",
+        "evidence/page-2026-11-24T17-39-30-579Z.jpeg",
+        "evidence/page-2026-11-24T17-40-01-833Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The globe reads as a coherent 3D object from full and close views. Continents, ocean basins, polar regions, and trip positions remain geographically consistent; the camera depth and highlighted markers reinforce location selection, and far-side markers are properly occluded.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-17-750Z.jpeg",
+        "evidence/page-2026-11-24T17-35-37-872Z.jpeg",
+        "evidence/page-2026-11-24T17-36-29-582Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Every primary sequence worked naturally: marker-to-entry, list-to-entry, cluster expansion and distinct trip selection, filtering, empty-state recovery, camera reset with state preservation, direct URL restoration, refresh, and browser Back. Feedback was immediate and legible.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-36-16-257Z.jpeg",
+        "evidence/page-2026-11-24T17-39-30-579Z.jpeg",
+        "evidence/page-2026-11-24T17-40-01-833Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The desktop and mobile compositions maintain a distinctive editorial identity with clear hierarchy, readable type, restrained color, coherent imagery, and a globe treatment that feels integrated rather than decorative. Empty and filtered states remain visually purposeful.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-17-750Z.jpeg",
+        "evidence/page-2026-11-24T17-39-30-579Z.jpeg",
+        "evidence/page-2026-11-24T17-40-01-833Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "The submission remained stable across desktop, mobile, repeated selection, filtering, reset, direct URL entry, refresh, and Back. No console errors or warnings occurred and every requested local resource returned HTTP 200. The narrow layout stayed readable and scrollable.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-35-17-750Z.jpeg",
+        "evidence/page-2026-11-24T17-40-01-833Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "Touch hardware was not available; mobile behavior was tested using the required 390x844 viewport emulation rather than physical touch input.",
+    "Reduced-motion preference was confirmed in the browser and remained usable, but the exact camera-transition duration was not instrumented.",
+    "The clipboard contents of the Share trip buttons were not inspected; shareability was verified through direct trip URLs, refresh, and browser history.",
+    "The initial MCP launch failed because its bundled Chromium was absent; a system Chromium was installed at the expected executable path, after which all browser checks completed normally."
+  ]
+}

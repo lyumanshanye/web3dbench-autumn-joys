@@ -1,0 +1,170 @@
+{
+  "summary": "The app runs as a coherent balcony sun-study tool: a furnished, orbitable 3D balcony with wall, railing and overhang shadows; sample location, date, orientation and daylight controls; draggable top-view planters; and a same-time split comparison of two arrangements. Desktop and mobile layouts remained usable, and the documented NOAA approximation made the simplified model clear.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded and remained interactive before and after reload. The root, stylesheet, app module and Three.js resources returned successfully; the only console error was a nonblocking missing favicon.ico.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-23-17-780Z.jpeg",
+      "evidence/page-2026-11-24T17-27-02-230Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The scene is genuine, camera-interactive 3D rather than a static image: orbiting and pitching the camera produced consistent parallax, occlusion and perspective changes across the balcony, furniture, railing and overhang.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-23-17-780Z.jpeg",
+      "evidence/page-2026-11-24T17-24-16-317Z.jpeg",
+      "evidence/page-2026-11-24T17-24-37-773Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three materially different camera views showed correct depth and spatial relationships: the exterior overview, a rotated side view, and a high-angle view where the roof/overhang occludes the interior.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-17-780Z.jpeg",
+        "evidence/page-2026-11-24T17-24-16-317Z.jpeg",
+        "evidence/page-2026-11-24T17-24-37-773Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "Composition, type, muted palette, plan graphics and stylized 3D form a coherent identity. Important readouts, planter states and controls remain legible on desktop and mobile.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-17-780Z.jpeg",
+        "evidence/page-2026-11-24T17-27-02-230Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The primary controls produced meaningful feedback: location/date changes updated solar values, heading changes updated the compass and model, and daylight scrubbing changed both the 3D lighting and planter sun/shade results.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-37-108Z.jpeg",
+        "evidence/page-2026-11-24T17-23-59-022Z.jpeg",
+        "evidence/page-2026-11-24T17-24-51-584Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated A/B switching, same-time comparison, time reversal and returning to the edited A plan all worked. Slider keyboard Home/End boundary checks and a full page reload also succeeded; the devoted Reset layout recovery control is present.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-25-56-932Z.jpeg",
+        "evidence/page-2026-11-24T17-26-13-103Z.jpeg",
+        "evidence/page-2026-11-24T17-26-26-255Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Desktop 1440x900 and mobile 390x844 layouts were usable. The mobile full-page capture shows all lower controls and assumptions reachable within the 390px column, and reload restored a stable initial state. Actual touch hardware was not assessed.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-17-780Z.jpeg",
+        "evidence/page-2026-11-24T17-27-02-230Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "The furnished balcony has a solid side wall, metal railing and deep overhang. Low-sun and alternate-angle views show geometrically plausible railing, wall, planter and overhang shadows and occlusion.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-59-022Z.jpeg",
+        "evidence/page-2026-11-24T17-24-16-317Z.jpeg",
+        "evidence/page-2026-11-24T17-24-37-773Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Sydney and 2026-12-21 replaced the defaults; the local time, solar altitude/azimuth and planter statuses updated. Heading changed from 218° to 203°, and scrubbing from 05:41 to 20:05 changed lighting and totals from 0/5 to 5/5 in sun.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-37-108Z.jpeg",
+        "evidence/page-2026-11-24T17-23-51-455Z.jpeg",
+        "evidence/page-2026-11-24T17-23-59-022Z.jpeg",
+        "evidence/page-2026-11-24T17-24-51-584Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Dragging planter 03 in the top view moved its numbered marker and 3D position. At 12:25 it changed to Shade, the list updated, and the plan count fell to 3/5 in sun.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-25-25-377Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Plan A and Plan B were separately editable and then shown side by side at the same 12:25 time. Their planter positions differ, and at 10:35 both comparison panels updated together while showing different 3/5 and 2/5 shade counts.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-25-56-932Z.jpeg",
+        "evidence/page-2026-11-24T17-26-26-255Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "reason": "Eight bundled sample cities were immediately selectable without location permission or an API key. The visible model panel discloses the clear-sky NOAA approximation, its latitude/longitude/local-time inputs, unmodelled terrain/buildings/clouds/reflection, and ray-tested shadow assumptions.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-17-780Z.jpeg",
+        "evidence/page-2026-11-24T17-27-02-230Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "Every stated requirement was delivered and worked together across the tested states: furnished shadow-casting balcony, environmental controls, daylight scrubbing, top-view editing, same-time A/B comparison, and disclosed sample-based solar assumptions.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-17-780Z.jpeg",
+        "evidence/page-2026-11-24T17-25-56-932Z.jpeg",
+        "evidence/page-2026-11-24T17-27-02-230Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Geometry, camera depth, occlusion and shadow direction remain coherent across overview, side and high-angle views. Furniture and planters are spatially grounded, and the wall, railing and overhang visibly shape the light.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-59-022Z.jpeg",
+        "evidence/page-2026-11-24T17-24-16-317Z.jpeg",
+        "evidence/page-2026-11-24T17-24-37-773Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Primary operations, combinations, repeated plan switching and reversal behaved reliably with clear immediate feedback. The draggable plan and split comparison naturally support the planning task.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-25-25-377Z.jpeg",
+        "evidence/page-2026-11-24T17-25-56-932Z.jpeg",
+        "evidence/page-2026-11-24T17-26-13-103Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The warm material palette, restrained typography, legible overlays and consistent plan/readout styling create a purposeful sun-study expression rather than unrelated decoration.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-17-780Z.jpeg",
+        "evidence/page-2026-11-24T17-25-56-932Z.jpeg",
+        "evidence/page-2026-11-24T17-27-02-230Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "Desktop, mobile, repeated edits, comparison, time reversal and reload remained stable and readable. All required resources loaded; the sole console error was an irrelevant favicon 404.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-23-17-780Z.jpeg",
+        "evidence/page-2026-11-24T17-26-26-255Z.jpeg",
+        "evidence/page-2026-11-24T17-27-02-230Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The console contained one nonblocking error: favicon.ico returned 404. All stylesheet, app and Three.js requests succeeded (console.txt and network.txt).",
+    "At the tested solar boundary, both 05:41 and 20:05 reported altitude -1 degrees but produced different results (0/5 in sun versus 5/5 in sun). This appears to be a simplified-model edge behavior; the solar assumptions are disclosed and the required daylight flow still updates consistently.",
+    "Actual touch hardware, audio quality, downloaded exports and other internal implementation details were not applicable or verifiable; no export control was observed."
+  ]
+}

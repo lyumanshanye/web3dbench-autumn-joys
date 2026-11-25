@@ -1,0 +1,173 @@
+{
+  "summary": "AURAL is a coherent headphone landing page: a full-screen, recognizable real-time 3D headphone rotates under mouse drag, and bold black/lime typography, technical graphics, specifications and reserve controls carry a niche audiophile identity across desktop and phone layouts. The main defects are local: drags beginning over page copy can select text, and the translucent sticky header lets scrolled content collide visibly with the navigation. These issues do not block the product exploration or page controls.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded successfully as AURAL — Monolith 01 and rendered the hero, 3D scene, and all content sections. Console recording showed 0 messages/errors, and the network log showed the page, Three.js, CSS, script, and font resources returning 200 or 304.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-29-29-073Z.jpeg",
+      "evidence/page-2026-11-24T17-30-35-502Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The primary hero subject is a genuine real-time 3D headphone. Mouse drags changed its yaw from the frontal view to profile and rear-quarter views, revealing earcup thickness, inner-pad depth, headband curvature, occlusion, specular material changes and correct parallax rather than a flat image.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-29-29-073Z.jpeg",
+      "evidence/page-2026-11-24T17-29-45-238Z.jpeg",
+      "evidence/page-2026-11-24T17-30-09-166Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Three distinct observed states expose meaningful 3D structure: a frontal view with symmetric earcups, a strongly rotated side view showing housing thickness and overlapping parts, and a further profile/rear view showing the headband and near/far earcup depth. The changing geometry and occlusion are consistent with an orbitable 3D model.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-29-29-073Z.jpeg",
+        "evidence/page-2026-11-24T17-29-45-238Z.jpeg",
+        "evidence/page-2026-11-24T17-30-09-166Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The composition pairs a large product silhouette with oversized editorial type, lime and black accents, technical linework, metallic and matte headphone materials, and coherent supporting sections. The sticky translucent header can visually collide with content during scrolling, but the overall visual language remains purposeful and readable.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-29-29-073Z.jpeg",
+        "evidence/page-2026-11-24T17-30-56-792Z.jpeg",
+        "evidence/page-2026-11-24T17-31-16-262Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "The advertised drag-to-inspect interaction produced immediate, substantial orientation changes, with lighting and occlusion updating as the headphone rotated. The visible before/after states confirm meaningful scene feedback rather than a superficial animation.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-29-29-073Z.jpeg",
+        "evidence/page-2026-11-24T17-29-45-238Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeated drags continued to rotate the model in both tested directions, and reloading the URL restored the default frontal camera for recovery. A local artifact occurred when a drag started over overlay copy: text became selected, but the model still responded and the issue was cleared by reload.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-29-45-238Z.jpeg",
+        "evidence/page-2026-11-24T17-30-09-166Z.jpeg",
+        "evidence/page-2026-11-24T17-30-35-502Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "At 1440x900 and 390x844 the main content remained readable, the lower RESERVE MONOLITH 01 control stayed visible and reachable, reload succeeded, and the browser reported no console errors or failed resources. Mobile had no horizontal page overflow, and the first Tab stop showed a visible focus outline; the translucent sticky header does overlap content at some scroll offsets, and real touch hardware was not certified.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-30-35-502Z.jpeg",
+        "evidence/page-2026-11-24T17-31-44-472Z.jpeg",
+        "evidence/page-2026-11-24T17-32-15-856Z.jpeg",
+        "evidence/page-2026-11-24T17-32-21-718Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "A large, recognizable over-ear headphone is the dominant hero object and is rendered in three dimensions. Rotated views reveal earcup depth, a continuous headband, inner acoustic surfaces and accurate occlusion.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-29-29-073Z.jpeg",
+        "evidence/page-2026-11-24T17-29-45-238Z.jpeg",
+        "evidence/page-2026-11-24T17-30-09-166Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Dragging visibly changed the headphone's presentation from front to side/profile, and the operation remained repeatable. The interaction is advertised by DRAG TO INSPECT and gives immediate spatial feedback.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-29-29-073Z.jpeg",
+        "evidence/page-2026-11-24T17-29-45-238Z.jpeg",
+        "evidence/page-2026-11-24T17-30-09-166Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Bold black and acidic-lime colors, condensed display typography, technical labels, measurement graphics and restrained industrial product lighting create a coherent modern audiophile presentation on both desktop and phone. The sticky-header collisions are a local polish issue rather than a failure of the style.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-29-29-073Z.jpeg",
+        "evidence/page-2026-11-24T17-30-56-792Z.jpeg",
+        "evidence/page-2026-11-24T17-31-44-472Z.jpeg",
+        "evidence/page-2026-11-24T17-32-02-558Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "Product copy, price, technical profile and specifications remain readable around the hero, the EXPLORE THE OBJECT control successfully jumps to engineering, and the RESERVE controls are present and reachable on desktop and mobile; checkout and audio playback were neither required nor tested. Some scrolled section headings pass behind the translucent sticky header, but the information remains available and controls remain usable.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-30-35-502Z.jpeg",
+        "evidence/page-2026-11-24T17-30-56-792Z.jpeg",
+        "evidence/page-2026-11-24T17-31-07-201Z.jpeg",
+        "evidence/page-2026-11-24T17-32-15-856Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All stated requirements are delivered coherently in tested states: a headphone landing page, a prominent full-screen Three.js product, direct interactive inspection, and a bold modern audiophile identity with supporting product information.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-29-29-073Z.jpeg",
+        "evidence/page-2026-11-24T17-29-45-238Z.jpeg",
+        "evidence/page-2026-11-24T17-30-56-792Z.jpeg",
+        "evidence/page-2026-11-24T17-31-44-472Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The headphone geometry, earcup thickness, headband connection, inner surfaces, material response, lighting and occlusion remain coherent across three visibly different orientations. No severe spatial error was observed.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-29-29-073Z.jpeg",
+        "evidence/page-2026-11-24T17-29-45-238Z.jpeg",
+        "evidence/page-2026-11-24T17-30-09-166Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "The required drag interaction and repeat/recovery flows work, but dragging from overlay copy can leave a large green text selection across the page, which makes the interaction feel less natural even though it remains usable.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-29-29-073Z.jpeg",
+        "evidence/page-2026-11-24T17-29-53-167Z.jpeg",
+        "evidence/page-2026-11-24T17-30-35-502Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 3,
+      "reason": "Composition, typography, color and 3D form a strong coherent expression, but the translucent sticky header visibly collides with section headings and table rows during scrolling on desktop and mobile, creating a clear local visual inconsistency.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-31-07-201Z.jpeg",
+        "evidence/page-2026-11-24T17-31-16-262Z.jpeg",
+        "evidence/page-2026-11-24T17-31-44-472Z.jpeg",
+        "evidence/page-2026-11-24T17-32-02-558Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "The page is stable and readable at both tested viewports, reloads cleanly, has no console errors or failed resources, and keeps the lower control reachable. Local nonblocking defects remain: sticky-header overlap at scroll boundaries and text selection when drags start over overlay copy.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-30-35-502Z.jpeg",
+        "evidence/page-2026-11-24T17-31-44-472Z.jpeg",
+        "evidence/page-2026-11-24T17-32-15-856Z.jpeg",
+        "evidence/page-2026-11-24T17-32-21-718Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "Actual audio playback and acoustic quality were not evaluated; audio playback was not required by the task.",
+    "No download or export feature was offered, so there was no exported-image flow to reopen.",
+    "The 390x844 check used a resized browser viewport and does not certify behavior on real touch hardware.",
+    "Keyboard focus was verified at the first Tab stop; the entire focus order was not exhaustively traversed within the browser-call budget.",
+    "Playwright initially could not locate its Chromium binary; a host-provided compatible Chromium build was linked and the evaluation then proceeded normally.",
+    "Console and network diagnostics are stored in evidence/console.txt and evidence/network.txt; they are not screenshot evidence."
+  ]
+}

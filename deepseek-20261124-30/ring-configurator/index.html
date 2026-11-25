@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#eee9e1">
+  <meta name="description" content="Design your wedding band in yellow gold, platinum, or rose gold. Adjust the width, preview a personal engraving, and download your design.">
+  <title>Aurel Atelier — The Wedding Band Configurator</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%231e1d1a'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23d0aa61' stroke-width='7'/%3E%3C/svg%3E">
+  <link rel="preload" href="./assets/AurelSerif-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="./assets/AurelSerif-Italic.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../../vendor/three/three.module.js",
+        "three/addons/": "../../vendor/three/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="page-grain" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Aurel Atelier home">
+      <span class="brand-name">AUREL</span>
+      <span class="brand-sub">ATELIER · NEW YORK</span>
+    </a>
+
+    <nav class="primary-nav" aria-label="Primary navigation">
+      <a class="is-active" href="#configurator">The wedding edit</a>
+      <a href="#configurator">Bespoke</a>
+      <a href="#configurator">Our story</a>
+    </nav>
+
+    <div class="header-actions">
+      <span class="appointment-copy">Private appointments<br>New York · London</span>
+      <a class="text-link" href="#configurator">Book a viewing <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main class="configurator" id="configurator">
+    <section class="panel" aria-labelledby="page-title">
+      <div class="panel-inner">
+        <div class="eyebrow reveal-1"><span class="eyebrow-line"></span> The wedding edit · 01</div>
+        <h1 class="reveal-2" id="page-title">Two rings.<br>One <em>forever.</em></h1>
+        <p class="lede reveal-3">A modern heirloom, hand-finished in recycled 18k gold or platinum. Compare the metals, refine the width, and make it unmistakably yours.</p>
+
+        <div class="price-row reveal-3">
+          <span class="price">$1,480</span>
+          <span class="price-note">from / band</span>
+          <span class="price-detail"><i></i> Made to order</span>
+        </div>
+
+        <form class="controls reveal-4" id="controls" onsubmit="return false">
+          <fieldset class="control-group metal-group">
+            <legend class="control-heading">
+              <span>Choose your metal</span>
+              <span class="selection-label" id="metalName">18k Yellow Gold</span>
+            </legend>
+            <div class="metal-grid" role="radiogroup" aria-label="Metal">
+              <button class="metal-option is-active" type="button" data-metal="yellow" role="radio" aria-checked="true">
+                <span class="metal-swatch swatch-yellow" aria-hidden="true"></span>
+                <span class="metal-copy"><strong>Yellow gold</strong><small>18k · Warm</small></span>
+                <span class="option-check" aria-hidden="true"></span>
+              </button>
+              <button class="metal-option" type="button" data-metal="platinum" role="radio" aria-checked="false">
+                <span class="metal-swatch swatch-platinum" aria-hidden="true"></span>
+                <span class="metal-copy"><strong>Platinum</strong><small>PT950 · Cool</small></span>
+                <span class="option-check" aria-hidden="true"></span>
+              </button>
+              <button class="metal-option" type="button" data-metal="rose" role="radio" aria-checked="false">
+                <span class="metal-swatch swatch-rose" aria-hidden="true"></span>
+                <span class="metal-copy"><strong>Rose gold</strong><small>18k · Blush</small></span>
+                <span class="option-check" aria-hidden="true"></span>
+              </button>
+            </div>
+          </fieldset>
+
+          <fieldset class="control-group width-group">
+            <legend class="control-heading">
+              <label for="widthRange">Band width</label>
+              <output id="widthValue" for="widthRange">4.5 mm</output>
+            </legend>
+            <div class="range-wrap">
+              <input id="widthRange" type="range" min="2" max="8" value="4.5" step="0.5" aria-label="Band width in millimetres">
+              <div class="range-ticks" aria-hidden="true"><span>2</span><span>4</span><span>6</span><span>8</span></div>
+            </div>
+          </fieldset>
+
+          <fieldset class="control-group engraving-group">
+            <legend class="control-heading">
+              <label for="engravingInput">Inside engraving</label>
+              <span class="optional">Complimentary</span>
+            </legend>
+            <div class="engraving-field">
+              <input id="engravingInput" type="text" maxlength="28" value="To have &amp; to hold" autocomplete="off" spellcheck="false" aria-describedby="engravingHelp">
+              <span class="character-count" id="characterCount">17 / 28</span>
+            </div>
+            <p class="field-help" id="engravingHelp"><span class="help-mark" aria-hidden="true">i</span> Previewed on the inner band in the atelier view.</p>
+          </fieldset>
+
+          <div class="actions">
+            <button class="button button-primary" id="downloadButton" type="button">
+              <span>Download your design</span>
+              <span class="button-icon" aria-hidden="true">↓</span>
+            </button>
+            <button class="button button-quiet" id="resetButton" type="button">
+              <span class="reset-icon" aria-hidden="true">↺</span>
+              <span>Reset</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel-footer">
+        <span><i></i> Complimentary engraving</span>
+        <span>Hand-finished in New York</span>
+      </div>
+    </section>
+
+    <section class="viewer" aria-label="Interactive 3D wedding band preview">
+      <div class="viewer-toolbar">
+        <div class="viewer-title">
+          <span class="viewer-index">03 / 04</span>
+          <span>Atelier view</span>
+        </div>
+        <div class="view-tabs" role="tablist" aria-label="Preview angle">
+          <button class="view-tab is-active" type="button" data-view="profile" role="tab" aria-selected="true">Profile</button>
+          <button class="view-tab" type="button" data-view="inside" role="tab" aria-selected="false">Inside engraving</button>
+        </div>
+      </div>
+
+      <div class="canvas-stage" id="canvasStage">
+        <div class="stage-orb" aria-hidden="true"></div>
+        <div class="stage-orbit orbit-one" aria-hidden="true"></div>
+        <div class="stage-orbit orbit-two" aria-hidden="true"></div>
+        <canvas id="ringCanvas" aria-label="A 3D preview of your configured wedding band"></canvas>
+        <div class="fallback-ring" id="fallbackRing" aria-hidden="true"><span>To have &amp; to hold</span></div>
+        <div class="ring-shadow" aria-hidden="true"></div>
+
+        <div class="stage-topline">
+          <span>Object no. 03</span>
+          <span class="stage-status"><i></i> Live preview</span>
+        </div>
+
+        <div class="stage-meta" aria-live="polite">
+          <span id="metalSpec">18k Yellow Gold</span>
+          <i></i>
+          <span id="widthSpec">4.5 mm width</span>
+        </div>
+
+        <div class="engraving-card" id="engravingCard">
+          <div class="card-eyebrow">Inside the band <span>Preview</span></div>
+          <svg class="engraving-arc" viewBox="0 0 330 78" role="img" aria-label="Engraving preview">
+            <defs>
+              <path id="engravingPath" d="M 16 62 Q 165 12 314 62"></path>
+            </defs>
+            <text id="arcText" text-anchor="middle">
+              <textPath href="#engravingPath" startOffset="50%">To have &amp; to hold</textPath>
+            </text>
+          </svg>
+          <span class="card-caption">Hand-engraved, never printed</span>
+        </div>
+
+        <div class="drag-hint" id="dragHint"><span class="drag-icon" aria-hidden="true">↔</span> Drag to rotate</div>
+
+        <div class="toast" id="toast" role="status" aria-live="polite">
+          <span class="toast-check" aria-hidden="true">✓</span>
+          <span id="toastText">Design saved</span>
+        </div>
+      </div>
+
+      <div class="viewer-footer">
+        <div class="footer-note"><span class="fine-line"></span> A quiet weight. A considered curve.</div>
+        <div class="viewer-spec"><span>Comfort-fit interior</span><span>·</span><span>Made to order in 3–4 weeks</span></div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

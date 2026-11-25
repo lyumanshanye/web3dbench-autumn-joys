@@ -1,0 +1,172 @@
+{
+  "summary": "Helios — An Interactive Solar System is a polished, real-time 3D orrery. The opening view shows the Sun and all eight labeled planets on perspective orbit rings; planetary positions advance over time. 'Begin the drift' and the orbital index fly the camera to individual planets with detailed 3D spheres (Earth/Moon, banded Jupiter with moons, ringed Saturn) and data panels. System overview, Escape, repeated selections, the Auto Drift toggle, mobile layout, keyboard focus, and reload all worked without console or resource errors.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded as 'Helios — An Interactive Solar System' with a full-viewport WebGL canvas rendering continuously. Reloading reproduced the scene. Console log is empty (0 errors, 0 warnings) and the 30 recorded requests all returned 200/304, including three.js and post-processing modules.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-42-56-305Z.jpeg",
+      "evidence/page-2026-11-24T17-45-08-875Z.jpeg",
+      "evidence/page-2026-11-24T17-45-26-178Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The scene is genuine real-time 3D, not a static image: the Sun, eight labeled planets, elliptical orbit rings, asteroid belt, moons, and star field render with perspective and depth. Close-ups reveal Earth's ocean/cloud globe with the Moon occluding its limb, Jupiter's banded sphere with moons at differing depths, and Saturn's tilted rings passing in front of and behind the planet. Orbital positions visibly changed between time points.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-43-19-081Z.jpeg",
+      "evidence/page-2026-11-24T17-43-26-853Z.jpeg",
+      "evidence/page-2026-11-24T17-43-34-578Z.jpeg",
+      "evidence/page-2026-11-24T17-45-26-178Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "Four distinct viewpoints were inspected: the wide ecliptic overview, Earth close-up, Jupiter close-up, and Saturn close-up. Depth cues are coherent across them: nested orbit rings recede in perspective, the Moon sits in front of Earth, Jupiter's moons sit at varied depths, and Saturn's ring plane correctly occludes and is occluded by the planet.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-42-56-305Z.jpeg",
+        "evidence/page-2026-11-24T17-43-19-081Z.jpeg",
+        "evidence/page-2026-11-24T17-43-34-578Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The dark atlas composition, ivory serif typography, warm gold accents, bloom-lit Sun, and textured planet materials form a coherent visual expression. Labels, orbit index, and data panels are legible and do not obscure the 3D scene on desktop. Mobile is cramped but still readable.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-42-56-305Z.jpeg",
+        "evidence/page-2026-11-24T17-43-26-853Z.jpeg",
+        "evidence/page-2026-11-24T17-44-04-721Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Primary controls produce meaningful scene/state feedback: 'Begin the drift' flies from 6.07 AU to Earth (about 1 AU) and opens its detail panel; Jupiter and Saturn index selections move the camera and swap the panel data; the Auto Drift toggle highlights and drifts to Earth. Camera readout, selected-index highlight, and panel content all update together.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-43-19-081Z.jpeg",
+        "evidence/page-2026-11-24T17-43-26-853Z.jpeg",
+        "evidence/page-2026-11-24T17-45-39-155Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Repeat and recovery flows work: System overview restores the wide 6.06–6.07 AU view after visiting Earth, Jupiter, and Saturn; Escape closes the detail panel and returns to overview while retaining the index selection; reload reopens a clean overview; selecting another planet after returning works. No dead end was found.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-43-42-449Z.jpeg",
+        "evidence/page-2026-11-24T17-43-55-373Z.jpeg",
+        "evidence/page-2026-11-24T17-45-08-875Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PASS",
+      "reason": "Both 1440x900 and 390x844 render without scroll overflow (scroll size equals viewport). On mobile the compact bottom index, System Overview, and Auto Drift controls remain reachable, and a Saturn selection opens a readable detail sheet. Keyboard focus reaches the Auto Drift control via Shift+Tab, and reload is stable. Console had 0 messages and all network requests returned 200/304. Minor mobile crowding is noted in limitations.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-44-04-721Z.jpeg",
+        "evidence/page-2026-11-24T17-44-13-618Z.jpeg",
+        "evidence/page-2026-11-24T17-45-26-178Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "A recognizable 3D Sun and all eight planets are present and labeled from the offered views. The wide view shows Sun, Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune, and individual close-ups confirm spherical geometry and varied materials.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-42-56-305Z.jpeg",
+        "evidence/page-2026-11-24T17-45-26-178Z.jpeg",
+        "evidence/page-2026-11-24T17-43-34-578Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "Planets visibly orbit over time. Comparing the initial frame with a frame taken four seconds later shows Mercury moving from below-left of the Sun to upper-left, Venus and Mars shifting along their rings, and later views show further changed positions. Motion is geometric, not just textual.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-42-56-305Z.jpeg",
+        "evidence/page-2026-11-24T17-43-11-695Z.jpeg",
+        "evidence/page-2026-11-24T17-43-42-449Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "The user can travel among and inspect planets with usable controls: the primary CTA drifts to Earth, index rows fly to Jupiter and Saturn, the Auto Drift toggle drifts to a body, and each visit gives a close-up globe, labels, and a data panel. System Overview returns to the wide system.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-43-19-081Z.jpeg",
+        "evidence/page-2026-11-24T17-43-26-853Z.jpeg",
+        "evidence/page-2026-11-24T17-45-39-155Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "The presentation conveys scale and wonder: the wide ecliptic view shows all eight orbits and the distant ice giants, while close-ups reveal atmospheric detail, moons, and rings with contextual AU/diameter/year data. Desktop navigation remains unobscured; on mobile the hero CTA overlaps the Sun and the detail sheet dims part of the planet, but navigation stays usable.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-45-26-178Z.jpeg",
+        "evidence/page-2026-11-24T17-43-19-081Z.jpeg",
+        "evidence/page-2026-11-24T17-44-04-721Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "All stated requirements are delivered coherently: an immersive 3D solar system, drift/travel between planets, visibly orbiting planets, and a strong sense of scale and wonder through wide and near views. No requested flow is missing.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-42-56-305Z.jpeg",
+        "evidence/page-2026-11-24T17-43-19-081Z.jpeg",
+        "evidence/page-2026-11-24T17-43-34-578Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Shapes, spatial relations, lighting, and materials consistently serve the task. Orbit rings, moons, ring-plane occlusion, planet shadows, and perspective remain coherent across wide, Earth, Jupiter, and Saturn views.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-43-19-081Z.jpeg",
+        "evidence/page-2026-11-24T17-43-26-853Z.jpeg",
+        "evidence/page-2026-11-24T17-43-34-578Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Sequences and recovery are reliable and natural: overview to Earth, Earth to Jupiter to Saturn, back to overview, Escape recovery, reload, and Auto Drift all worked. Feedback comes through camera motion, selected-row highlight, labels, and panel updates.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-43-19-081Z.jpeg",
+        "evidence/page-2026-11-24T17-43-42-449Z.jpeg",
+        "evidence/page-2026-11-24T17-45-39-155Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "Purposeful details and state transitions improve understanding: the atlas typography, restrained palette, bloom, orbit labels, and detailed planetary surfaces support the wonder brief, while the panel hierarchy keeps data readable. Mobile remains legible despite some crowding.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-42-56-305Z.jpeg",
+        "evidence/page-2026-11-24T17-43-26-853Z.jpeg",
+        "evidence/page-2026-11-24T17-44-13-618Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 4,
+      "reason": "All standard and repeat checks were stable and reliably loaded on desktop and the 390x844 viewport: no console errors, all resources 200/304, reload returns to a working overview, repeat selections and returns work, and lower controls remain reachable. Minor mobile crowding did not block any flow.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-44-04-721Z.jpeg",
+        "evidence/page-2026-11-24T17-45-08-875Z.jpeg",
+        "evidence/page-2026-11-24T17-45-26-178Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "No audio element or audio-quality control was available to assess; audio quality is NOT_EVALUATED.",
+    "No export/download control was present in the UI, so downloaded-export inspection was not applicable.",
+    "Touch hardware was not tested; only a 390x844 resized viewport certifies narrow-layout reachability.",
+    "On mobile the hero 'Begin the drift' CTA overlaps the Sun, and the planet detail sheet dims/covers part of the selected planet; navigation remains reachable.",
+    "Keyboard focus-ring visibility was inconclusive: two forward Tabs from the body left BODY focused, while Shift+Tab reached the Auto Drift button.",
+    "Mouse drag and scroll-to-scale camera gestures were not separately exercised within the 40-call budget; camera travel was verified through the CTA, index, System Overview, Escape, and Auto Drift.",
+    "Literal physical scale was not assessed because the task permits artistic scaling.",
+    "Console and network diagnostics were saved to evidence/console.txt and evidence/network.txt; they are not used as screenshot evidence."
+  ]
+}

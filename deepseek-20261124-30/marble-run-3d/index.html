@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#dce9ef" />
+    <meta name="description" content="Gravity Works — a tabletop marble-run physics puzzle." />
+    <title>Gravity Works — Tabletop Marble Puzzle</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='27' fill='%23ff785f'/><circle cx='23' cy='20' r='8' fill='%23fff4df'/><path d='M8 38h48' stroke='%231a3345' stroke-width='5'/></svg>" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/",
+          "cannon-es": "../../vendor/cannon-es/cannon-es.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main id="app">
+      <div id="scene-root" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span class="brand-orbit"></span>
+            <span class="brand-ball"></span>
+          </div>
+          <div class="brand-copy">
+            <p class="kicker">Tabletop physics lab · No. 07</p>
+            <h1>Gravity <em>Works</em></h1>
+          </div>
+        </div>
+
+        <div class="hud">
+          <div class="attempt-block" aria-live="polite">
+            <span class="micro-label">Attempts</span>
+            <strong id="attempt-count">00</strong>
+          </div>
+          <div id="status-chip" class="status-chip is-setup">
+            <span class="status-dot"></span>
+            <span id="status-text">Set up</span>
+          </div>
+          <button id="pause-button" class="icon-button" type="button" aria-label="Pause run" title="Pause run (P)" disabled>
+            <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="7" y="5" width="3.5" height="14" rx="1"></rect>
+              <rect x="13.5" y="5" width="3.5" height="14" rx="1"></rect>
+            </svg>
+            <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 5.4v13.2L19 12 8 5.4Z"></path>
+            </svg>
+            <span class="icon-label">Pause</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="view-toolbar" aria-label="Camera options">
+        <div class="view-switch" role="group" aria-label="Camera view">
+          <button id="course-camera" class="view-button is-active" type="button" aria-pressed="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 7 6-3 6 3 6-3v13l-6 3-6-3-6 3V7Z"></path><path d="M9 4v13M15 7v13"></path></svg>
+            Course
+          </button>
+          <button id="follow-camera" class="view-button" type="button" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="4"></circle><path d="M12 3v3M5.6 6.6l2.1 2.1M3 13h3M18 13h3M16.3 8.7l2.1-2.1"></path></svg>
+            Follow
+          </button>
+        </div>
+        <p id="view-hint" class="view-hint">Drag to orbit · Scroll to zoom</p>
+      </div>
+
+      <section id="result-card" class="result-card" aria-live="assertive" aria-hidden="true">
+        <div class="result-icon" id="result-icon" aria-hidden="true">
+          <svg class="result-check" viewBox="0 0 48 48"><path d="m12 25 8 8 16-18"></path></svg>
+          <svg class="result-cross" viewBox="0 0 48 48"><path d="m15 15 18 18M33 15 15 33"></path></svg>
+        </div>
+        <div class="result-copy">
+          <p id="result-eyebrow" class="result-eyebrow">Run complete</p>
+          <h2 id="result-title">Made it!</h2>
+          <p id="result-message">The marble found the finish basin.</p>
+        </div>
+        <button id="result-retry" class="result-retry" type="button" aria-label="Retry attempt">
+          <span>Try again</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"></path></svg>
+        </button>
+      </section>
+
+      <div id="pause-overlay" class="pause-overlay" aria-hidden="true">
+        <div class="pause-panel">
+          <span class="pause-kicker">Simulation held</span>
+          <h2>Run paused</h2>
+          <p>The marble is hanging tight.</p>
+          <button id="resume-button" class="resume-button" type="button">Resume run</button>
+        </div>
+      </div>
+
+      <div id="confetti" class="confetti" aria-hidden="true"></div>
+
+      <section class="control-dock" aria-label="Launch controls">
+        <div class="dock-grip" aria-hidden="true"></div>
+        <div class="dock-head">
+          <div>
+            <p class="kicker">Launch console</p>
+            <h2>Dial in the jump</h2>
+          </div>
+          <span id="lock-badge" class="lock-badge">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+            Ready
+          </span>
+        </div>
+
+        <div class="slider-stack">
+          <label class="slider-row" for="power-slider">
+            <span class="slider-title">
+              <span class="slider-index">01</span>
+              <span>
+                <strong>Launch impulse</strong>
+                <small>Push off the start pad</small>
+              </span>
+            </span>
+            <output id="power-output" for="power-slider">62%</output>
+            <input id="power-slider" class="range" type="range" min="30" max="100" step="1" value="62" />
+            <span class="slider-scale" aria-hidden="true"><i>soft</i><i>firm</i></span>
+          </label>
+
+          <label class="slider-row" for="angle-slider">
+            <span class="slider-title">
+              <span class="slider-index">02</span>
+              <span>
+                <strong>Jump ramp angle</strong>
+                <small>Tilts the kicker and its rails</small>
+              </span>
+            </span>
+            <output id="angle-output" for="angle-slider">20°</output>
+            <input id="angle-slider" class="range" type="range" min="8" max="32" step="1" value="20" />
+            <span class="slider-scale" aria-hidden="true"><i>flat</i><i>steep</i></span>
+          </label>
+        </div>
+
+        <div class="dock-actions">
+          <button id="release-button" class="release-button" type="button">
+            <span class="release-orb" aria-hidden="true"><i></i></span>
+            <span class="release-label">Release marble</span>
+            <kbd>Space</kbd>
+          </button>
+          <div class="utility-actions">
+            <button id="retry-button" class="utility-button" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"></path></svg>
+              Retry
+            </button>
+            <button id="reset-button" class="utility-button" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6M4.7 15a8 8 0 1 0 .6-6.5L4 10"></path></svg>
+              Reset all
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div class="corner-note" aria-hidden="true">
+        <span class="corner-line"></span>
+        <span>Ball ⌀ 26 mm · Steel</span>
+      </div>
+    </main>
+
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,183 @@
+{
+  "summary": "The page is a polished, functioning 3D bicycle puncture-repair lesson. The cutaway wheel clearly distinguishes the tire, tube, rim, spokes, hub, and valve; all six repair stages show matching model changes; pause, rotation, keyboard navigation, step revisiting, and both practice modes work. A mistake is explained and can be retried. The main residual issue is that some mobile navigation controls are compact, making the tablet/mobile accessibility requirement only partially satisfied.",
+  "infra_status": "NORMAL",
+  "runtime": {
+    "status": "PASS",
+    "reason": "The page loaded successfully at desktop and 390x844 sizes, rendered the interactive wheel, and remained responsive through reload and repeated practice flows. The only observed console/resource error was a non-blocking 404 for favicon.ico, recorded in evidence/console.txt.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-20-03-302Z.jpeg",
+      "evidence/page-2026-11-24T17-25-15-138Z.jpeg"
+    ]
+  },
+  "scene": {
+    "status": "PASS",
+    "reason": "The page contains genuine task-relevant 3D geometry: the cutaway tire exposes the inner tube, and rotation reveals tire thickness, spoke depth, hub occlusion, and a consistent perspective rather than a static image or unrelated canvas.",
+    "evidence": [
+      "evidence/page-2026-11-24T17-20-03-302Z.jpeg",
+      "evidence/page-2026-11-24T17-21-24-252Z.jpeg",
+      "evidence/page-2026-11-24T17-21-34-879Z.jpeg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "status": "PASS",
+      "reason": "The wheel was inspected from the front and two substantially different oblique angles. Spokes, hub, rim, tire, tube, and valve retain coherent depth and occlusion as the model rotates.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-03-302Z.jpeg",
+        "evidence/page-2026-11-24T17-21-24-252Z.jpeg",
+        "evidence/page-2026-11-24T17-21-34-879Z.jpeg"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "PASS",
+      "reason": "The warm workshop palette, serif/sans typography hierarchy, illustrated materials, soft lighting, and clear separation of instruction from the 3D work area form a coherent and legible presentation.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-03-302Z.jpeg",
+        "evidence/page-2026-11-24T17-22-16-455Z.jpeg",
+        "evidence/page-2026-11-24T17-25-15-138Z.jpeg"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "PASS",
+      "reason": "Next/secondary navigation and direct step buttons produced the promised instruction, pressure, annotation, and geometry changes throughout the six-stage lesson. Part and ordering choices also produced immediate feedback and state changes.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-18-329Z.jpeg",
+        "evidence/page-2026-11-24T17-20-27-067Z.jpeg",
+        "evidence/page-2026-11-24T17-20-56-166Z.jpeg",
+        "evidence/page-2026-11-24T17-22-28-044Z.jpeg"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "PASS",
+      "reason": "Back navigation and direct revisiting worked, ArrowRight advanced a step, Pause changed to Spin and stopped motion, and rotation remained usable while paused. Practice accepted a wrong part, explained the mistake, accepted corrected answers, evaluated the ordering round, offered Try Again, and reset to a fresh attempt.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-21-13-372Z.jpeg",
+        "evidence/page-2026-11-24T17-21-46-949Z.jpeg",
+        "evidence/page-2026-11-24T17-21-58-253Z.jpeg",
+        "evidence/page-2026-11-24T17-22-28-044Z.jpeg",
+        "evidence/page-2026-11-24T17-25-15-138Z.jpeg"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "PARTIAL",
+      "reason": "The 1440x900 desktop and 390x844 layouts both rendered without horizontal overflow; the mobile primary Next control measured 217x50 and was reachable at the bottom, and reload completed cleanly. However, several mobile step/header targets are only 35-36px high, and the narrow viewport is emulation rather than proof of physical touch ergonomics. Console output showed only a favicon 404; direct network-log capture was limited by the call budget.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-03-302Z.jpeg",
+        "evidence/page-2026-11-24T17-25-15-138Z.jpeg"
+      ]
+    },
+    {
+      "id": "T01",
+      "status": "PASS",
+      "reason": "Tire, orange inner tube, rim, spokes, hub, and valve are individually recognizable and labeled. The tire is visibly cut away so the tube can be seen sitting inside it, and the relationship remains coherent from multiple angles.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-03-302Z.jpeg",
+        "evidence/page-2026-11-24T17-21-24-252Z.jpeg",
+        "evidence/page-2026-11-24T17-21-34-879Z.jpeg"
+      ]
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "reason": "All requested stages were exercised in order. Deflate showed valve release, unseat exposed a tire lever and lifted bead, remove eased the orange tube out, locate inflated to 8 PSI with bubbles and a marked puncture, patch showed a patch over the puncture, and rebuild seated the tube/tire at 45 PSI. Each stage paired its model change with a concise instruction and bench tip.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-03-302Z.jpeg",
+        "evidence/page-2026-11-24T17-20-18-329Z.jpeg",
+        "evidence/page-2026-11-24T17-20-27-067Z.jpeg",
+        "evidence/page-2026-11-24T17-20-37-629Z.jpeg",
+        "evidence/page-2026-11-24T17-20-46-477Z.jpeg",
+        "evidence/page-2026-11-24T17-20-56-166Z.jpeg"
+      ]
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "reason": "Pause changed to Spin and stopped automatic motion; dragging rotated the wheel through two distinct angles; component labels followed the tire, tube, rim, spokes, hub, and valve. Directly selecting step 3 restored its instruction and geometry, and ArrowRight advanced to step 4.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-21-13-372Z.jpeg",
+        "evidence/page-2026-11-24T17-21-24-252Z.jpeg",
+        "evidence/page-2026-11-24T17-21-34-879Z.jpeg",
+        "evidence/page-2026-11-24T17-21-46-949Z.jpeg",
+        "evidence/page-2026-11-24T17-21-58-253Z.jpeg"
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "reason": "The practice round includes three part-identification questions and a six-step ordering exercise. Selecting Tire for the inner-tube question produced explicit corrective feedback and allowed an immediate retry. The ordering round rejected an out-of-sequence step with guidance, accepted the correct sequence, issued a completion result, and the Try Again action reset practice for another attempt.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-22-16-455Z.jpeg",
+        "evidence/page-2026-11-24T17-22-28-044Z.jpeg",
+        "evidence/page-2026-11-24T17-25-15-138Z.jpeg"
+      ]
+    },
+    {
+      "id": "T05",
+      "status": "PARTIAL",
+      "reason": "At 390x844 the layout stacks cleanly, has no horizontal overflow, keeps instructions and answer choices readable, and provides a 217x50 primary action. The step chips and some header/view controls are only 35-36px high, however, and component labels are off by default at this width, so the ergonomic requirement for all tablet/workbench controls and labels is not fully met.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-21-34-879Z.jpeg",
+        "evidence/page-2026-11-24T17-25-15-138Z.jpeg"
+      ]
+    }
+  ],
+  "quality": {
+    "instruction": {
+      "score": 4,
+      "reason": "The complete repair lesson and both required practice modes are present. Every repair stage has a concise instruction, a matching visible state, and the flow can be revisited; part identification, ordering, corrective feedback, and repeat attempts are all delivered coherently.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-03-302Z.jpeg",
+        "evidence/page-2026-11-24T17-20-37-629Z.jpeg",
+        "evidence/page-2026-11-24T17-20-56-166Z.jpeg",
+        "evidence/page-2026-11-24T17-22-28-044Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "The wheel's scale, layered rim/tire/tube assembly, spoke network, hub occlusion, valve placement, cutaway, shadows, and perspective remain convincing and instructional across three camera views.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-03-302Z.jpeg",
+        "evidence/page-2026-11-24T17-21-24-252Z.jpeg",
+        "evidence/page-2026-11-24T17-21-34-879Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 4,
+      "reason": "Primary step progression, direct revisiting, keyboard navigation, pause/resume, rotation, label tracking, incorrect-answer recovery, sequence validation, completion feedback, and full practice retry all remained reliable in repeated use.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-21-13-372Z.jpeg",
+        "evidence/page-2026-11-24T17-21-46-949Z.jpeg",
+        "evidence/page-2026-11-24T17-22-28-044Z.jpeg",
+        "evidence/page-2026-11-24T17-25-15-138Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The composition is purpose-built for bench-side learning: a clear lesson column, dominant 3D work area, restrained warm palette, strong type hierarchy, compact status chips, and labels that visually attach to their parts. The mobile stacking remains coherent.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-03-302Z.jpeg",
+        "evidence/page-2026-11-24T17-22-16-455Z.jpeg",
+        "evidence/page-2026-11-24T17-25-15-138Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "All tested lesson, rotation, reload, keyboard, and repeated practice flows remained stable without blocking failures. The remaining local issues are non-blocking: a favicon 404 and undersized 35-36px mobile navigation/header targets, with only emulated rather than physical touch testing.",
+      "evidence": [
+        "evidence/page-2026-11-24T17-20-03-302Z.jpeg",
+        "evidence/page-2026-11-24T17-25-15-138Z.jpeg"
+      ]
+    }
+  },
+  "limitations": [
+    "The 390x844 check used viewport emulation, not physical touch hardware; tap ergonomics and pinch gestures were not validated on a real tablet.",
+    "Direct browser network-request logging was not captured before the browser-call budget was exhausted. A derivation note is saved in evidence/network.txt; console output is saved in evidence/console.txt and shows only a non-blocking favicon 404.",
+    "No download/export control was advertised by the page, so no downloaded export was available to inspect.",
+    "Internal implementation details and audio quality were not assessed because they are not required or observable task outcomes here."
+  ]
+}
