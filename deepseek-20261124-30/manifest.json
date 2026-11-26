@@ -126,13 +126,20 @@
     {
       "task": "mechanical-watch-explorer",
       "title": "Mechanical Watch Explorer",
-      "url": null,
-      "available": false,
+      "url": "mechanical-watch-explorer/",
+      "available": true,
       "sample_id": "bce63617-c96c-4062-8c17-53a6d01c69e9",
       "historical_status": "failed",
       "Q_vlm": null,
       "end_to_end_Q_vlm": null,
-      "grading_valid": false
+      "grading_valid": false,
+      "recovery": {
+        "kind": "original_trajectory_patch_replay",
+        "model_rerun": false,
+        "screenshots": "captured_after_restoration",
+        "judge_status": "PENDING",
+        "historical_result_preserved": true
+      }
     },
     {
       "task": "moon-phase-lesson",

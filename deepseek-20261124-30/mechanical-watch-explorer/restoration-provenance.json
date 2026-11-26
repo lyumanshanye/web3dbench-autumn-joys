@@ -1,0 +1,22 @@
+{
+  "kind": "deterministic_replay_of_original_successful_file_patches",
+  "proxy_sha256": "0d1f3a73ad076ce3ca50a82cbe408f5d37aadeb3ed470f0164b4f5aa98fdc30b",
+  "patches_applied": 13,
+  "line_counts_match_original_final_wc": {
+    "index.html": 143,
+    "styles.css": 838,
+    "package-lock.json": 21,
+    "package.json": 9,
+    "main.js": 1321
+  },
+  "model_rerun": false,
+  "manual_code_changes": false,
+  "historical_result_unchanged": true,
+  "source_sha256": {
+    "index.html": "430f76802204ef8ac252df93e7aa53a17a3ecdb01342a0eff6f86be823dfd1a9",
+    "styles.css": "6688f65e232ef356d40b7405fe55bc448f8260273b99d9b9236d04babf3d0130",
+    "package-lock.json": "dd6c007e13ac550bfe84a18603412419440e381b1b7572af9657d29d11d71239",
+    "package.json": "e15315cf3fcff84a70f2c56b9549b13df6285e4a34e08107929ba99d61835126",
+    "main.js": "d7e08e070316929b55c383c9994b18c85bba07aae3c53e5ffe79692b25b0e19a"
+  }
+}

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0b09" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%230b0c09'/%3E%3Ccircle cx='32' cy='32' r='25' fill='none' stroke='%23c7a46d'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia,serif' font-size='30' fill='%23e4c790'%3EM%3C/text%3E%3C/svg%3E" />
+    <meta
+      name="description"
+      content="A hands-on 3D study of a mechanical watch calibre. Orbit the case, separate each layer, and watch the movement come alive."
+    />
+    <title>Mécanique — Inside Time</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../vendor/three/three.module.js",
+          "three/addons/": "../../vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="page">
+      <canvas id="watch-canvas" aria-label="Interactive 3D mechanical watch"></canvas>
+      <div class="ambient-glow" aria-hidden="true"></div>
+      <div class="grain" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Mécanique home">
+          <span class="brand-seal" aria-hidden="true">M</span>
+          <span class="brand-type">
+            <strong>MÉCANIQUE</strong>
+            <small>Atelier de haute horlogerie</small>
+          </span>
+        </a>
+
+        <div class="topbar-meta">
+          <span class="meta-item"><i>Calibre</i> M‑01</span>
+          <span class="meta-divider" aria-hidden="true"></span>
+          <span class="movement-state"><i class="live-dot"></i> Movement live</span>
+        </div>
+      </header>
+
+      <main class="intro">
+        <p class="eyebrow"><span aria-hidden="true"></span> The watchmaker's desk</p>
+        <h1>Inside<br /><em>time.</em></h1>
+        <p class="intro-copy">
+          A hand-wound calibre, composed of forty-seven parts. Separate each layer, then bring the
+          mechanism back to life.
+        </p>
+
+        <div class="specs" aria-label="Movement specifications">
+          <div class="spec">
+            <strong>47</strong>
+            <span>Components</span>
+          </div>
+          <div class="spec">
+            <strong>21</strong>
+            <span>Jewels</span>
+          </div>
+          <div class="spec">
+            <strong>48<sup>h</sup></strong>
+            <span>Reserve</span>
+          </div>
+        </div>
+      </main>
+
+      <div class="side-note" aria-hidden="true">
+        <span>Study № 01</span>
+        <i></i>
+        <span>Skeleton calibre</span>
+      </div>
+
+      <div class="callouts" aria-hidden="true">
+        <div class="callout callout-right" id="callout-balance">
+          <span class="callout-node"></span>
+          <span class="callout-line"></span>
+          <span class="callout-copy"><b>Free-sprung balance</b><small>28,800 vph · 4 Hz</small></span>
+        </div>
+        <div class="callout callout-left" id="callout-barrel">
+          <span class="callout-node"></span>
+          <span class="callout-line"></span>
+          <span class="callout-copy"><b>Mainspring barrel</b><small>48-hour power reserve</small></span>
+        </div>
+      </div>
+
+      <section class="assembly-panel" aria-label="Watch assembly controls">
+        <div class="panel-heading">
+          <span>Calibre assembly</span>
+          <span class="assembly-state" id="assembly-state" aria-live="polite">Exploded view</span>
+        </div>
+
+        <div class="panel-controls">
+          <button class="assembly-button" id="assembly-toggle" type="button">
+            <svg class="assembly-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 9V4h5M20 15v5h-5M20 9V4h-5M4 15v5h5" />
+              <path d="M9.8 14.2 4 20M14.2 9.8 20 4M9.8 9.8 4 4M14.2 14.2 20 20" />
+            </svg>
+            <span id="assembly-label">Reassemble</span>
+          </button>
+
+          <div class="slider-block">
+            <div class="slider-row">
+              <span class="slider-caption">Layer separation</span>
+              <output class="explode-value" id="explode-value" for="explode-range">52<small>%</small></output>
+            </div>
+            <input
+              id="explode-range"
+              class="explode-range"
+              type="range"
+              min="0"
+              max="100"
+              value="52"
+              step="1"
+              aria-label="Exploded view amount"
+            />
+            <div class="range-labels" aria-hidden="true">
+              <span>Assembled</span>
+              <span>Exploded</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="view-hint">
+        <span class="mouse-icon" aria-hidden="true"><i></i></span>
+        <span>Drag to orbit &nbsp;·&nbsp; Scroll to inspect</span>
+      </div>
+
+      <div class="loader" id="loader" role="status">
+        <div class="loader-mark">M</div>
+        <span>Setting the movement</span>
+      </div>
+
+      <noscript>
+        <div class="no-script">This mechanical study requires JavaScript and WebGL.</div>
+      </noscript>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
