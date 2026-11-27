@@ -1,0 +1,66 @@
+
+> lightning-fracture-lab@1.0.0 test
+> node --test
+
+TAP version 13
+# Subtest: browser UI and stormLab timeline
+not ok 1 - browser UI and stormLab timeline
+  ---
+  duration_ms: 5371.525467
+  type: 'test'
+  location: '/workspace/project/test/browser.test.mjs:8:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0.5
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0.5
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/project/test/browser.test.mjs:73:10)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: LCG follows the 32-bit unsigned recurrence
+ok 2 - LCG follows the 32-bit unsigned recurrence
+  ---
+  duration_ms: 1.307949
+  type: 'test'
+  ...
+# Subtest: midpoint displacement produces 17 ordered points
+ok 3 - midpoint displacement produces 17 ordered points
+  ---
+  duration_ms: 3.799999
+  type: 'test'
+  ...
+# Subtest: branches and crackles use their specified points
+ok 4 - branches and crackles use their specified points
+  ---
+  duration_ms: 0.723048
+  type: 'test'
+  ...
+# Subtest: timeline reveals, impacts, fades, and clamps
+ok 5 - timeline reveals, impacts, fades, and clamps
+  ---
+  duration_ms: 0.382926
+  type: 'test'
+  ...
+# Subtest: seed parser accepts exact unsigned 32-bit integers only
+ok 6 - seed parser accepts exact unsigned 32-bit integers only
+  ---
+  duration_ms: 0.486791
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 5
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6172.369669

@@ -1,0 +1,61 @@
+{
+  "Q_human": null,
+  "Q_vlm": 66.2,
+  "browser_calls": 44,
+  "end_to_end_Q_vlm": 66.2,
+  "full_task_pass": false,
+  "infra_status": "NORMAL",
+  "must_status": "FAIL",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-58-18-944Z.jpeg",
+        "evidence/page-2026-11-27T00-58-53-831Z.jpeg",
+        "evidence/page-2026-11-27T00-59-34-310Z.jpeg"
+      ],
+      "reason": "Core flows work (button without track/network, API, reset, invalid input, play/pause, rerun), but feature sampling omits row index so required heights are wrong and switching away from the fixture skips cleanup.",
+      "score": 3
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-58-09-363Z.jpeg",
+        "evidence/page-2026-11-27T00-58-43-128Z.jpeg",
+        "evidence/page-2026-11-27T00-58-53-831Z.jpeg"
+      ],
+      "reason": "Run Fixture, rerun, API play/pause and invalid-input recovery are reliable with clear feedback and correct rotation animation; local issues are the missing switch-away cleanup and selector console TypeError.",
+      "score": 3
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-58-09-363Z.jpeg",
+        "evidence/page-2026-11-27T00-58-18-944Z.jpeg",
+        "evidence/page-2026-11-27T00-59-34-310Z.jpeg"
+      ],
+      "reason": "The lattice is genuine and coherent from the fixed camera, but rows within each column render identical heights at all tested times, contradicting per-cell feature mapping — a major spatial data error revealed by operation.",
+      "score": 2
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-58-43-128Z.jpeg",
+        "evidence/page-2026-11-27T00-59-11-547Z.jpeg",
+        "evidence/page-2026-11-27T00-59-29-101Z.jpeg"
+      ],
+      "reason": "Rerun, reload and invalid inputs are stable, maintaining one canvas/nine cells without crashes. Nonblocking issues: mobile panel clipping, selector TypeError on switch-away, and load-time fetchtracks connection-refused error.",
+      "score": 3
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-58-09-363Z.jpeg",
+        "evidence/page-2026-11-27T00-58-58-957Z.jpeg"
+      ],
+      "reason": "Coherent legible desktop composition with strong color grouping and consistent styling; mobile clipping and uniform column heights reduce fidelity.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 7
+}

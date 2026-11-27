@@ -1,0 +1,39 @@
+{
+  "name": "OSMBuilding",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Beakerboy/OSMBuilding.git"
+  },
+  "dependencies": {
+    "three": "^0.138.3"
+  },
+  "devDependencies": {
+    "c8": "*",
+    "coveralls": "*",
+    "eslint": "^8.13",
+    "hipped": "file:../hipped",
+    "jest": "*",
+    "jest-environment-jsdom": "*",
+    "jest-fetch-mock": "*",
+    "jest-matcher-deep-close-to": "*",
+    "jsdom": "*",
+    "pyramid": "file:../pyramid",
+    "ramp": "file:../ramp",
+    "straight-skeleton": "1.1.0",
+    "wedge": "file:../wedge"
+  },
+  "scripts": {
+    "test": "c8 jest",
+    "start": "python3 -m http.server 8080"
+  },
+  "c8": {
+    "all": true,
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ]
+  }
+}

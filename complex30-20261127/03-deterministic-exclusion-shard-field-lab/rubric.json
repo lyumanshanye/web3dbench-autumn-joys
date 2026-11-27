@@ -1,0 +1,98 @@
+{
+  "version": "3.0",
+  "task": "deterministic-exclusion-shard-field-lab",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Create `core`, an IcosahedronGeometry(1,1) mesh at the origin, and `group`, containing exactly 125 BoxGeometry(0.1,0.1,0.1) meshes.",
+      "action": "Load the page and inspect the live scene, core geometry, group children, initial names, positions, and rotations.",
+      "expected": "The core has the specified geometry and origin transform; 125 cubes appear in x/y/z iteration order at the exact lattice coordinates with the specified rotations. (Tolerance: 1e-5 for transforms; exact counts, geometry parameters, and names)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Accept only if its distance from the origin is at least 2 and its distance from every already accepted target is at least 0.35.",
+      "action": "Call scatter(12345), then step(2), and inspect every target and final live cube position.",
+      "expected": "All 125 targets are componentwise within [-2.5,2.5], every origin distance is at least 2, every pairwise distance is at least 0.35, and final positions equal targets. (Tolerance: 1e-5, allowing floating-point boundary comparisons)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "Set the PRNG state to `seed >>> 0`; for every draw update it with `state = (1664525 * state + 1013904223) >>> 0` and return `state / 4294967296`.",
+      "action": "Reset, scatter with seed 987654321 and save targets; reset and repeat the same seed, then compare against an independent implementation of the stated LCG and acceptance order.",
+      "expected": "Both runs and the independent calculation produce identical targets in group-child order. (Tolerance: Exact PRNG sequence; positions within 1e-5)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T04",
+      "requirement": "Cube i has delay `0.05*(i%5)`. During `step(dt)`, local time is `clamp(elapsed-delay,0,1)`, interpolation weight is `q=t*t*(3-2*t)`, and position is `start+(target-start)*q`.",
+      "action": "After a fresh scatter, call step(0.5) and inspect cubes 0 and 1 and the core rotation.",
+      "expected": "Cube 0 uses t=0.5 and q=0.5; cube 1 uses t=0.45 and q=0.42525; both match start+(target-start)*q, and core rotation is (0.1,0.15,0). (Tolerance: 1e-5 per component)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "Ignore negative, NaN, or infinite dt; otherwise add dt to elapsed.",
+      "action": "Capture state, call step with -1, NaN, and Infinity, then call step(0.25).",
+      "expected": "Invalid calls change neither elapsed nor any transform; the valid call advances elapsed by exactly 0.25 and applies the corresponding animation. (Tolerance: 1e-5)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "`reset()` restores the exact initial lattice positions and rotations, core rotation (0,0,0), seed 0, elapsed 0, and scattering false; clear each cube’s scatter start and target to null.",
+      "action": "Move the camera, complete a scatter, invoke reset, and inspect scene objects, API state, and camera.",
+      "expected": "All lattice and core state returns to its initial values without object recreation; scatter vectors are null and the moved camera and controls remain unchanged. (Tolerance: 1e-5; object identities and camera state exact)",
+      "dimension": "spatial"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

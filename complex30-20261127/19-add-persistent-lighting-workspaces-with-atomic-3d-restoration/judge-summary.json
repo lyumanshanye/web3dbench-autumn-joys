@@ -1,0 +1,57 @@
+{
+  "Q_human": null,
+  "Q_vlm": 41.2,
+  "browser_calls": 145,
+  "end_to_end_Q_vlm": 41.2,
+  "full_task_pass": false,
+  "infra_status": "NORMAL",
+  "must_status": "FAIL",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-21-05-110Z.jpeg",
+        "evidence/page-2026-11-27T02-26-04-938Z.jpeg"
+      ],
+      "reason": "Workspace section, save persistence, duplicate/empty validation, startup recovery and delete exist, but the main requested flow of loading a snapshot to atomically restore lights/cameras and default camera does not work, and overlong-name validation is missing.",
+      "score": 1
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-26-04-938Z.jpeg",
+        "evidence/page-2026-11-27T02-25-09-411Z.jpeg"
+      ],
+      "reason": "Controls react (toasts, list rows, property edits) but the promised Load scene/state change does not occur, camera properties are unreachable, and 3D orbit breaks the view.",
+      "score": 1
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-23-41-079Z.jpeg",
+        "evidence/page-2026-11-27T02-23-49-799Z.jpeg"
+      ],
+      "reason": "Initial 3D lighting rig renders coherently with perspective and light response, but orbit reveals a fatal interaction error (blanked render, onEnd TypeError) and camera-driven views cannot be configured; restored light world position could not be verified.",
+      "score": 2
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-23-49-799Z.jpeg",
+        "evidence/page-2026-11-27T02-23-58-629Z.jpeg"
+      ],
+      "reason": "Usable in main desktop view and save/delete/recovery startup work, but repeated 3D orbit/zoom throws and blanks the scene, mobile layout is broken, and the external DRACO decoder times out.",
+      "score": 2
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-23-41-079Z.jpeg",
+        "evidence/page-2026-11-27T02-23-58-629Z.jpeg"
+      ],
+      "reason": "Desktop composition, typography, color and 3D lighting form a coherent expression; mobile layout clipping and blank viewport after orbit are localized defects.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 25
+}

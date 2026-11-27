@@ -1,0 +1,98 @@
+{
+  "version": "3.0",
+  "task": "persistent-dual-surface-plaque-configurator",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T04",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Add a box mesh named `panel`, dimensions 4×2.4×0.3, centered at (0,1.4,0); its front faces +Z.",
+      "action": "Inspect the initial scene graph, panel geometry parameters, world transform, and both label parent transforms.",
+      "expected": "Panel has the specified dimensions and center; labels are its children at Z ±0.151, with back Y rotation π. (Tolerance: 1e-5)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Position x/y, Z rotation in degrees, and uniform scale apply to the corresponding label group; visibility controls both the group and its pickability.",
+      "action": "Call setSide('front',{x:0.4,y:-0.2,rotation:30,scale:1.5,visible:true}) and inspect frontLabel.",
+      "expected": "Local position is (0.4,-0.2,0.151), Z rotation is π/6, all scale components are 1.5, and the group is visible. (Tolerance: 1e-5)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "Reject unknown keys, unknown sides, non-finite numbers, and invalid values: return false without changing state, scene, or storage.",
+      "action": "Save a valid state, then attempt patches with scale 2.1, x NaN, an unknown key, and an invalid side.",
+      "expected": "Every call returns false; serialized state, label transforms, and the stored JSON remain identical to their pre-attempt values. (Tolerance: exact state and storage equality)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T04",
+      "requirement": "`load()` validates every field and default-required key, then applies the state and updates all geometry, materials, textures, and visibility, returning true.",
+      "action": "Save a customized two-sided state, change both sides and the base color, then call load() and inspect state and scene.",
+      "expected": "load returns true and restores all saved values, including panel color, label transforms, text state, visibility, and selection. (Tolerance: 1e-5 for numeric transforms; exact otherwise)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T05",
+      "requirement": "A hit selects and returns that side (`front` or `back`); a miss returns null and leaves selection unchanged.",
+      "action": "Project a visible front label center to client coordinates and pick it, then hide it and repeat, followed by a known empty-canvas pick.",
+      "expected": "The visible hit returns and selects front; the hidden-label attempt and empty miss return null without changing selection. (Tolerance: projected center within 2 pixels)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "`reset()` restores every default state value, rebuilds both label textures, restores the initial camera position and controls target, removes `plaqueStudio.v1`, and returns a deep copy of the default state without reloading the page.",
+      "action": "Customize and save, move the camera, call reset(), mutate the returned object, and inspect application state, camera, and storage.",
+      "expected": "All defaults and initial camera/target are restored, storage is absent, and mutating the returned copy does not alter application state. (Tolerance: 1e-5)",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

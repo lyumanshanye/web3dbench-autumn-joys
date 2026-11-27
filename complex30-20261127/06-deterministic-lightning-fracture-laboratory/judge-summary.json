@@ -1,0 +1,62 @@
+{
+  "Q_human": null,
+  "Q_vlm": 57.5,
+  "browser_calls": 85,
+  "end_to_end_Q_vlm": 0,
+  "full_task_pass": false,
+  "infra_status": "NORMAL",
+  "must_status": "PASS",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-11-15-358Z.jpeg",
+        "evidence/page-2026-11-27T02-11-25-459Z.jpeg",
+        "evidence/page-2026-11-27T02-12-30-889Z.jpeg"
+      ],
+      "reason": "Nearly all requested state and control flows are delivered coherently, including deterministic generation, the stepped lifecycle, invalid-input recovery, reset, local assets, and public stormLab methods. The key omission is rendered delivery of the white main lightning bolt.",
+      "score": 3
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-11-15-358Z.jpeg",
+        "evidence/page-2026-11-27T02-12-30-889Z.jpeg",
+        "evidence/page-2026-11-27T02-13-04-852Z.jpeg"
+      ],
+      "reason": "The advertised buttons, keyboard invalid-input flow, repeated stepping, boundary completion, generation, and reset all function. Feedback is slightly incomplete because the readouts advance the bolt draw range without showing the corresponding bolt in the scene.",
+      "score": 3
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-11-52-263Z.jpeg",
+        "evidence/page-2026-11-27T02-12-04-006Z.jpeg",
+        "evidence/page-2026-11-27T02-11-25-459Z.jpeg"
+      ],
+      "reason": "The grid, radial crackles, and impact sphere demonstrate real perspective 3D with three coherent orbit views. Nevertheless, the principal scene subject, the main lightning path from y=30 to ground, is absent from every render, leaving a severe spatial/content error.",
+      "score": 1
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-13-18-175Z.jpeg",
+        "evidence/page-2026-11-27T02-13-22-816Z.jpeg",
+        "evidence/page-2026-11-27T02-13-54-501Z.jpeg"
+      ],
+      "reason": "Desktop and mobile layouts loaded reliably, all controls remained reachable, repeated actions reached the idle boundary, reset recovered the initial state, and reload was clean. The only diagnostic issue was a nonblocking local favicon 404.",
+      "score": 4
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-13-48-265Z.jpeg",
+        "evidence/page-2026-11-27T02-11-25-459Z.jpeg",
+        "evidence/page-2026-11-27T02-12-23-436Z.jpeg"
+      ],
+      "reason": "Typography, palette, readouts, and responsive controls form a readable technical-lab style, while the oversized empty center and invisible lightning leave the primary visual hierarchy and intended dramatic composition unfulfilled.",
+      "score": 2
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": false,
+  "runtime_status": "PASS",
+  "scene_status": "FAIL",
+  "verified_images": 17
+}

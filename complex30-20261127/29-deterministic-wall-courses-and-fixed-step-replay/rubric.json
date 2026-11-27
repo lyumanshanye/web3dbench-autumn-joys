@@ -1,0 +1,98 @@
+{
+  "version": "3.0",
+  "task": "deterministic-wall-courses-and-fixed-step-replay",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Expose `window.runnerDebug` as soon as the game script initializes, even when webcam permission is denied or poseNet never becomes ready.",
+      "action": "Load the built browser app with getUserMedia rejected and do not allow the pose model to become ready.",
+      "expected": "All five documented debug methods exist and resetCourse(193) completes without webcam or pose input. (Tolerance: Exact method presence; no uncaught reset error.)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T02",
+      "requirement": "Compute `magnitude = Math.floor(r1 * 20) + 1`, `holeX = magnitude * (r2 < 0.5 ? -1 : 1)`, and `holeWidth = Math.ceil(r3 * 5) + 10`.",
+      "action": "Reset with seed 193, read getCourse(), and independently reproduce the specified LCG draw sequence.",
+      "expected": "The first ten records have indices 0 through 9, Z values 0 through 900 in steps of 100, and exactly the independently computed signed offsets and widths. (Tolerance: Exact integers and Z coordinates.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "Reset camera position to `(0,10,-35)`, camera Y rotation to `Math.PI`, head position to `(0,10,0)`, `cameraSpeed` to `0.25`",
+      "action": "Advance a course, change its state, then call resetCourse() and inspect getState().",
+      "expected": "The documented transforms and scalar state are restored, manualMode is true, and the course contains ten walls. (Tolerance: Positions within 1e-9; other values exact.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "`step(count)` synchronously executes exactly `count` former gameplay iterations",
+      "action": "After resetCourse(193), call step(40) and inspect camera and head transforms.",
+      "expected": "Camera Z is -25 and head Z is 10; X and Y remain unchanged, and no additional advancement occurs while subsequently rendering in manual mode. (Tolerance: Absolute Z error no greater than 1e-9.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "Require an integer count from 1 through 10000; throw `RangeError` for any other value without changing state.",
+      "action": "Capture state, then attempt step(0), step(1.5), and step(10001).",
+      "expected": "Each call throws RangeError and the serialized state and course remain unchanged. (Tolerance: Exact error type and deep state equality.)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T06",
+      "requirement": "Do not use `Math.random()` for wall hole offsets or hole widths; unrelated wall colors may remain random.",
+      "action": "Reset twice with seed 193 and once with seed 194, comparing getCourse() results after each reset.",
+      "expected": "Same-seed offset and width sequences are identical, while seed 194 differs from seed 193 in at least one geometric parameter. (Tolerance: Exact sequence equality for equal seeds.)",
+      "dimension": "spatial"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

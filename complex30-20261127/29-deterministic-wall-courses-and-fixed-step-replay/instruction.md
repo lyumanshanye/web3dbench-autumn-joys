@@ -1,0 +1,13 @@
+Extend the existing Space Runner game with a deterministic course generator and a text-accessible replay interface. Preserve the existing title screen, wall and floor appearance, keyboard movement, Space pause/resume behavior, scoring counters, and normal webcam-driven play.
+
+1. Add a seeded random function using a 32-bit LCG. Given an integer seed, initialize `state = seed >>> 0`; for each draw update `state = (Math.imul(1664525, state) + 1013904223) >>> 0` and return `state / 4294967296`. The default seed is 193. Do not use `Math.random()` for wall hole offsets or hole widths; unrelated wall colors may remain random.
+
+2. For each wall, consume exactly three draws in this order: magnitude, sign, width. Compute `magnitude = Math.floor(r1 * 20) + 1`, `holeX = magnitude * (r2 < 0.5 ? -1 : 1)`, and `holeWidth = Math.ceil(r3 * 5) + 10`. Pass the resulting `holeX` and random function into `SingleHole` so its geometry uses that offset and width. Initial walls must remain at Z = 0, 100, ..., 900, and later batches must retain the existing 100-unit spacing and speed increase.
+
+3. Expose `window.runnerDebug` as soon as the game script initializes, even when webcam permission is denied or poseNet never becomes ready. It must provide `resetCourse(seed)`, `getCourse()`, `getState()`, `setManualMode(enabled)`, and `step(count)`. These methods must not require keyboard events, webcam input, or a pose model.
+
+4. `resetCourse(seed)` uses seed 193 when the argument is omitted, removes all existing wall and floor meshes, clears wall pools, and rebuilds one floor plus ten walls. Reset camera position to `(0,10,-35)`, camera Y rotation to `Math.PI`, head position to `(0,10,0)`, `cameraSpeed` to `0.25`, `cameraNoSpeed` to `0`, `wallCount` to `1`, `wallsPassed` and `level` to `0`, and `startFloor` to its post-creation value of 1500. Resetting must also enable manual mode.
+
+5. `getCourse()` returns an array in course order containing `{index, z, holeX, holeWidth}` for every currently retained wall. `getState()` returns fresh values for camera position, head position, `cameraSpeed`, `wallCount`, `wallsPassed`, `level`, and `manualMode`; callers must not receive mutable internal position objects.
+
+6. In manual mode, the animation loop may render but must not automatically advance or run gameplay progression. `step(count)` synchronously executes exactly `count` former gameplay iterations, including camera/head Z advancement, wall generation, counters, and level transitions, then renders once. Require an integer count from 1 through 10000; throw `RangeError` for any other value without changing state. Normal non-manual play remains frame-driven.

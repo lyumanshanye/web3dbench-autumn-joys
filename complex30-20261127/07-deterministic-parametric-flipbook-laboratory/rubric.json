@@ -1,0 +1,98 @@
+{
+  "version": "3.0",
+  "task": "deterministic-parametric-flipbook-laboratory",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T04",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Each sheet must contain a DoubleSide mesh made from PlaneGeometry(1.2,0.8,24,16), rotated X by -PI/2 and then translated X by 0.6, so its undeformed bounds are x=[0,1.2], y=0, z=[-0.4,0.4].",
+      "action": "Inspect the initial scene and each sheet’s mesh geometry, material side, transforms, and undeformed coordinate bounds.",
+      "expected": "There are four ordered sheet groups; each mesh has 425 vertices, DoubleSide material, and the specified local bounds and orientation. (Tolerance: 1e-5 for coordinates; exact counts and material side)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Let rightY=-spacing*i, leftY=-spacing*(N-i), and yBlend=max(0,2*q-1); set sheet.position.y=rightY+yBlend*(leftY-rightY).",
+      "action": "Call reset(), then setProgress(1.5), update matrices, and inspect book and sheet transforms plus the active sheet center vertex.",
+      "expected": "Book x is 0; rotations are [PI,PI/2,0,0]; sheet y values are [-0.04,-0.01,-0.02,-0.03]; sheet-1 center local y is 0.08. (Tolerance: 1e-5)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "Non-finite setProgress or flipTo inputs must be ignored without changing progress, goal, geometry, or transforms.",
+      "action": "Exercise setProgress(-2), setProgress(99), reset(), and non-finite inputs while comparing state and representative attributes.",
+      "expected": "Finite inputs clamp to 0 and 4; at progress 4 book x is 0.3 and all rotations are PI; NaN and Infinity inputs leave all observed state unchanged. (Tolerance: 1e-5)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T04",
+      "requirement": "advance(dt) ignores negative or non-finite dt and otherwise moves progress toward the goal at 2 sheet units per second without overshoot, rebuilding geometry and transforms after every movement.",
+      "action": "Reset, call nextSheet(), advance(0.125), advance(0.125), then advance(1), and test previousSheet() with a negative dt.",
+      "expected": "Goal is 1; progress values are 0.25 then 0.5, then 1 after advance(1) and remain 1 after overshoot; previousSheet sets goal 0 and negative dt leaves progress unchanged. (Tolerance: 1e-5)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "pick(ndcX,ndcY) raycasts recursively against book using the supplied normalized device coordinates, identifies the first hit’s sheet ancestor, calls flipSheet for it, and returns its index; return null for no hit.",
+      "action": "Reset, update matrices, project sheet-0’s world center (0.3,0,0) to NDC, call pick at that point, then call flipSheet(0) after progress reaches 1.",
+      "expected": "The projected pick returns 0 and sets goal 1; after advance(1), flipSheet(0) sets goal 0; a miss returns null. (Tolerance: NDC projection and raycast tolerance 1e-5)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "Provide a progress slider (min 0, max 4, step 0.001), Next, Previous, and Reset buttons, and readouts for progress and goal.",
+      "action": "Inspect the controls, set the slider to 2.25, click Next and Reset, and compare displayed values with API state.",
+      "expected": "All specified controls exist; slider input produces progress 2.25; Next sets goal 3; Reset restores progress and goal to 0 and synchronizes the UI. (Tolerance: 1e-5)",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

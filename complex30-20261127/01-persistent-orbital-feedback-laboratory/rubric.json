@@ -1,0 +1,107 @@
+{
+  "version": "3.0",
+  "task": "persistent-orbital-feedback-laboratory",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T05",
+    "T06"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Create three sphere probes with radius 0.22 and IDs `p0`, `p1`, `p2`.",
+      "action": "Inspect the initial live scene and probe transforms before advancing frames.",
+      "expected": "Three sphere meshes exist with the specified IDs and radius; positions are (2,0.5,0), (-1.4,1,2.4248711306), and (-1.8,1.5,-3.1176914531). (Tolerance: 1e-5 per position component)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "`step(count)` must synchronously advance exactly `count` fixed frames even while paused, using `dt=1/60`",
+      "action": "Pause, call step(60), and inspect state and live probe transforms.",
+      "expected": "Frame is 60, time is 1, p0 angle is 1 and position is (1.0806046117,0.5,1.6829419696); each trail has 60 points and paused remains true. (Tolerance: 1e-5 for numeric values)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "retaining at most 120 points including the current point",
+      "action": "Reset and call step(121), then inspect every trail and its final point.",
+      "expected": "Each trail contains exactly 120 points, its last point equals the probe’s current position, and its first point is the position from simulation frame 2. (Tolerance: Exactly 120 points; 1e-5 coordinates)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "Unknown IDs, non-finite values, or out-of-range values return `false` and leave all state unchanged.",
+      "action": "Attempt an unknown ID, NaN speed, speed 4.1, and radius 1.4, comparing snapshots before and after.",
+      "expected": "Every call returns false and the complete snapshots are deeply equal; boundary calls speed 4 and radius 1.5 succeed. (Tolerance: Exact state equality)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T05",
+      "requirement": "A hit on a probe sets `selectedId` to its ID and gives only that probe emissive intensity 0.8",
+      "action": "Project p0’s world center through the camera, call selectAt at that canvas client position, then select an empty canvas corner.",
+      "expected": "The hit returns p0 and only p0 has emissive intensity 0.8; the miss returns null and clears all probe emissive intensities. (Tolerance: Exact IDs and intensities)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "`load()` restores a valid saved snapshot, including trails, pause, and selection, returning `true`",
+      "action": "Advance 75 frames, change a speed and radius, select and pause, save, mutate and advance again, then load.",
+      "expected": "Load returns true and getState deeply equals the saved snapshot; live positions, trail geometry, pause, and selection match it. (Tolerance: Deep equality within 1e-5 for floats)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T07",
+      "requirement": "`reset()` removes the storage key and restores every initial value",
+      "action": "Save a nondefault state, call reset, and inspect storage, state, camera, controls, and trails.",
+      "expected": "The key is absent; frame/time are zero, paused is false, selection is null, trails are empty, probe defaults and initial camera/control target are restored without reloading. (Tolerance: 1e-5 for transforms)",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

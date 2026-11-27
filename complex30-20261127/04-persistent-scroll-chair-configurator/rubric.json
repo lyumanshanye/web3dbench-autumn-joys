@@ -1,0 +1,98 @@
+{
+  "version": "3.0",
+  "task": "persistent-scroll-chair-configurator",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Seat and back must share one MeshStandardMaterial named `upholstery`; legs use a separate dark material.",
+      "action": "Inspect chairRoot children, geometry parameters, local positions, and material references after initialization.",
+      "expected": "The seat, back, and four legs have the specified dimensions and positions; seat and back reference the same upholstery material, initially #96b2a1. (Tolerance: 1e-5 for dimensions and transforms; exact material identity and hex)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "For 0≤p≤0.5, interpolate from (0,2,6) to (0,1.5,3.25) using u=2p.",
+      "action": "Call setScroll(0.25), then setScroll(0.75), reading cameraPosition and target after each call.",
+      "expected": "At 0.25 the camera is (0,1.75,4.625); at 0.75 it is (-1.5,1.5,1.625). The target remains (0,1,0), controls stay disabled, and both calls return true. (Tolerance: 1e-5 per component)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "`enterCustomize()` sets mode to customize, enables OrbitControls targeting (0,1,0), and places the camera at (-1.95,2.54,2.29).",
+      "action": "Set scroll to 0.75, enter customize mode, request rotation 90, then exit customize mode.",
+      "expected": "Customize mode has the exact camera and enabled controls; rotation clamps to 45 degrees and chairRoot.rotation.y is π/4. Exit restores the 0.75 browse camera and disables controls while retaining rotation. (Tolerance: 1e-5 for angles and vectors)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "unknown IDs return false without mutation",
+      "action": "Set red, record upholstery color and state, then call setColor('blue') and setRotation(Infinity).",
+      "expected": "Red applies #a57d7d to the shared material. Both invalid calls return false and leave color, rotation, and all other state unchanged. (Tolerance: Exact hex and state equality)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T05",
+      "requirement": "`load()` returns false without mutation if no save exists; otherwise it applies a valid save, derives the appropriate camera and controls state, and returns true.",
+      "action": "Set scroll 0.4, violet, rotation -20, enter customize mode, save, reset, then load and inspect state and storage JSON.",
+      "expected": "Reset restores defaults and removes the key; load returns true and restores version 1, customize mode, scroll 0.4, violet, rotation -20, the customize camera, and enabled controls. Stored JSON has exactly the five required fields. (Tolerance: 1e-5 for numeric values; exact schema and mode)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T06",
+      "requirement": "Reject malformed JSON, wrong version, non-finite or out-of-range scroll/rotation, unknown mode/colorId, or non-number numeric fields by returning false with no state or scene mutation.",
+      "action": "From a known valid state, import malformed JSON and objects with scroll 1.1, rotation -50, version 2, and a string scroll value; then call reset.",
+      "expected": "Every import returns false and the complete live state remains unchanged. Reset subsequently removes storage and restores browse, scroll 0, green, rotation 0, and camera (0,2,6). (Tolerance: Exact rejection behavior; 1e-5 for reset camera)",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

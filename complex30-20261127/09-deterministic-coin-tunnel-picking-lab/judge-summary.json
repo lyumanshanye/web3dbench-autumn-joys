@@ -1,0 +1,62 @@
+{
+  "Q_human": null,
+  "Q_vlm": 68.8,
+  "browser_calls": 55,
+  "end_to_end_Q_vlm": 68.8,
+  "full_task_pass": false,
+  "infra_status": "NORMAL",
+  "must_status": "FAIL",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-53-54-915Z.jpeg",
+        "evidence/page-2026-11-27T00-54-21-974Z.jpeg",
+        "evidence/page-2026-11-27T00-54-11-411Z.jpeg"
+      ],
+      "reason": "Most requested flows and contracts work, including camera views, fixed stepping, validation, picking, telemetry, and reset. Two concrete omissions remain: the rim does not share the required facing rotation, and wrapped coin rotations fail to zero at group level.",
+      "score": 3
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-54-11-411Z.jpeg",
+        "evidence/page-2026-11-27T00-54-30-712Z.jpeg",
+        "evidence/page-2026-11-27T00-54-48-675Z.jpeg"
+      ],
+      "reason": "Step, Reset, keyboard activation, selection, miss clearing, view switching, and invalid-input recovery work repeatedly. The public step contract still fails its rotation-reset clause, so a specific requested interaction omission remains.",
+      "score": 3
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-53-30-669Z.jpeg",
+        "evidence/page-2026-11-27T00-53-45-587Z.jpeg",
+        "evidence/page-2026-11-27T00-54-21-974Z.jpeg"
+      ],
+      "reason": "The tunnel has convincing depth and correct positional/scale formulas, but the core coin form is substantially wrong: flat face and rim lie on perpendicular planes, producing open ring-shaped coins. After stepping, groups tumble while rims remain radial, and overview coins become tiny and partially cropped.",
+      "score": 2
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-54-48-675Z.jpeg",
+        "evidence/page-2026-11-27T00-55-05-204Z.jpeg",
+        "evidence/page-2026-11-27T00-55-10-921Z.jpeg"
+      ],
+      "reason": "The page loaded, resized, stepped repeatedly, switched views, picked, reset twice, accepted keyboard input, and reloaded without blocking failures. Controls stayed visible on mobile; the only console issue was a nonblocking favicon 404.",
+      "score": 4
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-53-30-669Z.jpeg",
+        "evidence/page-2026-11-27T00-54-30-712Z.jpeg",
+        "evidence/page-2026-11-27T00-54-48-675Z.jpeg"
+      ],
+      "reason": "Typography, dark-gold color, telemetry, and tunnel treatment are coherent and readable at both widths. Weak coin silhouettes, tiny overview coins, sparse inside composition, and subtle selection emphasis are local visual defects that limit spatial legibility.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 9
+}

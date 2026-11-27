@@ -1,0 +1,62 @@
+{
+  "Q_human": null,
+  "Q_vlm": 97.5,
+  "browser_calls": 56,
+  "end_to_end_Q_vlm": 97.5,
+  "full_task_pass": false,
+  "infra_status": "NORMAL",
+  "must_status": "FAIL",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-26T20-56-38-384Z.jpeg",
+        "evidence/page-2026-11-26T20-56-50-117Z.jpeg",
+        "evidence/page-2026-11-26T20-57-06-710Z.jpeg",
+        "evidence/page-2026-11-26T20-57-20-033Z.jpeg"
+      ],
+      "reason": "All user-facing requirements are delivered: labeled inspect X/Y/Z and reset buttons via public-style API, whole-cube visual rotations that compose and reset, preserved scramble/solve/fold/turn/slider behavior, and keyboard activation. Internal method/quaternion details could not be independently asserted but nothing visible contradicts them.",
+      "score": 4
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-26T20-56-38-384Z.jpeg",
+        "evidence/page-2026-11-26T20-57-06-710Z.jpeg",
+        "evidence/page-2026-11-26T20-58-45-225Z.jpeg"
+      ],
+      "reason": "Primary inspection controls, composition of repeated rotations, reset recovery, face turns, fold/unfold and scramble/solve all worked reliably; hamburger reveal and keyboard Enter are also functional. Minor: sidebar buttons are slightly clipped at the left edge when open.",
+      "score": 4
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-26T20-54-06-262Z.jpeg",
+        "evidence/page-2026-11-26T20-56-58-207Z.jpeg",
+        "evidence/page-2026-11-26T20-57-26-100Z.jpeg"
+      ],
+      "reason": "Cube geometry, depth, occlusion and materials remain coherent across initial and multiple inspected views; rotations are true fixed-world axis rotations of the rendered cube with stickers following the faces, and the unfolded net keeps correct spatial layout.",
+      "score": 4
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-26T20-57-34-369Z.jpeg",
+        "evidence/page-2026-11-26T20-58-19-125Z.jpeg",
+        "evidence/page-2026-11-26T20-58-57-458Z.jpeg"
+      ],
+      "reason": "Tested flows are stable on desktop and mobile and reload is clean. Local nonblocking issue: a pre-existing cordova.js 404 in console and the sidebar open/close uses an off-canvas slide that clips button labels on the left until fully settled.",
+      "score": 3
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-26T20-56-50-117Z.jpeg",
+        "evidence/page-2026-11-26T20-57-20-033Z.jpeg"
+      ],
+      "reason": "Clean centered composition, distinct saturated face colors and consistent face lighting make orientation changes easy to read; the sidebar type is legible at desktop and mobile sizes.",
+      "score": 4
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 13
+}

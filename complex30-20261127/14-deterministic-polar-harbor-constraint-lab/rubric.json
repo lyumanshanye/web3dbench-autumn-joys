@@ -1,0 +1,98 @@
+{
+  "version": "3.0",
+  "task": "deterministic-polar-harbor-constraint-lab",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "For fixture index i=0…30, set angle=`Math.PI/2+(i+1)*2*Math.PI/32`, position=`(50*cos(angle),50*sin(angle),0)`, and name=`coin-${i}`.",
+      "action": "Load the page and inspect the ship, track, and all coin meshes before stepping.",
+      "expected": "There are 31 correctly named coins at the specified radius-50 positions; ship is at (0,50,0) with rotation.z=Math.PI/2. (Tolerance: 1e-5 per coordinate and angle)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "move angle by `direction*0.0014`",
+      "action": "Call reset(), then step(1000), and inspect state and the live ship transform.",
+      "expected": "time=1000 and angle=Math.PI/2+1.4; ship position is (50*cos(angle),50*sin(angle),0) and rotation.z equals angle. (Tolerance: 1e-5)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "then spawn a ball at radius 0 whenever time is divisible by 750",
+      "action": "Call reset(), then step(1000), and inspect cannonball state and mesh position.",
+      "expected": "Exactly one automatic ball exists at angle 0, radius 8.75, and world position (8.75,0,0). (Tolerance: 1e-5)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "collect every visible coin whose ship-to-coin Euclidean distance is <=6",
+      "action": "Reset, call step(54), inspect score, then call step(1) and inspect score and coin-0.",
+      "expected": "At t=54 score and collectedCount are 0 and coin-0 is visible; at t=55 score and collectedCount are 1 and coin-0 is invisible. (Tolerance: Exact integer state; geometric threshold tolerance 1e-5)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "`toggleDirection()` multiplies direction by -1 and immediately updates ship rotation.",
+      "action": "Reset, toggle direction, inspect rotation, step(10), then reset and inspect all public state and groups.",
+      "expected": "After toggling, direction=-1 and rotation.z=angle-Math.PI; after 10 ms angle=Math.PI/2-0.014. Reset restores every initial value, 31 visible coins, and zero balls. (Tolerance: 1e-5)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T06",
+      "requirement": "otherwise throw RangeError without changing state",
+      "action": "Reset, snapshot getState(), call step(1.5), step(-1), and step(10001), then spawn a colliding ball and attempt step(10).",
+      "expected": "Each invalid step throws RangeError and preserves the snapshot. spawnBall(Math.PI/2,50) followed by step(1) sets status=destroyed; subsequent step(10) leaves time and transforms unchanged. (Tolerance: Exact state equality)",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

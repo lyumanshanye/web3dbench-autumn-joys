@@ -1,0 +1,36 @@
+{
+  "name": "aframe-atoll-terrain",
+  "version": "1.0.0",
+  "description": "An A-Frame WebVR primitive that has a circle of high-resolution terrain near the origin, surrounded by a low-resolution plain that stretches to the horizon",
+  "scripts": {
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DougReeder/aframe-atoll-terrain.git"
+  },
+  "keywords": [
+    "terrain",
+    "landscape",
+    "sea",
+    "ocean",
+    "aframe-component",
+    "aframe",
+    "webxr",
+    "webvr",
+    "vr"
+  ],
+  "author": "Doug Reeder <reeder.29@gmail.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/DougReeder/aframe-atoll-terrain/issues"
+  },
+  "homepage": "https://github.com/DougReeder/aframe-atoll-terrain#readme",
+  "devDependencies": {
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.12",
+    "webpack-glsl-loader": "^1.0.1"
+  }
+}

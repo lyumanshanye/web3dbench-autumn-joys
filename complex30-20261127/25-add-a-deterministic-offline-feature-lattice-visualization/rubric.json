@@ -1,0 +1,97 @@
+{
+  "version": "3.0",
+  "task": "add-a-deterministic-offline-feature-lattice-visualization",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "it must not require a selected track, load audio, instantiate Mapper, or make any network request",
+      "action": "With no track selected and network/audio calls instrumented, click fixture-btn and inspect the initialized scene.",
+      "expected": "A fixture starts with one canvas, nine named box cells, and zero network, audio-load, or Mapper-construction calls. (Tolerance: Exact object counts and names; zero forbidden calls.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "For every cell compute `v` from its feature and set `scale.y=h=0.5+2*v`, `position.y=h/2`, and leave `scale.x=scale.z=1`.",
+      "action": "Call window.fixtureViz.setTime(0.5), then inspect every cell transform and fixture-root rotation.",
+      "expected": "Heights are [1,1.5,2,1.5,2,1,2,1,1.5], each position.y is half its height, x/z scales are 1, and rotationY is PI/8. (Tolerance: 1e-6 for all numeric values.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "Set `fixture-root.rotation.y=t*Math.PI/4`.",
+      "action": "Set times 1.5 and 3 and inspect the root transform and final-frame heights.",
+      "expected": "Rotation is 3PI/8 at 1.5 and 3PI/4 at 3; at 3 heights are [0.9,1.3,1.7,1.3,1.7,0.9,1.7,0.9,1.3]. (Tolerance: 1e-6 for all numeric values.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "it must throw `TypeError` without changing time or the scene",
+      "action": "Set time to 1.25, snapshot getState and transforms, then call setTime with NaN, Infinity, undefined, and a string.",
+      "expected": "Every invalid call throws TypeError and the time, heights, cell transforms, and root rotation remain unchanged. (Tolerance: Exact state equality after each rejected call.)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T05",
+      "requirement": "Repeated `play()` calls while already playing must not create additional animation loops.",
+      "action": "Use a controlled monotonic clock, call play twice, advance by 0.5 seconds, pause, advance the clock again, and inspect time.",
+      "expected": "Time advances exactly 0.5 seconds rather than doubling, and remains fixed after pause. (Tolerance: 1e-6 seconds.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "Rerunning via `fixture-btn` must leave exactly one fixture canvas and nine fixture cells.",
+      "action": "Advance the fixture, click fixture-btn again, and inspect the DOM, scene, state, and old instance cleanup.",
+      "expected": "One canvas and nine cells remain, the new state is time 0, and the prior instance has no active animation loop. (Tolerance: Exact counts and time 0 within 1e-6.)",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

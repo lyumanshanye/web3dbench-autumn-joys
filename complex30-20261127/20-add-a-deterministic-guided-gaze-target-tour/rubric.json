@@ -1,0 +1,106 @@
+{
+  "version": "3.0",
+  "task": "add-a-deterministic-guided-gaze-target-tour",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T04"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "add a sphere named `gazeTarget` directly to `app.scene`, using `SphereGeometry(0.15, 16, 8)`",
+      "action": "Load the demo and inspect the live scene graph and target geometry parameters.",
+      "expected": "gazeTarget is a direct scene child with radius 0.15, 16 width segments, and 8 height segments; gazePath is a closed LineLoop containing the four specified waypoints. (Tolerance: Positions within 1e-6 world units; exact object names and segment counts.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "For finite time t, compute u=((t % 12)+12)%12, i=floor(u/3), f=(u-3*i)/3",
+      "action": "Enable manual mode and seek to 0, 1.5, 4.5, 7.5, 10.5, and -1.5 seconds.",
+      "expected": "Positions are respectively (2,2,4), (0,2,4), (-2,2,0), (0,2,-4), (2,2,0), and (2,2,0); getState reports normalized tour times, with tourTime 10.5 for seekTour(-1.5). (Tolerance: 1e-6 per coordinate and tour time.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "Both stepping methods require manual mode and finite dt>=0; otherwise throw `RangeError`.",
+      "action": "Call stepping outside manual mode and with NaN, Infinity, and negative dt; also call seekTour with non-finite values.",
+      "expected": "Every invalid call throws RangeError and leaves tour time, target transform, and joint quaternions unchanged. (Tolerance: Exact error type; state equality within 1e-8.)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T04",
+      "requirement": "`seekTour(0)` followed by 600 calls to `stepLook(1/60)` must produce gazeError()<0.001 radians",
+      "action": "Enable look and manual mode, seek to zero, synchronously perform 600 fixed look steps, and evaluate the exposed angular error.",
+      "expected": "The effector converges toward the stationary target with gazeError below 0.001 radians and all joint quaternions remain finite. (Tolerance: Angular threshold 0.001 radians; finite numeric state required.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "A seek alone must not change any head, eye, or avatar-root quaternion.",
+      "action": "Record head, both eye, and avatar-root quaternions, seek to several tour times without stepping, then compare them.",
+      "expected": "Only target position and tour state change; every recorded quaternion remains unchanged. (Tolerance: 1e-8 per quaternion component.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T06",
+      "requirement": "R sets tour time to 0 and resumes the tour; it must not change look-enabled state, camera, avatar transforms, audio, blink state, or mixer state.",
+      "action": "Alter tour and pause state, then press R with look both enabled and disabled while snapshotting the protected state.",
+      "expected": "Tour time becomes 0, running becomes true, target becomes p0, and every protected state remains unchanged; P subsequently toggles only running. (Tolerance: Exact booleans; numeric protected state within 1e-8.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T07",
+      "requirement": "Keep the current avatar, idle mixer, blinking, audio/S-key speech, OrbitControls, and Spacebar look toggle working.",
+      "action": "Exercise Space, mouse orbit, S, and ordinary animation frames after installing the tour.",
+      "expected": "Space still enters blend-back, camera orbit remains functional, speech restarts, and idle/blink/talk ticks remain registered without duplicate look tickers. (Tolerance: No uncaught errors; exactly one active look or blend-back ticker.)",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

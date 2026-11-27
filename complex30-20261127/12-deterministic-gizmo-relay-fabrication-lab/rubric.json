@@ -1,0 +1,108 @@
+{
+  "version": "3.0",
+  "task": "deterministic-gizmo-relay-fabrication-lab",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T05",
+    "T06"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Each contains a selectable box mesh of dimensions `(2,1,1)` centered at its Group origin and a child cylinder mast of radius `0.15`, height `1`, centered at local `(0,1,0)`.",
+      "action": "Load the page and inspect the three pod hierarchies, geometry parameters, and initial world transforms.",
+      "expected": "Alpha, beta, and gamma have the specified box and mast geometry and initial pod positions (-4,0.5,0), (0,0.5,0), and (4,0.5,0). (Tolerance: 1e-6 for dimensions and coordinates)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Dragging changes only the named local position component by `delta`, clamping x to `[-6,6]`, y to `[0,4]`, and z to `[-4,4]`.",
+      "action": "Call reset(), then dragPod('beta','y',10), dragPod('beta','x',2), and dragPod('beta','q',1).",
+      "expected": "Beta ends at (2,4,0), the invalid axis returns false, and no other pod transform changes. (Tolerance: 1e-6)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "both must preserve the pod’s world position and world quaternion, using world-transform-preserving attachment rather than copying local coordinates.",
+      "action": "Move gamma, rotate it, record its world pose, call dockPod('gamma'), then record its parent and world pose and call undockPod('gamma').",
+      "expected": "Docking makes dock the parent and undocking makes scene the parent; world position and quaternion remain unchanged across both operations. (Tolerance: 1e-6 per position and quaternion component)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "set `controls.target` to the selected pod’s world position `p`, set the camera position to `p+(6,4,6)`",
+      "action": "Reset, drag beta to x=2, select beta, and invoke focusSelected().",
+      "expected": "The controls target is (2,0.5,0) and the camera position is (8,4.5,6). (Tolerance: 1e-6)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T05",
+      "requirement": "At time `t`, set `dock.rotation.y = Math.PI/2 + (Math.PI/2)*(t/4)` and every mast’s `scale.y = 1 + 0.5*Math.sin(Math.PI*t/4)`",
+      "action": "Call seek(2), inspect the dock and masts, then call seek(9).",
+      "expected": "At t=2 dock yaw is 3π/4 and mast scale.y is 1.5; seek(9) clamps to t=4, producing dock yaw π and mast scale.y 1. (Tolerance: 1e-6)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "Clicking any pod mesh or mast must raycast through descendants, select its ancestor pod, update a text readout to its ID",
+      "action": "Project alpha’s box center into canvas coordinates and dispatch a click at that location.",
+      "expected": "selectedId and the visible readout become alpha, and the gizmo is positioned at alpha’s world position. (Tolerance: 1e-6 for gizmo position; exact ID match)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T07",
+      "requirement": "`reset()` must stop playback, restore all initial pod parents, positions, rotations and scales, restore the dock transform",
+      "action": "Modify selection, pod transforms, docking, camera, and time; then call reset() and inspect the complete state.",
+      "expected": "All listed state returns to its initial values, alpha is selected, time is zero, and playback is stopped. (Tolerance: 1e-6 for numeric state)",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

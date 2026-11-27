@@ -1,0 +1,59 @@
+{
+  "Q_human": null,
+  "Q_vlm": 72.5,
+  "browser_calls": 67,
+  "end_to_end_Q_vlm": 72.5,
+  "full_task_pass": true,
+  "infra_status": "NORMAL",
+  "must_status": "PASS",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-26T22-27-19-960Z.jpeg",
+        "evidence/page-2026-11-26T22-28-01-666Z.jpeg"
+      ],
+      "reason": "Most scene and API requirements are delivered, but the requested UI-driven one-second scatter animation is absent because elapsed never advances from wall-clock time. The required exhaustion error/recovery is also incorrect for seed 0. These are substantial requested-flow defects rather than minor omissions.",
+      "score": 2
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-26T22-27-19-960Z.jpeg",
+        "evidence/page-2026-11-26T22-28-01-666Z.jpeg"
+      ],
+      "reason": "Scatter and Reset produce scene/state changes, and API-controlled interpolation and invalid dt handling are correct. But the central scatter interaction does not animate or visibly progress over time, and the seed-0 exhaustion recovery path is missing.",
+      "score": 2
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-26T22-26-33-822Z.jpeg",
+        "evidence/page-2026-11-26T22-27-33-814Z.jpeg",
+        "evidence/page-2026-11-26T22-27-41-733Z.jpeg"
+      ],
+      "reason": "The faceted core, 125 small rotated boxes, ambient/directional lighting, depth, and orbit viewpoints are consistently coherent. Deterministic targets satisfy both exclusion constraints, and reset returns the exact lattice without displacing the camera or recreating geometry.",
+      "score": 4
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-26T22-28-32-328Z.jpeg",
+        "evidence/page-2026-11-26T22-28-25-962Z.jpeg",
+        "evidence/page-2026-11-26T22-27-50-572Z.jpeg"
+      ],
+      "reason": "Repeated operations, resize, orbit, reset, and reload remained stable with no post-reload console errors or remote requests. The layout works at both tested viewport sizes. The nonblocking favicon 404 and the unhandled seed-0 sampling failure are local issues; the UI-animation time failure has higher-level functional impact.",
+      "score": 3
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-26T22-28-32-328Z.jpeg",
+        "evidence/page-2026-11-26T22-27-44-659Z.jpeg"
+      ],
+      "reason": "The composition, typography, dark palette, blue core, and gray shards form a coherent field-lab presentation. The status panel is legible on desktop and mobile, though the static scatter makes the status presentation less useful during interaction.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 10
+}

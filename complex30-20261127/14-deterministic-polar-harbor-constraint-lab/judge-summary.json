@@ -1,0 +1,59 @@
+{
+  "Q_human": null,
+  "Q_vlm": 75.0,
+  "browser_calls": 40,
+  "end_to_end_Q_vlm": 75.0,
+  "full_task_pass": true,
+  "infra_status": "NORMAL",
+  "must_status": "PASS",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-26T21-07-49-878Z.jpeg",
+        "evidence/page-2026-11-26T21-11-47-100Z.jpeg"
+      ],
+      "reason": "All primary requirements and task numeric fixtures were observed working. A minor edge-case collision gap remains: a ball spawned essentially at the ship center did not destroy it, though the specified collision scenario passed.",
+      "score": 3
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-26T21-10-29-877Z.jpeg",
+        "evidence/page-2026-11-26T21-11-47-100Z.jpeg",
+        "evidence/page-2026-11-26T21-13-04-471Z.jpeg"
+      ],
+      "reason": "Step, Toggle, Reset, repeated sequences, keyboard activation, terminal freeze and recovery all work with clear state feedback. The mobile panel obscures the main 3D feedback, and collision feedback is not consistent for every ball position.",
+      "score": 3
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-26T21-05-32-106Z.jpeg",
+        "evidence/page-2026-11-26T21-07-49-878Z.jpeg",
+        "evidence/page-2026-11-26T21-13-04-471Z.jpeg"
+      ],
+      "reason": "The scene's track, coin ring, island and ship are correctly positioned in XY, and depth/occlusion are coherent. The very small floor-plane ship, thick flat coins, and hidden mobile ship limit spatial clarity in key views.",
+      "score": 3
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-26T21-14-47-340Z.jpeg",
+        "evidence/page-2026-11-26T21-16-12-108Z.jpeg"
+      ],
+      "reason": "Desktop reload, repeated operations, terminal state and keyboard use were stable; the page loaded without console errors and made no secondary network requests. The mobile viewport causes a major scene-visibility problem rather than a crash.",
+      "score": 3
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-26T21-05-32-106Z.jpeg",
+        "evidence/page-2026-11-26T21-13-04-471Z.jpeg"
+      ],
+      "reason": "The dark harbor palette, cyan track, gold coins and compact technical readout form a coherent visual hierarchy on desktop. Mobile composition is significantly compromised by the panel overlap.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 10
+}

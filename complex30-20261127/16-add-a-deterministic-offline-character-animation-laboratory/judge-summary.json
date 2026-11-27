@@ -1,0 +1,60 @@
+{
+  "Q_human": null,
+  "Q_vlm": 97.5,
+  "browser_calls": 104,
+  "end_to_end_Q_vlm": 97.5,
+  "full_task_pass": true,
+  "infra_status": "NORMAL",
+  "must_status": "PASS",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-49-56-991Z.jpeg",
+        "evidence/page-2026-11-27T02-51-05-282Z.jpeg"
+      ],
+      "reason": "All stated requirements delivered and verified: menu entry with offline module, correct hierarchy/geometry/camera, exact clip sampling, playback/step/speed/time controls, invalid handling, reset semantics, and 121-sample export with endpoint.",
+      "score": 4
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-50-17-002Z.jpeg",
+        "evidence/page-2026-11-27T02-51-05-282Z.jpeg",
+        "evidence/page-2026-11-27T02-52-41-048Z.jpeg"
+      ],
+      "reason": "Sequences, boundary wrapping, repeat opens, invalid-input recovery, reset and teardown all remained reliable and gave clear visual/numeric feedback.",
+      "score": 4
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-48-05-704Z.jpeg",
+        "evidence/page-2026-11-27T02-49-56-991Z.jpeg",
+        "evidence/page-2026-11-27T02-49-44-776Z.jpeg"
+      ],
+      "reason": "Shapes, parentage, scale, positions and camera framing consistently serve the rig-inspection task; depth, grid perspective and arm pivots read correctly across animated poses.",
+      "score": 4
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-51-43-497Z.jpeg",
+        "evidence/page-2026-11-27T02-52-03-885Z.jpeg",
+        "evidence/page-2026-11-27T02-52-41-048Z.jpeg"
+      ],
+      "reason": "Reliable desktop flows, clean reload and zero console errors, repeat open/close works; minor mobile layout issue where the page cannot scroll and the export textarea sits partly below the fold unless focused.",
+      "score": 3
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-48-05-704Z.jpeg",
+        "evidence/page-2026-11-27T02-51-05-282Z.jpeg"
+      ],
+      "reason": "Cohesive dark lab aesthetic, legible numbered readout and clear export presentation; state changes (play/pause, errors, export status) visibly improve understanding.",
+      "score": 4
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 10
+}

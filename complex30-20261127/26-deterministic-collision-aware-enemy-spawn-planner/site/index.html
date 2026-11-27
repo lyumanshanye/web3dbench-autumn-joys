@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Three.js FPS Game</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- Resolve Three.js from the project's local dependency -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./node_modules/three/build/three.module.js",
+        "three/examples/jsm/controls/PointerLockControls.js": "./node_modules/three/examples/jsm/controls/PointerLockControls.js"
+      }
+    }
+  </script>
+  <!-- Load our systems as modules -->
+  <script type="module">
+    import { Building, House, OfficeBuilding } from './buildings.js';
+    import { Animal, Bunny } from './animals.js';
+    import { Enemy } from './enemies.js';
+    // Create BuildingSystem namespace
+    window.BuildingSystem = {
+      Building,
+      House,
+      OfficeBuilding
+    };
+    window.AnimalSystem = {
+      Animal,
+      Bunny
+    };
+    window.EnemySystem = {
+      Enemy
+    };
+  </script>
+</head>
+
+<body>
+  <div id="crosshair">+</div>
+  <div id="scope-overlay">
+    <div id="scope-crosshair">
+      <div class="horizontal"></div>
+      <div class="vertical"></div>
+      <div class="center-dot"></div>
+      <div class="range-marks range-mark-100">100m</div>
+      <div class="range-marks range-mark-200">200m</div>
+      <div class="range-marks range-mark-300">300m</div>
+    </div>
+  </div>
+  <div id="health-display">Health: 100</div>
+  <div id="kill-count">Kills: 0</div>
+  <div id="timer-display">Survival Time: 00:00</div>
+  <div id="game-info">
+    <p>Kill enemies to spawn more!</p>
+    <p>Each kill spawns 2 new enemies</p>
+    <p>Controls: WASD to move, Space to jump</p>
+    <p>1-6: Switch weapons, M: Spawn enemy</p>
+    <p>5: Translocator - Become the bullet!</p>
+    <p>6: Akimbo - Dual pistols!</p>
+    <p>P: Switch panoramic background</p>
+  </div>
+  <div id="game-over">
+    <h1>GAME OVER</h1>
+    <p id="survival-message">You survived AGI for 00:00</p>
+    <p id="kill-message">You eliminated 0 enemies</p>
+    <button id="restart-button">Play Again</button>
+  </div>
+  <script type="module">
+    import * as THREE from 'three';
+    import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js';
+    import { GunSystem } from './src/utils/GunSystem.js';
+    import { planSpawn, validateSpawnRequest } from './src/spawn/SpawnPlanner.js';
+    import { Enemy } from './enemies.js';
+
+    // Game variables
+    let camera, scene, renderer, controls;
+
+    // Make camera and renderer globally accessible
+    window.scene = null;
+    window.camera = null;
+    window.renderer = null;
+    window.THREE = THREE; // Make THREE globally accessible
+    window.controls = null; // Make controls globally accessible
+
+    let moveForward = false;
+    let moveBackward = false;
+    let moveLeft = false;
+    let moveRight = false;
+    let canJump = false;
+    let isJumping = false;
+    let jumpHeight = 5;
+    let gravity = 60;
+    let playerHeight = 1.6;
+    window.walls = []; // Make walls array globally accessible
+    let playerRadius = 0.2; // Even smaller collision radius
+    let raycaster = new THREE.Raycaster(); // For collision detection
+    let currentGun; // Current active gun
+
+    let prevTime = performance.now();
+    const velocity = new THREE.Vector3();
+    const direction = new THREE.Vector3();
+    const playerCollider = new THREE.Box3(); // Player collision box
+
+    // Track mouse state
+    let isMouseDown = false;
+
+    // Add this at the top with other variables
+    let debugMode = false;
+    let debugObjects = [];
+
+    // Add this with other global variables
+    window.bunnies = [];
+
+    // Add enemies array
+    window.enemies = [];
+
+    // Spawn lab state is kept separate from ordinary enemies and scene state.
+    const spawnLabState = {
+      lastRequest: null,
+      lastResult: null,
+      fixtureActive: false,
+      fixtureEnemies: [],
+      fixtureObjects: []
+    };
+
+    // Add player health
+    window.playerHealth = 100;
+
+    // Track enemy kills and spawns
+    let enemyKillCount = 0;
+
+    // Add survival timer variables
+    let gameStartTime = 0;
+    let survivalTime = 0;
+    let isGameOver = false;
+
+    // Start the timer when the game begins
+    function startSurvivalTimer() {
+      gameStartTime = Date.now();
+      updateSurvivalTimer();
+    }
+
+    // Update the timer display
+    function updateSurvivalTimer() {
+      if (isGameOver) return;
+
+      survivalTime = Math.floor((Date.now() - gameStartTime) / 1000);
+      const minutes = Math.floor(survivalTime / 60);
+      const seconds = survivalTime % 60;
+
+      const timerDisplay = document.getElementById('timer-display');
+      if (timerDisplay) {
+        timerDisplay.textContent = `Survival Time: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      }
+
+      // Schedule the next update
+      requestAnimationFrame(updateSurvivalTimer);
+    }
+
+    // Format time for display
+    function formatTime(totalSeconds) {
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    // Show game over screen
+    function showGameOver() {
+      isGameOver = true;
+
+      // Update survival message
+      const survivalMessage = document.getElementById('survival-message');
+      if (survivalMessage) {
+        survivalMessage.textContent = `You survived AGI for ${formatTime(survivalTime)}`;
+      }
+
+      // Update kill message
+      const killMessage = document.getElementById('kill-message');
+      if (killMessage) {
+        killMessage.textContent = `You eliminated ${enemyKillCount} enemies`;
+      }
+
+      // Show game over screen
+      const gameOverScreen = document.getElementById('game-over');
+      if (gameOverScreen) {
+        gameOverScreen.style.display = 'flex';
+      }
+
+      // Unlock controls
+      if (controls) {
+        controls.unlock();
+      }
+    }
+
+    // Restart the game
+    function restartGame() {
+      // Reset game variables
+      window.playerHealth = 100;
+      enemyKillCount = 0;
+      isGameOver = false;
+
+      // Clear enemies
+      if (window.enemies) {
+        for (let i = window.enemies.length - 1; i >= 0; i--) {
+          const enemy = window.enemies[i];
+          if (enemy && enemy.mesh) {
+            scene.remove(enemy.mesh);
+          }
+        }
+        window.enemies = [];
+      }
+
+      // Update displays
+      updateHealthDisplay();
+      const killCountDisplay = document.getElementById('kill-count');
+      if (killCountDisplay) {
+        killCountDisplay.textContent = `Kills: 0`;
+      }
+
+      // Hide game over screen
+      const gameOverScreen = document.getElementById('game-over');
+      if (gameOverScreen) {
+        gameOverScreen.style.display = 'none';
+      }
+
+      // Spawn initial enemies
+      spawnEnemies(3);
+
+      // Reset timer
+      gameStartTime = Date.now();
+
+      // Lock controls again
+      if (controls) {
+        controls.lock();
+      }
+    }
+
+    // Function to spawn enemies when one is killed
+    window.spawnEnemiesOnDeath = function (count) {
+      // Increment kill counter
+      enemyKillCount++;
+
+      // Update kill count display if it exists
+      const killCountDisplay = document.getElementById('kill-count');
+      if (killCountDisplay) {
+        killCountDisplay.textContent = `Kills: ${enemyKillCount}`;
+      }
+
+      // Spawn new enemies with a slight delay
+      setTimeout(() => {
+        spawnEnemies(count);
+      }, 500);
+    };
+
+    // Update health display function
+    function updateHealthDisplay() {
+      const healthDisplay = document.getElementById('health-display');
+      if (healthDisplay) {
+        healthDisplay.textContent = `Health: ${window.playerHealth}`;
+
+        // Change color based on health
+        if (window.playerHealth > 70) {
+          healthDisplay.style.color = 'white';
+        } else if (window.playerHealth > 30) {
+          healthDisplay.style.color = 'yellow';
+        } else {
+          healthDisplay.style.color = 'red';
+        }
+      }
+
+      // Check if player is dead
+      if (window.playerHealth <= 0 && !isGameOver) {
+        showGameOver();
+      }
+    }
+
+    // Add camera shake function
+    window.shakeCamera = function (intensity) {
+      if (currentGun && typeof currentGun.shakeCamera === 'function') {
+        currentGun.shakeCamera(intensity);
+      }
+    };
+
+    function cloneLabValue(value) {
+      if (value === null || value === undefined) return value;
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function clearFixtureEnvironment() {
+      for (const enemy of spawnLabState.fixtureEnemies) {
+        if (!enemy) continue;
+
+        if (Array.isArray(enemy.bullets)) {
+          for (const bullet of enemy.bullets) {
+            if (bullet) scene.remove(bullet);
+          }
+          enemy.bullets.length = 0;
+        }
+
+        if (enemy.mesh) {
+          scene.remove(enemy.mesh);
+        }
+      }
+
+      for (const object of spawnLabState.fixtureObjects) {
+        if (!object) continue;
+        scene.remove(object);
+        if (object.geometry) object.geometry.dispose();
+        if (object.material) {
+          if (Array.isArray(object.material)) {
+            object.material.forEach((material) => material.dispose());
+          } else {
+            object.material.dispose();
+          }
+        }
+      }
+
+      spawnLabState.fixtureEnemies = [];
+      spawnLabState.fixtureObjects = [];
+    }
+
+    function getFixtureWorldPositions() {
+      return spawnLabState.fixtureEnemies.map((enemy) => {
+        const worldPosition = new THREE.Vector3();
+        enemy.mesh.getWorldPosition(worldPosition);
+        return [worldPosition.x, worldPosition.y, worldPosition.z];
+      });
+    }
+
+    function getSpawnLabState() {
+      const fixturePositions = getFixtureWorldPositions();
+      const fixtureEnemies = spawnLabState.fixtureEnemies.map((enemy, index) => ({
+        name: enemy.mesh ? enemy.mesh.name : null,
+        position: fixturePositions[index].slice(),
+        worldPosition: fixturePositions[index].slice()
+      }));
+
+      return {
+        lastRequest: cloneLabValue(spawnLabState.lastRequest),
+        request: cloneLabValue(spawnLabState.lastRequest),
+        lastResult: cloneLabValue(spawnLabState.lastResult),
+        result: cloneLabValue(spawnLabState.lastResult),
+        fixturePositions,
+        fixtureEnemyPositions: fixturePositions.map((position) => position.slice()),
+        fixtureEnemyWorldPositions: fixturePositions.map((position) => position.slice()),
+        fixtureEnemies,
+        active: spawnLabState.fixtureActive,
+        fixtureActive: spawnLabState.fixtureActive
+      };
+    }
+
+    function planForLab(request) {
+      const validated = validateSpawnRequest(request);
+      const result = planSpawn(validated);
+
+      spawnLabState.lastRequest = cloneLabValue(validated);
+      spawnLabState.lastResult = cloneLabValue(result);
+
+      return cloneLabValue(result);
+    }
+
+    function loadSpawnLabFixture() {
+      clearFixtureEnvironment();
+      spawnLabState.fixtureActive = true;
+
+      const request = {
+        count: 2,
+        minDistance: 10,
+        maxDistance: 10,
+        player: [0, 0],
+        obstacles: [{ id: 'block', min: [-1, 9], max: [1, 11] }],
+        occupied: []
+      };
+
+      let result;
+      try {
+        result = window.spawnLab.plan(request);
+      } catch (error) {
+        spawnLabState.fixtureActive = false;
+        throw error;
+      }
+
+      const groundGeometry = new THREE.PlaneGeometry(100, 100);
+      const groundMaterial = new THREE.MeshLambertMaterial({
+        color: 0x315531,
+        side: THREE.DoubleSide
+      });
+      const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+      ground.name = 'fixture-ground';
+      ground.rotation.x = -Math.PI / 2;
+      ground.position.y = 0;
+      ground.receiveShadow = true;
+      ground.userData.fixture = true;
+      scene.add(ground);
+      spawnLabState.fixtureObjects.push(ground);
+
+      const obstacle = request.obstacles[0];
+      const blockWidth = obstacle.max[0] - obstacle.min[0];
+      const blockDepth = obstacle.max[1] - obstacle.min[1];
+      const blockGeometry = new THREE.BoxGeometry(blockWidth, 2, blockDepth);
+      const blockMaterial = new THREE.MeshLambertMaterial({ color: 0x8a6a48 });
+      const block = new THREE.Mesh(blockGeometry, blockMaterial);
+      block.name = 'fixture-block';
+      block.position.set(
+        (obstacle.min[0] + obstacle.max[0]) / 2,
+        1,
+        (obstacle.min[1] + obstacle.max[1]) / 2
+      );
+      block.castShadow = true;
+      block.receiveShadow = true;
+      block.userData.fixture = true;
+      scene.add(block);
+      spawnLabState.fixtureObjects.push(block);
+
+      spawnLabState.fixtureEnemies = result.positions.map((position, index) => {
+        const enemy = new Enemy(scene, new THREE.Vector3(position[0], position[1], position[2]), camera);
+        enemy.create();
+        enemy.mesh.name = `spawn-fixture-${index}`;
+        enemy.mesh.userData.fixtureEnemy = true;
+        enemy.isAggressive = false;
+        return enemy;
+      });
+
+      return getSpawnLabState();
+    }
+
+    function resetSpawnLab() {
+      clearFixtureEnvironment();
+      spawnLabState.lastRequest = null;
+      spawnLabState.lastResult = null;
+      spawnLabState.fixtureActive = false;
+      return getSpawnLabState();
+    }
+
+    window.spawnLab = {
+      plan: planForLab,
+      loadFixture: loadSpawnLabFixture,
+      getState: getSpawnLabState,
+      reset: resetSpawnLab
+    };
+
+    init();
+    animate();
+
+    function init() {
+      // Setup scene first
+      scene = new THREE.Scene();
+      window.scene = scene;
+      scene.background = new THREE.Color(0x87ceeb); // Sky blue
+      scene.fog = new THREE.Fog(0x87ceeb, 0, 500);
+
+      // Add skybox
+      createSkybox();
+
+      // Then setup camera
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.y = 1.6; // Approximate eye height
+
+      // Make camera globally accessible
+      window.camera = camera;
+
+      // Now add camera to scene
+      scene.add(camera);
+
+      // Add lighting
+      const light = new THREE.HemisphereLight(0xeeeeff, 0x777788, 0.7);
+      light.position.set(0, 100, 0);
+      scene.add(light);
+
+      // Add directional light (sun)
+      const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      dirLight.position.set(50, 100, 50);
+      dirLight.castShadow = true;
+      dirLight.shadow.mapSize.width = 2048;
+      dirLight.shadow.mapSize.height = 2048;
+      dirLight.shadow.camera.far = 500;
+      dirLight.shadow.camera.left = -100;
+      dirLight.shadow.camera.right = 100;
+      dirLight.shadow.camera.top = 100;
+      dirLight.shadow.camera.bottom = -100;
+      scene.add(dirLight);
+
+      // Create hilly terrain instead of flat ground
+      createHillyTerrain();
+
+      // Setup controls
+      controls = new PointerLockControls(camera, document.body);
+      window.controls = controls; // Make controls globally accessible
+
+      // Add event listeners for controls
+      document.addEventListener('click', function () {
+        if (!isGameOver) {
+          controls.lock();
+        }
+      });
+
+      controls.addEventListener('lock', function () {
+        // Game started
+        if (!isGameOver && gameStartTime === 0) {
+          startSurvivalTimer();
+        }
+      });
+
+      controls.addEventListener('unlock', function () {
+        // Game paused (unless game over)
+        if (!isGameOver) {
+          // Paused state
+        }
+      });
+
+      // Add keyboard controls
+      document.addEventListener('keydown', onKeyDown);
+      document.addEventListener('keyup', onKeyUp);
+
+      // Setup renderer
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.shadowMap.enabled = true;
+      document.body.appendChild(renderer.domElement);
+
+      // Make renderer globally accessible
+      window.renderer = renderer;
+
+      // Handle window resize
+      window.addEventListener('resize', onWindowResize);
+
+      // Create gun after camera is added to scene - start with pistol instead of gatling gun
+      currentGun = new GunSystem.Pistol(scene, camera);
+      currentGun.create();
+
+      // Add mouse events for shooting
+      document.addEventListener('mousedown', onMouseDown);
+      document.addEventListener('mouseup', onMouseUp);
+
+      // Add restart button event listener
+      const restartButton = document.getElementById('restart-button');
+      if (restartButton) {
+        restartButton.addEventListener('click', restartGame);
+      }
+
+      // Spawn initial enemies
+      spawnEnemies(3);
+    }
+
+    function onWindowResize() {
+      // Update the active camera's aspect ratio
+      window.camera.aspect = window.innerWidth / window.innerHeight;
+      window.camera.updateProjectionMatrix();
+
+      // Update renderer size
+      window.renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    function onKeyDown(event) {
+      // Skip if we're typing in an input field
+      if (event.target.tagName === 'INPUT') return;
+
+      // Skip if the V key is pressed and we have a sniper rifle
+      // Let the sniper rifle handle it
+      if (event.code === 'KeyV' && currentGun instanceof GunSystem.SniperRifle) {
+        return;
+      }
+
+      // Skip all keyboard input if we're controlling a projectile with the Translocator
+      if (currentGun instanceof GunSystem.TranslocatorGun && currentGun.isControllingProjectile) {
+        // Only allow shooting to detonate
+        if (event.code === 'Space') {
+          currentGun.shoot(); // Detonate the projectile
+        }
+        return; // Ignore all other keys while controlling projectile
+      }
+
+      switch (event.code) {
+        case 'KeyW':
+          moveForward = true;
+          break;
+        case 'KeyA':
+          moveLeft = true;
+          break;
+        case 'KeyS':
+          moveBackward = true;
+          break;
+        case 'KeyD':
+          moveRight = true;
+          break;
+        case 'Space':
+          if (canJump === true) {
+            velocity.y = Math.sqrt(jumpHeight * 2 * gravity);
+            canJump = false;
+            isJumping = true;
+          }
+          break;
+        case 'Digit1':
+          switchWeapon('pistol');
+          break;
+        case 'Digit2':
+          switchWeapon('gatling');
+          break;
+        case 'Digit3':
+          switchWeapon('sniper');
+          break;
+        case 'Digit4':
+          switchWeapon('bazooka');
+          break;
+        case 'Digit5':
+          switchWeapon('translocator');
+          break;
+        case 'Digit6':
+          switchWeapon('akimbo');
+          break;
+        case 'KeyB':
+          debugMode = !debugMode;
+          toggleDebugMode();
+          break;
+        case 'KeyN':
+          addBunnies(5);
+          break;
+        case 'KeyM':
+          spawnEnemies(1);
+          break;
+        case 'KeyP':
+          // Switch to next skybox
+          currentSkyboxIndex = (currentSkyboxIndex + 1) % 5;
+          createSkybox(currentSkyboxIndex);
+          break;
+      }
+    }
+
+    function onKeyUp(event) {
+      // Skip if we're typing in an input field
+      if (event.target.tagName === 'INPUT') return;
+
+      // Skip if the V key is released and we have a sniper rifle
+      // Let the sniper rifle handle it
+      if (event.code === 'KeyV' && currentGun instanceof GunSystem.SniperRifle) {
+        return;
+      }
+
+      // Skip all keyboard input if we're controlling a projectile with the Translocator
+      if (currentGun instanceof GunSystem.TranslocatorGun && currentGun.isControllingProjectile) {
+        return;
+      }
+
+      switch (event.code) {
+        case 'KeyW':
+          moveForward = false;
+          break;
+        case 'KeyA':
+          moveLeft = false;
+          break;
+        case 'KeyS':
+          moveBackward = false;
+          break;
+        case 'KeyD':
+          moveRight = false;
+          break;
+      }
+    }
+
+    function onMouseDown(event) {
+      // Only handle left mouse button
+      if (event.button !== 0) return;
+
+      isMouseDown = true;
+
+      if (!currentGun) return;
+
+      console.log("Mouse down, gun type:", currentGun.constructor.name);
+
+      // If controlling a Translocator projectile, detonate it
+      if (currentGun instanceof GunSystem.TranslocatorGun && currentGun.isControllingProjectile) {
+        currentGun.shoot(); // Detonate the projectile
+        return;
+      }
+
+      // Handle different gun types appropriately
+      if (currentGun instanceof GunSystem.Bazooka) {
+        // For bazooka, store mouse state and fire once
+        currentGun.isMouseDown = true;
+        currentGun.shoot();
+      } else if (currentGun instanceof GunSystem.GatlingGun || currentGun instanceof GunSystem.Akimbo) {
+        // For gatling gun and akimbo, start continuous firing
+        console.log("Starting continuous firing");
+        currentGun.startFiring();
+      } else {
+        // For other guns (pistol, sniper), just fire once
+        currentGun.shoot();
+      }
+    }
+
+    function onMouseUp(event) {
+      // Only handle left mouse button
+      if (event.button !== 0) return;
+
+      isMouseDown = false;
+
+      if (!currentGun) return;
+
+      console.log("Mouse up, gun type:", currentGun.constructor.name);
+
+      // Handle different gun types appropriately
+      if (currentGun instanceof GunSystem.Bazooka) {
+        // For bazooka, update mouse state
+        currentGun.isMouseDown = false;
+      } else if (currentGun instanceof GunSystem.GatlingGun || currentGun instanceof GunSystem.Akimbo) {
+        // For gatling gun and akimbo, stop continuous firing
+        console.log("Stopping continuous firing");
+        currentGun.stopFiring();
+      }
+      // No action needed for single-shot weapons
+    }
+
+    function createHillyTerrain() {
+      // Create a simple flat ground
+      const groundGeometry = new THREE.PlaneGeometry(1000, 1000);
+      const groundMaterial = new THREE.MeshLambertMaterial({
+        color: 0x2F4F2F, // Darker forest green (Dark Slate Gray)
+        side: THREE.DoubleSide
+      });
+      const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+      ground.rotation.x = -Math.PI / 2;
+      ground.position.y = 0;
+      ground.receiveShadow = true;
+      scene.add(ground);
+
+      // Add buildings instead of just walls
+      addBuildings();
+
+      // Add bunnies
+      addBunnies(15); // Add 15 bunnies
+
+      // Position player at a good starting point
+      camera.position.set(0, playerHeight, 0);
+    }
+
+    function addBuildings() {
+      // Create a small town with various buildings
+
+      // Add some houses
+      for (let i = 0; i < 5; i++) {
+        const house = new BuildingSystem.House(scene,
+          new THREE.Vector3(
+            Math.random() * 80 - 40,
+            0,
+            Math.random() * 80 - 40
+          ),
+          {
+            width: 8 + Math.random() * 4,
+            depth: 6 + Math.random() * 4,
+            height: 3 + Math.random() * 2,
+            color: new THREE.Color(
+              0.8 + Math.random() * 0.2,
+              0.8 + Math.random() * 0.2,
+              0.8 + Math.random() * 0.2
+            )
+          }
+        );
+        house.create();
+      }
+
+      // Add a few office buildings
+      for (let i = 0; i < 3; i++) {
+        const office = new BuildingSystem.OfficeBuilding(scene,
+          new THREE.Vector3(
+            Math.random() * 100 - 50,
+            0,
+            Math.random() * 100 - 50
+          ),
+          {
+            width: 15 + Math.random() * 10,
+            depth: 15 + Math.random() * 10,
+            height: 12 + Math.random() * 8,
+            floors: 2 + Math.floor(Math.random() * 3)
+          }
+        );
+        office.create();
+      }
+
+      // Keep some of the original walls for variety
+      addWalls(5); // Reduced number of walls
+    }
+
+    // Update the addWalls function to take a count parameter
+    function addWalls(count = 10) {
+      // Add some obstacles/walls
+      const wallGeometry = new THREE.BoxGeometry(10, 5, 1);
+      const wallMaterial = new THREE.MeshLambertMaterial({
+        color: 0xbb9977
+      });
+
+      // Create a few walls with different rotations
+      for (let i = 0; i < count; i++) {
+        const wall = new THREE.Mesh(wallGeometry, wallMaterial);
+        wall.position.x = Math.random() * 100 - 50;
+        wall.position.z = Math.random() * 100 - 50;
+
+        // Get terrain height at wall position
+        const terrainHeight = getTerrainHeightAtPosition(wall.position.x, wall.position.z);
+        wall.position.y = terrainHeight + 2.5; // Half height of wall
+
+        wall.rotation.y = Math.random() * Math.PI * 2;
+        wall.castShadow = true;
+        wall.receiveShadow = true;
+
+        // Add health to the wall
+        wall.userData.health = 500;
+        wall.userData.destroyed = false;
+
+        scene.add(wall);
+
+        // Store wall for collision detection
+        window.walls.push(wall);
+      }
+    }
+
+    function getTerrainHeightAtPosition(x, z) {
+      // For flat ground, always return 0
+      return 0;
+    }
+
+    function positionPlayerOnTerrain() {
+      // This is a simplified version - in a real game you'd use your terrain height function
+      // For now, we'll just keep the player at a fixed height
+      const terrainHeight = 0; // Flat terrain
+
+      // Ensure player is above terrain
+      if (camera.position.y < terrainHeight + playerHeight) {
+        camera.position.y = terrainHeight + playerHeight;
+        velocity.y = 0;
+        canJump = true;
+        isJumping = false;
+      }
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      if (controls.isLocked === true && !isGameOver) {
+        const time = performance.now();
+        const delta = (time - prevTime) / 1000;
+
+        // Skip movement processing if camera is shaking or controlling projectile
+        const isControllingProjectile = currentGun instanceof GunSystem.TranslocatorGun && currentGun.isControllingProjectile;
+
+        if (!window.isShakingCamera && !isControllingProjectile) {
+          // Get player velocity
+          velocity.x -= velocity.x * 10.0 * delta;
+          velocity.z -= velocity.z * 10.0 * delta;
+
+          // Apply gravity
+          velocity.y -= gravity * delta;
+
+          // Set movement direction
+          direction.z = Number(moveForward) - Number(moveBackward);
+          direction.x = Number(moveRight) - Number(moveLeft);
+          direction.normalize();
+
+          // Calculate movement speed based on weapon
+          let movementSpeed = 400.0; // Restore to original higher value
+
+          // Reduce speed when holding bazooka, but not too much
+          if (currentGun instanceof GunSystem.Bazooka) {
+            movementSpeed = 200.0; // Half speed with bazooka, but still fast enough
+          }
+
+          // Move player
+          if (moveForward || moveBackward) velocity.z -= direction.z * movementSpeed * delta;
+          if (moveLeft || moveRight) velocity.x -= direction.x * movementSpeed * delta;
+
+          // Save current position for collision detection
+          const oldPosition = camera.position.clone();
+
+          // Apply velocity to position
+          controls.moveRight(-velocity.x * delta);
+          controls.moveForward(-velocity.z * delta);
+          camera.position.y += velocity.y * delta;
+
+          // Check if we're on the ground
+          if (camera.position.y < playerHeight) {
+            velocity.y = 0;
+            camera.position.y = playerHeight;
+            canJump = true;
+            isJumping = false;
+          }
+
+          // Check for collisions with walls
+          if (isCollidingWithWalls()) {
+            // Restore old position if collision detected
+            camera.position.copy(oldPosition);
+            velocity.x = 0;
+            velocity.z = 0;
+          }
+
+          // Position player on terrain
+          positionPlayerOnTerrain();
+        }
+
+        // Update gun
+        if (currentGun) {
+          // Update gun state - make sure this is called
+          if (typeof currentGun.update === 'function') {
+            currentGun.update(delta);
+          }
+
+          // Update bullets
+          if (typeof currentGun.updateBullets === 'function') {
+            currentGun.updateBullets(delta, window.walls);
+          }
+
+          // Auto-shoot if mouse is held down - ONLY for Bazooka
+          if (isMouseDown &&
+            currentGun instanceof GunSystem.Bazooka &&
+            currentGun.isMouseDown &&
+            currentGun.canShoot) {
+            currentGun.shoot();
+          }
+        }
+
+        // Update particles
+        updateParticles(delta);
+
+        // Update bunnies
+        if (window.bunnies) {
+          window.bunnies.forEach(bunny => {
+            bunny.update(delta, time / 1000, window.walls);
+          });
+        }
+
+        // Update enemies
+        updateEnemies(delta, time);
+
+        // Update health display
+        updateHealthDisplay();
+
+        prevTime = time;
+      }
+
+      // Use the current active camera for rendering (could be player camera or projectile camera)
+      renderer.render(scene, window.camera);
+    }
+
+    function cleanupDestroyedWalls() {
+      // Remove any walls that have been marked as destroyed
+      for (let i = window.walls.length - 1; i >= 0; i--) {
+        if (window.walls[i].userData.destroyed) {
+          window.walls.splice(i, 1);
+        }
+      }
+    }
+
+    function isCollidingWithWalls() {
+      // Get player position (at body level, not eye level)
+      const playerPos = camera.position.clone();
+      playerPos.y -= 0.8; // Lower to body center
+
+      // Create a sphere representing the player's collision volume
+      const playerSphere = new THREE.Sphere(playerPos, playerRadius);
+
+      // Check collision with each wall
+      for (const wall of window.walls) {
+        // Skip destroyed walls
+        if (wall.userData.destroyed) continue;
+
+        // Get wall's world matrix
+        wall.updateMatrixWorld(true);
+
+        // Create a box3 for the wall in world space
+        const wallGeometry = wall.geometry;
+        if (!wallGeometry) continue;
+
+        const wallBox = new THREE.Box3().setFromObject(wall);
+
+        // Check if player sphere intersects with wall box
+        if (wallBox.intersectsSphere(playerSphere)) {
+          // For doors, check if it's a door and allow passage
+          if (wall.userData.buildingPart === 'door' ||
+            wall.userData.buildingPart === 'window') {
+            continue;
+          }
+
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    function updateParticles(delta) {
+      if (!window.particles) return;
+
+      const currentTime = performance.now();
+
+      // Update each particle
+      for (let i = window.particles.length - 1; i >= 0; i--) {
+        const particle = window.particles[i];
+
+        // Check if particle should be removed
+        if (currentTime - particle.userData.createdAt > particle.userData.lifespan) {
+          // Remove particle from scene
+          scene.remove(particle);
+          window.particles.splice(i, 1);
+          continue;
+        }
+
+        // Calculate age as a percentage of lifespan
+        const age = (currentTime - particle.userData.createdAt) / particle.userData.lifespan;
+
+        // Fade out particles over time
+        if (particle.material && particle.material.opacity !== undefined) {
+          particle.material.opacity = 1 - age;
+        }
+
+        // Move particles with velocity
+        if (particle.userData.velocity) {
+          try {
+            // Use a safe approach to clone velocity
+            const velocity = new THREE.Vector3(
+              particle.userData.velocity.x,
+              particle.userData.velocity.y,
+              particle.userData.velocity.z
+            );
+
+            // Apply gravity to non-smoke particles
+            if (!particle.userData.isSmoke && !particle.userData.isGroundMark) {
+              velocity.y -= 9.8 * delta; // Apply gravity
+              particle.userData.velocity.y = velocity.y; // Update stored velocity
+            }
+
+            // Move particle
+            particle.position.add(velocity.multiplyScalar(delta));
+
+            // Bounce off ground
+            if (particle.position.y < 0.05 && velocity.y < 0) {
+              particle.position.y = 0.05;
+              particle.userData.velocity.y = -particle.userData.velocity.y * 0.4; // Dampen bounce
+            }
+          } catch (e) {
+            // If there's an error with velocity, just skip this particle
+            console.log("Error updating particle:", e);
+          }
+        }
+
+        // Special handling for explosion particles
+        if (particle.userData.velocities && particle.userData.velocities.length > 0) {
+          const positions = particle.geometry.attributes.position.array;
+
+          for (let j = 0; j < particle.userData.velocities.length; j++) {
+            const i3 = j * 3;
+            const vel = particle.userData.velocities[j];
+
+            // Move particle
+            positions[i3] += vel.x * delta;
+            positions[i3 + 1] += vel.y * delta;
+            positions[i3 + 2] += vel.z * delta;
+
+            // Apply gravity
+            vel.y -= 9.8 * delta;
+          }
+
+          particle.geometry.attributes.position.needsUpdate = true;
+        }
+      }
+    }
+
+    function switchWeapon(weaponType) {
+      // Clean up current gun if it has a cleanup method
+      if (currentGun && typeof currentGun.cleanup === 'function') {
+        currentGun.cleanup();
+      }
+
+      // Remove current gun from camera
+      if (currentGun && currentGun.mesh) {
+        camera.remove(currentGun.mesh);
+      }
+
+      // Reset camera FOV to default when switching weapons
+      camera.fov = 75;
+      camera.updateProjectionMatrix();
+
+      // Hide scope overlay when switching weapons
+      const scopeOverlay = document.getElementById('scope-overlay');
+      if (scopeOverlay) {
+        scopeOverlay.style.display = 'none';
+      }
+
+      // Create new gun
+      switch (weaponType) {
+        case 'pistol':
+          currentGun = new GunSystem.Pistol(scene, camera);
+          break;
+        case 'gatling':
+          currentGun = new GunSystem.GatlingGun(scene, camera);
+          break;
+        case 'sniper':
+          currentGun = new GunSystem.SniperRifle(scene, camera);
+          break;
+        case 'bazooka':
+          currentGun = new GunSystem.Bazooka(scene, camera);
+          break;
+        case 'translocator':
+          currentGun = new GunSystem.TranslocatorGun(scene, camera);
+          break;
+        case 'akimbo':
+          currentGun = new GunSystem.Akimbo(scene, camera);
+          break;
+        default:
+          currentGun = new GunSystem.Pistol(scene, camera); // Default to pistol
+      }
+
+      // Create the new gun
+      currentGun.create();
+
+      // Display weapon switch message
+      console.log(`Switched to ${weaponType}`);
+    }
+
+    function toggleDebugMode() {
+      // Clear existing debug objects
+      debugObjects.forEach(obj => scene.remove(obj));
+      debugObjects = [];
+
+      if (debugMode) {
+        // Create debug visualizations for all collision objects
+        window.walls.forEach(wall => {
+          if (wall.userData.destroyed) return;
+
+          const box = new THREE.Box3().setFromObject(wall);
+          const helper = new THREE.Box3Helper(box, 0xff0000);
+          scene.add(helper);
+          debugObjects.push(helper);
+
+          // Add text label for wall type
+          const center = new THREE.Vector3();
+          box.getCenter(center);
+
+          // Create a canvas for the text
+          const canvas = document.createElement('canvas');
+          canvas.width = 256;
+          canvas.height = 128;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = 'white';
+          ctx.font = '24px Arial';
+          ctx.fillText(wall.userData.buildingPart || 'wall', 10, 64);
+
+          // Create a texture from the canvas
+          const texture = new THREE.CanvasTexture(canvas);
+          const material = new THREE.SpriteMaterial({ map: texture });
+          const sprite = new THREE.Sprite(material);
+          sprite.position.copy(center);
+          sprite.scale.set(5, 2.5, 1);
+
+          scene.add(sprite);
+          debugObjects.push(sprite);
+        });
+
+        console.log("Debug mode enabled - collision boxes visible");
+      } else {
+        console.log("Debug mode disabled");
+      }
+    }
+
+    function addBunnies(count) {
+      for (let i = 0; i < count; i++) {
+        // Create bunny at random position
+        const bunnyPosition = new THREE.Vector3(
+          Math.random() * 160 - 80, // X: -80 to 80
+          0.5,                      // Y: slightly above ground
+          Math.random() * 160 - 80  // Z: -80 to 80
+        );
+
+        const bunny = new AnimalSystem.Bunny(scene, bunnyPosition);
+        bunny.create();
+
+        // Add to global array for updating
+        window.bunnies.push(bunny);
+      }
+
+      console.log(`Added ${count} bunnies to the scene`);
+    }
+
+    function updateBunnies(delta) {
+      if (!window.bunnies) return;
+
+      const currentTime = performance.now();
+
+      // Update each bunny
+      for (let i = window.bunnies.length - 1; i >= 0; i--) {
+        const bunny = window.bunnies[i];
+
+        // Update bunny
+        bunny.update(delta, currentTime, window.walls);
+
+        // Check for collision with walls
+        bunny.checkCollisions(window.walls);
+      }
+    }
+
+    function getLivingEnemyOccupiedPoints() {
+      if (!window.enemies) return [];
+
+      return window.enemies
+        .filter((enemy) => enemy && !enemy.isDead && enemy.mesh)
+        .map((enemy) => [enemy.mesh.position.x, enemy.mesh.position.z]);
+    }
+
+    function getSpawnObstacles() {
+      const obstacles = [];
+
+      if (!window.walls) return obstacles;
+
+      for (const wall of window.walls) {
+        if (!wall || !wall.geometry || !wall.userData) continue;
+        if (wall.userData.destroyed || wall.userData.isPassable || wall.userData.passable) continue;
+        if (wall.userData.buildingPart === 'door' || wall.userData.buildingPart === 'window') continue;
+
+        wall.updateWorldMatrix(true, false);
+        const bounds = new THREE.Box3().setFromObject(wall);
+        if (!Number.isFinite(bounds.min.x) || !Number.isFinite(bounds.min.z) ||
+          !Number.isFinite(bounds.max.x) || !Number.isFinite(bounds.max.z)) {
+          continue;
+        }
+
+        obstacles.push({
+          id: wall.name || wall.uuid,
+          min: [bounds.min.x, bounds.min.z],
+          max: [bounds.max.x, bounds.max.z]
+        });
+      }
+
+      return obstacles;
+    }
+
+    // Function to spawn enemies at deterministic, collision-aware positions
+    function spawnEnemies(count) {
+      if (spawnLabState.fixtureActive) return;
+
+      const request = {
+        count,
+        minDistance: 20,
+        maxDistance: 40,
+        player: [camera.position.x, camera.position.z],
+        obstacles: getSpawnObstacles(),
+        occupied: getLivingEnemyOccupiedPoints()
+      };
+
+      let result;
+      try {
+        result = planForLab(request);
+      } catch (error) {
+        console.error('Enemy spawn planning failed:', error);
+        return;
+      }
+
+      for (const position of result.positions) {
+        const enemyPosition = new THREE.Vector3(position[0], position[1], position[2]);
+        const enemy = new EnemySystem.Enemy(scene, enemyPosition, camera);
+        enemy.create();
+
+        // Add to global array for updating
+        window.enemies.push(enemy);
+      }
+
+      console.log(`Added ${result.positions.length} planned enemies to the scene (${result.missing} missing). Total enemies: ${window.enemies.length}`);
+    }
+
+    // Function to check if a position is valid (not inside a wall)
+    function isPositionValid(position) {
+      // Create a small sphere at the position
+      const testSphere = new THREE.Sphere(position, 1);
+
+      // Check collision with each wall
+      for (const wall of window.walls) {
+        // Skip destroyed walls
+        if (wall.userData.destroyed) continue;
+
+        const wallBox = new THREE.Box3().setFromObject(wall);
+
+        // If sphere intersects with wall, position is invalid
+        if (wallBox.intersectsSphere(testSphere)) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    function updateEnemies(delta, time) {
+      if (spawnLabState.fixtureActive) return;
+      if (!window.enemies) return;
+
+      // Update each enemy
+      for (let i = window.enemies.length - 1; i >= 0; i--) {
+        const enemy = window.enemies[i];
+
+        // Update enemy
+        enemy.update(delta, time / 1000, window.walls);
+      }
+    }
+
+    // Add this function to check if a bullet hits an enemy
+    function checkBulletEnemyCollisions(bullet) {
+      if (!window.enemies || !window.enemies.length) return false;
+
+      for (let i = 0; i < window.enemies.length; i++) {
+        const enemy = window.enemies[i];
+
+        if (enemy.isDead) continue;
+
+        // Simple sphere collision detection
+        const enemyPosition = enemy.mesh.position.clone();
+        enemyPosition.y += 1.5; // Adjust to center of enemy
+
+        const enemyRadius = 0.7; // Approximate enemy collision radius
+        const distance = bullet.position.distanceTo(enemyPosition);
+
+        if (distance < enemyRadius) {
+          // Bullet hit enemy
+          enemy.takeDamage(bullet.userData.damage);
+
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    // Modify the Gun class's checkBulletCollisions method to check for enemy collisions
+    // This will be done by monkey patching the method
+    const originalCheckBulletCollisions = GunSystem.Gun.prototype.checkBulletCollisions;
+    GunSystem.Gun.prototype.checkBulletCollisions = function (bullet, walls) {
+      // Check for collisions with enemies first
+      if (checkBulletEnemyCollisions(bullet)) {
+        bullet.userData.alive = false;
+        return true;
+      }
+
+      // Otherwise use the original method
+      return originalCheckBulletCollisions.call(this, bullet, walls);
+    };
+
+    // Function to create a procedural, locally generated panoramic skybox
+    function createSkybox(skyboxIndex = 0) {
+      const existingSkybox = scene.getObjectByName('skybox');
+      if (existingSkybox) {
+        scene.remove(existingSkybox);
+        if (existingSkybox.geometry) existingSkybox.geometry.dispose();
+        if (existingSkybox.material) {
+          if (existingSkybox.material.map) existingSkybox.material.map.dispose();
+          existingSkybox.material.dispose();
+        }
+      }
+
+      const palettes = [
+        { top: '#356da8', horizon: '#b9d8e8', ground: '#7e9b78', sun: '#fff4cf', cloud: 'rgba(255,255,255,0.70)' },
+        { top: '#284f86', horizon: '#e7b98d', ground: '#8d8060', sun: '#ffe0a3', cloud: 'rgba(255,238,220,0.58)' },
+        { top: '#162b5c', horizon: '#8e75a6', ground: '#4e4b61', sun: '#f6e8ff', cloud: 'rgba(220,214,238,0.42)' },
+        { top: '#4f83a8', horizon: '#d8e8df', ground: '#6f8d6f', sun: '#ffffff', cloud: 'rgba(255,255,255,0.82)' },
+        { top: '#7a4d57', horizon: '#f0b48b', ground: '#725c50', sun: '#fff0c2', cloud: 'rgba(255,225,205,0.55)' }
+      ];
+
+      const palette = palettes[skyboxIndex % palettes.length];
+      const canvas = document.createElement('canvas');
+      canvas.width = 1024;
+      canvas.height = 512;
+      const context = canvas.getContext('2d');
+
+      const skyGradient = context.createLinearGradient(0, 0, 0, canvas.height);
+      skyGradient.addColorStop(0, palette.top);
+      skyGradient.addColorStop(0.43, palette.horizon);
+      skyGradient.addColorStop(0.53, palette.ground);
+      skyGradient.addColorStop(1, palette.ground);
+      context.fillStyle = skyGradient;
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+      const sunX = canvas.width * (0.2 + ((skyboxIndex * 0.17) % 0.6));
+      const sunY = canvas.height * 0.3;
+      const sunGradient = context.createRadialGradient(sunX, sunY, 4, sunX, sunY, 105);
+      sunGradient.addColorStop(0, palette.sun);
+      sunGradient.addColorStop(0.16, palette.sun);
+      sunGradient.addColorStop(1, 'rgba(255,255,255,0)');
+      context.fillStyle = sunGradient;
+      context.fillRect(sunX - 110, sunY - 110, 220, 220);
+
+      let seed = 0x9e3779b9 ^ (skyboxIndex + 1) * 2654435761;
+      const random = () => {
+        seed = (seed * 1664525 + 1013904223) >>> 0;
+        return seed / 4294967296;
+      };
+
+      context.fillStyle = palette.cloud;
+      for (let i = 0; i < 18; i++) {
+        const x = random() * canvas.width;
+        const y = canvas.height * (0.08 + random() * 0.3);
+        const width = 60 + random() * 170;
+        const height = 10 + random() * 28;
+        context.beginPath();
+        context.ellipse(x, y, width, height, 0, 0, Math.PI * 2);
+        context.ellipse(x + width * 0.45, y + height * 0.15, width * 0.7, height * 0.8, 0, 0, Math.PI * 2);
+        context.ellipse(x - width * 0.4, y + height * 0.18, width * 0.55, height * 0.7, 0, 0, Math.PI * 2);
+        context.fill();
+      }
+
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.needsUpdate = true;
+
+      const sphereGeometry = new THREE.SphereGeometry(450, 60, 40);
+      sphereGeometry.scale(-1, 1, 1);
+      const sphereMaterial = new THREE.MeshBasicMaterial({ map: texture });
+      const skybox = new THREE.Mesh(sphereGeometry, sphereMaterial);
+      skybox.name = 'skybox';
+      scene.add(skybox);
+
+      scene.background = new THREE.Color(palette.horizon);
+      scene.fog = new THREE.Fog(palette.horizon, 100, 750);
+    }
+
+    // Track current skybox index
+    let currentSkyboxIndex = 0;
+  </script>
+</body>
+
+</html>

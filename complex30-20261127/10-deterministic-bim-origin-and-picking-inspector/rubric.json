@@ -1,0 +1,98 @@
+{
+  "version": "3.0",
+  "task": "deterministic-bim-origin-and-picking-inspector",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "thus origin is `[0.5,-2.5,-0.5]`. Keep mesh local positions unchanged.",
+      "action": "Inspect modelRoot, all four meshes, their local transforms, and their world bounding boxes after initialization.",
+      "expected": "modelRoot.position is [0.5,-2.5,-0.5], all listed local centers and box dimensions match, and the recentered world bounds are centered at [0,0,0]. (Tolerance: 0.0001 per position and bounds component)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "set `camera.far = diagonal*5` and `camera.near = camera.far/1000`",
+      "action": "Read the initialized perspective camera and calculate the diagonal from the supplied bounds.",
+      "expected": "FOV is 40 degrees, aspect is 4/3, far is 5*sqrt(155), near is far/1000, and the initial pose is [12,9,14] looking at the origin. (Tolerance: 0.0001)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "choose the nearest intersection, set `selectedId` to its ID, and return that ID",
+      "action": "Position the camera at [0.5,1.5,15], look at beam-A's world center [0.5,1.5,2.5], update matrices, then call pick(0,0).",
+      "expected": "pick returns beam-A, selectedId is beam-A, and only beam-A has green emissive intensity 1. (Tolerance: Exact ID and material state)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "Hiding the type containing the selected mesh must clear its selection and highlight.",
+      "action": "With beam-A selected, call setTypeVisible('IfcBeam',false), then call setTypeVisible('UnknownType',false).",
+      "expected": "beam-A is invisible, selection and its highlight are cleared, the first call returns true, and the unknown-type call returns false without further state changes. (Tolerance: Exact state)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "set `distance = (diagonal/2)/Math.tan(20*Math.PI/180)*1.25`",
+      "action": "Reset, select slab-A, call focusSelected(), and compare camera position and look target with the formula.",
+      "expected": "The target is slab-A's world center [0.5,-2,-0.5], and camera position equals target plus normalize([1,0.75,1]) multiplied by the specified distance; clipping and FOV remain unchanged. (Tolerance: 0.0001 per component)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T06",
+      "requirement": "`reset()` must restore the initial camera pose and clipping values, all-type visibility, origin, mesh transforms and materials, and clear selection.",
+      "action": "Change visibility, select and focus an object, move modelRoot, then invoke reset and inspect getState and the live scene.",
+      "expected": "All initial camera, origin, mesh, visibility, material, and selection values are restored exactly. (Tolerance: 0.0001 for numeric values; exact otherwise)",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

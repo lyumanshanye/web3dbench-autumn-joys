@@ -1,0 +1,60 @@
+{
+  "Q_human": null,
+  "Q_vlm": 86.2,
+  "browser_calls": 112,
+  "end_to_end_Q_vlm": 86.2,
+  "full_task_pass": false,
+  "infra_status": "NORMAL",
+  "must_status": "FAIL",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-52-35-613Z.jpeg"
+      ],
+      "reason": "Core browsing, customization, color, rotation, validation, and reset flows work, but the explicitly requested load recovery after reset is broken, a substantial persistence-flow omission.",
+      "score": 3
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-51-32-011Z.jpeg",
+        "evidence/page-2026-11-27T00-52-35-613Z.jpeg"
+      ],
+      "reason": "Required repeated interaction, reverse scrolling, mode transitions, invalid inputs, and reset work. The save-reset-load recovery sequence fails because Reset deletes the save before Load, leaving a notable recovery defect.",
+      "score": 3
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-49-50-467Z.jpeg",
+        "evidence/page-2026-11-27T00-50-04-280Z.jpeg",
+        "evidence/page-2026-11-27T00-50-25-574Z.jpeg",
+        "evidence/page-2026-11-27T00-50-39-735Z.jpeg"
+      ],
+      "reason": "Dimensions, positions, shared upholstery material, dark legs, perspective camera contract, scroll interpolation, and customize viewpoint are exact. Multi-view rendering demonstrates consistent depth, occlusion, shading, and shadows.",
+      "score": 4
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-53-16-740Z.jpeg",
+        "evidence/page-2026-11-27T00-53-31-442Z.jpeg",
+        "evidence/page-2026-11-27T00-53-46-413Z.jpeg"
+      ],
+      "reason": "Rendering and controls remain stable through desktop, mobile, reload, repeated interactions, and invalid imports with no console errors or nonlocal network requests. The persistence recovery failure is a localized functional defect.",
+      "score": 3
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-49-50-467Z.jpeg",
+        "evidence/page-2026-11-27T00-51-32-011Z.jpeg",
+        "evidence/page-2026-11-27T00-53-31-442Z.jpeg"
+      ],
+      "reason": "The warm editorial layout, coherent green/red/violet upholstery changes, typography, shadowed procedural chair, and responsive control card form a clear, consistent studio presentation.",
+      "score": 4
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 15
+}

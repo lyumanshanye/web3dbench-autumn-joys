@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>aframe-atoll-terrain primitive example</title>
+    <meta name="description" content="An example A-Frame WebVR scene with an aframe-atoll-terrain (and an aframe-simple-sun-sky)">
+    <script src="vendor/aframe.min.js"></script>
+    <script src="vendor/simple-sun-sky.js"></script>
+    <script src="dist/aframe-atoll-terrain.js"></script>
+    <!--<script src="https://unpkg.com/aframe-atoll-terrain@^1.0.0/dist/aframe-atoll-terrain.js"></script>-->
+    <script src="vendor/aframe-extras.controls.min.js"></script>
+    <script>
+AFRAME.registerComponent('place-ball', {
+    init: function () {
+      const terrainGeometry = document.getElementById('survey-terrain').getAttribute('geometry');
+
+      const armatureEl = document.getElementById('armature');
+      const armaturePosition = armatureEl.getAttribute('position');
+      armaturePosition.y = terrainGeometry.getElevation(armaturePosition.x, armaturePosition.z) + 1.6;
+
+      const sphereEl = document.querySelector('a-sphere');
+      const spherePosition = sphereEl.getAttribute('position');
+      spherePosition.y = terrainGeometry.getElevation(spherePosition.x, spherePosition.z) + 1.6;
+    }
+});
+
+AFRAME.registerComponent('moving-sun', {
+    init: function () {
+        this.positionSph = new THREE.Spherical(1, Math.PI/2, 0);
+        this.position = new THREE.Vector3();
+        this.atollTerrain = document.querySelector('a-atoll-terrain');
+        this.sss = document.querySelector('a-simple-sun-sky');
+        this.directional = document.getElementById('directional');
+    },
+
+    tick: function (time) {
+        this.positionSph.phi = Math.PI * (0.3 - 0.15 * Math.sin(time / 32000 * 2 * Math.PI));
+        this.positionSph.theta = 2 * Math.PI * ( 0.25 + time / 48000);
+        this.position.setFromSpherical(this.positionSph);
+        let positionStr = this.position.x + ' ' + this.position.y + ' ' + this.position.z;
+//        console.log(positionStr);
+        this.atollTerrain.setAttribute('sun-position', positionStr);
+        this.sss.setAttribute('sun-position', positionStr);
+        this.directional.setAttribute('position', positionStr);
+    }
+});
+    </script>
+</head>
+<body>
+<a-scene moving-sun place-ball background="color:#87cefa">
+    <a-simple-sun-sky sun-position="0.8 0.6 0" radius="2000"></a-simple-sun-sky>
+    <a-entity light="type: ambient; color: #888"></a-entity>
+    <a-entity id="directional" light="type: directional; color: #FFF; intensity: 0.6" position="0.7 0.4 -1"></a-entity>
+
+    <a-sphere position="0 11.6 -2" radius="0.6" color="#EF2D5E" shadow></a-sphere>
+    <!-- deterministic terrain with inner and outer survey rings -->
+    <a-atoll-terrain id="survey-terrain"
+                     seed="0.25" plateau-radius="6" plateau-elevation="2"
+                     middle-radius="20" unit-size="1" far="80"
+                     sun-position="0.8 0.6 0"
+                     log="true" flat-shading="false">
+        <a-entity id="inner-survey" terrain-survey="radius:4; count:8; height:2; markerRadius:0.2"></a-entity>
+        <a-entity id="outer-survey" terrain-survey="radius:30; count:4; height:3; markerRadius:0.25"></a-entity>
+    </a-atoll-terrain>
+
+    <a-entity id="armature" position="0 10 2" movement-controls="fly:true; speed:0.5">
+        <a-entity camera="far:2500; near:0.05" position="0 1.6 0" look-controls="pointerLockEnabled: false"></a-entity>
+        <a-entity hand-controls="hand:left"></a-entity>
+        <a-entity hand-controls="hand:right"></a-entity>
+    </a-entity>
+</a-scene>
+</body>
+</html>

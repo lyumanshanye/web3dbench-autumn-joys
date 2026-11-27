@@ -1,0 +1,60 @@
+{
+  "Q_human": null,
+  "Q_vlm": 18.8,
+  "browser_calls": 43,
+  "end_to_end_Q_vlm": 0,
+  "full_task_pass": false,
+  "infra_status": "NORMAL",
+  "must_status": "FAIL",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-26T20-40-44-378Z.jpeg",
+        "evidence/page-2026-11-26T20-41-43-032Z.jpeg",
+        "evidence/page-2026-11-26T20-43-20-193Z.jpeg"
+      ],
+      "reason": "The fixture data/API exist and normal URLs omit the picking API, but the primary picking flow and visible branch data are unavailable. Correct theme and declared fixture steps coexist with a non-functional central experience.",
+      "score": 1
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-26T20-42-32-841Z.jpeg",
+        "evidence/page-2026-11-26T20-41-43-032Z.jpeg"
+      ],
+      "reason": "The conventional HUD reacts to clicks and expands controls, but the requested commit-picking interaction cannot operate because no commit is visible; no inspector or selection feedback appears.",
+      "score": 1
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-26T20-40-44-378Z.jpeg",
+        "evidence/page-2026-11-26T20-41-05-313Z.jpeg",
+        "evidence/page-2026-11-26T20-42-12-848Z.jpeg"
+      ],
+      "reason": "No relevant visible 3D commit geometry is present. Multiple views show only an empty background, and the apparent isolated bloom does not convey the required linear commit branch or spatial selection behavior.",
+      "score": 0
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-26T20-42-32-841Z.jpeg",
+        "evidence/page-2026-11-26T20-42-52-835Z.jpeg",
+        "evidence/page-2026-11-26T20-43-20-193Z.jpeg"
+      ],
+      "reason": "The fixture route and mobile layout remain usable and reload successfully, and the unknown-SHA contract works. However, the ordinary repository flow fails into an error overlay, and the core fixture scene is unusable across repeat views.",
+      "score": 2
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-26T20-40-33-217Z.jpeg",
+        "evidence/page-2026-11-26T20-42-12-848Z.jpeg"
+      ],
+      "reason": "The settings HUD typography and spacing are readable, but the main scene lacks its subject and hierarchy. The initial white overexposure and otherwise empty dark canvas obscure the intended repository-branch presentation.",
+      "score": 1
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": false,
+  "runtime_status": "PASS",
+  "scene_status": "FAIL",
+  "verified_images": 10
+}

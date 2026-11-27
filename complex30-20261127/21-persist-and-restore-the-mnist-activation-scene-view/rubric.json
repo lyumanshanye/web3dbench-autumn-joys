@@ -1,0 +1,97 @@
+{
+  "version": "3.0",
+  "task": "persist-and-restore-the-mnist-activation-scene-view",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "The view state must survive a full page reload",
+      "action": "Load the fixture, set camera to [120,-80,640] with target [10,20,30], hide activation_1, disable rotation, reload, and inspect the restored scene and snapshot.",
+      "expected": "Camera and target equal the supplied arrays, activation_1 remains invisible, input and dense_2 remain visible, labelsRotating is false, and the stored JSON has version 1. (Tolerance: 1e-5 absolute for every numeric component)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Each has nine vertices: x and y independently take `[-10,0,10]` in row-major order, while every z is respectively `-155`, `-105`, or `285`.",
+      "action": "Call loadFixture and inspect all three live THREE.Points geometries and their names.",
+      "expected": "There are exactly 27 vertices in three named objects, with the specified row-major coordinates and layer-specific constant z values. (Tolerance: 1e-5 absolute per coordinate)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "It must retain the renderer, camera, OrbitControls, highlight box, and persisted view state.",
+      "action": "Set a nondefault camera and hidden layer, load the fixture, invoke the existing CLEAR control, then reload the fixture.",
+      "expected": "CLEAR leaves highlightBoxPresent true and preserves camera and settings; fixture layers are removed by CLEAR and reapplied with the same visibility when loaded again. (Tolerance: Exact object presence and visibility; numeric tolerance 1e-5)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "Malformed JSON, a non-object root, or wrong `version` uses all defaults.",
+      "action": "Before initialization, test malformed JSON, an array root, and version 2 in separate reloads, then inspect state and live camera.",
+      "expected": "Each case uses position [0,0,5000], target [0,0,0], no hidden layers, and labelsRotating true without a runtime failure. (Tolerance: 1e-5 absolute for camera values; exact defaults otherwise)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T05",
+      "requirement": "without clearing the digit, prediction output, or activation geometry.",
+      "action": "With fixture geometry and nonempty synthetic output present, hide a layer, move the camera, disable rotation, and activate RESET VIEW.",
+      "expected": "All default view values are saved and live, all fixture layers are visible, and the output and 27 fixture vertices remain present. (Tolerance: Exact state and counts; numeric tolerance 1e-5)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "while disabled, those rotations remain unchanged.",
+      "action": "Create or stub two label pivots, record rotations, advance three animation frames with rotation disabled, then enable it and advance two frames.",
+      "expected": "The first three frames produce no change; each subsequent frame adds exactly 0.015 to each pivot's y rotation. (Tolerance: 1e-5 absolute)",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

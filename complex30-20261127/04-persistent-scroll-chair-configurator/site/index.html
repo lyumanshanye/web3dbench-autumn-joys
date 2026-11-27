@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1e2622" />
+    <title>Scroll Chair Studio</title>
+    <script type="module" crossorigin src="/web3dbench-autumn-joys/complex30-20261127/04-persistent-scroll-chair-configurator/site/assets/index-IFih2RHE.js"></script>
+    <link rel="stylesheet" crossorigin href="/web3dbench-autumn-joys/complex30-20261127/04-persistent-scroll-chair-configurator/site/assets/index-CFxRPQ6-.css">
+  </head>
+  <body>
+    <canvas id="stage" aria-label="Interactive 3D chair viewer"></canvas>
+
+    <header class="masthead">
+      <span class="eyebrow">Furniture, in motion</span>
+      <h1>Scroll Chair <em>Studio</em></h1>
+    </header>
+
+    <aside class="spec-card" aria-label="Chair details">
+      <div class="spec-swatch" id="specSwatch"></div>
+      <div>
+        <span class="eyebrow">The Reading Chair</span>
+        <p>Upholstered seat &amp; back, oak-toned base.</p>
+      </div>
+    </aside>
+
+    <section class="panel" aria-label="Chair controls">
+      <div class="panel-row">
+        <span class="eyebrow">Scroll to explore</span>
+        <output id="scrollValue">00</output>
+      </div>
+      <input id="scroll" type="range" min="0" max="1" step="0.001" value="0" aria-label="Camera scroll position" />
+      <div class="panel-row end">
+        <button id="customizeBtn" class="btn primary" type="button">Customize</button>
+        <button id="exitBtn" class="btn" type="button" hidden>Exit</button>
+      </div>
+
+      <div id="customizeControls" class="customize" hidden>
+        <span class="eyebrow">Upholstery</span>
+        <div class="swatches" role="group" aria-label="Upholstery color">
+          <button class="swatch" type="button" data-color="green" aria-label="Green upholstery" aria-pressed="true" style="--swatch:#96b2a1"></button>
+          <button class="swatch" type="button" data-color="red" aria-label="Red upholstery" aria-pressed="false" style="--swatch:#a57d7d"></button>
+          <button class="swatch" type="button" data-color="violet" aria-label="Violet upholstery" aria-pressed="false" style="--swatch:#aa83aa"></button>
+        </div>
+        <div class="panel-row">
+          <label for="rotation" class="eyebrow">Rotation</label>
+          <output id="rotationValue">0°</output>
+        </div>
+        <input id="rotation" type="range" min="-45" max="45" step="1" value="0" aria-label="Chair rotation in degrees" />
+      </div>
+
+      <div class="panel-row end actions">
+        <button id="saveBtn" class="text-btn" type="button">Save</button>
+        <button id="loadBtn" class="text-btn" type="button">Load</button>
+        <button id="resetBtn" class="text-btn" type="button">Reset</button>
+      </div>
+    </section>
+
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+  </body>
+</html>

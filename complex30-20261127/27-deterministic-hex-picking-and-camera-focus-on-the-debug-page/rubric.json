@@ -1,0 +1,97 @@
+{
+  "version": "3.0",
+  "task": "deterministic-hex-picking-and-camera-focus-on-the-debug-page",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T04"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Use this exact fixture, in order: A=(x:0,z:0,height:1,terrain:dirt), B=(1,0,2,stone), C=(0,1,3,sand), D=(-1,1,4,forest), E=(1,1,2,water).",
+      "action": "Open /debug without a backend and inspect debug-tiles instance matrices, colors, and userData.",
+      "expected": "There are five instances in A-E order. Positions are A(0,1,0), B(sqrt(3),1,0), C(sqrt(3)/2,1.5,1.5), D(-sqrt(3)/2,2,1.5), E(3sqrt(3)/2,1,1.5), with Y scales 1,2,3,4,2 and the baseline palette colors. (Tolerance: 1e-6 per matrix component; exact ids and color hex values)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Clicking a tile selects it; clicking empty space clears selection; drags over 5 pixels and non-left buttons change nothing.",
+      "action": "Use projectTile('B') to dispatch a left click at B's top-center, then inspect scene and UI state.",
+      "expected": "selectedId and status are B and 'Selected: B'; instanceId 1 was selected; the visible marker is at (sqrt(3),2.05,0), and tile matrices are unchanged. (Tolerance: 1e-6 for marker coordinates; pointer endpoints within 1 client pixel)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "A click is a pointerdown/pointerup pair whose screen-space movement is at most 5 pixels.",
+      "action": "After selecting B, perform a 6-pixel drag beginning on C, a right-click on D, and then a left click on empty canvas.",
+      "expected": "The drag and right-click leave B selected; the empty click clears selectedId, hides the marker, displays 'Selected: none', and disables focus. (Tolerance: Exact state transitions; movement measured in client pixels)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "The destination target is `(worldX,topY,worldZ)` and destination camera is target plus `(-5,5,0)`.",
+      "action": "Select C, activate focus-selected, and advance requestAnimationFrame timestamps through 150 and 300 milliseconds.",
+      "expected": "At 150 ms camera and target are halfway from their starting values; at 300 ms target is (sqrt(3)/2,3,1.5), camera is (sqrt(3)/2-5,8,1.5), and focusedId is C. (Tolerance: 1e-6 per vector component at supplied timestamps)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T05",
+      "requirement": "Reset cancels animation, clears selection and `focusedId`, restores camera `(-5,5,0)` and target `(0,0,0)`, and leaves the fixture intact.",
+      "action": "Begin a focus, advance it partially, invoke reset-debug, then advance additional animation frames.",
+      "expected": "Selection and focusedId are null, marker is absent, camera and target remain exactly at their reset values, and all five original instances remain. (Tolerance: 1e-6 per vector component)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T06",
+      "requirement": "Make `/debug` render even when the websocket is unavailable, without changing world-page behavior.",
+      "action": "Load /debug with websocket connection attempts forced to fail and inspect controls and rendering.",
+      "expected": "The debug canvas and five tiles render, OrbitControls retains maxPolarAngle 2pi/5 and minPolarAngle pi/8, and no remote asset is requested. (Tolerance: 1e-9 for polar angles)",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

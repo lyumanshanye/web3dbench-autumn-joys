@@ -1,0 +1,98 @@
+{
+  "version": "3.0",
+  "task": "deterministic-keyframe-clip-foundry",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Create a rig named `rig` at world origin with a torso mesh named `torso` using BoxGeometry(1, 1.4, 0.6) at local (0, 1.4, 0).",
+      "action": "Load the page and inspect the live scene hierarchy and initial transforms.",
+      "expected": "The named rig, torso, shoulder, and upperArm exist with the specified dimensions and local positions; initial rootY and armZ are zero. (Tolerance: 1e-6 for positions and dimensions)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Sample each track with linear interpolation between surrounding keys and endpoint clamping.",
+      "action": "Call seek(0.25) on the initial idle clip and inspect getState and the live rig.",
+      "expected": "Time is 0.25, rootY is 0.025, armZ is 0, and rig.position.y matches rootY. (Tolerance: 1e-6)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Looping clips use time modulo duration, so sampling exactly at duration gives the first key; non-looping clips clamp at their final key.",
+      "action": "Set walk with zero fade, seek to 1, then set wave with zero fade and seek beyond its duration.",
+      "expected": "Walk at time 1 has rootY 0 and armZ 0; wave clamps at time 1.5 with rootY 0, armZ 2.4, finished true, and playing false. (Tolerance: 1e-6)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "`step(frames)` advances exactly `frames/60` seconds even while paused;",
+      "action": "From reset, call step(30), then step(30) again while remaining paused.",
+      "expected": "The two calls produce times 0.5 and 1.0 and rootY values 0.1 and 0 respectively, without requiring play(). (Tolerance: 1e-6)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "interpolate root Y and arm Z as `outgoing*(1-s)+target*s`",
+      "action": "From idle seek(0.5), call setClip('walk',0.5), then step(15) and inspect the fade and pose.",
+      "expected": "At fadeElapsed 0.25, u=0.5 and s=0.5; outgoing rootY 0.1 blends with walk rootY 0.08 to 0.09, and armZ is 0.15. (Tolerance: 1e-6)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T06",
+      "requirement": "`reset()` restores the initial paused idle pose, clears the log, and cancels any fade.",
+      "action": "Enter wave, advance beyond 0.75, attempt an invalid clip and a negative seek, then reset and inspect state.",
+      "expected": "Wave events occur in order, invalid operations throw RangeError without mutation, and reset yields idle time 0, paused, unfinished, no fade, zero pose values, and an empty log. (Tolerance: Exact state; numeric tolerance 1e-6)",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

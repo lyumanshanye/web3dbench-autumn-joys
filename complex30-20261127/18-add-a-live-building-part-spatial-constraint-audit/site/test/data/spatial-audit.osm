@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm>
+  <node id="1" lat="0.0000" lon="0.0000"/>
+  <node id="2" lat="0.0000" lon="0.0004"/>
+  <node id="3" lat="0.0004" lon="0.0004"/>
+  <node id="4" lat="0.0004" lon="0.0000"/>
+  <node id="5" lat="0.0001" lon="0.0001"/>
+  <node id="6" lat="0.0001" lon="0.0003"/>
+  <node id="7" lat="0.0003" lon="0.0003"/>
+  <node id="8" lat="0.0003" lon="0.0001"/>
+  <node id="9" lat="0.0002" lon="0.0002"/>
+  <node id="10" lat="0.0002" lon="0.0005"/>
+  <node id="11" lat="0.0004" lon="0.0005"/>
+  <node id="12" lat="0.0004" lon="0.0002"/>
+  <way id="100">
+    <nd ref="1"/>
+    <nd ref="2"/>
+    <nd ref="3"/>
+    <nd ref="4"/>
+    <nd ref="1"/>
+    <tag k="building" v="yes"/>
+    <tag k="height" v="10"/>
+  </way>
+  <way id="201">
+    <nd ref="5"/>
+    <nd ref="6"/>
+    <nd ref="7"/>
+    <nd ref="8"/>
+    <nd ref="5"/>
+    <tag k="building:part" v="yes"/>
+    <tag k="height" v="6"/>
+  </way>
+  <way id="202">
+    <nd ref="9"/>
+    <nd ref="10"/>
+    <nd ref="11"/>
+    <nd ref="12"/>
+    <nd ref="9"/>
+    <tag k="building:part" v="yes"/>
+    <tag k="height" v="15"/>
+  </way>
+</osm>

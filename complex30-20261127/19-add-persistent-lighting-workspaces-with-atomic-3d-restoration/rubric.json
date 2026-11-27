@@ -1,0 +1,97 @@
+{
+  "version": "3.0",
+  "task": "add-persistent-lighting-workspaces-with-atomic-3d-restoration",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Persist the array immediately under the localStorage key `env.workspaces.v1`; do not replace or disable the existing light/camera persistence.",
+      "action": "Save a valid workspace and inspect both the workspace list and localStorage without reloading.",
+      "expected": "One version-1 record appears with a unique id, timestamp, trimmed name, and complete deep-copied lights and cameras arrays under the specified key. (Tolerance: Exact schema fields and array lengths; createdAt must be a finite millisecond timestamp.)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T02",
+      "requirement": "Thus the verification light’s restored world position is `(-3,0,0)` within floating-point tolerance; changing its target must not alter that position.",
+      "action": "Create and mutate the deterministic fixture, load Studio A, and inspect the live environment-light rig transform and target state.",
+      "expected": "The restored light world position is (-3,0,0), latlon is (0,0), and target is (1,2,3). (Tolerance: 1e-6 per position, rotation, latlon, and target component.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "The selected restored camera must become the default camera with its saved position and rotation",
+      "action": "After loading Studio A, inspect the default live camera and the camera selection state.",
+      "expected": "Exactly one camera is selected and default, with position [4,5,6] and rotation [0.1,0.2,0.3]. (Tolerance: 1e-6 per transform component.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "Loading a workspace must atomically replace the current lights and cameras with deep clones of that snapshot, preserving order and selection.",
+      "action": "Save a multi-light and multi-camera workspace, reorder and edit the live state, load the snapshot, then edit the restored state again.",
+      "expected": "The first load restores the original order, fields, and selections; subsequent live edits do not mutate the saved snapshot. (Tolerance: Deep equality except for no fields; object identities must differ between live and saved records.)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T05",
+      "requirement": "For an empty, overlong, or duplicate name, show a toast explaining the problem and leave both the scene and stored workspace array unchanged.",
+      "action": "Attempt saves using whitespace, 41 characters, and a case-variant duplicate of an existing name.",
+      "expected": "Each attempt shows an explanatory toast and causes no scene or workspace-storage mutation. (Tolerance: Exact unchanged serialized scene and workspace values.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "Malformed JSON or a non-array value produces an empty workspace list without throwing and without modifying the current scene.",
+      "action": "Reload separately with malformed JSON and with an object stored at env.workspaces.v1, then test deletion of a valid workspace.",
+      "expected": "Both invalid stores yield an empty list and preserve the scene; deletion persists only the remaining records and does not alter live lights or cameras. (Tolerance: No uncaught errors; exact scene-state equality before and after startup recovery and deletion.)",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

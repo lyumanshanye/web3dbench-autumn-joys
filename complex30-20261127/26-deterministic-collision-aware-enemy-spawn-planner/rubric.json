@@ -1,0 +1,106 @@
+{
+  "version": "3.0",
+  "task": "deterministic-collision-aware-enemy-spawn-planner",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T06"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "The expected positions are `[1.9509032202,0.5,9.8078528040]` and `[3.8268343237,0.5,9.2387953251]`.",
+      "action": "Call plan with the exact fixture request and inspect the returned positions and missing count.",
+      "expected": "Two positions match the stated coordinates in order and missing is zero; the scene is unchanged. (Tolerance: 1e-8 per coordinate)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T02",
+      "requirement": "two existing `Enemy` groups named `spawn-fixture-0` and `spawn-fixture-1` at the returned positions",
+      "action": "Call loadFixture, update world matrices, and inspect the live scene graph and enemy world positions.",
+      "expected": "Both named Enemy groups exist at the planned positions, fixture-block has the specified bounds, and fixture mode is active. (Tolerance: 1e-6 per world coordinate and 1e-6 per bound)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "Reject it when it touches or enters an expanded obstacle",
+      "action": "Plan candidates on each face, edge, and just outside the expanded fixture obstacle.",
+      "expected": "Touching and interior candidates are rejected, while candidates epsilon outside the expanded bounds remain eligible. (Tolerance: Use test offsets of 1e-6)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "exactly 1.5 is allowed",
+      "action": "Plan with occupied points at distances 1.499999, 1.5, and greater from an otherwise first-valid candidate.",
+      "expected": "The first case rejects that candidate and the latter two permit it; separation also applies between successive planned enemies. (Tolerance: 1e-6 in XZ distance)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T05",
+      "requirement": "Throw `RangeError` for invalid input without changing lab state.",
+      "action": "Submit negative counts, fractional counts or distances, reversed distances and bounds, NaN coordinates, and count 17.",
+      "expected": "Every invalid request throws RangeError and getState remains deeply unchanged. (Tolerance: Exact state equality)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T06",
+      "requirement": "world-space XZ bounds of non-destroyed, non-passable meshes in `window.walls` as obstacles",
+      "action": "Invoke ordinary spawnEnemies with controlled transformed wall meshes, a passable door, a destroyed wall, and living enemies.",
+      "expected": "Only eligible solid wall bounds constrain placement, living enemies constrain separation, and no random fallback positions appear. (Tolerance: 1e-6 per resulting position)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T07",
+      "requirement": "it must not reset weapons, health, kills, buildings, or the player camera",
+      "action": "Record those states, load and reset the fixture, then compare them and inspect fixture cleanup.",
+      "expected": "All recorded game states are preserved, fixture objects are removed, and ordinary updating resumes. (Tolerance: Exact equality for scalars and object identity for preserved systems)",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

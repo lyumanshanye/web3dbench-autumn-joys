@@ -1,0 +1,61 @@
+{
+  "Q_human": null,
+  "Q_vlm": 63.8,
+  "browser_calls": 73,
+  "end_to_end_Q_vlm": 63.8,
+  "full_task_pass": false,
+  "infra_status": "NORMAL",
+  "must_status": "FAIL",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-33-52-897Z.jpeg",
+        "evidence/page-2026-11-27T01-34-58-096Z.jpeg",
+        "evidence/page-2026-11-27T01-39-01-885Z.jpeg"
+      ],
+      "reason": "The main clip lab flows work, but substantial specified contracts fail: idle interpolation magnitudes, walk looping-at-duration semantics, fade interpolation, and seek during fade. The required API, readouts, events, and reset are otherwise present in one coherent page.",
+      "score": 2
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-35-38-558Z.jpeg",
+        "evidence/page-2026-11-27T01-39-01-885Z.jpeg",
+        "evidence/page-2026-11-27T01-39-36-148Z.jpeg"
+      ],
+      "reason": "Single actions, playback, stepping, and reset work, but the required sequence and fade-boundary contracts fail, including non-advancing fade state after seek. Some failures are only disclosed by numeric state probes, although the UI presents clear feedback for the flows it does implement.",
+      "score": 2
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-33-52-897Z.jpeg",
+        "evidence/page-2026-11-27T01-36-10-599Z.jpeg",
+        "evidence/page-2026-11-27T01-37-49-138Z.jpeg"
+      ],
+      "reason": "The rig reads clearly in 3D with plausible scale and joints, and rotation/pose changes are visible with coherent lighting and shadows. Exact geometry and hierarchy could not be probed; the large mobile readout also obscures the upper rig.",
+      "score": 3
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-38-26-183Z.jpeg",
+        "evidence/page-2026-11-27T01-38-05-198Z.jpeg",
+        "evidence/page-2026-11-27T01-39-36-148Z.jpeg"
+      ],
+      "reason": "Loading and reload are clean with no console errors and only local successful requests; repeated playback, reset, and viewport changes did not crash. The broken fade update under seek is a local nonblocking contract issue, and mobile presentation is obstructed.",
+      "score": 3
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-33-52-897Z.jpeg",
+        "evidence/page-2026-11-27T01-37-49-138Z.jpeg"
+      ],
+      "reason": "Desktop composition, typography, color, and 3D form are coherent and legible. State changes improve understanding, but mobile overlays the rig and some secondary UI text is faint.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 17
+}

@@ -1,0 +1,108 @@
+{
+  "version": "3.0",
+  "task": "add-a-live-building-part-spatial-constraint-audit",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Loading that URL must use the supplied local XML and make no OSM API request.",
+      "action": "Serve the repository locally, block external requests, and load the specified audit URL; wait for window.osmAudit and inspect the scene and report.",
+      "expected": "The existing building meshes render, no OSM API request occurs, and the report identifies outer 100 with parts ordered 201 then 202. (Tolerance: Exact ids and ordering; no external OSM requests)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T02",
+      "requirement": "compute bounds with `new THREE.Box3().setFromObject(wall)` in world coordinates",
+      "action": "Independently update world matrices and compute Box3 bounds for b100, b201, and b202, then compare them with the report and derived footprint/baseY/topY fields.",
+      "expected": "Every reported bound and derived scalar matches the corresponding live wall mesh calculation. (Tolerance: 1e-6 per numeric component)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "part 202 crosses the outer footprint and is taller than the outer wall",
+      "action": "Read the initial report entries for parts 201 and 202 and independently evaluate the epsilon containment and height formulas.",
+      "expected": "Part 201 has contained=true and heightViolation=false; part 202 has contained=false and heightViolation=true. (Tolerance: Exact booleans; formula epsilon 0.001)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T04",
+      "requirement": "add one `Box3Helper` for the outer wall and one per valid part",
+      "action": "Inspect the live spatialAudit group, helper boxes, and helper material colors after initial loading.",
+      "expected": "The group contains exactly three helpers: blue for outer 100, green for 201, and red for 202, with boxes equal to their audited wall bounds. (Tolerance: Exact count and colors; 1e-6 per box component)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T05",
+      "requirement": "Recomputing after a mesh transform or geometry replacement must use the new live bounds, not cached XML dimensions.",
+      "action": "Translate b201 in world X beyond the outer footprint, call refresh, inspect its entry and helper, then restore the transform and refresh again.",
+      "expected": "The moved part becomes uncontained with a red helper and updated bounds; restoring it restores contained=true, a green helper, and the original bounds without camera or building resets. (Tolerance: 1e-6 per restored bound; exact booleans and colors)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T06",
+      "requirement": "append a human-readable string containing its id to `issues`, omit an invalid part entry and its helper, and continue auditing other parts",
+      "action": "Temporarily rename b201 so it cannot be found, call refresh, and inspect the report and helper group before restoring the name.",
+      "expected": "Issues contains 201, part 201 and its helper are omitted, outer and part 202 remain audited, and no uncaught exception occurs. (Tolerance: Exact remaining part ids and helper count)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T07",
+      "requirement": "Without `audit`, do not create audit helpers or change existing behavior.",
+      "action": "Load the same local fixture without the audit parameter and inspect the scene, controls, and global audit API.",
+      "expected": "No spatialAudit group is present, normal meshes and OrbitControls remain available, and no audit report is generated. (Tolerance: Exact absence of audit group and report)",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

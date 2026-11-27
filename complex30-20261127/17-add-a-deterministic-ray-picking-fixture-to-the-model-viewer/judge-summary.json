@@ -1,0 +1,58 @@
+{
+  "Q_human": null,
+  "Q_vlm": 88.8,
+  "browser_calls": 50,
+  "end_to_end_Q_vlm": 88.8,
+  "full_task_pass": false,
+  "infra_status": "NORMAL",
+  "must_status": "FAIL",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-29-13-196Z.jpeg",
+        "evidence/page-2026-11-27T02-29-30-530Z.jpeg"
+      ],
+      "reason": "Core diagnostic and picking flows are delivered with deterministic numerical agreement on tested rays. Exact scene-graph metadata and the disable-selection guard could not be verified, keeping this below full delivery.",
+      "score": 3
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-29-53-388Z.jpeg",
+        "evidence/page-2026-11-27T02-30-10-175Z.jpeg"
+      ],
+      "reason": "Hit, rear, miss, invalid input, canvas click, orbit, and reset sequences are repeatable and numerically consistent. Selection feedback is exposed through state rather than a strong visible outline.",
+      "score": 4
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-28-52-352Z.jpeg",
+        "evidence/page-2026-11-27T02-29-30-530Z.jpeg",
+        "evidence/page-2026-11-27T02-30-10-175Z.jpeg"
+      ],
+      "reason": "Three boxes are clearly differentiated in scale and depth, with coherent perspective, occlusion, lighting, and ground shadows across three views. The initial composition is sparse but purposeful for a picking fixture.",
+      "score": 4
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-30-27-733Z.jpeg",
+        "evidence/page-2026-11-27T02-30-36-286Z.jpeg"
+      ],
+      "reason": "Reloads, repeat picks, and desktop controls were stable; no fixture console errors occurred and network responses returned 200. Mobile has a nonblocking but significant horizontal layout problem: the mandated 800px canvas clips content in the 390px viewport.",
+      "score": 3
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-29-59-291Z.jpeg",
+        "evidence/page-2026-11-27T02-30-48-329Z.jpeg"
+      ],
+      "reason": "Neutral materials, lighting, and background form a coherent diagnostic view, but the interface remains a utilitarian control panel with no dedicated probe-state display and limited visual feedback for selection.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 9
+}

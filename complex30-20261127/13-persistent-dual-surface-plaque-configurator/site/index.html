@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0f14" />
+    <title>Plaque Studio</title>
+    <link rel="icon" href="data:," />
+    <script type="module" crossorigin src="/web3dbench-autumn-joys/complex30-20261127/13-persistent-dual-surface-plaque-configurator/site/assets/index-BXtJBonA.js"></script>
+    <link rel="stylesheet" crossorigin href="/web3dbench-autumn-joys/complex30-20261127/13-persistent-dual-surface-plaque-configurator/site/assets/index-CmvlM9Lb.css">
+  </head>
+  <body>
+    <main id="app">
+      <div id="viewport" aria-label="Interactive 3D plaque preview"></div>
+
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Plaque Studio home">
+          <span class="brand-mark" aria-hidden="true">
+            <span></span>
+            <span></span>
+          </span>
+          <span class="brand-name">Plaque <strong>Studio</strong></span>
+        </a>
+        <div class="topbar-meta">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>Live preview</span>
+        </div>
+      </header>
+
+      <aside class="control-panel" id="controlPanel" aria-label="Plaque controls">
+        <div class="panel-intro">
+          <p class="eyebrow">Label workbench</p>
+          <h1>Make your mark.</h1>
+          <p class="intro-copy">Compose both faces of a dimensional plaque in real time.</p>
+        </div>
+
+        <section class="panel-section" aria-labelledby="faceHeading">
+          <div class="section-heading">
+            <h2 id="faceHeading">Editing face</h2>
+            <span class="selection-pill" id="selectionPill">Front</span>
+          </div>
+          <div class="face-tabs" role="group" aria-label="Select plaque side">
+            <button class="face-tab is-active" type="button" data-side="front" aria-pressed="true">
+              <span class="face-index">01</span>
+              <span>Front</span>
+            </button>
+            <button class="face-tab" type="button" data-side="back" aria-pressed="false">
+              <span class="face-index">02</span>
+              <span>Back</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="panel-section" aria-labelledby="contentHeading">
+          <div class="section-heading">
+            <h2 id="contentHeading">Label content</h2>
+          </div>
+
+          <div class="field">
+            <div class="field-heading">
+              <label for="textInput">Text</label>
+              <span id="textCount">5 / 24</span>
+            </div>
+            <input id="textInput" class="text-input" type="text" maxlength="24" value="HELLO" autocomplete="off" spellcheck="false" />
+          </div>
+
+          <div class="field">
+            <div class="field-heading">
+              <span>Label color</span>
+              <output id="labelColorHex" for="labelColor">#FFFFFF</output>
+            </div>
+            <label class="color-control" for="labelColor">
+              <span class="color-chip" id="labelColorChip"></span>
+              <span class="color-name" id="labelColorName">White</span>
+              <input id="labelColor" type="color" value="#ffffff" aria-label="Label color" />
+            </label>
+          </div>
+        </section>
+
+        <section class="panel-section" aria-labelledby="transformHeading">
+          <div class="section-heading">
+            <h2 id="transformHeading">Transform</h2>
+            <button class="text-button" id="centerButton" type="button">Center</button>
+          </div>
+
+          <div class="range-grid">
+            <div class="range-field">
+              <div class="field-heading">
+                <label for="xInput">Horizontal</label>
+                <output id="xOutput" for="xInput">0.00</output>
+              </div>
+              <input id="xInput" type="range" min="-1" max="1" step="0.01" value="0" />
+            </div>
+
+            <div class="range-field">
+              <div class="field-heading">
+                <label for="yInput">Vertical</label>
+                <output id="yOutput" for="yInput">0.00</output>
+              </div>
+              <input id="yInput" type="range" min="-0.7" max="0.7" step="0.01" value="0" />
+            </div>
+
+            <div class="range-field">
+              <div class="field-heading">
+                <label for="rotationInput">Rotation</label>
+                <output id="rotationOutput" for="rotationInput">0°</output>
+              </div>
+              <input id="rotationInput" type="range" min="-180" max="180" step="1" value="0" />
+            </div>
+
+            <div class="range-field">
+              <div class="field-heading">
+                <label for="scaleInput">Scale</label>
+                <output id="scaleOutput" for="scaleInput">1.00×</output>
+              </div>
+              <input id="scaleInput" type="range" min="0.5" max="2" step="0.01" value="1" />
+            </div>
+          </div>
+
+          <label class="toggle-row" for="visibleInput">
+            <span>
+              <strong>Show on plaque</strong>
+              <small>Visible and selectable in 3D</small>
+            </span>
+            <span class="switch">
+              <input id="visibleInput" type="checkbox" checked />
+              <span class="switch-track" aria-hidden="true"><span></span></span>
+            </span>
+          </label>
+        </section>
+
+        <section class="panel-section" aria-labelledby="finishHeading">
+          <div class="section-heading">
+            <h2 id="finishHeading">Plaque finish</h2>
+            <output id="baseColorHex" for="baseColor">#4477AA</output>
+          </div>
+          <label class="color-control" for="baseColor">
+            <span class="color-chip" id="baseColorChip"></span>
+            <span class="color-name" id="baseColorName">Steel blue</span>
+            <input id="baseColor" type="color" value="#4477aa" aria-label="Plaque base color" />
+          </label>
+        </section>
+
+        <div class="panel-actions">
+          <button class="action-button primary" id="saveButton" type="button">Save</button>
+          <button class="action-button" id="loadButton" type="button">Load</button>
+          <button class="action-button quiet" id="resetButton" type="button">Reset</button>
+        </div>
+
+        <p class="panel-note"><span class="note-mark">i</span> Edits update instantly. Save when you are ready.</p>
+      </aside>
+
+      <div class="scene-caption" aria-hidden="true">
+        <span>FRONT / 4 × 2.4 × 0.3</span>
+        <span class="caption-rule"></span>
+        <span>Y-UP / UNIT SCALE</span>
+      </div>
+
+      <div class="orbit-hint">
+        <span class="orbit-icon" aria-hidden="true"></span>
+        <span>Drag to orbit · Scroll to zoom</span>
+      </div>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </main>
+  </body>
+</html>

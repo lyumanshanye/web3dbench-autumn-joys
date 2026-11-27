@@ -1,0 +1,106 @@
+{
+  "version": "3.0",
+  "task": "add-a-deterministic-ray-picking-fixture-to-the-model-viewer",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Create a `Group` named `picking-fixture` containing three logical pick groups",
+      "action": "Open fixture mode and inspect the live scene graph, mesh geometry parameters, world transforms, and active camera.",
+      "expected": "All three named groups and child meshes exist with the specified dimensions and positions; the camera has the specified projection and pose. (Tolerance: Positions and dimensions within 1e-6; camera projection values within 1e-6.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "choose the nearest intersection",
+      "action": "Call window.pickingProbe.pick(0,0) after the fixture and camera matrices are updated.",
+      "expected": "The result identifies front and front-surface, point [0,0,1.5], distance 10.5, and selectedObjects contains only front-surface. (Tolerance: Point and distance absolute error at most 1e-5.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "On a valid miss, return null, clear both selections, and leave `lastError` null.",
+      "action": "Call pick(0.08,0), then pick(0.8,0), inspecting returned values and live selection after each call.",
+      "expected": "The first ray passes beside front and hits rear at approximately [0.8005923733,0,-1] with distance approximately 13.0246284; the second returns null and clears selection without an error. (Tolerance: Rear point and distance absolute error at most 1e-5.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "`project(id)` must return the logical group's world position transformed by Three.js `Vector3.project(currentCamera)`",
+      "action": "Call project('offset') with the initial camera, then orbit the camera and call it again.",
+      "expected": "Initially x is approximately 0.3247595264 and y is 0; after orbiting, the result equals a fresh Vector3 projection using the current camera. (Tolerance: Each compared component within 1e-6.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T05",
+      "requirement": "Invalid input returns null, sets `lastError` to `invalid-ndc`, and leaves selection and `pickCount` unchanged.",
+      "action": "Establish a hit, record state, and call pick with NaN, Infinity, 1.01, and a nonnumeric value.",
+      "expected": "Every call returns null and reports invalid-ndc while selectedObjects, selectedId, and pickCount remain unchanged. (Tolerance: Exact state equality.)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T06",
+      "requirement": "Primary-button canvas pointer picks must use the same picking routine",
+      "action": "Dispatch a primary-button pointer event at the canvas rectangle center and another outside the rectangle.",
+      "expected": "The center event selects front and increments pickCount once; the outside event changes neither selection nor diagnostics. (Tolerance: Exact ID and counter equality.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T07",
+      "requirement": "`reset()` clears selection and `lastError`, sets `pickCount` to zero, and restores the initial camera pose and orbit target",
+      "action": "Disable selection and attempt a pick, re-enable it, make picks and move the camera, then invoke reset.",
+      "expected": "The disabled pick changes nothing; reset produces selectedId null, lastError null, pickCount 0, empty selectedObjects, and the initial camera and target. (Tolerance: Camera and target components within 1e-6; diagnostic state exact.)",
+      "dimension": "spatial"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

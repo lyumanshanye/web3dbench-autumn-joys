@@ -1,0 +1,60 @@
+{
+  "Q_human": null,
+  "Q_vlm": 75.0,
+  "browser_calls": 95,
+  "end_to_end_Q_vlm": 75.0,
+  "full_task_pass": false,
+  "infra_status": "NORMAL",
+  "must_status": "FAIL",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T04-39-32-665Z.jpeg",
+        "evidence/page-2026-11-27T04-40-40-054Z.jpeg",
+        "evidence/page-2026-11-27T04-42-34-223Z.jpeg"
+      ],
+      "reason": "Core requested flows are delivered, including the rig, deterministic stepping, picking, help, and diagnostics. The specific minor omission is exact reset camera restoration.",
+      "score": 3
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T04-40-03-038Z.jpeg",
+        "evidence/page-2026-11-27T04-40-40-054Z.jpeg",
+        "evidence/page-2026-11-27T04-42-34-223Z.jpeg"
+      ],
+      "reason": "Pause, stepping, picking, empty-click clearing, orbit, zoom, and repeated controls work with clear status feedback. Reset camera recovery is inaccurate, a local recovery issue.",
+      "score": 3
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T04-39-32-665Z.jpeg",
+        "evidence/page-2026-11-27T04-41-38-961Z.jpeg",
+        "evidence/page-2026-11-27T04-42-05-179Z.jpeg"
+      ],
+      "reason": "The ring, eight tetrahedra, depth, and orbit views are coherent; the small cyan markers and thin ring are often obscured by the preserved SuperFlow, making inspection local rather than consistently clear.",
+      "score": 3
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T04-43-00-209Z.jpeg",
+        "evidence/page-2026-11-27T04-44-20-077Z.jpeg"
+      ],
+      "reason": "Desktop, mobile, repeated controls, and reload remained usable without errors. The inaccurate reset camera recovery and mobile top-label overlap are local nonblocking issues.",
+      "score": 3
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T04-40-40-054Z.jpeg",
+        "evidence/page-2026-11-27T04-43-00-209Z.jpeg"
+      ],
+      "reason": "The cyan/orange inspection treatment, typography, and 3D form are coherent. Marker visibility is weak against the dense SuperFlow, and the mobile title/status overlap is a legibility defect.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 12
+}

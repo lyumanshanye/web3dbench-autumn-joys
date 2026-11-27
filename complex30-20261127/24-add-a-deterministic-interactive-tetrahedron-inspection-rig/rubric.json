@@ -1,0 +1,98 @@
+{
+  "version": "3.0",
+  "task": "add-a-deterministic-interactive-tetrahedron-inspection-rig",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Add exactly eight marker meshes named `marker-0` through `marker-7`, each using its own `TetrahedronGeometry(0.3, 0)` and its own material.",
+      "action": "Start the demo and inspect the live scene graph, marker geometry parameters, materials, ring parameters, and all local marker positions.",
+      "expected": "The scene contains inspectionRig with one XZ-plane torus of radius 4 and tube 0.02, plus eight distinct tetrahedron meshes at the specified radius-4 positions. (Tolerance: Positions and rotations within 1e-6; exact object names and counts.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Set `inspectionRig.rotation.y = 0.25 * simulationTime`.",
+      "action": "Pause, reset, invoke step() five times, and inspect the rig and marker transforms at simulation time 1.25.",
+      "expected": "Rig rotation.y is 0.3125; marker i has rotation.x = 0.625 + i*pi/4 and rotation.z = -0.25, with unchanged local positions. (Tolerance: Absolute numeric error no greater than 1e-6.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "While paused, ArrowRight advances simulation time by exactly `0.25` seconds and immediately applies the new transforms; ArrowRight while running has no effect.",
+      "action": "Exercise Space, ArrowRight, and R through keyboard events and compare with direct diagnostics calls, including an attempted step while running.",
+      "expected": "Paused steps accumulate in exact 0.25-second increments, running steps are ignored, and reset returns to paused time zero with cleared selection and restored camera and target. (Tolerance: Simulation-time error no greater than 1e-9; camera error no greater than 1e-6.)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T04",
+      "requirement": "A marker hit selects the lowest-index intersected marker, changes only that marker to `0xff8000`, and restores every other marker to `0x40c0c0`.",
+      "action": "Project a marker's world position through the live camera, dispatch a canvas pointer click there, then click an empty canvas location.",
+      "expected": "The hit marker alone becomes orange and flowStatus reports its index; the empty click restores all default colors and reports exactly 'Selected marker: none'. (Tolerance: Exact selected index, status text, and color values.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "Continue calling `superFlow.update(simulationTime)` and rendering while paused.",
+      "action": "Instrument superFlow.update and renderer rendering, pause for several frames, and record the time arguments and frame activity.",
+      "expected": "Both continue to run while paused, and every paused SuperFlow update receives the same frozen simulation time. (Tolerance: Exact equality of paused update timestamps.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "Keep orbit and zoom functional, including while paused.",
+      "action": "While paused, perform orbit and wheel input and inspect camera position, controls target, and configured control limits.",
+      "expected": "Orbit and zoom still change the camera within the original limits, panning remains disabled, and the original SuperFlow remains in the scene. (Tolerance: Camera movement greater than 1e-4 after input; original limits matched exactly.)",
+      "dimension": "spatial"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

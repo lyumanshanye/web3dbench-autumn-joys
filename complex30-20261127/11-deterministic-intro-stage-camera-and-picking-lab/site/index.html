@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Intro Stage Lab — a procedural Three.js title-sequence study."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23101018'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%235eead4' stroke-width='3'/%3E%3C/svg%3E"
+    />
+    <title>Intro Stage Lab</title>
+    <script type="module" crossorigin src="/web3dbench-autumn-joys/complex30-20261127/11-deterministic-intro-stage-camera-and-picking-lab/site/assets/index-Bo7DdHIG.js"></script>
+    <link rel="stylesheet" crossorigin href="/web3dbench-autumn-joys/complex30-20261127/11-deterministic-intro-stage-camera-and-picking-lab/site/assets/index-D0xIasdL.css">
+  </head>
+  <body>
+    <main id="app" aria-label="Interactive Three.js intro stage"></main>
+
+    <div class="interface" aria-hidden="false">
+      <header class="brand-block">
+        <div class="brand-mark" aria-hidden="true">
+          <span></span>
+        </div>
+        <div>
+          <p class="eyebrow">Procedural title study / 01</p>
+          <h1>Intro Stage Lab</h1>
+        </div>
+      </header>
+
+      <div class="beacon-note">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        <span>Select a beacon in the stage</span>
+      </div>
+
+      <section class="control-deck" aria-label="Timeline controls and state">
+        <div class="timeline-heading">
+          <span>Sequence timeline</span>
+          <span>30 FPS</span>
+        </div>
+
+        <div class="timeline-track" aria-hidden="true">
+          <span id="timeline-fill"></span>
+        </div>
+
+        <div class="readout-grid" aria-live="polite">
+          <p id="frame-readout" class="readout">Frame: <strong>0</strong></p>
+          <p id="mode-readout" class="readout">Mode: <strong>tour</strong></p>
+          <p id="selected-readout" class="readout">
+            Selected: <strong>none</strong>
+          </p>
+        </div>
+
+        <div class="button-row">
+          <button id="step-button" class="button button-primary" type="button">
+            Step
+            <span aria-hidden="true">+1</span>
+          </button>
+          <button id="reset-button" class="button button-secondary" type="button">
+            Reset
+          </button>
+        </div>
+      </section>
+
+      <footer class="stage-footer">
+        <span>Y-up / world units</span>
+        <span>000—120</span>
+      </footer>
+    </div>
+
+  </body>
+</html>

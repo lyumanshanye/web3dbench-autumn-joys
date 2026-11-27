@@ -1,0 +1,10 @@
+{
+  "seed": 20261127,
+  "coverage_time": "2026-11-27 08:14:55",
+  "total_tasks": 5455,
+  "pool_counts": {
+    "3d-web-creation": 710,
+    "3d-web-modification": 655
+  },
+  "policy": "Upper quartile by mean within-suite percentile of instruction length, criterion/scenario/must counts, and original archive file count for edit tasks; random 15 per suite. No filtering by worker/judge status or score. File count includes assets; this is a complexity proxy, not calibrated difficulty."
+}

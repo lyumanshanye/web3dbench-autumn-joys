@@ -1,0 +1,98 @@
+{
+  "version": "3.0",
+  "task": "deterministic-coin-tunnel-picking-lab",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Each coin must contain a gold MeshStandardMaterial CylinderGeometry(3,3,0.54,16), rotated X by PI/2, and a TorusGeometry(3,0.3,8,64) rim; both face along Z.",
+      "action": "Load the page and inspect the live tunnel hierarchy and each coin's mesh parameters.",
+      "expected": "There are eight uniquely named coin groups, each with the specified cylinder and torus geometry and no external assets. (Tolerance: 1e-5 for dimensions and rotations)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "radius `r=12+48*sqrt(q)`, local position is `(r*cos(angle),200-400*p,r*sin(angle))`, and uniform scale is `min(1,p/0.05)`",
+      "action": "Inspect initial local transforms for coins 0, 2, and 6 before stepping.",
+      "expected": "Coin 0 is (12,160,0) at scale 1; coin 2 is approximately (0,40,45.9411255) at scale 1; coin 6 has scale 0 and y=200. (Tolerance: 1e-5 per component)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "`step(n)` advances exactly n fixed steps: every coin gets `p+=0.0015`, rotation X `+=0.06`, and rotation Z `+=0.03`; if `p>1`, subtract 1 and set that coin’s X/Z rotations to zero.",
+      "action": "Call step(100) and inspect coin 0, coin 7, the tunnel, and state().",
+      "expected": "Coin 0 has p=0.25, y=100, rotations (6,0,3); coin 7 wraps to p=0.1 with zero rotations; tunnel rotation is 0.025 and steps is 100. (Tolerance: 1e-5)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "Reject non-integer n or n outside 0–10000 with RangeError and no mutation. `setProgress` rejects invalid indices or non-finite p outside [0,1] similarly.",
+      "action": "Attempt step(1.5), step(-1), setProgress(8,0.5), and setProgress(0,NaN), then call setProgress(6,0.025).",
+      "expected": "Every invalid call throws RangeError without changing state; the valid call gives coin 6 y=190 and uniform scale 0.5. (Tolerance: 1e-5)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T05",
+      "requirement": "`pick` raycasts only coin meshes, selects the nearest hit’s coin, returns its name, and on a miss returns null, sets selected to null, and resets every coin material’s emissive to 0x000000.",
+      "action": "Reset, select overview, project coin 0, pick at the returned NDC coordinates, then pick at NDC (0.99,0.99).",
+      "expected": "The center pick returns coin-0 and highlights only that coin; the corner miss returns null and clears selection. (Tolerance: NDC values finite; exact selected IDs)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "Reset restores the fixture progress values, zero coin/tunnel rotations, derived positions/scales, zero steps, null selection/emissives, and the inside camera view.",
+      "action": "Modify progress, step, select a coin, switch to overview, then activate Reset twice and inspect state, camera, and scene counts.",
+      "expected": "Initial state and inside camera are restored after each reset, with no duplicate scene objects or animation loops. (Tolerance: 1e-5; exact object counts)",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

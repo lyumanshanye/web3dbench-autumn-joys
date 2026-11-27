@@ -1,0 +1,62 @@
+{
+  "Q_human": null,
+  "Q_vlm": 100.0,
+  "browser_calls": 86,
+  "end_to_end_Q_vlm": 100.0,
+  "full_task_pass": true,
+  "infra_status": "NORMAL",
+  "must_status": "PASS",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-56-27-287Z.jpeg",
+        "evidence/page-2026-11-27T01-57-26-927Z.jpeg",
+        "evidence/page-2026-11-27T01-57-52-239Z.jpeg"
+      ],
+      "reason": "All stated API, geometry, selection, gizmo, docking, focus, seek, controls, and reset requirements were delivered and verified together across tested states.",
+      "score": 4
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-56-40-889Z.jpeg",
+        "evidence/page-2026-11-27T01-57-07-558Z.jpeg",
+        "evidence/page-2026-11-27T01-59-15-784Z.jpeg"
+      ],
+      "reason": "Primary selection, pointer-axis dragging, focus, docking/reversal, continuous playback, timeline seeking, reset recovery, and boundary rejection remained reliable and visibly communicative. One unresponsive slider arrow-key attempt is noted but did not impair the required pointer or button flows.",
+      "score": 4
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-56-02-267Z.jpeg",
+        "evidence/page-2026-11-27T01-58-25-237Z.jpeg",
+        "evidence/page-2026-11-27T01-58-36-744Z.jpeg"
+      ],
+      "reason": "Measured geometry matches the brief; three viewpoints demonstrate consistent perspective, relative scale, dock/pod spatial relations, occlusion, shadows, and a gizmo that follows selected world position.",
+      "score": 4
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-59-33-232Z.jpeg",
+        "evidence/page-2026-11-27T01-59-40-943Z.jpeg",
+        "evidence/page-2026-11-27T01-59-55-925Z.jpeg"
+      ],
+      "reason": "Desktop, mobile, repeated transforms, dock/undock, playback, reset, keyboard-button activation, and reload were stable. Network logs show local 200 responses, reload restored the initial state, and the only console warning was nonblocking shadow-map API deprecation.",
+      "score": 4
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-56-02-267Z.jpeg",
+        "evidence/page-2026-11-27T01-56-27-287Z.jpeg",
+        "evidence/page-2026-11-27T01-59-33-232Z.jpeg"
+      ],
+      "reason": "A coherent dark instrumentation-bench aesthetic, strong type hierarchy, restrained color coding, clear state readouts, and readable desktop/mobile composition consistently support the task.",
+      "score": 4
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 15
+}

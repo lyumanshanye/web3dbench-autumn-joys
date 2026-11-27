@@ -1,0 +1,107 @@
+{
+  "version": "3.0",
+  "task": "add-exact-surface-queries-and-normal-aligned-terrain-survey-mark",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "If no triangle contains the point, return elevation 0 and normal (0,1,0).",
+      "action": "Load the deterministic demonstration and call getSurfaceInfo at (0,0), (4,0), (30,0), and (1000,0).",
+      "expected": "Elevations are respectively 2, 2, 0, and 0; every returned normal is (0,1,0), including the outside-geometry fallback. (Tolerance: Elevation and each normal component within 1e-6.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "It must query the actual indexed BufferGeometry, not regenerate noise.",
+      "action": "Select several non-plateau XZ points inside sloped terrain triangles and independently interpolate the live position and normal attributes using the stated barycentric rule.",
+      "expected": "getSurfaceInfo matches the independent live-mesh interpolation and returns a unit-length normal; changing only a survey does not change these results. (Tolerance: Elevation within 1e-5 and normal components within 1e-5.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "The inner markers must therefore have base elevation 2 and center Y 3",
+      "action": "Inspect inner-survey's live group, mesh names, cylinder parameters, positions, and quaternions.",
+      "expected": "There are eight meshes named inner-survey-marker-0 through inner-survey-marker-7; marker k has XZ (4*cos(2*pi*k/8),4*sin(2*pi*k/8)), center Y 3, radius 0.2, height 2, and identity alignment on the flat plateau. (Tolerance: Positions and dimensions within 1e-5; quaternion angular error below 1e-5 radians.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "while outer markers have base elevation 0 and center Y 1.5",
+      "action": "Inspect the four outer-survey cylinders in the live scene.",
+      "expected": "Their XZ coordinates follow radius 30 and quarter-turn angles, their center Y values are 1.5, their cylinder height is 3, and their radius is 0.25. (Tolerance: Each numeric value within 1e-5.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T05",
+      "requirement": "When survey attributes update, rebuild only that component's marker group",
+      "action": "Retain references to the terrain geometry and outer survey group, then update inner-survey to radius 2, count 5, height 4, and markerRadius 0.1.",
+      "expected": "Inner survey has five replacement markers at radius 2 with center Y 4 and the new dimensions; terrain geometry and outer survey group references remain identical. (Tolerance: Transforms within 1e-5; object identity must be exact.)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T06",
+      "requirement": "Count is rounded, clamped to [1,64], and non-finite count uses 8.",
+      "action": "Exercise count values 0, 2.6, 100, and NaN, and supply non-finite values for the other schema fields.",
+      "expected": "Counts become 1, 3, 64, and 8 respectively; non-finite radius, height, and markerRadius become 5, 2, and 0.2, and every update leaves a valid finite marker group. (Tolerance: Exact sanitized counts and defaults; finite transforms within 1e-5.)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T07",
+      "requirement": "Do not alter terrain seed, vertex positions, colors, or wave behavior when adding or updating surveys.",
+      "action": "Snapshot terrain geometry attributes, geometry seed data, and material wave state before survey creation and after repeated survey updates.",
+      "expected": "Terrain position, color, behavior, and index arrays remain unchanged, the seed remains 0.25, and the existing wave material remains attached. (Tolerance: Exact array equality and exact seed equality.)",
+      "dimension": "spatial"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

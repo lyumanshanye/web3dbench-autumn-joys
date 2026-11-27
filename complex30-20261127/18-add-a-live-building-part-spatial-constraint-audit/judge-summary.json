@@ -1,0 +1,62 @@
+{
+  "Q_human": null,
+  "Q_vlm": 70.0,
+  "browser_calls": 24,
+  "end_to_end_Q_vlm": 70.0,
+  "full_task_pass": false,
+  "infra_status": "NORMAL",
+  "must_status": "FAIL",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-23-19-760Z.jpeg",
+        "evidence/page-2026-11-27T02-23-43-718Z.jpeg",
+        "evidence/page-2026-11-27T02-24-07-556Z.jpeg"
+      ],
+      "reason": "The central audit mode, local fixture loading, required report IDs/order/classifications, and visible helper overlays work. Verification of independent bounds, spatialAudit helper internals, and transform/invalid-wall recovery was unavailable through the page and forbidden mutation, leaving substantial contract aspects unverified.",
+      "score": 3
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-23-43-718Z.jpeg",
+        "evidence/page-2026-11-27T02-23-52-367Z.jpeg"
+      ],
+      "reason": "OrbitControls work and refresh is repeatable through the exposed API, but the audit has no page UI. Required visible feedback beyond the colored overlays is implicit, and recovery/invalid-state sequences could not be exercised.",
+      "score": 2
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-23-19-760Z.jpeg",
+        "evidence/page-2026-11-27T02-23-43-718Z.jpeg",
+        "evidence/page-2026-11-27T02-23-48-582Z.jpeg",
+        "evidence/page-2026-11-27T02-23-52-367Z.jpeg"
+      ],
+      "reason": "The building volume, wall geometry, perspective, occlusion, and spatially separated green/red/blue constraint boxes are coherent across three views. Small viewport framing can make the model tiny in empty space, and fresh-bounds behavior after transformation remains unverified.",
+      "score": 3
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-23-19-760Z.jpeg",
+        "evidence/page-2026-11-27T02-24-07-556Z.jpeg",
+        "evidence/page-2026-11-27T02-24-22-761Z.jpeg"
+      ],
+      "reason": "Initial load, reload, refresh, orbit, and desktop/mobile layouts were reliable. Resource diagnostics were clean apart from favicon 404, and there were no OSM API requests. Unverified transform, missing-wall, and helper-disposal recovery flows preclude a higher rating.",
+      "score": 3
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-23-43-718Z.jpeg",
+        "evidence/page-2026-11-27T02-23-48-582Z.jpeg",
+        "evidence/page-2026-11-27T02-24-22-761Z.jpeg"
+      ],
+      "reason": "The scene is deliberately minimal but coherent: a neutral gray building, dark background, perspective grid, and strongly differentiated outline colors. The subject is readable, though large empty framing reduces focus.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 6
+}

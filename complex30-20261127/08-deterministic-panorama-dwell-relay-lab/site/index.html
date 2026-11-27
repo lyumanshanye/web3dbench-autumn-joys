@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panorama Dwell Relay Lab</title>
+    <script type="module" crossorigin src="./assets/index-CTaHRwag.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CZJcH2N4.css">
+  </head>
+  <body>
+    <main id="app">
+      <div id="viewport" aria-label="Panorama view"></div>
+      <div id="crosshair" aria-hidden="true"></div>
+      <section id="hud" aria-live="polite">
+        <header>
+          <p class="eyebrow">PANORAMA RELAY STUDY</p>
+          <h1>Panorama Dwell Relay Lab</h1>
+          <p class="hint">Look around, then hold a relay marker at the center to continue.</p>
+        </header>
+        <div id="readouts">
+          <div class="readout"><span>Room</span><strong id="room">A</strong></div>
+          <div class="readout"><span>Yaw</span><strong id="yaw">0.00&deg;</strong></div>
+          <div class="readout"><span>Pitch</span><strong id="pitch">0.00&deg;</strong></div>
+          <div class="readout wide"><span>Dwell target</span><strong id="dwell-id">&mdash;</strong></div>
+          <div class="readout wide">
+            <span>Dwell progress</span>
+            <div class="meter"><i id="dwell-bar"></i></div>
+            <strong id="dwell-ms">0 / 1000 ms</strong>
+          </div>
+          <div class="readout wide"><span>Activations</span><strong id="activations">None</strong></div>
+        </div>
+        <div class="actions">
+          <button id="reset" type="button">Reset</button>
+          <button id="dwell" type="button" aria-pressed="false">Dwell: Off</button>
+        </div>
+        <p class="note">Click a sphere or aim with the pointer. The center reticle controls dwell.</p>
+      </section>
+    </main>
+  </body>
+</html>

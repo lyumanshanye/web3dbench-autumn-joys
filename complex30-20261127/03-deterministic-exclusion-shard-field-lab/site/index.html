@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exclusion Shard Field Lab</title>
+    <style>
+      * { box-sizing: border-box; }
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #090d16;
+        color: #e8edf5;
+        font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      #app, #app canvas { display: block; width: 100%; height: 100%; }
+      #app canvas { position: fixed; inset: 0; }
+      .panel {
+        position: fixed;
+        top: 18px;
+        left: 18px;
+        width: min(350px, calc(100vw - 36px));
+        padding: 16px;
+        border: 1px solid rgba(144, 179, 220, 0.28);
+        border-radius: 10px;
+        background: rgba(11, 17, 28, 0.88);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(8px);
+      }
+      h1 {
+        margin: 0 0 3px;
+        font: 600 17px/1.2 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        letter-spacing: 0.01em;
+      }
+      .subtitle {
+        margin: 0 0 14px;
+        color: #8fa3bd;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .controls-row { display: flex; align-items: flex-end; gap: 8px; }
+      label {
+        display: grid;
+        flex: 1;
+        gap: 5px;
+        color: #9fb2ca;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      input, button {
+        height: 34px;
+        border: 1px solid rgba(144, 179, 220, 0.3);
+        border-radius: 5px;
+        font: inherit;
+      }
+      input {
+        width: 100%;
+        padding: 0 9px;
+        outline: none;
+        background: #111a29;
+        color: #edf3fb;
+      }
+      input:focus { border-color: #7bb6f4; }
+      button {
+        padding: 0 13px;
+        cursor: pointer;
+        background: #1a2940;
+        color: #dce8f7;
+      }
+      button:hover { background: #233754; }
+      button:active { transform: translateY(1px); }
+      #scatter { border-color: #69a8e8; background: #1e5e96; color: #fff; }
+      #scatter:hover { background: #2872b3; }
+      .status {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: 13px;
+        padding-top: 11px;
+        border-top: 1px solid rgba(144, 179, 220, 0.16);
+        color: #93a7bf;
+        font-size: 11px;
+      }
+      .status strong { color: #d8e5f4; font-weight: 500; }
+      #error { min-height: 16px; margin-top: 8px; color: #f3a4a4; font-size: 11px; }
+    </style>
+    <script type="module" crossorigin src="/web3dbench-autumn-joys/complex30-20261127/03-deterministic-exclusion-shard-field-lab/site/assets/index-MxhWPcbn.js"></script>
+  </head>
+  <body>
+    <main id="app" aria-label="Exclusion Shard Field Lab"></main>
+    <section class="panel" aria-label="Scatter controls">
+      <h1>Exclusion Shard Field Lab</h1>
+      <p class="subtitle">Deterministic rejection sampling</p>
+      <div class="controls-row">
+        <label>
+          Seed
+          <input id="seed" type="number" step="1" value="12345" />
+        </label>
+        <button id="scatter" type="button">Scatter</button>
+        <button id="reset" type="button">Reset</button>
+      </div>
+      <div class="status">
+        <span>elapsed <strong id="elapsed">0.00</strong></span>
+        <span>seed <strong id="active-seed">0</strong></span>
+        <span id="phase">settled</span>
+      </div>
+      <div id="error" role="alert"></div>
+    </section>
+  </body>
+</html>

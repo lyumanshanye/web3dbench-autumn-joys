@@ -1,0 +1,63 @@
+{
+  "Q_human": null,
+  "Q_vlm": 60.0,
+  "browser_calls": 81,
+  "end_to_end_Q_vlm": 60.0,
+  "full_task_pass": false,
+  "infra_status": "NORMAL",
+  "must_status": "FAIL",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-08-54-981Z.jpeg",
+        "evidence/page-2026-11-27T01-11-06-738Z.jpeg",
+        "evidence/page-2026-11-27T01-12-28-266Z.jpeg"
+      ],
+      "reason": "The terrain, survey components, update behavior, and demonstration are present, but the required exact surface query and inner-marker elevation contract fail. Four of eight inner markers are at Y=1 instead of Y=3, and slope interpolation disagrees with the live mesh beyond tolerance. This is a substantial central-flow defect rather than a minor omission.",
+      "score": 2
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-10-55-927Z.jpeg",
+        "evidence/page-2026-11-27T01-11-06-738Z.jpeg",
+        "evidence/page-2026-11-27T01-11-37-702Z.jpeg"
+      ],
+      "reason": "Mouse-look and repeated attribute updates work reliably, with visible scene changes and correct count sanitation. Camera discoverability is limited to the canvas standard A-Frame interaction, but no promised survey UI is absent. The main interaction issue is data correctness rather than control responsiveness or recovery.",
+      "score": 3
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-10-44-213Z.jpeg",
+        "evidence/page-2026-11-27T01-11-06-738Z.jpeg",
+        "evidence/page-2026-11-27T01-11-17-905Z.jpeg"
+      ],
+      "reason": "The initial and alternate camera views establish real terrain depth, scale, and occlusion, and survey cylinders are visible with correct dimensions. However, operation/inspection reveals incorrect placement of half the plateau markers and incorrect surface interpolation on sloped triangles, producing bases below the intended surface and mismatched normals.",
+      "score": 2
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-11-37-702Z.jpeg",
+        "evidence/page-2026-11-27T01-11-51-186Z.jpeg",
+        "evidence/page-2026-11-27T01-12-15-634Z.jpeg",
+        "evidence/page-2026-11-27T01-12-28-266Z.jpeg"
+      ],
+      "reason": "All tested repeated updates, boundary sanitation cases, canvas resize, keyboard focus, and reloads completed without crash. Identity checks showed the terrain and unaffected survey survived. Local issues are a favicon 404 and a sparse/clipping narrow layout, neither blocking the scene.",
+      "score": 3
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-10-44-213Z.jpeg",
+        "evidence/page-2026-11-27T01-11-06-738Z.jpeg",
+        "evidence/page-2026-11-27T01-11-51-186Z.jpeg"
+      ],
+      "reason": "The scene has a coherent bright-blue sky, textured green terrain, water, sun, and contrasting yellow survey markers. Composition is readable on desktop, though the narrow viewport is sparse and some marker bases are visually obscured by the spatial placement defect.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 12
+}

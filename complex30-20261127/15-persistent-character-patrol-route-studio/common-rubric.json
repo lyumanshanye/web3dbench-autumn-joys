@@ -1,0 +1,87 @@
+{
+  "version": "3.0",
+  "dimensions": {
+    "instruction": {
+      "weight": 25,
+      "description": "Fulfil the subject, purpose, style and explicitly requested flows. Do not add requirements.",
+      "anchors": {
+        "0": "Subject or purpose is wrong; the basic requested activity is unavailable.",
+        "1": "Correct theme but the main requested flow is missing.",
+        "2": "A main flow works, with a substantial requested flow missing or broken.",
+        "3": "Core flows work; name the specific minor requested omission.",
+        "4": "All stated requirements are delivered coherently across tested states."
+      }
+    },
+    "spatial": {
+      "weight": 35,
+      "description": "Judge task-relevant geometry, scale, depth, occlusion, materials, lighting and key viewpoints.",
+      "anchors": {
+        "0": "No relevant effective 3D content or the key subject is absent.",
+        "1": "Recognizable attempt with severe shape, connection or depth errors.",
+        "2": "Initial view works but operation reveals major spatial or material errors.",
+        "3": "Key views are coherent with local surface, lighting or material defects.",
+        "4": "Shapes, spatial relations, lighting and materials consistently serve the task."
+      }
+    },
+    "interaction": {
+      "weight": 20,
+      "description": "Judge discoverability, meaningful feedback, sequences, recovery and advertised controls.",
+      "anchors": {
+        "0": "Required primary operation cannot be performed.",
+        "1": "Controls react superficially without the promised scene/state change.",
+        "2": "Single actions work but sequences or required recovery fail.",
+        "3": "Required and repeated flows work, with local discoverability or transition issues.",
+        "4": "Sequences, combinations and recovery remain reliable and natural."
+      }
+    },
+    "visual": {
+      "weight": 10,
+      "description": "Judge composition, type, color, hierarchy and a coherent expression serving this brief.",
+      "anchors": {
+        "0": "Subject or information is unreadable.",
+        "1": "Severe overlap or missing hierarchy; requested style is not recognizable.",
+        "2": "Readable basic style, with obvious UI/scene or layout inconsistencies.",
+        "3": "Composition, typography, color and 3D form a coherent expression.",
+        "4": "Purposeful details and state transitions consistently improve understanding."
+      }
+    },
+    "stability": {
+      "weight": 10,
+      "description": "Judge resources, desktop/mobile layout and repeated operation; no uncalibrated performance thresholds.",
+      "anchors": {
+        "0": "Opening is followed by a blocking failure.",
+        "1": "Frequent missing key resources, freezes or crashes.",
+        "2": "Usable in the main view but major narrow-layout or repeat-operation problems.",
+        "3": "Reliable tested flows, with local nonblocking and explained issues.",
+        "4": "All standard and repeat checks are stable, readable and reliably loaded."
+      }
+    }
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "dimension": "spatial",
+      "requirement": "Inspect genuine task-relevant depth and geometry across at least three distinct views where appropriate; fixed-camera designs may use read-only runtime probes."
+    },
+    {
+      "id": "G02",
+      "dimension": "visual",
+      "requirement": "Inspect composition, materials, light, color and legibility without preferring realism, a framework or a particular aesthetic."
+    },
+    {
+      "id": "G03",
+      "dimension": "interaction",
+      "requirement": "Exercise the primary UI and verify meaningful scene/state feedback; do not invent extra controls."
+    },
+    {
+      "id": "G04",
+      "dimension": "interaction",
+      "requirement": "Exercise repeat, reverse, boundary and recovery behavior appropriate to the requested and advertised flows."
+    },
+    {
+      "id": "G05",
+      "dimension": "stability",
+      "requirement": "Inspect 1440x900 and 390x844 layouts, lower controls, reload and console/resource diagnostics. A narrow viewport does not certify real touch hardware."
+    }
+  ]
+}

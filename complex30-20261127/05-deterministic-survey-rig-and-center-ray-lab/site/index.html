@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Survey Rig Lab</title>
+  <link rel="stylesheet" href="./src/styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./node_modules/three/build/three.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Instrumented field viewer</p>
+        <h1>Survey Rig Lab</h1>
+      </div>
+      <p class="units">Meters · Y-up · radians</p>
+    </header>
+
+    <div class="layout">
+      <section class="stage-card" aria-label="3D viewport">
+        <div class="stage-head">
+          <span class="status-dot"></span>
+          <span>800 × 600 rig view</span>
+          <span class="hint">Shift + drag to look</span>
+        </div>
+        <div id="stage" class="stage">
+          <canvas id="viewport" width="800" height="600" tabindex="0"
+            aria-label="Survey Rig Lab 3D viewport"></canvas>
+          <div class="reticle" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <aside class="panel" aria-label="Rig controls">
+        <section class="panel-section">
+          <h2>Readouts</h2>
+          <dl class="readouts">
+            <div><dt>Yaw</dt><dd id="yaw-value">0.0000 rad</dd></div>
+            <div><dt>Pitch</dt><dd id="pitch-value">0.0000 rad</dd></div>
+            <div><dt>Eye height</dt><dd id="eye-value">1.600 m</dd></div>
+            <div><dt>Selected ID</dt><dd id="selected-value" class="selected">none</dd></div>
+          </dl>
+        </section>
+
+        <section class="panel-section">
+          <h2>Rig Input</h2>
+          <div class="flags">
+            <span data-flag="forward">W Fwd</span>
+            <span data-flag="backward">S Back</span>
+            <span data-flag="left">A Left</span>
+            <span data-flag="right">D Right</span>
+            <span data-flag="up">E Up</span>
+            <span data-flag="down">Q Down</span>
+          </div>
+          <div class="buttons">
+            <button id="step-button" type="button">Step <kbd>1/60 s</kbd></button>
+            <button id="reset-button" type="button" class="secondary">Reset</button>
+          </div>
+        </section>
+
+        <section class="panel-section">
+          <h2>Field Notes</h2>
+          <p>Movement advances only when <strong>Step</strong> is pressed. Click a focus box to identify it; the centered crosshair marks the pick ray.</p>
+          <p class="targets"><span>A</span> 0, 1.6, −6 <span>B</span> 4, 1.6, −6 <span>C</span> −4, 1.6, −8</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

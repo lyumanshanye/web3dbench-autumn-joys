@@ -1,0 +1,107 @@
+{
+  "version": "3.0",
+  "task": "add-animated-whole-cube-inspection-rotations",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T06"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Create one `THREE.Group` named `inspectionPivot`, positioned at `(0,0,0)` with identity initial quaternion, and add it to the cube scene.",
+      "action": "Load the solved demo and inspect the live scene graph and a representative normal facet mesh.",
+      "expected": "Exactly one group has that name, position, and identity quaternion; all displayed normal facet meshes are its descendants and baseline local geometry is unchanged. (Tolerance: Position and quaternion components within 1e-6; exact ancestry required.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Animate for exactly 250 ms using normalized linear progress and quaternion slerp from the starting quaternion to the target; the speed slider must not affect this duration.",
+      "action": "From identity, call inspect('x') and sample the pivot at 125 ms and completion; repeat with a different speed-slider value.",
+      "expected": "At halfway the quaternion is approximately (0.3826834324,0,0,0.9238795325), and at completion it is (0.7071067812,0,0,0.7071067812), independent of slider value. (Tolerance: Timing sample within one animation frame; quaternion components within 2e-4.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "Compose successive rotations by premultiplying: `targetQuaternion = axisQuaternion * currentQuaternion`.",
+      "action": "After reset, complete inspect('x'), then inspect('y'), and read getInspectionQuaternion().",
+      "expected": "The final quaternion is equivalent to (0.5,0.5,-0.5,0.5), not the result of postmultiplication. (Tolerance: Components within 1e-6, allowing simultaneous sign inversion of all four components.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "Inspection must not call `cubeState.rotate`, alter the Singmaster position string, change `isFolded`, or enqueue face-turn commands.",
+      "action": "Record state and fold status, perform X and Z inspections, then execute one normal R turn.",
+      "expected": "Inspections leave state and fold status unchanged; the subsequent R turn produces the same logical state as R from the same baseline and leaves the inspection quaternion unchanged. (Tolerance: Exact state-string and Boolean comparisons.)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T05",
+      "requirement": "Return `false` without changing anything for an invalid axis, while an inspection is running, or while `cube.isActive()` is true.",
+      "action": "Attempt an invalid axis, a second inspection during the first, and an inspection during a normal face animation.",
+      "expected": "Each rejected request returns false, no quaternion or logical state changes result, and isInspecting() accurately reports only inspection animation. (Tolerance: Exact return values and unchanged state; quaternion within 1e-6.)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T06",
+      "requirement": "Existing face-turn and fold animations, including split meshes, must remain inside the pivot and therefore inherit the current inspection transform.",
+      "action": "Inspect X, unfold, perform an unfolded turn that creates split meshes, and inspect scene ancestry and world transforms.",
+      "expected": "Normal and split meshes remain descendants of inspectionPivot while displayed, and their world matrices include the X inspection rotation. (Tolerance: Exact ancestry; world-matrix elements within 1e-5.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T07",
+      "requirement": "Otherwise it immediately restores the pivot to identity, without changing logical cube state, and returns `true`.",
+      "action": "Compose several inspections, call resetInspection() while idle, and compare state and pivot values.",
+      "expected": "The method returns true, the quaternion is exactly identity within tolerance, and the Singmaster state is unchanged.",
+      "dimension": "spatial"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

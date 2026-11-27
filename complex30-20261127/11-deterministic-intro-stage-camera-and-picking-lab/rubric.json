@@ -1,0 +1,98 @@
+{
+  "version": "3.0",
+  "task": "deterministic-intro-stage-camera-and-picking-lab",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Add exactly three pickable beacon meshes to `beacons`, each a 0.8-radius, 1.5-high cylinder: `left` at `(-6,0.75,2)`, `core` at `(0,0.75,-4)`, and `right` at `(6,0.75,2)`.",
+      "action": "Inspect the live scene, beacon IDs, geometry parameters, and world positions after initialization.",
+      "expected": "Exactly three cylinders exist with the specified dimensions, IDs, and positions; the ground, emblem torus, and three title bars also exist. (Tolerance: 1e-5 for dimensions and positions)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Set `emblem.position` to `(-3,-4+4*a,-20+20*b)` and uniformly scale `titleBars` by `1+0.25*a`.",
+      "action": "Call setFrame at 0, 15, 30, and 120 and inspect transforms and getState after each call.",
+      "expected": "Emblem positions are (-3,-4,-20), (-3,0,-10), (-3,0,0), and (-3,0,0); title scales are 1, 1.25, 1.25, and 1.25. (Tolerance: 1e-5 per component)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "In `tour` mode, set camera position to `(0,6,14-7*min(frame/60,1))` and look at the origin.",
+      "action": "Reset, then set frames 30, 60, and 120 while remaining in tour mode.",
+      "expected": "Camera positions are (0,6,10.5), (0,6,7), and (0,6,7), with cameraTarget (0,0,0) at every frame. (Tolerance: 1e-5 per component)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "`focusSelected(id)` accepts only `left`, `core`, or `right`; for a valid ID it selects that beacon, changes mode to `focus`, positions the camera at beacon position plus `(0,3,5)`, and looks at the beacon center.",
+      "action": "Call focusSelected('core') and inspect selection, highlight, camera transform, and returned state.",
+      "expected": "It returns true, selects core, sets mode focus, cameraPosition (0,3.75,1), and cameraTarget (0,0.75,-4); only core is highlighted. (Tolerance: 1e-5 per component)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T05",
+      "requirement": "`pickAt(clientX,clientY)` performs the same picking as a canvas click using the renderer canvas bounding rectangle and returns the selected ID or `null`.",
+      "action": "Reset, project the right beacon to NDC, convert NDC to canvas client coordinates, call pickAt there, and repeat at an empty canvas corner.",
+      "expected": "The beacon-center pick returns right and focuses it; the empty pick returns null without selecting a beacon. (Tolerance: Projection and picked center within 1e-5 NDC; no positional drift)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "`reset()` restores frame 0, `tour` mode, no selection, all default highlights, the initial camera, and all timeline transforms.",
+      "action": "Advance the timeline, focus a beacon, then call reset and inspect the complete public state and materials.",
+      "expected": "State returns to frame 0, tour, null selection, camera (0,6,14), target origin, emblem (-3,-4,-20), titleScale 1, and no emissive highlight. (Tolerance: 1e-5 per numeric component)",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Flipbook Lab, a fully procedural Three.js page-flip study."
+    />
+    <meta name="theme-color" content="#0c1117" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230c1117'/%3E%3Cpath d='M13 19h20c5 0 8 3 8 8v22H21c-5 0-8-3-8-8V19z' fill='%23f3a83b'/%3E%3Cpath d='M51 19H33v30h18V19z' fill='%2358b9a7'/%3E%3C/svg%3E"
+    />
+    <title>Flipbook Lab</title>
+    <script type="module" crossorigin src="/web3dbench-autumn-joys/complex30-20261127/07-deterministic-parametric-flipbook-laboratory/site/assets/index-CabAzDgU.js"></script>
+    <link rel="stylesheet" crossorigin href="/web3dbench-autumn-joys/complex30-20261127/07-deterministic-parametric-flipbook-laboratory/site/assets/index-Buh1rWnF.css">
+  </head>
+  <body>
+    <main id="app" aria-label="Flipbook Lab interactive scene">
+      <header class="masthead">
+        <p class="eyebrow"><span class="status-dot"></span>Procedural study / 04 sheets</p>
+        <h1>Flipbook <em>Lab</em></h1>
+        <p class="intro">A small study in motion, paper, and geometry.</p>
+      </header>
+
+      <aside class="readout-panel" aria-label="Flipbook state">
+        <div class="readout">
+          <span class="readout-label">Progress</span>
+          <output id="progressValue" class="readout-value">0.000</output>
+        </div>
+        <span class="readout-rule" aria-hidden="true"></span>
+        <div class="readout">
+          <span class="readout-label">Goal</span>
+          <output id="goalValue" class="readout-value">0.000</output>
+        </div>
+      </aside>
+
+      <section class="control-deck" aria-label="Flipbook controls">
+        <div class="timeline-heading">
+          <label for="progressSlider">Timeline</label>
+          <span>0 <i></i> 4</span>
+        </div>
+        <input
+          id="progressSlider"
+          class="progress-slider"
+          type="range"
+          min="0"
+          max="4"
+          step="0.001"
+          value="0"
+          aria-label="Flipbook progress"
+        />
+        <div class="button-row">
+          <button id="previousButton" class="control-button" type="button">
+            <span aria-hidden="true">←</span> Previous
+          </button>
+          <button id="nextButton" class="control-button control-button--primary" type="button">
+            Next <span aria-hidden="true">→</span>
+          </button>
+          <button id="resetButton" class="control-button control-button--quiet" type="button">
+            Reset
+          </button>
+        </div>
+      </section>
+
+      <p class="interaction-hint">Click a sheet to turn it · drag the timeline to inspect</p>
+    </main>
+  </body>
+</html>

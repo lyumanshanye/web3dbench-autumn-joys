@@ -1,0 +1,59 @@
+{
+  "Q_human": null,
+  "Q_vlm": 91.2,
+  "browser_calls": 51,
+  "end_to_end_Q_vlm": 91.2,
+  "full_task_pass": true,
+  "infra_status": "NORMAL",
+  "must_status": "PASS",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-29-19-509Z.jpeg",
+        "evidence/page-2026-11-27T01-30-45-746Z.jpeg"
+      ],
+      "reason": "All main flows and numeric contracts work (geometry, origin, camera, picking, visibility, focus, reset, Focus/Reset buttons, getState). Specific minor omission: window.bimOriginLab.objects is empty, so meshes are not exposed in that collection as required.",
+      "score": 3
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-29-44-818Z.jpeg",
+        "evidence/page-2026-11-27T01-31-19-472Z.jpeg",
+        "evidence/page-2026-11-27T01-31-29-040Z.jpeg"
+      ],
+      "reason": "Selection, highlight, Focus enable/disable, type toggles (pointer and keyboard), empty-space deselection, unknown-type rejection, Reset recovery and reload all behave reliably across repeated use.",
+      "score": 4
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-29-19-509Z.jpeg",
+        "evidence/page-2026-11-27T01-30-18-216Z.jpeg",
+        "evidence/page-2026-11-27T01-31-59-884Z.jpeg"
+      ],
+      "reason": "Shapes, sizes, recentered spatial relations, lighting and solid-color materials consistently serve the inspection task; focus framing and occlusion views are coherent.",
+      "score": 4
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-31-36-272Z.jpeg",
+        "evidence/page-2026-11-27T01-30-45-746Z.jpeg"
+      ],
+      "reason": "All tested desktop/mobile flows, repeated selection/visibility toggles, reset and reload were stable; only nonblocking favicon 404 observed and network requests are local.",
+      "score": 4
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-29-19-509Z.jpeg",
+        "evidence/page-2026-11-27T01-30-51-516Z.jpeg"
+      ],
+      "reason": "Coherent, readable dark inspector UI with consistent type-color swatches and legible State output; state changes (green highlight, dimmed toggles) communicate clearly. Local issues: model appears small in the initial/mobile viewport and the State values area is clipped in the fixed-height desktop panel.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 12
+}

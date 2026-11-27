@@ -1,0 +1,13 @@
+Extend the existing editor with named lighting workspaces while preserving all current light painting, camera switching, outliner, and preview behavior.
+
+1. Add a “Workspaces” section to the Outliner containing a name input, a “Save workspace” button, and a row for each saved workspace with “Load” and “Delete” buttons. Saving creates a deep, independent snapshot of the complete ordered lights and cameras arrays, including every light field, every camera field, and all selection flags. Each record must have `{version:1,id,name,createdAt,lights,cameras}`, with a unique string id and a millisecond timestamp. Persist the array immediately under the localStorage key `env.workspaces.v1`; do not replace or disable the existing light/camera persistence.
+
+2. Trim workspace names before saving. Names must contain 1–40 characters and must be unique case-insensitively. For an empty, overlong, or duplicate name, show a toast explaining the problem and leave both the scene and stored workspace array unchanged. Saving and loading must not reload the page.
+
+3. Loading a workspace must atomically replace the current lights and cameras with deep clones of that snapshot, preserving order and selection. The selected restored camera must become the default camera with its saved position and rotation, and every restored light must immediately resume its saved position, target, and appearance. Loading changes only light/camera scene state: it must not change the active panel, light-painting mode, or saved workspace list.
+
+4. On startup, read `env.workspaces.v1` without network access. Malformed JSON or a non-array value produces an empty workspace list without throwing and without modifying the current scene. Ignore array entries that are not objects or lack `version`, `id`, `name`, `lights`, or `cameras`. Deleting a workspace removes only that record, persists the remaining records, and leaves the current scene unchanged.
+
+5. Use this deterministic verification case: start with one existing Softbox light and one selected camera; set the light’s `latlon` to `{x:0,y:0}` and `target` to `{x:1,y:2,z:3}`, and the camera position to `[4,5,6]` and rotation to `[0.1,0.2,0.3]` radians. Save it as `Studio A`, then change the light to `latlon={x:1,y:1}`, `target={x:0,y:0,z:0}` and the camera position to `[0,0,0]`. Loading `Studio A` must restore every original value.
+
+6. For spatial verification, use the existing radius-3 light rig and mappings `phi=(1-latlon.y)*PI/2`, `theta=-PI/2-PI*latlon.x`, and `position=(3*sin(phi)*sin(theta),3*cos(phi),3*sin(phi)*cos(theta))`. Thus the verification light’s restored world position is `(-3,0,0)` within floating-point tolerance; changing its target must not alter that position.

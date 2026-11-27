@@ -1,0 +1,135 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Counter-Strike: Football</title>
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/hud.css">
+    <link rel="stylesheet" href="./assets/css/lab.css">
+</head>
+<body oncontextmenu="return false" style="background:#000000">
+<div id="hud"><p style="font-size:120px;text-align:center;color:#FFF;padding:90px 40px">Loading....</p></div>
+<div id="ui">
+    <header>
+        <h1>Counter-Strike</h1>
+        <h2>F<span class="emojis">🏉💣</span>tball</h2>
+    </header>
+    <div id="menu">
+        <button onclick="showModal('modal-join')">Play</button>
+        <button onclick="showModal('modal-setting')">Settings</button>
+        <button onclick="openAnimationLab()">Animation Lab</button>
+        <button onclick="window.close()">Quit</button>
+    </div>
+    <footer>
+        Created by <a target="_blank" href="https://github.com/solcloud">solcloud</a>
+        using awesome <a target="_blank" href="https://threejs.org/">three.js</a> 3D library
+    </footer>
+</div>
+<div id="modal" class="hidden">
+    <div data-name="modal-join" class="hidden">
+        <p class="text-warning">Currently, there is no official public server available, but you can run server yourself.</p>
+        <textarea id="join-url">ws://localhost:8081?map=default&code=acode</textarea>
+        <p class="flex">
+            <button onclick="closeModal()" class="btn">× Close</button>
+            <span>&nbsp;</span>
+            <button onclick="joinGameUrl(document.getElementById('join-url').value)" class="btn">↳ Join</button>
+        </p>
+    </div>
+    <div data-name="modal-setting" class="hidden">
+        <textarea rows="8" id="setting-form"></textarea>
+        <p class="flex">
+            <button onclick="closeModal()" class="btn">× Close</button>
+            <span>&nbsp;</span>
+            <button onclick="saveSetting(document.getElementById('setting-form').value);closeModal()" class="btn">✓ Save</button>
+        </p>
+    </div>
+</div>
+
+<script type="importmap">
+    {
+        "imports": {
+            "three": "./assets/threejs/three.min.js?v167",
+            "three/addons/": "./assets/threejs/"
+        }
+    }
+</script>
+<script type="module">
+    import {Setting} from "./assets/js/Setting.js";
+
+    const settingElement = document.getElementById('setting-form')
+    if (settingElement) {
+        let userSettingObject
+        const userSettings = localStorage.getItem('setting')
+        if (userSettings === null || userSettings === '') {
+            const setting = new Setting()
+            userSettingObject = setting.getSetting()
+        } else {
+            userSettingObject = JSON.parse(userSettings)
+        }
+        settingElement.value = JSON.stringify(userSettingObject, null, 2)
+    }
+</script>
+<script>
+    const modal = document.getElementById('modal')
+    const ui = document.getElementById('ui')
+    const hud = document.getElementById('hud')
+
+    function joinGameUrl(url) {
+        modal.remove()
+        ui.remove()
+
+        console.log("Launching game")
+        import("./assets/js/start.js").then(async (ns) => {
+            await ns.launchGame(document.body, hud, localStorage.getItem('setting'), url)
+        }).catch((error) => {
+            console.log(error)
+            alert(error)
+        })
+    }
+
+    function saveSetting(json) {
+        localStorage.setItem('setting', json)
+    }
+
+    function closeModal() {
+        modal.classList.add('hidden')
+        modal.querySelectorAll('[data-name]').forEach(function (el) {
+            el.classList.add('hidden')
+        })
+    }
+
+    function showModal(name) {
+        const menu = modal.querySelector(`[data-name="${name}"]`)
+        if (!menu) {
+            return false
+        }
+
+        modal.classList.remove('hidden')
+        menu.classList.remove('hidden')
+    }
+
+</script>
+<script>
+    function openAnimationLab() {
+        import("./assets/js/AnimationLab.js").then((ns) => {
+            ns.launchAnimationLab(ui)
+        }).catch((error) => {
+            console.log(error)
+            alert(error)
+        })
+    }
+
+    if (window.nodeApi) {
+        document.getElementById('join-url').value = 'udp://localhost:8080?map=default&code=acode'
+    } else {
+        window.addEventListener('beforeunload', (e) => {
+            e.preventDefault();
+            return "Are you sure to leave this page?"
+        });
+    }
+    if (window.location.search === '?dev-join') {
+        joinGameUrl(document.getElementById('join-url').value)
+    }
+</script>
+</body>
+</html>

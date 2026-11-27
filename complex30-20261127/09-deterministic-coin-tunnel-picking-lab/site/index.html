@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#08080c" />
+    <title>Coin Tunnel Lab</title>
+    <script type="module" crossorigin src="/web3dbench-autumn-joys/complex30-20261127/09-deterministic-coin-tunnel-picking-lab/site/assets/index-BeFcapZR.js"></script>
+    <link rel="stylesheet" crossorigin href="/web3dbench-autumn-joys/complex30-20261127/09-deterministic-coin-tunnel-picking-lab/site/assets/index-Bdby_Ck3.css">
+  </head>
+  <body>
+    <canvas id="scene" aria-label="Interactive 3D coin tunnel"></canvas>
+    <header class="title-block">
+      <p class="eyebrow">PROCEDURAL STUDY / 01</p>
+      <h1>Coin Tunnel <span>Lab</span></h1>
+      <p class="subtitle">A fixed-step experiment in depth &amp; rotation.</p>
+    </header>
+    <aside class="telemetry" aria-live="polite">
+      <div class="telemetry-heading">
+        <span>Telemetry</span>
+        <span class="live-dot">LIVE</span>
+      </div>
+      <dl>
+        <div><dt>Total steps</dt><dd id="readout-steps">0</dd></div>
+        <div><dt>Tunnel rotation</dt><dd id="readout-rotation">0.000000 rad</dd></div>
+        <div><dt>Selected coin</dt><dd id="readout-selected">None</dd></div>
+      </dl>
+    </aside>
+    <div class="hint">Click a coin to inspect it</div>
+    <nav class="controls" aria-label="Simulation controls">
+      <button id="step-button" type="button">Step <kbd>→</kbd></button>
+      <button id="reset-button" type="button" class="secondary">Reset</button>
+    </nav>
+  </body>
+</html>

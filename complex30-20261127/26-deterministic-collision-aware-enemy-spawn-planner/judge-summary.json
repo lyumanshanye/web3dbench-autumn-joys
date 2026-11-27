@@ -1,0 +1,87 @@
+{
+  "Q_human": null,
+  "Q_vlm": 23.8,
+  "browser_calls": 105,
+  "end_to_end_Q_vlm": 0,
+  "full_task_pass": false,
+  "infra_status": "NORMAL",
+  "must_status": "FAIL",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-26T23-56-11-425Z.jpeg",
+        "evidence/page-2026-11-26T23-56-28-844Z.jpeg",
+        "evidence/page-2026-11-26T23-57-45-721Z.jpeg",
+        "evidence/page-2026-11-26T23-59-12-208Z.jpeg",
+        "evidence/page-2026-11-27T00-00-02-644Z.jpeg",
+        "evidence/page-2026-11-27T00-00-07-558Z.jpeg",
+        "evidence/page-2026-11-27T00-00-16-998Z.jpeg",
+        "evidence/page-2026-11-27T00-00-28-392Z.jpeg"
+      ],
+      "reason": "The planner API and deterministic fixture outputs exist and reset behavior largely works, but the required preserved, inspectable FPS scene is not delivered; collision boundary handling and ordinary wall sensitivity remains incomplete. The main requested 3D activity is unavailable visually.",
+      "score": 1
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-26T23-56-11-425Z.jpeg",
+        "evidence/page-2026-11-26T23-56-28-844Z.jpeg",
+        "evidence/page-2026-11-26T23-57-45-721Z.jpeg",
+        "evidence/page-2026-11-26T23-59-12-208Z.jpeg",
+        "evidence/page-2026-11-27T00-00-02-644Z.jpeg",
+        "evidence/page-2026-11-27T00-00-07-558Z.jpeg",
+        "evidence/page-2026-11-27T00-00-16-998Z.jpeg",
+        "evidence/page-2026-11-27T00-00-28-392Z.jpeg"
+      ],
+      "reason": "M, arrow-key camera rotation, fixture load/reset, repeated spawning, and reload are reachable, but the resulting scene/state is not visibly communicated and obstacle-boundary recovery behavior is inconsistent.",
+      "score": 2
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-26T23-56-11-425Z.jpeg",
+        "evidence/page-2026-11-26T23-56-28-844Z.jpeg",
+        "evidence/page-2026-11-26T23-57-45-721Z.jpeg",
+        "evidence/page-2026-11-26T23-59-12-208Z.jpeg",
+        "evidence/page-2026-11-27T00-00-02-644Z.jpeg",
+        "evidence/page-2026-11-27T00-00-07-558Z.jpeg",
+        "evidence/page-2026-11-27T00-00-16-998Z.jpeg",
+        "evidence/page-2026-11-27T00-00-28-392Z.jpeg"
+      ],
+      "reason": "No relevant effective 3D content is visible in delivered screenshots. Scene-graph values are not a substitute for rendered geometry; spatial checks cannot establish depth, occlusion, or meaningful placement.",
+      "score": 0
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-26T23-56-11-425Z.jpeg",
+        "evidence/page-2026-11-26T23-56-28-844Z.jpeg",
+        "evidence/page-2026-11-26T23-57-45-721Z.jpeg",
+        "evidence/page-2026-11-26T23-59-12-208Z.jpeg",
+        "evidence/page-2026-11-27T00-00-02-644Z.jpeg",
+        "evidence/page-2026-11-27T00-00-07-558Z.jpeg",
+        "evidence/page-2026-11-27T00-00-16-998Z.jpeg",
+        "evidence/page-2026-11-27T00-00-28-392Z.jpeg"
+      ],
+      "reason": "The page opens and repeated actions do not crash; desktop/mobile layouts and reload work. However, the main scene is visually unusable and boundary/obstacle tests expose incorrect placement behavior.",
+      "score": 2
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-26T23-56-11-425Z.jpeg",
+        "evidence/page-2026-11-26T23-56-28-844Z.jpeg",
+        "evidence/page-2026-11-26T23-57-45-721Z.jpeg",
+        "evidence/page-2026-11-26T23-59-12-208Z.jpeg",
+        "evidence/page-2026-11-27T00-00-02-644Z.jpeg",
+        "evidence/page-2026-11-27T00-00-07-558Z.jpeg",
+        "evidence/page-2026-11-27T00-00-16-998Z.jpeg",
+        "evidence/page-2026-11-27T00-00-28-392Z.jpeg"
+      ],
+      "reason": "HUD typography and controls are legible, but the dominant viewport is a flat gray field with a cropped black/brown fragment and overlapping help panel, so scene hierarchy and intended FPS composition are not recognizable.",
+      "score": 1
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": false,
+  "runtime_status": "PASS",
+  "scene_status": "FAIL",
+  "verified_images": 9
+}

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lightning Fracture Lab</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three/build/three.module.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main class="lab">
+      <header class="lab-header">
+        <div>
+          <p class="eyebrow">Atmospheric Geometry Study · No. 07</p>
+          <h1>Lightning<br /><span>Fracture Lab</span></h1>
+        </div>
+        <div class="status-block" aria-live="polite">
+          <span class="status-dot" id="status-dot"></span>
+          <span id="phase">IDLE</span>
+          <span class="status-separator">/</span>
+          <span id="time">0000 ms</span>
+        </div>
+      </header>
+
+      <section class="stage-shell" aria-label="Lightning simulation">
+        <canvas id="scene" width="800" height="600" tabindex="0"></canvas>
+        <div class="stage-label stage-label-top">
+          <span>Y +</span>
+          <span>ORIGIN 0 · 0 · 0</span>
+        </div>
+        <div class="stage-label stage-label-bottom">
+          <span>40 × 40 FIELD</span>
+          <span id="seed-display">SEED 0000000000</span>
+        </div>
+      </section>
+
+      <section class="instrument" aria-label="Simulation controls">
+        <div class="readouts">
+          <div class="readout">
+            <span>Segments</span>
+            <strong id="readout-segments">00</strong>
+          </div>
+          <div class="readout">
+            <span>Draw range</span>
+            <strong id="readout-range">00</strong>
+          </div>
+          <div class="readout">
+            <span>Opacity</span>
+            <strong id="readout-opacity">1.00</strong>
+          </div>
+          <div class="readout">
+            <span>Crackles</span>
+            <strong id="readout-crackles">00</strong>
+          </div>
+        </div>
+
+        <div class="controls-row">
+          <label class="seed-field">
+            <span>Seed / 0—4294967295</span>
+            <input
+              id="seed-input"
+              type="text"
+              inputmode="numeric"
+              autocomplete="off"
+              spellcheck="false"
+              value="0"
+              aria-describedby="seed-message"
+            />
+          </label>
+          <div class="button-group" aria-label="Seed actions">
+            <button id="generate-button" type="button">Generate</button>
+            <button id="strike-button" type="button" class="primary">Strike</button>
+          </div>
+          <div class="button-group" aria-label="Simulation actions">
+            <button id="step-button" type="button">Step 200 ms</button>
+            <button id="reset-button" type="button">Reset</button>
+          </div>
+        </div>
+        <p class="message" id="seed-message" role="alert"></p>
+      </section>
+
+      <footer class="lab-footer">
+        <span>Drag to orbit · scroll to zoom</span>
+        <span class="coordinate-note">World units · Y-up</span>
+      </footer>
+    </main>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

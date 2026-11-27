@@ -1,0 +1,64 @@
+{
+  "Q_human": null,
+  "Q_vlm": 83.8,
+  "browser_calls": 81,
+  "end_to_end_Q_vlm": 83.8,
+  "full_task_pass": true,
+  "infra_status": "NORMAL",
+  "must_status": "PASS",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-24-51-156Z.jpeg",
+        "evidence/page-2026-11-27T02-27-22-248Z.jpeg",
+        "evidence/page-2026-11-27T02-25-05-994Z.jpeg"
+      ],
+      "reason": "Most specified flows and API contracts are delivered coherently, including picking, reset and UI Step. Minor-but-explicit contract omissions remain: invalid dt exception type for nonfinite values and the required resize camera-aspect/renderer-size updates.",
+      "score": 3
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-24-51-156Z.jpeg",
+        "evidence/page-2026-11-27T02-26-45-252Z.jpeg",
+        "evidence/page-2026-11-27T02-27-00-117Z.jpeg",
+        "evidence/page-2026-11-27T02-27-22-248Z.jpeg"
+      ],
+      "reason": "Pointer picking, keyboard-to-step sequence, repeated Step, vertical boundary traversal, selection changes and Reset recovery work naturally with clear visual/readout feedback. The invalid-step exception-type defect is a local contract flaw rather than a blocked primary interaction.",
+      "score": 3
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-24-03-790Z.jpeg",
+        "evidence/page-2026-11-27T02-25-56-738Z.jpeg",
+        "evidence/page-2026-11-27T02-26-15-267Z.jpeg",
+        "evidence/page-2026-11-27T02-26-33-968Z.jpeg"
+      ],
+      "reason": "Required hierarchy, units, dimensions, positions and camera perspective are precise. Multiple changed views show coherent depth, occlusion and parallax, with clear solid-color targets and a grounded survey grid.",
+      "score": 4
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-28-18-221Z.jpeg",
+        "evidence/page-2026-11-27T02-25-11-811Z.jpeg",
+        "evidence/page-2026-11-27T02-27-00-117Z.jpeg"
+      ],
+      "reason": "All standard tested interactions and reload were reliable, with only favicon 404 diagnostics. Mobile controls remain reachable. The required resize behavior is a tested local sizing flaw and invalid nonfinite dt uses the wrong exception type; neither prevents normal use.",
+      "score": 3
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-27-00-117Z.jpeg",
+        "evidence/page-2026-11-27T02-25-05-994Z.jpeg",
+        "evidence/page-2026-11-27T02-24-23-057Z.jpeg"
+      ],
+      "reason": "The composition, monospaced typography, restrained palette and instrument-style panels form a coherent expression. Yellow selection and green input feedback aid state recognition. The unchanged renderer aspect causes scale/fit inconsistencies across viewport sizes.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 14
+}

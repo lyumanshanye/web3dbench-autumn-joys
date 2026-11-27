@@ -1,0 +1,66 @@
+{
+  "Q_human": null,
+  "Q_vlm": 100.0,
+  "browser_calls": 55,
+  "end_to_end_Q_vlm": 100.0,
+  "full_task_pass": true,
+  "infra_status": "NORMAL",
+  "must_status": "PASS",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-26T23-45-44-055Z.jpeg",
+        "evidence/page-2026-11-26T23-46-24-228Z.jpeg",
+        "evidence/page-2026-11-26T23-46-49-290Z.jpeg",
+        "evidence/page-2026-11-26T23-47-20-434Z.jpeg"
+      ],
+      "reason": "Every stated interaction, API behavior, geometry rule, control, and displayed state tested coherently, including reset, recovery, picking, clamping, and mobile layout. No requested flow was missing in the tested surface.",
+      "score": 4
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-26T23-46-24-228Z.jpeg",
+        "evidence/page-2026-11-26T23-46-41-128Z.jpeg",
+        "evidence/page-2026-11-26T23-47-01-601Z.jpeg",
+        "evidence/page-2026-11-26T23-46-32-438Z.jpeg"
+      ],
+      "reason": "Controls are clear and responsive; goal/progress feedback, animation sequences, reverse movement, boundary stops, canvas picking, keyboard slider adjustment, reset, and state synchronization all worked reliably.",
+      "score": 4
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-26T23-45-44-055Z.jpeg",
+        "evidence/page-2026-11-26T23-45-58-144Z.jpeg",
+        "evidence/page-2026-11-26T23-46-17-591Z.jpeg",
+        "evidence/page-2026-11-26T23-46-05-143Z.jpeg"
+      ],
+      "reason": "Book geometry, sheet spacing, rotation, bending, depth, occlusion, lighting, and camera perspective remained coherent across all observed progress states. Sampled transforms and the active sheet center matched the contract.",
+      "score": 4
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-26T23-47-10-118Z.jpeg",
+        "evidence/page-2026-11-26T23-47-30-463Z.jpeg",
+        "evidence/page-2026-11-26T23-47-39-568Z.jpeg"
+      ],
+      "reason": "Both requested viewport sizes rendered without clipping, repeated actions and resizing remained reliable, reload restored the initial state, all assets returned HTTP 200, and the console was empty.",
+      "score": 4
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-26T23-45-44-055Z.jpeg",
+        "evidence/page-2026-11-26T23-46-17-591Z.jpeg",
+        "evidence/page-2026-11-26T23-46-49-290Z.jpeg",
+        "evidence/page-2026-11-26T23-47-10-118Z.jpeg"
+      ],
+      "reason": "The composition, typography, warm/cool sheet palette, grid-stage backdrop, and restrained lighting form a coherent, readable expression. State transitions visibly improve understanding of the flipbook.",
+      "score": 4
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 12
+}

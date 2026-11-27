@@ -1,0 +1,52 @@
+{
+  "Q_human": null,
+  "Q_vlm": null,
+  "browser_calls": 25,
+  "end_to_end_Q_vlm": 0,
+  "full_task_pass": false,
+  "infra_status": "NORMAL",
+  "must_status": "NOT_EVALUATED",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T04-25-29-441Z.jpeg"
+      ],
+      "reason": "Runtime FAIL: the demo never initializes, so instruction requirements are not assessable.",
+      "score": null
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T04-25-29-441Z.jpeg"
+      ],
+      "reason": "Runtime FAIL: no controls became available.",
+      "score": null
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T04-25-29-441Z.jpeg"
+      ],
+      "reason": "Runtime FAIL: no 3D scene exists; scores nulled per policy.",
+      "score": null
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T04-25-29-441Z.jpeg"
+      ],
+      "reason": "Runtime FAIL: consistent initialization crash and 404 model assets across reloads.",
+      "score": null
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T04-25-29-441Z.jpeg"
+      ],
+      "reason": "Runtime FAIL: only the static shell renders.",
+      "score": null
+    }
+  },
+  "quality_status": "N/A",
+  "runtime_and_3d_valid": false,
+  "runtime_status": "FAIL",
+  "scene_status": "NOT_EVALUATED",
+  "verified_images": 2
+}

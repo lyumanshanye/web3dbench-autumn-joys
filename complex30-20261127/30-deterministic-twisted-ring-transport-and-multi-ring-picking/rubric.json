@@ -1,0 +1,107 @@
+{
+  "version": "3.0",
+  "task": "deterministic-twisted-ring-transport-and-multi-ring-picking",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T04",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "On every simulation step, for every box in all three rings apply `box.rotation.x -= 0.01 * speed`, then increment `stepCount` by 1 and `simTime` by `fixedDt`.",
+      "action": "Pause, capture state, set speed to 2, and call step(3).",
+      "expected": "All 220 rotations decrease by 0.06 radians, stepCount increases by 3, and simTime increases by 0.05 seconds. (Tolerance: Rotation and time absolute error <= 1e-9.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T02",
+      "requirement": "While paused, do not accumulate time or change rotations, `simTime`, or `stepCount`.",
+      "action": "Pause and allow several rendered frames to elapse without calling step.",
+      "expected": "Rotations, simTime, and stepCount remain exactly at their paused values. (Tolerance: Exact state equality.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "`step(n)` accepts only an integer from 0 through 600; it advances exactly `n` simulation steps only when paused and returns without changes otherwise.",
+      "action": "Exercise step(2) while running, then pause and try step(-1), step(1.5), step(601), and step(0).",
+      "expected": "Every listed call leaves simulation state unchanged and does not throw. (Tolerance: Exact state equality.)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T04",
+      "requirement": "`reset()` restores those rotations, sets `simTime = 0`, `stepCount = 0`, `speed = 1`, `running = false`, clears the accumulator, clears selection and hover highlighting",
+      "action": "Advance at non-default speed, select and hover a box, then reset and compare with the initial rotations.",
+      "expected": "All initial rotations and emissive values are restored; transport and selection match the specified reset values. (Tolerance: Rotation absolute error <= 1e-9; other values exact.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T05",
+      "requirement": "Extend raycasting to the boxes of all three rings, not just the first.",
+      "action": "Project a visible box center from each ring to canvas coordinates and move the pointer to each in turn.",
+      "expected": "Each ring can produce hover highlighting, and the previously highlighted box regains its saved emissive. (Tolerance: Use the nearest projected visible box and exact emissive hex comparison.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "A canvas click whose current raycast hits a box selects that box's ring, using IDs `ring`, `ring2`, and `ring3`; clicking empty space sets `selectedRing` to `null`.",
+      "action": "Click a projected box on each ring and then click a canvas ray known to miss all boxes.",
+      "expected": "getState reports the corresponding ring ID after each hit and null after the miss, without changing stepCount. (Tolerance: IDs exact; stepCount unchanged.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T07",
+      "requirement": "The `[` and `]` keys move speed through the ordered values `[0.25, 0.5, 1, 2, 4]`, clamped at the endpoints.",
+      "action": "From speed 1 press `]` twice, then three more times, followed by enough `[` presses to pass the lower endpoint.",
+      "expected": "Speed reaches 4 and remains 4 at the upper endpoint, then reaches 0.25 and remains 0.25 at the lower endpoint. (Tolerance: Exact numeric equality.)",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

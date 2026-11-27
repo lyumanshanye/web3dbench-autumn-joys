@@ -1,0 +1,107 @@
+{
+  "version": "3.0",
+  "task": "add-deterministic-commit-picking-and-camera-focus",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "It must bypass repository fetching and the loading screen, make no network requests, and render one linear branch containing five commits in newest-first order.",
+      "action": "Open ?fixture=picking, wait for the picking API, and inspect getState() and scene commit roots.",
+      "expected": "Five commit roots expose SHAs a through e repeated to 40 characters in newest-first order; positions follow the existing layout and no repository request or loading screen occurs. (Tolerance: Exact commit count, order, IDs, and messages)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T02",
+      "requirement": "Clicking a visible commit must select exactly that commit, using the nearest intersection when hits overlap.",
+      "action": "Project commit C with projectCommit, dispatch a canvas click at its NDC-derived client coordinates, and inspect state and inspector fields.",
+      "expected": "selectedSha is 40 c characters; the inspector shows that SHA, commit C, and index 2. (Tolerance: Projection-to-client conversion within 1 CSS pixel)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "the selected Commit root's local scale must be `[1.5, 1.5, 1.5]`, while every unselected root remains `[1, 1, 1]`",
+      "action": "After selecting commit C, inspect all live Commit root transforms, then select commit D and repeat.",
+      "expected": "Only the currently selected root has scale 1.5 on every axis; all others have scale 1, including the previously selected root. (Tolerance: 1e-6 per scale component)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "immediately move the camera to world position `P + (0, 6, -10)`, where `P` is the selected commit's world position, set `camera.up` to `(0, 1, 0)`, and look directly at `P`",
+      "action": "Select commit C, read its world position and live camera/API values, advance several frames, and compare again.",
+      "expected": "Camera position equals P+(0,6,-10), up equals (0,1,0), target equals P, and CameraOperator does not alter these values while selected. (Tolerance: 1e-4 per position, target, and up component)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T05",
+      "requirement": "Pressing Escape, clicking empty canvas space, or calling the reset API below must clear the selection and hover state, remove the inspector, restore all commit scales to 1, and hand camera control back to the existing CameraOperator.",
+      "action": "Exercise Escape, an empty-space click, and reset() after separate selections; inspect DOM, scene scales, state, and subsequent camera frames.",
+      "expected": "Each path clears selection and inspector, restores unit scales and cursor, and resumes existing camera choreography without reloading or restarting playback. (Tolerance: Exact state; camera control resumes within 2 rendered frames)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T06",
+      "requirement": "Unknown SHAs must return null without changing state.",
+      "action": "Call projectCommit with an unknown SHA before and after a valid selection and compare serialized getState() results.",
+      "expected": "Both calls return null and leave selection, commit data, and camera state unchanged. (Tolerance: Exact null and deep state equality)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T07",
+      "requirement": "Do not expose this API outside fixture mode.",
+      "action": "Open an ordinary non-fixture URL and inspect window.__repoSurfPicking and the normal loading path.",
+      "expected": "The picking API is absent and the existing repository fetch/loading flow remains in use. (Tolerance: API must be undefined)",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

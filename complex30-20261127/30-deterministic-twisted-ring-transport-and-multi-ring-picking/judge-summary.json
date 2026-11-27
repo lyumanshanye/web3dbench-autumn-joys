@@ -1,0 +1,62 @@
+{
+  "Q_human": null,
+  "Q_vlm": 91.2,
+  "browser_calls": 85,
+  "end_to_end_Q_vlm": 91.2,
+  "full_task_pass": false,
+  "infra_status": "NORMAL",
+  "must_status": "FAIL",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-56-26-038Z.jpeg",
+        "evidence/page-2026-11-27T02-58-01-545Z.jpeg",
+        "evidence/page-2026-11-27T02-58-50-782Z.jpeg"
+      ],
+      "reason": "All principal flows are present and usable, but exact fixed-step time accumulation exceeds the stated tolerance and reset does not demonstrably restore a distinct post-construction rotation baseline. These are specific deviations from the requested numeric and reset contract.",
+      "score": 3
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-56-26-038Z.jpeg",
+        "evidence/page-2026-11-27T02-57-23-908Z.jpeg",
+        "evidence/page-2026-11-27T02-57-49-683Z.jpeg",
+        "evidence/page-2026-11-27T02-58-01-545Z.jpeg"
+      ],
+      "reason": "Pause/resume, speed bounds, three-ring hover and selection, empty-space deselection, invalid stepping, reset, resize, and reload all responded reliably. Numeric timing fidelity is separately reflected in instruction and task checks.",
+      "score": 4
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-55-52-537Z.jpeg",
+        "evidence/page-2026-11-27T02-58-17-223Z.jpeg",
+        "evidence/page-2026-11-27T02-58-22-716Z.jpeg"
+      ],
+      "reason": "The three rings have convincing rounded box geometry, visible depth, interleaving and occlusion, consistent gradient materials, and stable spatial presentation across camera views.",
+      "score": 4
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-58-26-688Z.jpeg",
+        "evidence/page-2026-11-27T02-58-50-782Z.jpeg"
+      ],
+      "reason": "The page loaded, resized, accepted keyboard input after resizing, and reloaded correctly. No overflow, crashes, or required-resource failures were observed; only a nonblocking favicon 404 appeared.",
+      "score": 4
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T02-55-52-537Z.jpeg",
+        "evidence/page-2026-11-27T02-58-26-688Z.jpeg",
+        "evidence/page-2026-11-27T02-58-22-716Z.jpeg"
+      ],
+      "reason": "The scene has a clear, attractive ring composition and legible status hierarchy. The help line wraps awkwardly, and the mobile view crops substantial portions of the outer rings, creating minor layout inconsistencies.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 15
+}

@@ -1,0 +1,98 @@
+{
+  "version": "3.0",
+  "task": "deterministic-lightning-fracture-laboratory",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T04",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "This yields 17 ordered points and 16 main segments.",
+      "action": "Call generate(7), inspect getState(), then repeat generate(7).",
+      "expected": "Both results contain 17 identical ordered main points with fixed endpoints, zero z coordinates, and 16 main segments. (Tolerance: Coordinates within 1e-6; exact counts and deterministic equality.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "20 segments and 40 position vertices",
+      "action": "Inspect the live bolt LineSegments geometry after generation.",
+      "expected": "The position attribute has 40 vertices representing 20 segments, ordered as main path, branch A, then branch B. (Tolerance: Exact vertex and segment counts; positions within 1e-6.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "Each crackle contributes two line segments, for 12 total.",
+      "action": "Generate a strike and inspect all six crackle paths and their heights.",
+      "expected": "There are six radial three-point paths, 12 segments total, every y is 0.02, and radii and alternating angular offsets follow the formulas. (Tolerance: Coordinates within 1e-6; exact counts.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "reveal `floor(20*clamp(t/400,0,1))` segments and set draw-range count to twice that number",
+      "action": "Call strike(7), then step(200) and inspect the live bolt before stepping another 200 ms.",
+      "expected": "At t=200 the draw-range count is 20; at t=400 it is 40, with all 20 segments revealed. (Tolerance: Exact time, segment, and draw-range counts.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "set sphere scale uniformly to `8*sin(Math.PI*(t-400)/400)`",
+      "action": "From a fresh strike, advance to t=600 and inspect impact scale and opacity; then advance to t=800.",
+      "expected": "At t=600 all impact scale components are 8 and opacity is 1; at t=800 effects are removed, phase is idle, and impact scale is 0. (Tolerance: Scale within 1e-6; exact phase and lifecycle state.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T06",
+      "requirement": "Invalid input must leave the current scene unchanged and display `Invalid seed`",
+      "action": "After generating seed 7, submit invalid seed text and then activate Reset.",
+      "expected": "Invalid submission preserves scene state and shows the message; reset removes effects, restores seed 0 and initial simulation state, and preserves camera and grid. (Tolerance: Exact state and message; camera transforms within 1e-6.)",
+      "dimension": "interaction"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

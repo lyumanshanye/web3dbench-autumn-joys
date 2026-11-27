@@ -1,0 +1,98 @@
+{
+  "version": "3.0",
+  "task": "deterministic-survey-rig-and-center-ray-lab",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T05"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Add `yaw` to the scene at (0,0,0), add `pitch` as its child, and add the camera as pitch's child at local (0,1.6,0).",
+      "action": "Load the page and inspect the live scene graph, camera parameters, and target mesh transforms.",
+      "expected": "The hierarchy and initial transforms match exactly; three 1×1×1 targets appear in A,B,C order at the specified centers. (Tolerance: 1e-5 for numeric values; exact parent-child relationships and IDs)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "Otherwise apply `yaw.rotation.y -= dx*0.002` and `pitch.rotation.x -= dy*0.002`, then clamp pitch to [-Math.PI/2,Math.PI/2].",
+      "action": "Reset, call look(100,50,false), then look(100,1000,true), and inspect the live rig rotations.",
+      "expected": "The unshifted call changes nothing; the shifted call produces yaw=-0.2 and pitch=-Math.PI/2. (Tolerance: 1e-5)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "For horizontal input, x=right-left and z=backward-forward; normalize (x,z) if its length exceeds 1.",
+      "action": "Reset, set forward, right, and up true with all other flags false, then call step(0.5).",
+      "expected": "Yaw position is (Math.SQRT2,0,-Math.SQRT2), camera local eye height is 2.6, and diagonal horizontal speed is not greater than axial speed. (Tolerance: 1e-5)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "Change camera local y by `2*(up-down)*dt`, clamped to [0.5,4].",
+      "action": "Reset and perform two step(1) calls with only up true, then two step(1) calls with only down true.",
+      "expected": "Eye height reaches exactly 4 after upward travel and exactly 0.5 after downward travel, never exceeding either boundary. (Tolerance: 1e-5)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T05",
+      "requirement": "`pickCenter()` raycasts from the camera through canvas NDC (0,0), intersects only the three target meshes, and returns null for no hit.",
+      "action": "Reset and call pickCenter(); then reset, call look(Math.atan(2/3)/0.002,0,true), and call pickCenter() again.",
+      "expected": "The first hit is A at point (0,1.6,-5.5) with distance 5.5; the second hit is B, and only the current hit is highlighted 0xffcc00. (Tolerance: 1e-5 for point and distance; exact IDs and colors)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "`step(dt)` accepts only finite dt in [0,1], otherwise throws `RangeError` without changing state.",
+      "action": "Capture state, attempt step(NaN), step(-0.1), and step(1.1), then modify inputs and selection and call reset().",
+      "expected": "Each invalid call throws RangeError and preserves state; reset restores initial transforms, false flags, null selection, and default target colors. (Tolerance: Exact exception type and reset state; 1e-5 for transforms)",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

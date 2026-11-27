@@ -1,0 +1,7 @@
+{
+  "project_dir": "/workspace/project",
+  "install_command": "npm install",
+  "build_command": null,
+  "start_command": "npm start",
+  "url": "http://localhost:4173/"
+}

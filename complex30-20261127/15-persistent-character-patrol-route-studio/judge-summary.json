@@ -1,0 +1,60 @@
+{
+  "Q_human": null,
+  "Q_vlm": 97.5,
+  "browser_calls": 60,
+  "end_to_end_Q_vlm": 97.5,
+  "full_task_pass": true,
+  "infra_status": "NORMAL",
+  "must_status": "PASS",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-26T22-42-46-640Z.jpeg",
+        "evidence/page-2026-11-26T22-44-11-903Z.jpeg"
+      ],
+      "reason": "Every stated requirement was observed: exact camera/ground/character geometry, route line at 0.03, walk/run speeds, fixed-step movement with arrival handling, leg phase animation, setWaypoint validation, JSON-safe state, save/load/import/reset, and all five wired controls. Only cosmetic label quirks remain.",
+      "score": 4
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-26T22-43-43-899Z.jpeg",
+        "evidence/page-2026-11-26T22-44-08-514Z.jpeg",
+        "evidence/page-2026-11-26T22-44-11-903Z.jpeg"
+      ],
+      "reason": "Play/Pause, Walk/Run, editable waypoints, Save, Load and Reset all behave reliably, give immediate telemetry/status feedback, reject invalid input visibly, and recover saved states across reset and reload.",
+      "score": 4
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-26T22-42-46-640Z.jpeg",
+        "evidence/page-2026-11-26T22-43-28-144Z.jpeg",
+        "evidence/page-2026-11-26T22-44-49-982Z.jpeg"
+      ],
+      "reason": "3D shapes, proportions, shadows, ground scale and route geometry are coherent across three views and during motion; character faces and travels along route legs correctly.",
+      "score": 4
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-26T22-44-25-023Z.jpeg",
+        "evidence/page-2026-11-26T22-44-32-259Z.jpeg",
+        "evidence/page-2026-11-26T22-44-49-982Z.jpeg"
+      ],
+      "reason": "No crashes or JS errors across repeated play/pause, patrol loops, invalid inputs, save/reset/load, reload and both viewport sizes; only a non-blocking favicon 404 and a deprecation warning.",
+      "score": 4
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-26T22-42-46-640Z.jpeg",
+        "evidence/page-2026-11-26T22-43-43-899Z.jpeg"
+      ],
+      "reason": "Composition, typography and color are coherent and readable, but the in-scene waypoint labels are used inconsistently (multiple 'C' labels, generic glyph look) and duplicate the HTML overlay, which creates a small local identification defect.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 13
+}

@@ -1,0 +1,62 @@
+{
+  "infra_status": "NORMAL",
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "must_status": "FAIL",
+  "quality_status": "PENDING",
+  "Q_human": null,
+  "Q_vlm": 86.2,
+  "end_to_end_Q_vlm": 86.2,
+  "runtime_and_3d_valid": true,
+  "full_task_pass": false,
+  "quality": {
+    "instruction": {
+      "score": 3,
+      "reason": "All core scene, stepped simulation, selection, persistence, and UI flows are present. Reset's running-state trail behavior keeps it from fully satisfying the requirement that trails be cleared after reset.",
+      "evidence": [
+        "evidence/page-2026-11-27T00-48-37-476Z.jpeg",
+        "evidence/page-2026-11-27T00-50-21-664Z.jpeg",
+        "evidence/page-2026-11-27T00-50-39-110Z.jpeg"
+      ]
+    },
+    "spatial": {
+      "score": 4,
+      "reason": "Geometry, probe scales and heights, shadows, central occlusion, orbit parallax, and distinct materials consistently convey the orbital laboratory over multiple tested views.",
+      "evidence": [
+        "evidence/page-2026-11-27T00-48-37-476Z.jpeg",
+        "evidence/page-2026-11-27T00-49-38-299Z.jpeg",
+        "evidence/page-2026-11-27T00-48-48-618Z.jpeg"
+      ]
+    },
+    "interaction": {
+      "score": 3,
+      "reason": "Pause, selection, save/load, reset, and keyboard buttons respond, and invalid operations recover. Reset recovery is undermined by immediate automatic trail accumulation after reporting cleared initial conditions.",
+      "evidence": [
+        "evidence/page-2026-11-27T00-49-24-277Z.jpeg",
+        "evidence/page-2026-11-27T00-50-14-139Z.jpeg",
+        "evidence/page-2026-11-27T00-50-39-110Z.jpeg"
+      ]
+    },
+    "visual": {
+      "score": 4,
+      "reason": "The polished scientific-instrument presentation, clear telemetry hierarchy, coherent restrained palette, and legible responsive layout support the task throughout tested states.",
+      "evidence": [
+        "evidence/page-2026-11-27T00-48-12-810Z.jpeg",
+        "evidence/page-2026-11-27T00-51-12-968Z.jpeg",
+        "evidence/page-2026-11-27T00-51-40-388Z.jpeg"
+      ]
+    },
+    "stability": {
+      "score": 3,
+      "reason": "Reload, repeated persistence, responsive layouts, and all local assets worked; only a harmless favicon 404 appeared. The reset/running trail inconsistency is a local state issue rather than a crash or load failure.",
+      "evidence": [
+        "evidence/page-2026-11-27T00-51-06-815Z.jpeg",
+        "evidence/page-2026-11-27T00-51-12-968Z.jpeg",
+        "evidence/page-2026-11-27T00-51-40-388Z.jpeg"
+      ]
+    }
+  },
+  "browser_calls": 79,
+  "verified_images": 14,
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy."
+}

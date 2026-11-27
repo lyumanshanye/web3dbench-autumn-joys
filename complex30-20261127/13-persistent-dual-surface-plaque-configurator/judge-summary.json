@@ -1,0 +1,62 @@
+{
+  "Q_human": null,
+  "Q_vlm": 80.0,
+  "browser_calls": 90,
+  "end_to_end_Q_vlm": 80.0,
+  "full_task_pass": true,
+  "infra_status": "NORMAL",
+  "must_status": "PASS",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-06-27-678Z.jpeg",
+        "evidence/page-2026-11-27T00-08-27-049Z.jpeg",
+        "evidence/page-2026-11-27T00-10-36-985Z.jpeg"
+      ],
+      "reason": "All directly requested controls, API contracts, validation, persistence, picking, startup behavior, default geometry and reset behavior were exercised and delivered. The rear/front occlusion failure belongs to spatial presentation and is scored there, rather than being a missing stated flow.",
+      "score": 4
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-08-16-220Z.jpeg",
+        "evidence/page-2026-11-27T00-08-27-049Z.jpeg",
+        "evidence/page-2026-11-27T00-11-04-485Z.jpeg"
+      ],
+      "reason": "Required controls, side selection, click picking, validation, valid/invalid save-load flow, reload persistence, reset, keyboard activation and repeat operations remained reliable and natural, with clear status feedback.",
+      "score": 4
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-06-27-678Z.jpeg",
+        "evidence/page-2026-11-27T00-08-46-264Z.jpeg",
+        "evidence/page-2026-11-27T00-08-55-421Z.jpeg"
+      ],
+      "reason": "Initial view and panel geometry are convincing, but an operation that reveals both labels exposes a major occlusion error: transparent labels on both faces remain visible through the opaque panel, so front text shows from behind and back text shows from the front. This meets the 'initial view works but operation reveals major spatial errors' anchor.",
+      "score": 2
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-09-40-722Z.jpeg",
+        "evidence/page-2026-11-27T00-10-28-650Z.jpeg",
+        "evidence/page-2026-11-27T00-11-04-485Z.jpeg"
+      ],
+      "reason": "Desktop and narrow layouts were stable, the mobile control dock remained scrollable, reloads and Reset succeeded, and repeated operations remained responsive. There were no console errors or failed network requests; only a nonblocking shadow-map warning appeared.",
+      "score": 4
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T00-06-27-678Z.jpeg",
+        "evidence/page-2026-11-27T00-08-16-220Z.jpeg",
+        "evidence/page-2026-11-27T00-10-28-650Z.jpeg"
+      ],
+      "reason": "Composition, typography, color, lighting and the workbench panel are coherent and readable. Labels are strongly legible, but the cross-face showing weakens the otherwise polished physical-plaque presentation.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 14
+}

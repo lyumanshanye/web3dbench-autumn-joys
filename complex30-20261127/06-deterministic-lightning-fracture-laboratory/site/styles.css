@@ -1,0 +1,362 @@
+:root {
+  color-scheme: dark;
+  --ink: #e9eef1;
+  --muted: #8b969d;
+  --dim: #526069;
+  --cyan: #73f6ff;
+  --cyan-deep: #0b4d55;
+  --line: #28353b;
+  --panel: #0b1115;
+  --background: #06090b;
+  --danger: #ff947d;
+  --success: #a6ffd7;
+  font-family: "Courier New", Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-width: 100%;
+  min-height: 100%;
+  margin: 0;
+  background: var(--background);
+}
+
+body {
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 70% 8%, rgba(43, 94, 103, 0.2), transparent 28rem),
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    var(--background);
+  background-size: auto, 32px 32px, 32px 32px, auto;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.lab {
+  width: min(100% - 32px, 1100px);
+  margin: 0 auto;
+  padding: 30px 0 22px;
+}
+
+.lab-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 0 4px 20px;
+}
+
+.eyebrow {
+  margin: 0 0 9px;
+  color: var(--cyan);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+}
+
+h1 span {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.status-block {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding-bottom: 3px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--dim);
+  border-radius: 50%;
+  background: transparent;
+}
+
+.status-dot.is-active {
+  border-color: var(--cyan);
+  background: var(--cyan);
+  box-shadow: 0 0 11px var(--cyan);
+}
+
+.status-separator {
+  color: var(--dim);
+}
+
+.stage-shell {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #030609;
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.45),
+    inset 0 0 80px rgba(46, 117, 128, 0.07);
+}
+
+.stage-shell::before,
+.stage-shell::after {
+  position: absolute;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  border-color: var(--cyan);
+  content: "";
+  pointer-events: none;
+}
+
+.stage-shell::before {
+  top: 10px;
+  left: 10px;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.stage-shell::after {
+  right: 10px;
+  bottom: 10px;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+}
+
+#scene {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  outline: none;
+  cursor: grab;
+}
+
+#scene:active {
+  cursor: grabbing;
+}
+
+.stage-label {
+  position: absolute;
+  right: 18px;
+  left: 18px;
+  display: flex;
+  justify-content: space-between;
+  color: #61717a;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  pointer-events: none;
+}
+
+.stage-label-top {
+  top: 16px;
+}
+
+.stage-label-bottom {
+  bottom: 16px;
+}
+
+.instrument {
+  border: 1px solid var(--line);
+  border-top: 0;
+  background: var(--panel);
+}
+
+.readouts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid var(--line);
+}
+
+.readout {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  padding: 11px 14px;
+}
+
+.readout + .readout {
+  border-left: 1px solid var(--line);
+}
+
+.readout span,
+.seed-field span {
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.readout strong {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+.controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 14px;
+}
+
+.seed-field {
+  display: grid;
+  flex: 1 1 200px;
+  gap: 6px;
+}
+
+.seed-field input {
+  width: 100%;
+  height: 35px;
+  padding: 0 10px;
+  border: 1px solid #36444b;
+  border-radius: 0;
+  outline: none;
+  background: #060a0c;
+  color: var(--cyan);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.seed-field input:focus {
+  border-color: var(--cyan);
+}
+
+.seed-field input.is-invalid {
+  border-color: var(--danger);
+}
+
+.button-group {
+  display: flex;
+  gap: 6px;
+}
+
+button {
+  height: 35px;
+  padding: 0 13px;
+  border: 1px solid #36444b;
+  border-radius: 0;
+  background: #121b20;
+  color: var(--ink);
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 130ms ease, color 130ms ease, background 130ms ease;
+}
+
+button:hover,
+button:focus-visible {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  outline: none;
+}
+
+button:active {
+  background: #1a2b31;
+}
+
+button.primary {
+  border-color: #2b8c95;
+  background: #0e3439;
+  color: var(--cyan);
+}
+
+button.primary:hover,
+button.primary:focus-visible {
+  background: #145058;
+}
+
+.message {
+  min-height: 16px;
+  margin: 0 14px 10px;
+  color: var(--danger);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+
+.message.is-success {
+  color: var(--success);
+}
+
+.lab-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 4px 0;
+  color: var(--dim);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 700px) {
+  .lab {
+    width: min(100% - 18px, 1100px);
+    padding-top: 18px;
+  }
+
+  .lab-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .readouts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .readout:nth-child(3) {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .readout:nth-child(4) {
+    border-top: 1px solid var(--line);
+  }
+
+  .controls-row,
+  .button-group {
+    width: 100%;
+  }
+
+  .button-group button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 440px) {
+  .controls-row {
+    gap: 8px;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .lab-footer {
+    font-size: 8px;
+  }
+}

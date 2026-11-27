@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BIM Origin Inspector</title>
+    <script type="module" crossorigin src="/web3dbench-autumn-joys/complex30-20261127/10-deterministic-bim-origin-and-picking-inspector/site/assets/index-DhlFdrKe.js"></script>
+    <link rel="stylesheet" crossorigin href="/web3dbench-autumn-joys/complex30-20261127/10-deterministic-bim-origin-and-picking-inspector/site/assets/index-S5Hkj518.css">
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="brand">
+          <span class="mark" aria-hidden="true"></span>
+          <div>
+            <h1>BIM Origin Inspector</h1>
+            <p>Coordinate origin, world bounds &amp; element visibility</p>
+          </div>
+        </div>
+        <div class="toolbar">
+          <button id="focus-btn" type="button">Focus</button>
+          <button id="reset-btn" type="button" class="secondary">Reset</button>
+        </div>
+      </header>
+
+      <div class="panel">
+        <div class="viewport">
+          <div id="canvas-wrap" class="canvas-wrap"></div>
+          <div class="hint">Click a mesh to select • Axes: X red, Y green, Z blue</div>
+        </div>
+        <aside class="sidebar">
+          <section class="card">
+            <h2>Scene</h2>
+            <dl class="stats">
+              <dt>Bounds min</dt><dd id="bounds-min">—</dd>
+              <dt>Bounds max</dt><dd id="bounds-max">—</dd>
+              <dt>Origin offset</dt><dd id="origin">—</dd>
+              <dt>Diagonal</dt><dd id="diagonal">—</dd>
+              <dt>Selected</dt><dd id="selection">None</dd>
+            </dl>
+          </section>
+
+          <section class="card">
+            <h2>IFC Types</h2>
+            <div class="type-row" data-type="IfcWall">
+              <label for="type-IfcWall"><span class="swatch wall"></span>IfcWall <small>wall-A</small></label>
+              <input id="type-IfcWall" type="checkbox" checked />
+            </div>
+            <div class="type-row" data-type="IfcSlab">
+              <label for="type-IfcSlab"><span class="swatch slab"></span>IfcSlab <small>slab-A</small></label>
+              <input id="type-IfcSlab" type="checkbox" checked />
+            </div>
+            <div class="type-row" data-type="IfcWindow">
+              <label for="type-IfcWindow"><span class="swatch window"></span>IfcWindow <small>window-A</small></label>
+              <input id="type-IfcWindow" type="checkbox" checked />
+            </div>
+            <div class="type-row" data-type="IfcBeam">
+              <label for="type-IfcBeam"><span class="swatch beam"></span>IfcBeam <small>beam-A</small></label>
+              <input id="type-IfcBeam" type="checkbox" checked />
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>State</h2>
+            <pre id="state" class="state">—</pre>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </body>
+</html>

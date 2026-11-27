@@ -1,0 +1,63 @@
+{
+  "Q_human": null,
+  "Q_vlm": 55.0,
+  "browser_calls": 88,
+  "end_to_end_Q_vlm": 55.0,
+  "full_task_pass": false,
+  "infra_status": "NORMAL",
+  "must_status": "FAIL",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-07-02-020Z.jpeg",
+        "evidence/page-2026-11-27T01-07-27-308Z.jpeg",
+        "evidence/page-2026-11-27T01-07-18-622Z.jpeg"
+      ],
+      "reason": "Core navigation, picking, activation and reset exist, but two substantial requested flows fail: incremental dwell accumulation including the exact 1000 ms boundary, and target-change dwell recovery. Room B front view also does not display the required Return marker.",
+      "score": 2
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-09-35-722Z.jpeg",
+        "evidence/page-2026-11-27T01-09-42-081Z.jpeg",
+        "evidence/page-2026-11-27T01-09-56-062Z.jpeg"
+      ],
+      "reason": "Single click, room transition, reset and keyboard focus work, but the main dwell interaction fails the 600+399+1 sequence and the required target-change recovery value. The Dwell button changes appearance without making the promised dwell flow reliable.",
+      "score": 2
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-07-02-020Z.jpeg",
+        "evidence/page-2026-11-27T01-07-18-622Z.jpeg",
+        "evidence/page-2026-11-27T01-07-27-308Z.jpeg",
+        "evidence/page-2026-11-27T01-09-14-140Z.jpeg"
+      ],
+      "reason": "The initial panorama and beta-centered activation are spatially convincing, but Room B at yaw 0 displays no return marker and its center pick resolves to exit. At yaw 65, pitch 15 the return marker also does not appear, showing a major camera/view-position defect after room transition.",
+      "score": 2
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-09-46-014Z.jpeg",
+        "evidence/page-2026-11-27T01-10-25-190Z.jpeg",
+        "evidence/page-2026-11-27T01-10-45-396Z.jpeg"
+      ],
+      "reason": "The page loaded, resized, accepted pointer and keyboard input, and reloaded reliably, with controls fitting on mobile. The only console error was a nonblocking favicon 404; local module requests succeeded. Dwell-repeat failures are scored under interaction rather than as a crash or resource failure.",
+      "score": 3
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-27T01-07-02-020Z.jpeg",
+        "evidence/page-2026-11-27T01-07-18-622Z.jpeg",
+        "evidence/page-2026-11-27T01-09-46-014Z.jpeg"
+      ],
+      "reason": "The dark panoramic field, restrained technical HUD, high contrast and marker glow form a coherent visual expression on desktop and mobile. The clipped top marker and occasional empty room are spatial/state issues rather than a collapse of visual hierarchy.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 8
+}

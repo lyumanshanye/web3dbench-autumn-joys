@@ -1,0 +1,98 @@
+{
+  "version": "3.0",
+  "task": "deterministic-panorama-dwell-relay-lab",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Each marker is a radius-2 `SphereGeometry(2,16,12)` mesh at distance 40 from the origin.",
+      "action": "Inspect all five live marker meshes and both room groups after initialization.",
+      "expected": "All specified IDs and positions exist, geometry parameters match, every position has length 40, room A is visible, and room B is hidden. (Tolerance: Positions and radius within 1e-4; exact IDs and visibility.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T02",
+      "requirement": "`pick(ndcX,ndcY)` raycasts only visible marker meshes, ignoring the enclosure and hidden room, and returns the nearest marker ID or null.",
+      "action": "At the initial view call pick(0,0), then setView(90,0) and pick(0,0), and test an out-of-range coordinate.",
+      "expected": "The results are exit, alpha, and null respectively, with no activation history changes. (Tolerance: Exact IDs and empty activation history.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T03",
+      "requirement": "For `alpha`, `beta`, and `target`, immediately aim at the marker using `yaw=atan2(x,-z)` and `pitch=asin(y/40)`, both converted to degrees.",
+      "action": "Activate beta in room A and inspect state and camera forward direction.",
+      "expected": "State yaw is 0 and pitch is 30; camera forward is normalized beta position, and activations contains beta. (Tolerance: Angles and vector components within 1e-4.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T04",
+      "requirement": "At `dwellMs >= 1000`, activate that marker once, then disable dwell and clear dwell progress.",
+      "action": "Reset, enable dwell, and call step(600), step(399), then step(1) while exit remains centered.",
+      "expected": "The first two steps do not activate; the final step selects room B, records exit exactly once, disables dwell, and clears dwellId and dwellMs. (Tolerance: Exact state transitions and millisecond values.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "resets accumulation to zero whenever the centered ID changes or is null",
+      "action": "Reset, enable dwell, step(700) on exit, move the view to alpha, step(100), then return to exit and step(999).",
+      "expected": "No activation occurs; after the final call dwellId is exit and dwellMs is 999 rather than 1699. (Tolerance: Exact progress and empty activations.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "`reset()` restores room A, yaw/pitch 0, disabled and cleared dwell, and an empty activation history; it must not recreate geometry or reset canvas size.",
+      "action": "Activate exit, enable dwell, change the view, capture marker object identities and canvas dimensions, then reset.",
+      "expected": "Initial state and visibility return, marker identities and canvas dimensions are unchanged, and history and dwell state are empty. (Tolerance: Exact state, object identity, and dimensions.)",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}

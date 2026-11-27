@@ -1,0 +1,419 @@
+{
+  "checked": 30,
+  "load_smoke_ok": 27,
+  "scope": "Hosting-only HTTP, resource, canvas presence, JS errors and screenshot check. Not a benchmark or spatial/functional grade.",
+  "projects": [
+    {
+      "id": "7b9914b5-ba3e-52a8-896e-6dc10e267d6a",
+      "number": 1,
+      "url": "01-persistent-orbital-feedback-laboratory/site/index.html",
+      "http_status": 200,
+      "title": "Orbital Feedback Laboratory",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "77f454f6-cf55-5f80-bc4e-87c27947531c",
+      "number": 2,
+      "url": "02-deterministic-keyframe-clip-foundry/site/index.html",
+      "http_status": 200,
+      "title": "Keyframe Clip Foundry",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "8f46471f-8fda-54fa-9b93-5ee283cd7c14",
+      "number": 3,
+      "url": "03-deterministic-exclusion-shard-field-lab/site/index.html",
+      "http_status": 200,
+      "title": "Exclusion Shard Field Lab",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "f75f2b93-2de0-58c0-87ef-fba95031261d",
+      "number": 4,
+      "url": "04-persistent-scroll-chair-configurator/site/index.html",
+      "http_status": 200,
+      "title": "Scroll Chair Studio",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "5e7cff85-296d-5d34-87aa-d0bb3d3c3e33",
+      "number": 5,
+      "url": "05-deterministic-survey-rig-and-center-ray-lab/site/index.html",
+      "http_status": 200,
+      "title": "Survey Rig Lab",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "20cbd2ec-1c87-5a2d-8a1b-a4ef2099837d",
+      "number": 6,
+      "url": "06-deterministic-lightning-fracture-laboratory/site/index.html",
+      "http_status": 200,
+      "title": "Lightning Fracture Lab",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "6532f5e3-7b5d-5690-b01d-7ae5e11b892a",
+      "number": 7,
+      "url": "07-deterministic-parametric-flipbook-laboratory/site/index.html",
+      "http_status": 200,
+      "title": "Flipbook Lab",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "c9cbd6ab-fa67-5f7e-955b-3b70c7b9cba6",
+      "number": 8,
+      "url": "08-deterministic-panorama-dwell-relay-lab/site/index.html",
+      "http_status": 200,
+      "title": "Panorama Dwell Relay Lab",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "ecf6be25-96cf-50b9-a240-ebc7e73584f0",
+      "number": 9,
+      "url": "09-deterministic-coin-tunnel-picking-lab/site/index.html",
+      "http_status": 200,
+      "title": "Coin Tunnel Lab",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "11a0486d-9961-5f7f-a558-1f23b54594f4",
+      "number": 10,
+      "url": "10-deterministic-bim-origin-and-picking-inspector/site/index.html",
+      "http_status": 200,
+      "title": "BIM Origin Inspector",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "0a94e82d-166a-5cce-92ca-c4055474c53d",
+      "number": 11,
+      "url": "11-deterministic-intro-stage-camera-and-picking-lab/site/index.html",
+      "http_status": 200,
+      "title": "Intro Stage Lab",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "14b838c8-6e0e-5d40-8014-2a4efa6143d4",
+      "number": 12,
+      "url": "12-deterministic-gizmo-relay-fabrication-lab/site/index.html",
+      "http_status": 200,
+      "title": "Gizmo Relay Lab",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "398efc1d-3916-5441-b2df-ba663b27504d",
+      "number": 13,
+      "url": "13-persistent-dual-surface-plaque-configurator/site/index.html",
+      "http_status": 200,
+      "title": "Plaque Studio",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "82f11e31-99f4-59c5-a932-aeb8ebd8125a",
+      "number": 14,
+      "url": "14-deterministic-polar-harbor-constraint-lab/site/index.html",
+      "http_status": 200,
+      "title": "Polar Harbor Lab",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "9ab54e81-987e-569b-8a6a-f954a36ad83d",
+      "number": 15,
+      "url": "15-persistent-character-patrol-route-studio/site/index.html",
+      "http_status": 200,
+      "title": "Patrol Route Studio",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "351a712e-5f8c-56f5-977d-34bded6e2d93",
+      "number": 16,
+      "url": "16-add-a-deterministic-offline-character-animation-laboratory/site/index.html",
+      "preview_action": "Animation Lab",
+      "http_status": 200,
+      "title": "Counter-Strike: Football",
+      "canvas_count": 1,
+      "screenshot_error": "Page.screenshot: Timeout 15000ms exceeded.",
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "eb6a912a-9943-54a2-82cc-cfbdb716014d",
+      "number": 17,
+      "url": "17-add-a-deterministic-ray-picking-fixture-to-the-model-viewer/site/index.html?picking-fixture=1",
+      "http_status": 200,
+      "title": "Three.js GLTF/GLB viewer",
+      "canvas_count": 4,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "9fbcef17-f6fb-597c-ad55-8a52f1382944",
+      "number": 18,
+      "url": "18-add-a-live-building-part-spatial-constraint-audit/site/index.html?type=way&id=100&fromFile=./test/data/spatial-audit.osm&audit",
+      "http_status": 200,
+      "title": "OpenStreetMap Building 3D Render",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "8db97445-0fb3-538b-8402-c4c9eb05fe70",
+      "number": 19,
+      "url": "19-add-persistent-lighting-workspaces-with-atomic-3d-restoration/site/index.html",
+      "http_status": 200,
+      "title": "Env Map Generator",
+      "canvas_count": 2,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "4a7efeec-9be2-522d-8840-9d9f6cd0e095",
+      "number": 20,
+      "url": "20-add-a-deterministic-guided-gaze-target-tour/site/index.html",
+      "http_status": 200,
+      "title": "Test three-actor",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "fc72599f-5d10-5918-a0d3-8e50f5071ae1",
+      "number": 21,
+      "url": "21-persist-and-restore-the-mnist-activation-scene-view/site/index.html#/mnist-cnn",
+      "navigation_error": "Page.goto: Timeout 30000ms exceeded.",
+      "page_errors": [],
+      "http_resource_errors": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:40461/complex30-20261127/21-persist-and-restore-the-mnist-activation-scene-view/site/demos/src/css/katex.min.css"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:40461/complex30-20261127/21-persist-and-restore-the-mnist-activation-scene-view/site/demos/src/css/fonts/droid_sans_regular.typeface.js"
+        },
+        {
+          "status": 403,
+          "url": "https://code.getmdl.io/1.2.1/material.grey-amber.min.css"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:40461/complex30-20261127/21-persist-and-restore-the-mnist-activation-scene-view/site/demos/src/css/katex.min.css"
+        }
+      ],
+      "failed_requests": [
+        {
+          "url": "http://127.0.0.1:40461/complex30-20261127/21-persist-and-restore-the-mnist-activation-scene-view/site/demos/src/css/katex.min.css",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:40461/complex30-20261127/21-persist-and-restore-the-mnist-activation-scene-view/site/demos/src/css/fonts/droid_sans_regular.typeface.js",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://code.getmdl.io/1.2.1/material.grey-amber.min.css",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:40461/complex30-20261127/21-persist-and-restore-the-mnist-activation-scene-view/site/demos/src/css/katex.min.css",
+          "failure": "net::ERR_ABORTED"
+        }
+      ],
+      "load_smoke_ok": false
+    },
+    {
+      "id": "e76385d7-628e-5296-907c-dfd722f44f67",
+      "number": 22,
+      "url": "22-add-deterministic-commit-picking-and-camera-focus/site/index.html?fixture=picking",
+      "http_status": 200,
+      "title": "Repo Surf",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "39ab3cd2-9e0c-5de2-b419-c158bafb1195",
+      "number": 23,
+      "url": "23-add-animated-whole-cube-inspection-rotations/site/index.html",
+      "http_status": 200,
+      "title": "Rubik's Cube",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:40461/complex30-20261127/23-add-animated-whole-cube-inspection-rotations/site/cordova.js"
+        }
+      ],
+      "failed_requests": [
+        {
+          "url": "http://127.0.0.1:40461/complex30-20261127/23-add-animated-whole-cube-inspection-rotations/site/cordova.js",
+          "failure": "net::ERR_ABORTED"
+        }
+      ],
+      "load_smoke_ok": false
+    },
+    {
+      "id": "77d7ea3a-4ca0-500d-8091-bfadb605c5e9",
+      "number": 24,
+      "url": "24-add-a-deterministic-interactive-tetrahedron-inspection-rig/site/index.html",
+      "preview_action": "Run the flow",
+      "http_status": 200,
+      "title": "TetraFlow",
+      "canvas_count": 1,
+      "screenshot_error": "Page.screenshot: Timeout 15000ms exceeded.",
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "479d6b46-103f-5588-870b-2d2212705303",
+      "number": 25,
+      "url": "25-add-a-deterministic-offline-feature-lattice-visualization/site/index.html",
+      "preview_action": "Run Fixture",
+      "http_status": 200,
+      "title": "Deep AudioViz Experiments",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:44033/api/fetchtracks"
+        }
+      ],
+      "failed_requests": [],
+      "load_smoke_ok": false
+    },
+    {
+      "id": "52e90707-e471-52cc-a3be-466e87d25c5d",
+      "number": 26,
+      "url": "26-deterministic-collision-aware-enemy-spawn-planner/site/index.html",
+      "http_status": 200,
+      "title": "Three.js FPS Game",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "83aaf8e7-af20-5727-8ab0-a6f43c7b6b44",
+      "number": 27,
+      "url": "27-deterministic-hex-picking-and-camera-focus-on-the-debug-page/site/debug.html",
+      "http_status": 200,
+      "title": "Hex Worlds",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "88e47e95-eb32-52d2-afdb-394f5096ce48",
+      "number": 28,
+      "url": "28-add-exact-surface-queries-and-normal-aligned-terrain-survey-mark/site/example.html",
+      "http_status": 200,
+      "title": "aframe-atoll-terrain primitive example",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "74b2ffff-4b2c-5d77-aae1-11343fa3bb54",
+      "number": 29,
+      "url": "29-deterministic-wall-courses-and-fixed-step-replay/site/index.html",
+      "http_status": 200,
+      "title": "Space Runner",
+      "canvas_count": 2,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    },
+    {
+      "id": "95c7d58b-458f-544b-9b4f-e174501f059a",
+      "number": 30,
+      "url": "30-deterministic-twisted-ring-transport-and-multi-ring-picking/site/2018/00twisted-torus/index.html",
+      "http_status": 200,
+      "title": "Twisted Torus",
+      "canvas_count": 1,
+      "page_errors": [],
+      "http_resource_errors": [],
+      "failed_requests": [],
+      "load_smoke_ok": true
+    }
+  ]
+}

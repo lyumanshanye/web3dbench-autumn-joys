@@ -1,0 +1,62 @@
+{
+  "Q_human": null,
+  "Q_vlm": 97.5,
+  "browser_calls": 56,
+  "end_to_end_Q_vlm": 97.5,
+  "full_task_pass": true,
+  "infra_status": "NORMAL",
+  "must_status": "PASS",
+  "note": "Uncalibrated VLM preview; human scoring remains pending. Image delivery does not establish grading accuracy.",
+  "quality": {
+    "instruction": {
+      "evidence": [
+        "evidence/page-2026-11-26T23-08-57-145Z.jpeg",
+        "evidence/page-2026-11-26T23-09-43-830Z.jpeg",
+        "evidence/page-2026-11-26T23-11-04-197Z.jpeg"
+      ],
+      "reason": "Every stated requirement - API surface, scene composition, three beacons, timeline math, tour camera, focus, projection/picking, readouts, Step/Reset, getState, resize behavior - was delivered coherently across tested states, with no omissions observed.",
+      "score": 4
+    },
+    "interaction": {
+      "evidence": [
+        "evidence/page-2026-11-26T23-10-07-817Z.jpeg",
+        "evidence/page-2026-11-26T23-11-04-197Z.jpeg",
+        "evidence/page-2026-11-26T23-10-24-466Z.jpeg"
+      ],
+      "reason": "Click-to-focus, Step, Reset, boundary clamping and recovery sequences are reliable and natural; readouts update immediately and selecting another beacon clears prior highlight.",
+      "score": 4
+    },
+    "spatial": {
+      "evidence": [
+        "evidence/page-2026-11-26T23-09-43-830Z.jpeg",
+        "evidence/page-2026-11-26T23-10-24-466Z.jpeg",
+        "evidence/page-2026-11-26T23-11-22-140Z.jpeg"
+      ],
+      "reason": "Shapes, sizes, positions, ground contact, emissive highlight and camera framing consistently serve the task; depth, shadows and parallax are coherent in all views with no spatial errors found.",
+      "score": 4
+    },
+    "stability": {
+      "evidence": [
+        "evidence/page-2026-11-26T23-10-34-265Z.jpeg",
+        "evidence/page-2026-11-26T23-10-43-476Z.jpeg",
+        "evidence/page-2026-11-26T23-10-57-004Z.jpeg"
+      ],
+      "reason": "All standard and repeat checks were stable: repeated Step, repeated focus selections, reset, mobile/desktop resize, keyboard activation and reload, with zero console errors and all resources loading 200.",
+      "score": 4
+    },
+    "visual": {
+      "evidence": [
+        "evidence/page-2026-11-26T23-08-57-145Z.jpeg",
+        "evidence/page-2026-11-26T23-09-55-805Z.jpeg",
+        "evidence/page-2026-11-26T23-10-34-265Z.jpeg"
+      ],
+      "reason": "Composition, typography and color form a coherent, readable dark-stage expression; focus views are somewhat plain (large flat single-color cylinder filling frame, partially offscreen neighbors) and the small top-right hint is low-contrast, keeping it just below the top anchor.",
+      "score": 3
+    }
+  },
+  "quality_status": "PENDING",
+  "runtime_and_3d_valid": true,
+  "runtime_status": "PASS",
+  "scene_status": "PASS",
+  "verified_images": 10
+}

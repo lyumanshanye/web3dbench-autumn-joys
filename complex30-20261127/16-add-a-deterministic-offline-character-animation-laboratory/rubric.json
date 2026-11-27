@@ -1,0 +1,97 @@
+{
+  "version": "3.0",
+  "task": "add-a-deterministic-offline-character-animation-laboratory",
+  "task_type": "constrained",
+  "must_assertions": [
+    "T01",
+    "T02",
+    "T03"
+  ],
+  "criteria": [
+    {
+      "id": "T01",
+      "requirement": "Activating it must hide the menu and open a new local module without calling `joinGameUrl`, creating a connector, or making any network request.",
+      "action": "Load the main page offline, click Animation Lab, and monitor connector construction and network requests.",
+      "expected": "The lab scene and controls appear, the menu is hidden, and no game connector or network request is created. (Tolerance: No connector calls and no network requests; Back to menu restores the original menu.)",
+      "dimension": "stability"
+    },
+    {
+      "id": "T02",
+      "requirement": "Create a hierarchy named `actor`, `torso`, `head`, `upperArmL`, `upperArmR`, and `ball`; also store each name in `userData.nodeId`.",
+      "action": "Inspect the live scene graph, geometry parameters, and initial local transforms after opening the lab.",
+      "expected": "All six named nodes exist with the specified parentage, dimensions, positions, and matching userData.nodeId values. (Tolerance: 1e-6 for positions and dimensions; exact names and parentage.)",
+      "dimension": "spatial"
+    },
+    {
+      "id": "T03",
+      "requirement": "Thus at `t=1.5`, root Y is `0.125`, left X rotation is `-30` degrees, and right X rotation is `30` degrees.",
+      "action": "Call window.animationLab.sampleClip(1.5) and inspect the three animated local channels.",
+      "expected": "actor.position.y is 0.125, upperArmL.rotation.x is -pi/6, and upperArmR.rotation.x is pi/6. (Tolerance: 1e-6 in scene units and radians.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T04",
+      "requirement": "Step is allowed only while paused and advances exactly `1/120` seconds, wrapping modulo `4`.",
+      "action": "Pause at time zero, invoke Step once, then set paused time to 4-1/240 and invoke Step again.",
+      "expected": "The first step produces 1/120; the second advances by 1/120 and wraps to 1/240, with the corresponding sampled pose. (Tolerance: 1e-9 seconds internally and 1e-6 for transforms.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T05",
+      "requirement": "Empty, nonnumeric, NaN, infinite, or out-of-range input must leave time, pose, speed, and play state unchanged and display `Invalid time` in a dedicated status element.",
+      "action": "Snapshot state, submit each invalid value, and compare time, transforms, speed, play state, and status text.",
+      "expected": "Every invalid submission preserves the complete prior state and displays exactly Invalid time. (Tolerance: Exact state equality except floating-point transforms within 1e-9.)",
+      "dimension": "interaction"
+    },
+    {
+      "id": "T06",
+      "requirement": "Generate exactly `121` samples for `i=0..120`, each `{ \"time\": i/30, \"actorY\": ..., \"leftArmXDeg\": ..., \"rightArmXDeg\": ... }`, sampling independently without changing current playback state or time.",
+      "action": "Set a nonzero paused pose, export samples, parse the textarea JSON, and compare state before and after.",
+      "expected": "Duration is 4, sampleRate is 30, 121 ordered samples end at time 4 with zero-valued channels, and current state is unchanged. (Tolerance: Exported numeric values rounded to six decimal places; exact sample count and schema.)",
+      "dimension": "stability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "instruction": "Inspect the initial rendered 3D scene and its declared state. Inspect task-relevant depth and geometry across at least three views where appropriate, and inspect composition, materials, lighting, color, and legibility.",
+      "criteria": [
+        "G01",
+        "G02",
+        "T01",
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "S02",
+      "instruction": "Exercise the central interaction and numeric or geometry contract through the visible UI. Verify meaningful scene/state feedback without inventing unrequested controls.",
+      "criteria": [
+        "G03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S03",
+      "instruction": "Repeat the boundary, invalid-input, recovery, and reset sequence while inspecting live scene state.",
+      "criteria": [
+        "G04",
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "S04",
+      "instruction": "Inspect 1440x900 and 390x844 layouts, including lower controls and keyboard focus. Reload and inspect console/resource diagnostics.",
+      "criteria": [
+        "G05"
+      ]
+    }
+  ]
+}
